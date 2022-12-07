@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Zookeeper · 阿尤</title><meta name="description" content="Zookeeper - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Zookeeper</h1><div class="post-info">创建于：2019年4月3日<span style="margin-left: 0.5rem"></span>上次更新：2022年10月23日</div><div class="post-content"><p>这玩意儿在研究Kafka和分布式的时候遇到了😤，Java应用中倒是挺常见的，我需要深入一下…</p>
+<span id="more"></span>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p><a href="https://zookeeper.apache.org/" target="_blank" rel="noopener">https://zookeeper.apache.org/</a><br>分布式应用程序的分布式协调服务<br>动物园中：各个节点比作各种小动物，那协调者，就是动物园管理员(<code>Zookeeper</code>)</p>
+</blockquote>
+<h2 id="分布式锁实现方案"><a href="#分布式锁实现方案" class="headerlink" title="分布式锁实现方案"></a>分布式锁实现方案</h2><ol>
+<li>数据库 缺点：性能差</li>
+<li>Redis 缺点：死锁</li>
+<li>Zookeeper<ul>
+<li>基于异常(零时节点)</li>
+<li>基于相互监听，性能较高，占用资源，不常用(零时有序号的节点)</li>
+</ul>
+</li>
+</ol>
+<h2 id="节点"><a href="#节点" class="headerlink" title="节点"></a>节点</h2><ol>
+<li>零时节点</li>
+<li>持久化节点</li>
+</ol>
+<img src="/blog/p/b829b66a/zkservice.jpg" class="" title="zkservice.jpg">
+
+<p>zookeeper宏观结构</p>
+<img src="/blog/p/b829b66a/zknamespace.jpg" class="" title="zknamespace.jpg">
+
+<p>zookeeper微观结构</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
+<p><a href="http://archive.apache.org/dist/zookeeper/zookeeper-3.6.1/" target="_blank" rel="noopener">http://archive.apache.org/dist/zookeeper/zookeeper-3.6.1/</a><br><a href="https://zookeeper.apache.org/doc/r3.6.1/index.html" target="_blank" rel="noopener">https://zookeeper.apache.org/doc/r3.6.1/index.html</a><br><a href="https://zookeeper.apache.org/releases.html" target="_blank" rel="noopener">https://zookeeper.apache.org/releases.html</a><br><a href="https://github.com/apache/zookeeper" target="_blank" rel="noopener">https://github.com/apache/zookeeper</a><br><a href="https://issues.apache.org/jira/secure/attachment/12436620/ZooInspector.zip" target="_blank" rel="noopener">https://issues.apache.org/jira/secure/attachment/12436620/ZooInspector.zip</a> #图形界面管理工具</p>
+</blockquote>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#源码安装</span><br><span class="line">cd /usr/src/</span><br><span class="line">wget http://archive.apache.org/dist/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz</span><br><span class="line">tar -zxvf zookeeper-3.4.9.tar.gz</span><br><span class="line">cd zookeeper-3.4.9/src/c</span><br><span class="line">./configure --prefix=/usr/local/zookeeper</span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line">#下载包</span><br><span class="line">cd /usr/src/</span><br><span class="line">wget http://archive.apache.org/dist/zookeeper/zookeeper-3.5.8/apache-zookeeper-3.5.8-bin.tar.gz</span><br><span class="line">tar -zxvf apache-zookeeper-3.5.8-bin.tar.gz</span><br><span class="line">mkdir /usr/local/zookeeper</span><br><span class="line">mv apache-zookeeper-3.5.8-bin/* /usr/local/zookeeper</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cp /usr/local/zookeeper/conf/zoo_sample.cfg /usr/local/zookeeper/conf/zoo.cfg</span><br><span class="line">mkdir /tmp/zookeeper</span><br><span class="line"></span><br><span class="line">#创建分布式下某个服务的标识</span><br><span class="line">/usr/local/zookeeper/bin/zkServer-initialize.sh --force --myid=161</span><br><span class="line"></span><br><span class="line">firewall-cmd --add-port=2181/tcp --permanent</span><br><span class="line">systemctl restart firewalld</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">ls /节点</span><br><span class="line"></span><br><span class="line">create /nodex value</span><br><span class="line">set /nodex value</span><br><span class="line">get /nodex</span><br><span class="line">delete /nodex</span><br><span class="line">rmr /nodex</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">create /test test</span><br><span class="line">create /test/liguoxin 23age</span><br><span class="line"></span><br><span class="line">getAcl /test/liguoxin</span><br><span class="line">setAcl /test/liguoxin digest:liguoxin:W8pXCHxJCZgAJYLIxmlK4t4WqH0=:cdrwa</span><br><span class="line"></span><br><span class="line">addauth digest liguoxin:123</span><br><span class="line">getAcl /test/liguoxin</span><br><span class="line"></span><br><span class="line">#生成密码</span><br><span class="line">java -Djava.ext.dirs=/usr/local/zookeeper/lib -cp /usr/local/zookeeper/lib/zookeeper-3.5.8.jar org.apache.zookeeper.server.auth.DigestAuthenticationProvider liguoxin:123</span><br><span class="line">&gt;liguoxin:W8pXCHxJCZgAJYLIxmlK4t4WqH0=</span><br><span class="line"></span><br><span class="line">#事务日志可视化</span><br><span class="line">java -cp /usr/local/zookeeper/lib/zookeeper-3.5.8.jar:\</span><br><span class="line">/usr/local/zookeeper/lib/zookeeper-jute-3.5.8.jar:\</span><br><span class="line">/usr/local/zookeeper/lib/slf4j-api-1.7.25.jar:\</span><br><span class="line">/usr/local/zookeeper/lib/slf4j-log4j12-1.7.25.jar:\</span><br><span class="line">/usr/local/zookeeper/lib/log4j-1.2.17.jar \</span><br><span class="line">org.apache.zookeeper.server.LogFormatter \</span><br><span class="line">/tmp/zookeeper/version-2/log.1</span><br><span class="line"></span><br><span class="line">#数据快照可视化</span><br><span class="line">java -cp /usr/local/zookeeper/lib/zookeeper-3.5.8.jar:\</span><br><span class="line">/usr/local/zookeeper/lib/zookeeper-jute-3.5.8.jar:\</span><br><span class="line">/usr/local/zookeeper/lib/slf4j-api-1.7.25.jar:\</span><br><span class="line">/usr/local/zookeeper/lib/slf4j-log4j12-1.7.25.jar:\</span><br><span class="line">/usr/local/zookeeper/lib/log4j-1.2.17.jar \</span><br><span class="line">org.apache.zookeeper.server.SnapshotFormatter \</span><br><span class="line">/tmp/zookeeper/version-2/snapshot.0</span><br></pre></td></tr></table></figure>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="会话：客户端-gt-服务端-的TCP长连接"><a href="#会话：客户端-gt-服务端-的TCP长连接" class="headerlink" title="会话：客户端 -&gt; 服务端 的TCP长连接"></a>会话：客户端 -&gt; 服务端 的TCP长连接</h3><ul>
+<li>正常访问 -&gt; 正常挂断</li>
+<li>心跳检测是否异常</li>
+</ul>
+<h3 id="数据节点Node："><a href="#数据节点Node：" class="headerlink" title="数据节点Node："></a>数据节点Node：</h3><ul>
+<li>文件系统、树形结构</li>
+<li>每个节点有两种类型：持久性、临时性</li>
+<li>每个节点都有值</li>
+<li>节点有顺序</li>
+</ul>
+<h3 id="节点状态以及属性"><a href="#节点状态以及属性" class="headerlink" title="节点状态以及属性"></a>节点状态以及属性</h3><ul>
+<li>xid 3</li>
+<li>time 2</li>
+<li>version 3</li>
+<li>3</li>
+</ul>
+<h3 id="version"><a href="#version" class="headerlink" title="version"></a>version</h3><h3 id="watcher"><a href="#watcher" class="headerlink" title="watcher"></a>watcher</h3><h3 id="acl策略"><a href="#acl策略" class="headerlink" title="acl策略"></a>acl策略</h3><ul>
+<li>scheme<ul>
+<li>world</li>
+<li>auth 明文</li>
+<li>digest 密文</li>
+</ul>
+</li>
+<li>Permission cdrwa</li>
+<li>基本操作：<ul>
+<li>setAcl digest:user:password:cdrwa 此处是密文</li>
+<li>addauth digest user:password 此处是明文</li>
+</ul>
+</li>
+</ul>
+<h3 id="集群角色"><a href="#集群角色" class="headerlink" title="集群角色"></a>集群角色</h3><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Zookeeper(<span class="string">&quot;host1,host2,host3,host4,host5&quot;</span>);</span><br><span class="line">zk客户端处理过程：解析-&gt;打散-&gt;行程环形地址列表队列</span><br></pre></td></tr></table></figure>
+<h4 id="Leader集群工作机制中的核心"><a href="#Leader集群工作机制中的核心" class="headerlink" title="Leader集群工作机制中的核心"></a>Leader集群工作机制中的核心</h4><ol>
+<li>事务请求的唯一调度和处理者，保证集群事务处理的顺序性</li>
+<li>集群内部个服务器的调度者(管理follower，数据同步)</li>
+</ol>
+<h4 id="Follower-集群工作机制中的跟随者"><a href="#Follower-集群工作机制中的跟随者" class="headerlink" title="Follower 集群工作机制中的跟随者"></a>Follower 集群工作机制中的跟随者</h4><ol>
+<li>处理非实物的请求，转发事务请求给 Leader</li>
+<li>参与事务请求 proposal 投票</li>
+<li>参与 Leader 选举投票</li>
+</ol>
+<h4 id="Observer"><a href="#Observer" class="headerlink" title="Observer"></a>Observer</h4><ol>
+<li>和 Follower 功能相同，但不参与任何投票</li>
+<li>处理非事务请求，转发事务请求给 Leader</li>
+<li>提高集群非事务处理能力<br>配置<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">peerType=observer</span><br><span class="line">server.0=192.168.3.150:2181:2182（myid=ip:选举端口:通信端口）</span><br><span class="line">server.1=192.168.3.151:2181:2182</span><br><span class="line">server.2=192.168.3.152:2181:2182</span><br><span class="line">server.3=192.168.3.153:2181:2182</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="广播"><a href="#广播" class="headerlink" title="广播"></a>广播</h3><blockquote>
+<p>处理</p>
+</blockquote>
+<h3 id="崩溃恢复"><a href="#崩溃恢复" class="headerlink" title="崩溃恢复"></a>崩溃恢复</h3><ol>
+<li>同步数据：崩溃恢复后，将leader所有的数据同步进来</li>
+<li>选举Leader：</li>
+</ol>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><h3 id="服务注册与发现"><a href="#服务注册与发现" class="headerlink" title="服务注册与发现"></a>服务注册与发现</h3><h3 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h3><ul>
+<li>什么时候用到分布式锁？</li>
+</ul>
+<ol>
+<li>多任务环境</li>
+<li>每个请求都需要对同一个共享资源进行操作</li>
+<li>每个请求都是互斥的</li>
+</ol>
+<ul>
+<li>实现方式</li>
+</ul>
+<ol>
+<li>创建了临时节点(说明抢到了锁)</li>
+<li>创建不了临时节点(说明抢不到锁)，但是一直监听</li>
+<li>抢到锁后，正常关闭(临时节点自动删除)</li>
+<li>心跳检测到，非正常关闭(临时节点自动删除)<br>会导致羊群效应</li>
+</ol>
+<h3 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create /test val</span><br><span class="line">create /test/liguoxin val</span><br><span class="line">getAcl /test/liguoxin</span><br><span class="line">setAcl /test/liguoxin digest:liguoxin:W8pXCHxJCZgAJYLIxmlK4t4WqH0=:crwa</span><br><span class="line">addauth digest liguoxin:123</span><br><span class="line">delete /temp/liguoxin</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="超级管理员-super"><a href="#超级管理员-super" class="headerlink" title="超级管理员 super"></a>超级管理员 super</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#生成密码</span><br><span class="line">java -Djava.ext.dirs=/usr/local/zookeeper/lib -cp /usr/local/zookeeper/lib/zookeeper-3.5.8.jar org.apache.zookeeper.server.auth.DigestAuthenticationProvider super:abcABC123</span><br><span class="line">&gt;super:abcABC123-&gt;super:gzcPPoCwA8ovzSNKzseFSxukz4M=</span><br><span class="line">vim /usr/local/zookeeper/bin/zkServer.sh</span><br><span class="line">#158行左右，加上一行</span><br><span class="line">&quot;-Dzookeeper.DigestAuthenticationProvider.superDigest=super:gzcPPoCwA8ovzSNKzseFSxukz4M=&quot; \</span><br><span class="line"></span><br><span class="line">#进入控制台</span><br><span class="line">addauth digest super:abcABC123</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<img src="/blog/p/b829b66a/%E5%A2%9E%E5%8A%A0%E8%B6%85%E7%BA%A7%E7%AE%A1%E7%90%86%E5%91%98.jpg" class="" title="增加超级管理员.jpg">
+
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><img src="/blog/p/b829b66a/%E5%90%AF%E5%8A%A8%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98.jpg" class="" title="启动时遇到的问题.jpg">
+
+<h3 id="启动时，错误-找不到或无法加载主类-org-apache-zookeeper-server-quorum-QuorumPeerMain"><a href="#启动时，错误-找不到或无法加载主类-org-apache-zookeeper-server-quorum-QuorumPeerMain" class="headerlink" title="启动时，错误: 找不到或无法加载主类 org.apache.zookeeper.server.quorum.QuorumPeerMain"></a>启动时，错误: 找不到或无法加载主类 org.apache.zookeeper.server.quorum.QuorumPeerMain</h3><p>解决方案：</p>
+<ol>
+<li>(必须)选低一些版本的包</li>
+<li>(必须)使用编译过的bin包(apache-zookeeper-3.6.1-bin.tar.gz )</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/ec99c690/" class="prev">上一篇</a><a href="/blog/p/b543ced0/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/b829b66a/';
+var disqus_title = 'Zookeeper';
+var disqus_url = 'https://ayou129.github.io/blog/p/b829b66a/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

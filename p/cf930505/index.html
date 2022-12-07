@@ -1,0 +1,938 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Mian · 阿尤</title><meta name="description" content="Mian - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Mian</h1><div class="post-info">创建于：2019年12月22日<span style="margin-left: 0.5rem"></span>上次更新：2019年12月22日</div><div class="post-content"><hr>
+<h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><h3 id="PHP是什么"><a href="#PHP是什么" class="headerlink" title="PHP是什么"></a>PHP是什么</h3><ul>
+<li>可嵌入HTML</li>
+<li>主要用于Web开发</li>
+<li>超文本预处理器</li>
+</ul>
+<h3 id="PHP语言的一大优势是跨平台，什么是跨平台"><a href="#PHP语言的一大优势是跨平台，什么是跨平台" class="headerlink" title="PHP语言的一大优势是跨平台，什么是跨平台"></a>PHP语言的一大优势是跨平台，什么是跨平台</h3><blockquote>
+<p>PHP使用了什么 进行跨平台</p>
+</blockquote>
+<ul>
+<li>运行软件(环境)是 PHP、Apache、Mysql</li>
+<li>支持在不同的操作系统上运行，所以叫跨平台</li>
+</ul>
+<h3 id="对json数据格式的理解？"><a href="#对json数据格式的理解？" class="headerlink" title="对json数据格式的理解？"></a>对json数据格式的理解？</h3><ul>
+<li>JSON(JavaScript Object Notation)是一种轻量级的数据交换格式，json数据格式固定，可以被多种语言用作数据的传递。</li>
+<li>PHP中处理json格式的函数为json_decode( string $json [, bool $assoc ] ) ，接受一个 JSON格式的字符串并且把它转换为PHP变量，参数json待解码的json string格式的字符串。assoc当该参数为TRUE时，将返回array而非object；</li>
+<li>Json_encode：将PHP变量转换成json格式。</li>
+</ul>
+<h3 id="Print、echo、print-r有什么区别？"><a href="#Print、echo、print-r有什么区别？" class="headerlink" title="Print、echo、print_r有什么区别？"></a>Print、echo、print_r有什么区别？</h3><p>重点</p>
+<ol>
+<li>排序</li>
+<li>语法结构&#x2F;函数</li>
+<li>是否可以打印多个值</li>
+<li>是否可以打印数据类型</li>
+<li>是否有返回值</li>
+<li>应用场景</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>*</th>
+<th>语法结构(√) 函数(△)</th>
+<th>可打印多个值</th>
+<th>数据类型</th>
+<th>有返回值</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>print</td>
+<td>√</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>echo</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>print_r</td>
+<td>△</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>var_dump</td>
+<td>△</td>
+<td>√</td>
+<td>√</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>printf</td>
+<td>△</td>
+<td></td>
+<td></td>
+<td></td>
+<td>格式化输出</td>
+</tr>
+<tr>
+<td>sprintf</td>
+<td>△</td>
+<td></td>
+<td></td>
+<td>√</td>
+<td>格式化输出</td>
+</tr>
+</tbody></table>
+<h3 id="Session和Cookie的区别"><a href="#Session和Cookie的区别" class="headerlink" title="Session和Cookie的区别"></a>Session和Cookie的区别</h3><blockquote>
+<p><code>web</code> 是通过http协议使客户端和服务端进行交互，但是http是无状态的，没有方法鉴别用户的状态<br>会话控制就是保留用户状态，用来跟踪和对用户的状态保持</p>
+</blockquote>
+<p>cookie是存储在用户客户端浏览器或硬盘的技术</p>
+<ul>
+<li>优点：不占用服务器的资源</li>
+<li>缺点：安全性差</li>
+<li>基本操作：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#设置</span></span><br><span class="line">setcookie(name,value,expire,path,domain,secure);</span><br><span class="line"></span><br><span class="line"><span class="comment">#读取</span></span><br><span class="line"><span class="variable">$_COOKIE</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除</span></span><br><span class="line">setcookie(name,<span class="string">&#x27;&#x27;</span>,-<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+<p>session是将用户状态存储在服务器的技术</p>
+<ul>
+<li>优点：占用服务器资源</li>
+<li>缺点：安全性比cookie高</li>
+<li>基本操作</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#开启</span></span><br><span class="line">session_start();</span><br><span class="line"></span><br><span class="line"><span class="comment">#操作</span></span><br><span class="line"><span class="variable">$_SESSION</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#清除session</span></span><br><span class="line"><span class="variable">$_SESSION</span> = [];</span><br><span class="line"></span><br><span class="line"><span class="comment">#删除session文件并把sessionid删除</span></span><br><span class="line">session_destory()</span><br><span class="line"></span><br><span class="line"><span class="comment">#session设置 php.ini</span></span><br><span class="line">session.auto_start <span class="comment">#自动开启session</span></span><br><span class="line">session.cookie_domain <span class="comment">#有效域名</span></span><br><span class="line">session.cookie_lifetime <span class="comment">#存储在cookie的最大生命周期</span></span><br><span class="line">session.cookie_path <span class="comment">#cookie的存放路径</span></span><br><span class="line">session.save_path <span class="comment">#session存放服务器的路径</span></span><br><span class="line">session.use_cookies <span class="comment">#是否使用cookie传递sessionid</span></span><br><span class="line">session.use_trans_id  <span class="comment">#是否可以使用连接传递sessionid</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#垃圾回收机制</span></span><br><span class="line">session.gc_probability <span class="comment">#清理次数</span></span><br><span class="line">session.gc_divisor <span class="comment">#请求次数</span></span><br><span class="line">session.gc_maxlifetime<span class="comment"># 最大生命周期  超过生命周期 视为垃圾</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>cookie和session的区别</li>
+</ul>
+<ol>
+<li>存储位置</li>
+<li>session存储的是序列化后的对象，session是字符串</li>
+<li>session依赖于cookie，如果后者不工作，前者也失效<ul>
+<li>因为session工作的机制是将生成的唯一标识PHPSESSID存入cookie中的，所以禁掉cookie，session也不能使用</li>
+</ul>
+</li>
+</ol>
+<p>禁用cookie后如何传递sessionid值？</p>
+<ol>
+<li>可以修改配置<br>session.use_cookies &#x3D; 0；设置客户端不用cookie保存sessionid值<br>session.use_only_cookies &#x3D; 1;  是否只使用cookie传递sessionid<br>session.use_trans_sid &#x3D; 1；  url自动加上PHPSESSID  这样session正常使用</li>
+<li>使用url传递sessionid<br><code>&lt;a href=&quot;indx.php?&lt;?php echo session_name(). &#39;=&#39; .session_id();?&gt;&quot;&gt;&lt;/a&gt;</code><br>SID常量在禁用cookie的时候就是session_name和session_id的拼接，否则就是null<br><code>&lt;a href=&quot;indx.php?&lt;?php echo SID；?&gt;&quot;&gt;&lt;/a&gt;</code></li>
+</ol>
+<h3 id="CGI、FastCGI和php-fpm概念和区别"><a href="#CGI、FastCGI和php-fpm概念和区别" class="headerlink" title="CGI、FastCGI和php-fpm概念和区别"></a>CGI、FastCGI和php-fpm概念和区别</h3><ul>
+<li><p>CGI，通用网关接口，用于WEB服务器和应用程序间的交互，定义输入输出规范，用户的请求通过WEB服务器转发给FastCGI进程，FastCGI进程再调用应用程序进行处理，如php解析器，应用程序的处理结果如html返回给FastCGI，FastCGI返回给Nginx 进行输出。假设这里WEB服务器是Nginx，应用程序是 PHP，而 php-fpm 是管理 FastCGI 的，这也就是 php-fpm，FastCGI，和 Nginx 之间的关系。</p>
+</li>
+<li><p>FastCGI 用来提高 cgi 程序性能，启动一个master，再启动多个 worker，不需要每次解析 php.ini. 而 php-fpm 实现了 FastCGI 协议，是 FastCGI 的进程管理器，支持平滑重启，可以启动的时候预先生成多个进程。</p>
+</li>
+</ul>
+<h3 id="PHP处理数组的常用函数？（重点看函数的‘参数’和‘返回值’）"><a href="#PHP处理数组的常用函数？（重点看函数的‘参数’和‘返回值’）" class="headerlink" title="PHP处理数组的常用函数？（重点看函数的‘参数’和‘返回值’）"></a>PHP处理数组的常用函数？（重点看函数的‘参数’和‘返回值’）</h3><h4 id="大小写"><a href="#大小写" class="headerlink" title="大小写"></a>大小写</h4><ol>
+<li><p><code>array_change_key_case()</code> — 将数组中的所有键名修改为全大写或小写</p>
+<ul>
+<li>@param $array</li>
+<li>@param [CASE_UPPER|CASE_LOWER]</li>
+<li>@return array|false<br> 注意事项:<ol>
+<li>运算后如果有重复的键名，则最后一个值将覆盖其它的值。</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p><code>array_chunk</code> — 将一个数组分割成多个</p>
+<ul>
+<li>@param $array</li>
+<li>@param $size 分割的尺寸</li>
+<li>@param $preserve_keys 默认Flase，如果是true则结果数组会保留原来的键名</li>
+<li>@return array|如果 <code>size</code> 小于 1，会抛出一个 <code>E_WARNING</code> 错误并返回 <code>NULL</code></li>
+</ul>
+</li>
+<li><p><code>array_slice</code> — 从数组中取出一段</p>
+</li>
+<li><p><code>array_column</code> — 返回数组中指定的一列</p>
+<ul>
+<li>@param $array</li>
+<li>@param $size 分割的尺寸</li>
+<li>@param $preserve_keys 默认Flase，如果是true则结果数组会保留原来的键名</li>
+<li>@return array|如果 <code>size</code> 小于 1，会抛出一个 <code>E_WARNING</code> 错误并返回 <code>NULL</code></li>
+</ul>
+</li>
+</ol>
+<h3 id="常用"><a href="#常用" class="headerlink" title="常用"></a>常用</h3><ul>
+<li><p>array_key_exists — 检查数组里是否有指定的键名或索引</p>
+</li>
+<li><p>array_keys — 返回数组中部分的或所有的键名</p>
+</li>
+<li><p>array_map — 为数组的每个元素应用回调函数</p>
+</li>
+<li><p>array_product — 计算数组中所有值的乘积</p>
+</li>
+<li><p>array_sum — 对数组中所有值求和</p>
+</li>
+<li><p>array_unique — 移除数组中重复的值</p>
+</li>
+<li><p>array_values — 返回数组中所有的值</p>
+</li>
+<li><p>array_rand — 从数组中随机取出一个或多个单元</p>
+</li>
+<li><p>array_push — 将一个或多个单元压入数组的末尾（入栈）</p>
+</li>
+<li><p>array_unshift — 在数组开头插入一个或多个单元</p>
+</li>
+<li><p>array_shift — 将数组开头的单元移出数组</p>
+</li>
+<li><p>array_pop — 弹出数组最后一个单元（出栈）</p>
+</li>
+<li><p>array_diff — 计算数组的差集</p>
+</li>
+<li><p>array_intersect — 计算数组的交集</p>
+</li>
+<li><p>array_merge — 合并一个或多个数组</p>
+</li>
+<li><p>array_merge_recursive — 递归地合并一个或多个数组</p>
+</li>
+<li><p>array_search — 在数组中搜索给定的值，如果成功则返回首个相应的键名</p>
+</li>
+<li><p>array_splice — 去掉数组中的某一部分并用其它值取代</p>
+</li>
+<li><p>sizeof — count() 的别名</p>
+</li>
+<li><p>count — 计算数组中的单元数目，或对象中的属性个数</p>
+</li>
+<li><p>pos — current() 的别名</p>
+</li>
+<li><p>current — 返回数组中的当前单元</p>
+</li>
+<li><p>each — 返回数组中当前的键／值对并将数组指针向前移动一步</p>
+</li>
+<li><p>end — 将数组的内部指针指向最后一个单元</p>
+</li>
+<li><p>extract — 从数组中将变量导入到当前的符号表</p>
+</li>
+<li><p>in_array — 检查数组中是否存在某个值</p>
+</li>
+<li><p>key_exists — 别名 array_key_exists()</p>
+</li>
+<li><p>key — 从关联数组中取得键名</p>
+</li>
+<li><p>list — 把数组中的值赋给一组变量</p>
+</li>
+<li><p>next — 将数组中的内部指针向前移动一位</p>
+</li>
+<li><p>prev — 将数组的内部指针倒回一位</p>
+</li>
+<li><p>range — 根据范围创建数组，包含指定的元素</p>
+</li>
+<li><p>reset — 将数组的内部指针指向第一个单元</p>
+</li>
+<li><p>shuffle — 打乱数组</p>
+</li>
+</ul>
+<p>array_combine — 创建一个数组，用一个数组的值作为其键名，另一个数组的值作为其值<br>array_count_values — 统计数组中所有的值<br>array_diff_assoc — 带索引检查计算数组的差集<br>array_diff_key — 使用键名比较计算数组的差集<br>array_diff_uassoc — 用用户提供的回调函数做索引检查来计算数组的差集<br>array_diff_ukey — 用回调函数对键名比较计算数组的差集<br>array_fill_keys — 使用指定的键和值填充数组<br>array_fill — 用给定的值填充数组<br>array_filter — 用回调函数过滤数组中的单元<br>array_flip — 交换数组中的键和值<br>array_intersect_assoc — 带索引检查计算数组的交集<br>array_intersect_key — 使用键名比较计算数组的交集<br>array_intersect_uassoc — 带索引检查计算数组的交集，用回调函数比较索引<br>array_intersect_ukey — 用回调函数比较键名来计算数组的交集<br>array_multisort — 对多个数组或多维数组进行排序<br>array_pad — 以指定长度将一个值填充进数组<br>array_reduce — 用回调函数迭代地将数组简化为单一的值<br>array_replace_recursive — 使用传递的数组递归替换第一个数组的元素<br>array_replace — 使用传递的数组替换第一个数组的元素<br>array_reverse — 返回单元顺序相反的数组<br>array_udiff_assoc — 带索引检查计算数组的差集，用回调函数比较数据<br>array_udiff_uassoc — 带索引检查计算数组的差集，用回调函数比较数据和索引<br>array_udiff — 用回调函数比较数据来计算数组的差集<br>array_uintersect_assoc — 带索引检查计算数组的交集，用回调函数比较数据<br>array_uintersect_uassoc — 带索引检查计算数组的交集，用单独的回调函数比较数据和索引<br>array_uintersect — 计算数组的交集，用回调函数比较数据<br>array_walk_recursive — 对数组中的每个成员递归地应用用户函数<br>array_walk — 使用用户自定义函数对数组中的每个元素做回调处理<br>array — 新建一个数组</p>
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><ul>
+<li>arsort — 对数组进行逆向排序并保持索引关系</li>
+<li>asort — 对数组进行排序并保持索引关系</li>
+<li>krsort — 对数组按照键名逆向排序</li>
+<li>ksort — 对数组按照键名排序</li>
+<li>rsort — 对数组逆向排序</li>
+<li>sort — 对数组排序</li>
+<li>uasort — 使用用户自定义的比较函数对数组中的值进行排序并保持索引关联</li>
+<li>uksort — 使用用户自定义的比较函数对数组中的键名进行排序</li>
+<li>usort — 使用用户自定义的比较函数对数组中的值进行排序<br>natsort — 用”自然排序”算法对数组排序<br>natcasesort — 用”自然排序”算法对数组进行不区分大小写字母的排序<br>compact — 建立一个数组，包括变量名和它们的值</li>
+</ul>
+<h2 id="PHP处理字符串的常用函数？（重点看函数的‘参数’和‘返回值’）"><a href="#PHP处理字符串的常用函数？（重点看函数的‘参数’和‘返回值’）" class="headerlink" title="PHP处理字符串的常用函数？（重点看函数的‘参数’和‘返回值’）"></a>PHP处理字符串的常用函数？（重点看函数的‘参数’和‘返回值’）</h2><h3 id="不常使用"><a href="#不常使用" class="headerlink" title="不常使用"></a>不常使用</h3><p>•crc32 — 计算一个字符串的 crc32 多项式<br>•crypt — 单向字符串散列<br>•md5_file — 计算指定文件的 MD5 散列值<br>•md5 — 计算字符串的 MD5 散列值<br>•convert_cyr_string — 将字符由一种 Cyrillic 字符转换成另一种<br>•convert_uudecode — 解码一个 uuencode 编码的字符串<br>•convert_uuencode — 使用 uuencode 编码一个字符串<br>•count_chars — 返回字符串所用字符的信息<br>•get_html_translation_table — 返回使用 htmlspecialchars 和 htmlentities 后的转换表<br>•hebrev — 将逻辑顺序希伯来文（logical-Hebrew）转换为视觉顺序希伯来文（visual-Hebrew）<br>•hebrevc — 将逻辑顺序希伯来文（logical-Hebrew）转换为视觉顺序希伯来文（visual-Hebrew），并且转换换行符<br>•levenshtein — 计算两个字符串之间的编辑距离<br>•localeconv — Get numeric formatting information<br>•hex2bin — 转换十六进制字符串为二进制字符串<br>•wordwrap — 打断字符串为指定数量的字串<br>•quoted_printable_decode — 将 quoted-printable 字符串转换为 8-bit 字符串<br>•quoted_printable_encode — 将 8-bit 字符串转换成 quoted-printable 字符串<br>•quotemeta — 转义元字符集<br>•metaphone — Calculate the metaphone key of a string<br>•nl_langinfo — Query language and locale information<br>•strnatcasecmp — 使用“自然顺序”算法比较字符串（不区分大小写）<br>•strnatcmp — 使用自然排序算法比较字符串<br>•strncasecmp — 二进制安全比较字符串开头的若干个字符（不区分大小写）<br>•strncmp — 二进制安全比较字符串开头的若干个字符<br>•substr_compare — 二进制安全比较字符串（从偏移位置比较指定长度）<br>•setlocale — 设置地区信息<br>•sha1_file — 计算文件的 sha1 散列值<br>•sha1 — 计算字符串的 sha1 散列值<br>•similar_text — 计算两个字符串的相似度<br>•soundex — Calculate the soundex key of a string<br>•sscanf — 根据指定格式解析输入的字符<br>•str_getcsv — 解析 CSV 字符串为一个数组<br>•str_word_count — 返回字符串中单词的使用情况<br>•strcasecmp — 二进制安全比较字符串（不区分大小写）<br>•strcmp — 二进制安全字符串比较<br>•strcoll — 基于区域设置的字符串比较<br>•strcspn — 获取不匹配遮罩的起始子字符串的长度<br>•str_rot13 — 对字符串执行 ROT13 转换</p>
+<p>•strpbrk — 在字符串中查找一组字符的任何一个字符<br>•strrchr — 查找指定字符在字符串中的最后一次出现<br>•strspn — 计算字符串中全部字符都存在于指定字符集合中的第一段子串的长度。<br>•strtok — 标记分割字符串<br>•chunk_split — 将字符串分割成小块<br>•nl2br — 在字符串所有新行之前插入 HTML 换行标记<br>•substr — 返回字符串的子串<br>•strtr — 转换指定字符<br>•str_shuffle — 随机打乱一个字符串<br>•str_pad — 使用另一个字符串填充字符串为指定长度</p>
+<h3 id="格式化"><a href="#格式化" class="headerlink" title="格式化"></a>格式化</h3><p>•echo — 输出一个或多个字符串<br>•print — 输出字符串<br>•printf — 输出格式化字符串<br>•fprintf — 将格式化后的字符串写入到流<br>•vfprintf — 将格式化字符串写入流<br>•vprintf — 输出格式化字符串<br>•vsprintf — 返回格式化字符串<br>•sprintf — Return a formatted string<br>•number_format — 以千位分隔符方式格式化一个数字<br>•money_format — 将数字格式化成货币字符串</p>
+<h3 id="去除空格"><a href="#去除空格" class="headerlink" title="去除空格"></a>去除空格</h3><p>•chop — rtrim 的别名<br>•rtrim — 删除字符串末端的空白字符（或者其他字符）<br>•trim — 去除字符串首尾处的空白字符（或者其他字符）<br>•ltrim — 删除字符串开头的空白字符（或其他字符）</p>
+<h3 id="转义-安全"><a href="#转义-安全" class="headerlink" title="转义(安全)"></a>转义(安全)</h3><ul>
+<li>addcslashes(要转义的字符) 以 C 语言风格 反斜线 -&gt; 转义字符串中的字符</li>
+<li>stripcslashes 反引用一个使用 addcslashes() 转义的字符串</li>
+<li>addslashes() 使用反斜线引用一个字符串</li>
+<li>stripslashes() 去除反斜线</li>
+<li>htmlentities() <code>&lt;b&gt;dog&lt;/b&gt;</code> -&gt; <code>&amp;lt;b&amp;gt;dog&amp;lt;</code></li>
+<li>html_entity_decode() <code>&amp;lt;b&amp;gt;dog&amp;lt;</code> -&gt; <code>&lt;b&gt;dog&lt;/b&gt;</code></li>
+<li>htmlspecialchars() 将特殊字符转换为 HTML 实体</li>
+<li>htmlspecialchars_decode() 将特殊的 HTML 实体转换回普通字符</li>
+<li>strip_tags() 从字符串中去除 HTML 和 PHP 标记</li>
+</ul>
+<h3 id="大小写-1"><a href="#大小写-1" class="headerlink" title="大小写"></a>大小写</h3><ul>
+<li>ucfirst — 将字符串的首字母转换为大写</li>
+<li>lcfirst — 使一个字符串的第一个字符小写</li>
+<li>strtolower — 将字符串转化为小写</li>
+<li>strtoupper — 将字符串转化为大写</li>
+<li>ucwords — 将字符串中每个单词的首字母转换为大写</li>
+</ul>
+<h3 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h3><ul>
+<li>chr — 返回指定的字符</li>
+<li>ord — 返回字符的 ASCII 码值</li>
+<li>bin2hex 函数把包含数据的二进制字符串转换为十六进制值</li>
+<li>hex2bin 转换十六进制字符串为二进制字符串</li>
+<li>ip2long 将 IPV4 的字符串互联网协议转换成长整型数字</li>
+<li>long2ip 将长整型转化为字符串形式带点的互联网标准格式地址（IPV4） 10的</li>
+</ul>
+<h3 id="字符串-x3D-gt-数组"><a href="#字符串-x3D-gt-数组" class="headerlink" title="字符串 &#x3D;&gt; 数组"></a>字符串 &#x3D;&gt; 数组</h3><ul>
+<li>str_split($arr, $size) — 将字符串转换为数组(每个字符都切开)</li>
+<li>explode($fuhao, $arr, [$limit]) — 使用一个字符串分割另一个字符串</li>
+<li>implode($fuhao, $arr) — 将一个一维数组的值转化为字符串</li>
+<li>join — 别名 implode</li>
+</ul>
+<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><ul>
+<li>stristr — 不区分大小写</li>
+<li>strstr或strchr($str, $fuhao, [true]) — 返回</li>
+<li>stripos — 查找字符在字符串内首次出现的位置，没有则返回false（不区分大小写）</li>
+<li>strpos — 查找字符在字符串内首次出现的位置，没有则返回false</li>
+<li>strripos — 查找字符在字符串内最后一次出现的位置，没有则返回false（不区分大小写）</li>
+<li>strrpos — 查找字符在字符串内最后一次出现的位置，没有则返回false</li>
+</ul>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><ul>
+<li>str_ireplace — str_replace 的忽略大小写版本</li>
+<li>str_replace — 子字符串替换</li>
+</ul>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul>
+<li>str_repeat — 重复一个字符串</li>
+<li>strlen — 获取字符串长度</li>
+<li>strrev — 反转字符串.</li>
+<li>parse_str — 将字符串解析成多个变量</li>
+<li>parse_url</li>
+<li>substr_count — 计算字串出现的次数</li>
+<li>substr_replace — 替换字符串的子串</li>
+</ul>
+<h2 id="PHP处理时间的常用函数？（重点看函数的‘参数’和‘返回值’）"><a href="#PHP处理时间的常用函数？（重点看函数的‘参数’和‘返回值’）" class="headerlink" title="PHP处理时间的常用函数？（重点看函数的‘参数’和‘返回值’）"></a>PHP处理时间的常用函数？（重点看函数的‘参数’和‘返回值’）</h2><h3 id="不常用"><a href="#不常用" class="headerlink" title="不常用"></a>不常用</h3><p>checkdate 验证一个格里高里日期<br>date_add 别名 DateTime::add()<br>date_create_from_format 别名 DateTime::createFromFormat()<br>date_create_immutable_from_format — 别名 DateTimeImmutable::createFromFormat()<br>date_create_immutable — 别名 DateTimeImmutable::__construct()<br>date_create — 别名 DateTime::__construct()<br>date_date_set — 别名 DateTime::setDate()<br>date_default_timezone_get — 取得一个脚本中所有日期时间函数所使用的默认时区<br>date_default_timezone_set — 设定用于一个脚本中所有日期时间函数的默认时区<br>date_diff — 别名 DateTime::diff()<br>date_get_last_errors — 别名 DateTime::getLastErrors()<br>date_interval_create_from_date_string — 别名 DateInterval::createFromDateString()<br>date_interval_format — 别名 DateInterval::format()<br>date_isodate_set — 别名 DateTime::setISODate()<br>date_modify — 别名 DateTime::modify()<br>date_offset_get — 别名 DateTime::getOffset()<br>date_parse_from_format — Get info about given date formatted according to the specified format<br>date_parse — Returns associative array with detailed info about given date<br>date_sub — 别名 DateTime::sub()<br>date_sun_info — Returns an array with information about sunset&#x2F;sunrise and twilight begin&#x2F;end<br>date_sunrise — 返回给定的日期与地点的日出时间<br>date_sunset — 返回给定的日期与地点的日落时间<br>date_time_set — 别名 DateTime::setTime()<br>date_timestamp_get — 别名 DateTime::getTimestamp()<br>date_timestamp_set — 别名 DateTime::setTimestamp()<br>date_timezone_get — 别名 DateTime::getTimezone()<br>date_timezone_set — 别名 DateTime::setTimezone()<br>timezone_abbreviations_list — 别名 DateTimeZone::listAbbreviations()<br>timezone_identifiers_list — 别名 DateTimeZone::listIdentifiers()<br>timezone_location_get — 别名 DateTimeZone::getLocation()<br>timezone_name_from_abbr — Returns the timezone name from abbreviation<br>timezone_name_get — 别名 DateTimeZone::getName()<br>timezone_offset_get — 别名 DateTimeZone::getOffset()<br>timezone_open — 别名 DateTimeZone::__construct()<br>timezone_transitions_get — 别名 DateTimeZone::getTransitions()<br>timezone_version_get — Gets the version of the timezonedb<br>getdate — 取得日期／时间信息<br>gettimeofday — 取得当前时间<br>gmdate — 格式化一个 GMT&#x2F;UTC 日期／时间<br>gmstrftime — 根据区域设置格式化 GMT&#x2F;UTC 时间／日期<br>idate — 将本地时间日期格式化为整数<br>localtime — 取得本地时间<br>strftime — 根据区域设置格式化本地时间／日期<br>strptime — 解析由 strftime() 生成的日期／时间</p>
+<h3 id="格式化-1"><a href="#格式化-1" class="headerlink" title="格式化"></a>格式化</h3><p>strtotime — 将任何字符串的日期时间描述解析为 Unix 时间戳<br>time — 返回当前的 Unix 时间戳<br>microtime — 返回当前 Unix 时间戳和微秒数 数组的形式<br>gmmktime — 取得 GMT 日期的 UNIX 时间戳<br>mktime — 取得一个日期的 Unix 时间戳<br>date — 格式化一个本地时间／日期<br>date_format — 别名 DateTime::format()<br>mktime(0, 0, 0, date(‘m’), date(‘d’), date(‘Y’)), 返回今日开始和结束的时间戳<br>mktime(23, 59, 59, date(‘m’), date(‘d’), date(‘Y’)) 返回今日开始和结束的时间戳<br>mktime(0, 0, 0, date(‘m’), $yesterday, date(‘Y’)), 返回昨日开始和结束的时间戳<br>mktime(23, 59, 59, date(‘m’), $yesterday, date(‘Y’)) 返回昨日开始和结束的时间戳<br>strtotime(date(‘Y-m-d’, strtotime(“+0 week Monday”, $timestamp))), 返回本周开始和结束的时间戳<br>strtotime(date(‘Y-m-d’, strtotime(“+0 week Sunday”, $timestamp))) + 24 * 3600 - 1 返回本周开始和结束的时间戳<br>strtotime(date(‘Y-m-d’, strtotime(“last week Monday”, $timestamp))), 返回上周开始和结束的时间戳<br>strtotime(date(‘Y-m-d’, strtotime(“last week Sunday”, $timestamp))) + 24 * 3600 - 1 返回上周开始和结束的时间戳<br>mktime(0, 0, 0, date(‘m’), 1, date(‘Y’)), 返回本月开始和结束的时间戳<br>mktime(23, 59, 59, date(‘m’), date(‘t’), date(‘Y’)) 返回本月开始和结束的时间戳<br>$begin &#x3D; mktime(0, 0, 0, date(‘m’) - 1, 1, date(‘Y’)); 返回上个月开始和结束的时间戳<br>$end &#x3D; mktime(23, 59, 59, date(‘m’) - 1, date(‘t’, $begin), date(‘Y’)); 返回上个月开始和结束的时间戳<br>mktime(0, 0, 0, 1, 1, date(‘Y’)), 返回今年开始和结束的时间戳<br>mktime(23, 59, 59, 12, 31, date(‘Y’)) 返回今年开始和结束的时间戳<br>mktime(0, 0, 0, 1, 1, $date(‘Y’) - 1), 返回去年开始和结束的时间戳<br>mktime(23, 59, 59, 12, 31, $date(‘Y’) - 1) 返回去年开始和结束的时间戳</p>
+<h3 id="PHP处理数据库的常用函数？（重点看函数的‘参数’和‘返回值’）"><a href="#PHP处理数据库的常用函数？（重点看函数的‘参数’和‘返回值’）" class="headerlink" title="PHP处理数据库的常用函数？（重点看函数的‘参数’和‘返回值’）"></a>PHP处理数据库的常用函数？（重点看函数的‘参数’和‘返回值’）</h3><h3 id="PHP操作文件的常用函数？（重点看函数的‘参数’和‘返回值’）"><a href="#PHP操作文件的常用函数？（重点看函数的‘参数’和‘返回值’）" class="headerlink" title="PHP操作文件的常用函数？（重点看函数的‘参数’和‘返回值’）"></a>PHP操作文件的常用函数？（重点看函数的‘参数’和‘返回值’）</h3><p>二 、数据库部分</p>
+<p>常见的关系型数据库管理系统产品有？<br>答：Oracle、SQL Server、MySQL、Sybase、DB2、Access等。</p>
+<p>SQL语言包括哪几部分？每部分都有哪些操作关键字？<br>答：SQL语言包括数据定义(DDL)、数据操纵(DML),数据控制(DCL)和数据查询（DQL）四个部分。<br>数据定义：Create Table,Alter Table,Drop Table, Craete&#x2F;Drop Index等<br>数据操纵：Select ,insert,update,delete,<br>数据控制：grant,revoke<br>数据查询：select</p>
+<p>完整性约束包括哪些？<br>数据完整性(Data Integrity)是指数据的精确(Accuracy) 和 可靠性(Reliability)。</p>
+<p>包括：</p>
+<p>（1）实体完整性：规定表的每一行在表中是惟一的实体。</p>
+<p>（2）域完整性：是指表中的列必须满足某种特定的数据类型约束，其中约束又包括取值范围、精度等规定。</p>
+<p>（3）参照完整性：是指两个表的主关键字和外关键字的数据应一致，保证了表之间的数据的一致性，防止了数据丢失或无意义的数据在数据库中扩散。</p>
+<p>（4） 用户定义的完整性：不同的关系数据库系统根据其应用环境的不同，往往还需要一些特殊的约束条件。用户定义的完整性即是针对某个特定关系数据库的约束条件，它反映某一具体应用必须满足的语义要求。</p>
+<p>什么是事务？及其特性？<br>事务：是一系列的数据库操作，是数据库应用的基本逻辑单位。</p>
+<p>特性：</p>
+<p>（1）原子性：即不可分割性，事务要么全部被执行，要么就全部不被执行。</p>
+<p>（2）一致性或可串性。事务的执行使得数据库从一种正确状态转换成另一种正确状态</p>
+<p>（3）隔离性。在事务正确提交之前，不允许把该事务对数据的任何改变提供给任何其他事务，</p>
+<p>（4） 持久性。事务正确提交后，其结果将永久保存在数据库中，即使在事务提交后有了其他故障，事务的处理结果也会得到保存。</p>
+<p>简单理解：在事务里的操作，要么全部成功，要么全部失败。</p>
+<p>什么是锁？<br>数据库是一个多用户使用的共享资源。当多个用户并发地存取数据时，在数据库中就会产生多个事务同时存取同一数据的情况。若对并发操作不加控制就可能会读取和存储不正确的数据，破坏数据库的一致性。</p>
+<p>加锁是实现数据库并发控制的一个非常重要的技术。当事务在对某个数据对象进行操作前，先向系统发出请求，对其加锁。加锁后事务就对该数据对象有了一定的控制，在该事务释放锁之前，其他的事务不能对此数据对象进行更新操作。<br>基本锁类型：锁包括行级锁和表级锁</p>
+<p>什么叫视图？游标是什么？<br>视图是一种虚拟的表，具有和物理表相同的功能。可以对视图进行增，改，查，操作，视图通常是有一个表或者多个表的行或列的子集。对视图的修改不影响基本表。它使得我们获取数据更容易，相比多表查询。</p>
+<p>游标：是对查询出来的结果集作为一个单元来有效的处理。游标可以定在该单元中的特定行，从结果集的当前行检索一行或多行。可以对结果集当前行做修改。一般不使用游标，但是需要逐条处理数据的时候，游标显得十分重要。</p>
+<p>什么是存储过程？用什么来调用？<br>存储过程是一个预编译的SQL语句，优点是允许模块化的设计，就是说只需创建一次，以后在该程序中就可以调用多次。如果某次操作需要执行多次SQL，使用存储过程比单纯SQL语句执行要快。可以用一个命令对象来调用存储过程。</p>
+<p>索引的作用？和它的优点缺点是什么？<br>索引就一种特殊的查询表，数据库的搜索引擎可以利用它加速对数据的检索。它很类似与现实生活中书的目录，不需要查询整本书内容就可以找到想要的数据。索引可以是唯一的，创建索引允许指定单个列或者是多个列。</p>
+<p>缺点是它减慢了数据录入的速度，同时也增加了数据库的尺寸大小。</p>
+<p>如何通俗地理解三个范式？<br>第一范式：1NF是对属性的原子性约束，要求属性具有原子性，不可再分解；</p>
+<p>第二范式：2NF是对记录的惟一性约束，要求记录有惟一标识，即实体的惟一性;</p>
+<p>第三范式：3NF是对字段冗余性的约束，即任何字段不能由其他字段派生出来，它要求字段没有冗余。。</p>
+<p>什么是基本表？什么是视图？<br>基本表是本身独立存在的表，在 SQL 中一个关系就对应一个表。</p>
+<p>视图是从一个或几个基本表导出的表。视图本身不独立存储在数据库中，是一个虚表</p>
+<p>试述视图的优点？<br>(1) 视图能够简化用户的操作</p>
+<p>(2) 视图使用户能以多种角度看待同一数据；</p>
+<p>(3) 视图为数据库提供了一定程度的逻辑独立性；</p>
+<p>(4) 视图能够对机密数据提供安全保护。</p>
+<p>NULL是什么意思<br>NULL这个值表示UNKNOWN(未知):它不表示“”(空字符串)。</p>
+<p>对NULL这个值的任何比较都会生产一个NULL值。</p>
+<p>您不能把任何值与一个 NULL值进行比较，并在逻辑上希望获得一个答案。</p>
+<p>使用IS NULL来进行NULL判断</p>
+<p>主键、外键和索引的区别？<br>主键、外键和索引的区别<br>定义：<br>主键–唯一标识一条记录，不能有重复的，不允许为空<br>外键–表的外键是另一表的主键, 外键可以有重复的, 可以是空值<br>索引–该字段没有重复值，但可以有一个空值<br>作用：<br>主键–用来保证数据完整性<br>外键–用来和其他表建立联系用的<br>索引–是提高查询排序的速度<br>个数：<br>主键–主键只能有一个<br>外键–一个表可以有多个外键<br>索引–一个表可以有多个唯一索引</p>
+<p>你可以用什么来确保表格里的字段只接受特定范围里的值?<br>Check限制，它在数据库表格里被定义，用来限制输入该列的值。</p>
+<p>说说对SQL语句优化有哪些方法？（选择几条）<br>（1）Where子句中：where表之间的连接必须写在其他Where条件之前，那些可以过滤掉最大数量记录的条件必须写在Where子句的末尾.HAVING最后。</p>
+<p>（2）用EXISTS替代IN、用NOT EXISTS替代NOT IN。</p>
+<p>（3） 避免在索引列上使用计算</p>
+<p>（4）避免在索引列上使用IS NULL和IS NOT NULL</p>
+<p>（5）对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。</p>
+<p>（6）应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描</p>
+<p>（7）应尽量避免在 where 子句中对字段进行表达式操作，这将导致引擎放弃使用索引而进行全表扫描</p>
+<p>SQL语句中‘相关子查询’与‘非相关子查询’有什么区别？<br>（1）非相关子查询是独立于外部查询的子查询，子查询总共执行一次，执行完毕后将值传递给外部查询。</p>
+<p>（2）相关子查询的执行依赖于外部查询的数据，外部查询执行一行，子查询就执行一次。</p>
+<p>因此非相关子查询比相关子查询效率高</p>
+<p>char和varchar的区别？<br>char是一种固定长度的类型，varchar则是一种可变长度的类型。</p>
+<p>区别：</p>
+<p>char(M)类型的数据列里，每个值都占用M个字节，如果某个长度小于M，MySQL就会在它的右边用空格字符补足。（在检索操作中那些填补出来的空格字符将被去掉）。</p>
+<p>varchar(M)类型的数据列里，每个值只占用刚好够用的字节再加上一个用来记录其长度的字节（即总长度为L+1字节）。</p>
+<p>Mysql 的存储引擎,myisam和innodb的区别。<br>MyISAM 是非事务的存储引擎；适合用于频繁查询的应用；表锁，不会出现死锁；不支持事务。适合小数据，小并发</p>
+<p>innodb是支持事务的存储引擎；适合于插入和更新操作比较多的应用；设计合理的话是行锁（最大区别就在锁的级别上）；适合大数据，大并发。</p>
+<p>数据表类型有哪些<br>MyISAM、InnoDB、HEAP、BOB,ARCHIVE,CSV等。</p>
+<p>MyISAM：成熟、稳定、易于管理，快速读取。一些功能不支持（事务等），表级锁。</p>
+<p>InnoDB：支持事务、外键等特性、数据行锁定。空间占用大，不支持全文索引等。</p>
+<p>MySQL数据库作发布系统的存储，一天五万条以上的增量，预计运维三年,怎么优化？<br>（1）设计良好的数据库结构，允许部分数据冗余，尽量避免join查询，提高效率。</p>
+<p>（2） 选择合适的表字段数据类型和存储引擎，适当的添加索引。</p>
+<p>（3） 做mysql主从复制读写分离。</p>
+<p>（4）对数据表进行分表，减少单表中的数据量提高查询速度。</p>
+<p>（5）添加缓存机制，比如redis，memcached等。</p>
+<p>（6）对不经常改动的页面，生成静态页面（比如做ob缓存）。</p>
+<p>（7）书写高效率的SQL。比如 SELECT * FROM TABEL 改为 SELECT field_1, field_2, field_3 FROM TABLE.</p>
+<p>对于大流量的网站,您采用什么样的方法来解决各页面访问量统计问题？<br>（1） 确认服务器是否能支撑当前访问量。</p>
+<p>（2） 优化数据库访问。</p>
+<p>（3）禁止外部访问链接（盗链）, 比如图片盗链。</p>
+<p>（4）控制文件下载。</p>
+<p>（5）做负载均衡，使用不同主机分流。</p>
+<p>（6）使用浏览统计软件，了解访问量，有针对性的进行优化。</p>
+<h3 id="如何优化PHP"><a href="#如何优化PHP" class="headerlink" title="如何优化PHP"></a><font color="red">如何优化PHP</font></h3><h4 id="基础语句优化"><a href="#基础语句优化" class="headerlink" title="基础语句优化"></a>基础语句优化</h4><h4 id="算法优化"><a href="#算法优化" class="headerlink" title="算法优化"></a>算法优化</h4><ul>
+<li>冒泡算法</li>
+</ul>
+<h3 id="php查询mysql数据库时，查询中文结果时出现的乱码。怎么解决？"><a href="#php查询mysql数据库时，查询中文结果时出现的乱码。怎么解决？" class="headerlink" title="php查询mysql数据库时，查询中文结果时出现的乱码。怎么解决？"></a>php查询mysql数据库时，查询中文结果时出现的乱码。怎么解决？</h3><pre><code>- 文件meta（设置浏览器解析的时候）
+- 连接数据库时编码设定
+- PHP文件中使用header函数确定编码
+</code></pre>
+<h3 id="PHP处理-数组-的常用函数？"><a href="#PHP处理-数组-的常用函数？" class="headerlink" title="PHP处理 数组 的常用函数？"></a>PHP处理 数组 的常用函数？</h3><h3 id="PHP处理-字符串-的常用函数？（重点看函数的‘参数’和‘返回值’）"><a href="#PHP处理-字符串-的常用函数？（重点看函数的‘参数’和‘返回值’）" class="headerlink" title="PHP处理 字符串 的常用函数？（重点看函数的‘参数’和‘返回值’）"></a>PHP处理 字符串 的常用函数？（重点看函数的‘参数’和‘返回值’）</h3><h3 id="PHP处理时间的常用函数？（重点看函数的‘参数’和‘返回值’）-1"><a href="#PHP处理时间的常用函数？（重点看函数的‘参数’和‘返回值’）-1" class="headerlink" title="PHP处理时间的常用函数？（重点看函数的‘参数’和‘返回值’）"></a>PHP处理时间的常用函数？（重点看函数的‘参数’和‘返回值’）</h3><h3 id="PHP处理数据库的常用函数？（重点看函数的‘参数’和‘返回值’）-1"><a href="#PHP处理数据库的常用函数？（重点看函数的‘参数’和‘返回值’）-1" class="headerlink" title="PHP处理数据库的常用函数？（重点看函数的‘参数’和‘返回值’）"></a>PHP处理数据库的常用函数？（重点看函数的‘参数’和‘返回值’）</h3><h3 id="PHP操作文件的常用函数？（重点看函数的‘参数’和‘返回值’）-1"><a href="#PHP操作文件的常用函数？（重点看函数的‘参数’和‘返回值’）-1" class="headerlink" title="PHP操作文件的常用函数？（重点看函数的‘参数’和‘返回值’）"></a>PHP操作文件的常用函数？（重点看函数的‘参数’和‘返回值’）</h3><h3 id="PHP操作目录（文件夹）的常用函数？（重点看函数的‘参数’和‘返回值’）"><a href="#PHP操作目录（文件夹）的常用函数？（重点看函数的‘参数’和‘返回值’）" class="headerlink" title="PHP操作目录（文件夹）的常用函数？（重点看函数的‘参数’和‘返回值’）"></a>PHP操作目录（文件夹）的常用函数？（重点看函数的‘参数’和‘返回值’）</h3><h3 id="PHP安全模块"><a href="#PHP安全模块" class="headerlink" title="PHP安全模块"></a>PHP安全模块</h3><ol>
+<li><p>防止SQL注入：prepare预处理sql语句</p>
+<ul>
+<li>tp5底层代码 适配器的工厂模式 调用时无感知，内部使用prepare预处理功能</li>
+</ul>
+</li>
+<li><p>防止远程非法提交：无登录状态的用户、能正常登陆但无法操作的用户</p>
+<ul>
+<li>使用验证码机制</li>
+</ul>
+</li>
+<li><p>CSRF跨站点请求伪造</p>
+<ul>
+<li>tp5当中的表单令牌，用户访问 -&gt; 服务器生成令牌，结合模板发出去 -&gt; 用户操作后将表单里面的数据以及令牌返回到服务器 -&gt; 服务器检测令牌</li>
+<li>restful API不用担心这个问题</li>
+</ul>
+</li>
+</ol>
+<h3 id="print-print-r-echo-var-dump-printf-有什么区别"><a href="#print-print-r-echo-var-dump-printf-有什么区别" class="headerlink" title="print print_r echo var_dump printf 有什么区别"></a>print print_r echo var_dump printf 有什么区别</h3><hr>
+<h2 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h2><h3 id="如何优化MYSQL"><a href="#如何优化MYSQL" class="headerlink" title="如何优化MYSQL"></a><font color="red">如何优化MYSQL</font></h3><h4 id="优化数据表的数据结构"><a href="#优化数据表的数据结构" class="headerlink" title="优化数据表的数据结构"></a>优化数据表的数据结构</h4><ol>
+<li><p>优化 <b>整数类型</b></p>
+<ul>
+<li>整型的数据类型 指定宽度 不会影响该数据类型的合法范围，只是显示宽度的含义</li>
+<li>对于不存在负数的数字，添加 <code>unsigned</code> 类型，编程 0 ~ 最大值</li>
+<li>年龄用tinyint 最大 unsigned 255岁</li>
+<li>smallint存储 古老建筑的年龄</li>
+<li>bigint存储非常大的整数</li>
+<li>ip使用 ip2long函数运算后 整型存储</li>
+</ul>
+</li>
+<li><p>优化 <b>浮点型</b></p>
+<ul>
+<li>float 和 double (单&#x2F;双精度)近似运算，会损失精度，乘法可以，不建议使用</li>
+<li>decimal(10,0) 用于 银行账本，精确计算能力强悍，空间计算开销很大</li>
+</ul>
+</li>
+<li><p>优化 <b>字符串类型</b></p>
+<ul>
+<li>BOLB和TEXT类型 二进制|字符串(有字符集和排序，索引只能用 全部长度的字符串)所以不建议使用</li>
+<li>char和varchar的选择 存储空间大，查询较快     经常变更、定长较短的字符串使用char</li>
+<li>enum 特定固定的分类，优先选用</li>
+<li>char 手机号 身份证号</li>
+<li>varchar 用户名、密码</li>
+<li>enum 性别、民族、各种状态</li>
+</ul>
+</li>
+<li><p>尽可能的使用 <code>not null</code></p>
+</li>
+</ol>
+<h4 id="定位有问题的sql语句"><a href="#定位有问题的sql语句" class="headerlink" title="定位有问题的sql语句"></a>定位有问题的sql语句</h4><ol>
+<li><code>qeury profile</code> 功能<ul>
+<li><code>set profiling = 1</code></li>
+<li><code>show profiles</code></li>
+<li><code>show profile for query </code></li>
+</ul>
+</li>
+<li><code>show status</code> 功能</li>
+<li><code>show processlist</code>  观察是否有大量线程处于不正常的状态或者特征</li>
+<li><code>explain</code> 中的 key值可以查询是否成功使用索引</li>
+</ol>
+<h4 id="优化sql语句"><a href="#优化sql语句" class="headerlink" title="优化sql语句"></a>优化sql语句</h4><ol>
+<li>常使用 <code>limit</code> 限制查询的数量，以及批量删除或更新时，可以分批操作 TP5使用的chunk方法</li>
+<li>将单&#x2F;多表关联 <code>select *</code> 修改成 <code>select A.name,A.age</code></li>
+<li>缓存</li>
+<li>将表中部分字段冗余到其他表中(双表数据量较大，关联查询效率低下的时候)</li>
+<li>重新设计sql</li>
+</ol>
+<h4 id="优化长的SQL语句"><a href="#优化长的SQL语句" class="headerlink" title="优化长的SQL语句"></a>优化长的SQL语句</h4><ol>
+<li>大的查询、关联查询 分解成多个SQL执行，在应用层(PHP)做关联，减少锁的竞争</li>
+<li>大的查询、关联查询 进行分批执行</li>
+<li>少用子查询，可以用关联查询代替</li>
+</ol>
+<h4 id="合理创建索引-普通索引、联合组合索引、唯一索引、唯一主键索引"><a href="#合理创建索引-普通索引、联合组合索引、唯一索引、唯一主键索引" class="headerlink" title="合理创建索引(普通索引、联合组合索引、唯一索引、唯一主键索引)"></a>合理创建索引(普通索引、联合组合索引、唯一索引、唯一主键索引)</h4><ul>
+<li><p>组合(联合索引)：学校网站，查询 某个系 某个班 的 某个学生  电商网站：某个商户 某个商品 某个订单</p>
+</li>
+<li><p>唯一</p>
+</li>
+<li><p>普通索引</p>
+</li>
+<li><p>外键索引(数据一致性，不常用)</p>
+</li>
+<li><p>全文索引(MyISAM支持，只支持英文)</p>
+</li>
+<li><p>什么列能够使用索引</p>
+<ul>
+<li>优先选择较短的数据类型以及 <code>where</code> 条件中常出现的列，减少索引的磁盘占用，提高查询效率</li>
+</ul>
+</li>
+<li><p>注意事项(过多创建，失效情况，查看是否失效，检测)</p>
+<ul>
+<li>避免创建过多索引，占用硬盘空间，降低写操作的效率</li>
+<li>复合索引遵循左原则(符合最左原则，条件换顺序依然可以使用索引)</li>
+<li>对于 字符串 数据类型做索引，要加前缀长度，可以节省索引空间，并且sql要 <code>加引号</code>，否则索引会失效</li>
+<li>like查询，%不能在前。想要使用匹配前面的推荐使用检索引擎 es</li>
+<li><code>or</code> 前面的条件中的列有索引，后面的没有，则索引不会被用到</li>
+<li>创建数据表示，尽量全部加 默认值 不使用 <code>default null</code></li>
+<li><code>where name = null</code> 不会使用索引，<code>where name is(not) null</code> 会使用索引</li>
+<li>不能在sql中的列中运算，会进行全表扫描使索引失效,<br>  <code>select * from users where YEAR(adddate)&lt;2007;</code><br>  改成<br>  <code>select * from users where adddate&lt;‘2007-01-01’;</code></li>
+<li>查看索引是否生效，在查询前➕ <code>explain</code>;<br>  例如：<code>explain SELECT * FROM testinfo WHERE b is not null</code><br>  查看：<code>possible_keys</code>(可能使用到的索引) 和 <code>key</code>(查询真正使用到的索引)</li>
+<li>全盘扫描优化：系统会自动检测 <code>索引</code> 和 <code>非索引</code> 的效率，自动切换</li>
+</ul>
+</li>
+</ul>
+<h4 id="优化关联查询"><a href="#优化关联查询" class="headerlink" title="优化关联查询"></a>优化关联查询</h4><ul>
+<li>确定ON或者USING子句的列上有索引</li>
+<li>确保GROUP BY和ORDER BY中 有一个表中的列，不能是多个表的列</li>
+</ul>
+<h4 id="优化子查询-嵌套查询"><a href="#优化子查询-嵌套查询" class="headerlink" title="优化子查询(嵌套查询)"></a>优化子查询(嵌套查询)</h4><ul>
+<li>尽可能使用 <code>关联查询替代</code></li>
+</ul>
+<h4 id="优化GROUP-BY-和DISTINCT-distinct"><a href="#优化GROUP-BY-和DISTINCT-distinct" class="headerlink" title="优化GROUP BY 和DISTINCT distinct"></a>优化GROUP BY 和DISTINCT distinct</h4><ul>
+<li>索引优化最好</li>
+<li>关联查询中，使用标识列进行分组的效率会更高(主键或者auto_priment)</li>
+<li>如果不需要ORDER BY，进行GROUP BY时使用ORDER BY NULL，MYSQL不会在进行文件排序</li>
+<li>WITH ROLLUP超级聚合，可以挪到应用程序处理</li>
+</ul>
+<h4 id="优化LIMIT分页"><a href="#优化LIMIT分页" class="headerlink" title="优化LIMIT分页"></a>优化LIMIT分页</h4><ul>
+<li>LIMIT偏移量大的时候，查询效率较低</li>
+<li>可以记录上次查询的最大ID，下次查询时直接根据该ID来查询</li>
+</ul>
+<h4 id="优化UNION查询"><a href="#优化UNION查询" class="headerlink" title="优化UNION查询"></a>优化UNION查询</h4><ul>
+<li>UNION ALL效率高于UNION</li>
+</ul>
+<h4 id="优化存储引擎"><a href="#优化存储引擎" class="headerlink" title="优化存储引擎"></a>优化存储引擎</h4><ul>
+<li>根据InnoDB和MyISAM的引擎特性去选择(行表锁、事务、没有where的count(*))</li>
+<li>尽量使用InnoDB存储引擎</li>
+</ul>
+<h4 id="分区分表"><a href="#分区分表" class="headerlink" title="分区分表"></a>分区分表</h4><h4 id="缓存数据"><a href="#缓存数据" class="headerlink" title="缓存数据"></a>缓存数据</h4><p><code>query_cache_type</code> 有0，1，2三个取值，0不适用，1始终使用，2按需使用<br><code>select SQL_NO_CACHE * from my_table;</code> 当值为1时，这样可以避免使用查询缓存<br><code>select SQL_CACHE * from my_table;</code> 当值为2时，这样可以按需使用查询缓存</p>
+<p><code>query_cache_size</code> 默认情况下该值为0，表示为查询缓存预留的内存为0，则无法使用查询缓存<br><code>set GLOBAL query_cache_size = 134217728;</code> 设置缓存大小</p>
+<p><code>FLUSH QUERY CACHE;</code> 清理查询缓存内存碎片<br><code>RESET QUERY CACHE;</code> 从查询缓存中移除所有查询缓存<br><code>FLUSH TABLES;</code> 关闭所有打开的表，同时清空查询缓存的内容</p>
+<p>注意事项：<br>查询缓存可以看做是SQL文本和查询结果的映射<br>第二次查询的SQL和第一次查询的SQL完全相同，才会使用缓存<br><code>SHOW STATUS LIKE &#39;Qcache_hits&#39;;</code> 查看缓存命中次数<br>表的结构和数据发生改变时，缓存数据不再有效</p>
+<h3 id="MySQL数据库作发布系统的存储，一天五万条以上的增量，预计运维三年-怎么优化？"><a href="#MySQL数据库作发布系统的存储，一天五万条以上的增量，预计运维三年-怎么优化？" class="headerlink" title="MySQL数据库作发布系统的存储，一天五万条以上的增量，预计运维三年,怎么优化？"></a>MySQL数据库作发布系统的存储，一天五万条以上的增量，预计运维三年,怎么优化？</h3><h3 id="对于大流量的网站-您采用什么样的方法来解决各页面访问量统计问题？"><a href="#对于大流量的网站-您采用什么样的方法来解决各页面访问量统计问题？" class="headerlink" title="对于大流量的网站,您采用什么样的方法来解决各页面访问量统计问题？"></a>对于大流量的网站,您采用什么样的方法来解决各页面访问量统计问题？</h3><h3 id="Mysql安全模块"><a href="#Mysql安全模块" class="headerlink" title="Mysql安全模块"></a>Mysql安全模块</h3><hr>
+<h2 id="未分类"><a href="#未分类" class="headerlink" title="未分类"></a>未分类</h2><h3 id="Web开发中数据提交方式有几种，区别，百度使用哪种方式"><a href="#Web开发中数据提交方式有几种，区别，百度使用哪种方式" class="headerlink" title="Web开发中数据提交方式有几种，区别，百度使用哪种方式"></a>Web开发中数据提交方式有几种，区别，百度使用哪种方式</h3><table>
+<thead>
+<tr>
+<th>提交方式</th>
+<th>提交体</th>
+<th>限制</th>
+<th>安全性</th>
+<th>缓存</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>GET</td>
+<td>url</td>
+<td>浏览器或操作系统限制</td>
+<td>较差</td>
+<td>√</td>
+</tr>
+<tr>
+<td>POST</td>
+<td>body</td>
+<td>可以通过后端控制，一般情况无限制</td>
+<td>较好</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<h3 id="说一下你所掌握的网页前端技术有哪些"><a href="#说一下你所掌握的网页前端技术有哪些" class="headerlink" title="说一下你所掌握的网页前端技术有哪些"></a><font color="red">说一下你所掌握的网页前端技术有哪些</font></h3><ul>
+<li>html、css3、javascript、jqery、photoshop</li>
+<li>div+css网页布局</li>
+<li>flex弹性布局</li>
+</ul>
+<h3 id="谈谈Ajax"><a href="#谈谈Ajax" class="headerlink" title="谈谈Ajax"></a>谈谈Ajax</h3><ul>
+<li><b>概念：</b>异步传输技术，通过javascript或者jquery实现</li>
+<li><b>优势：</b>局部刷新，减轻服务器压力，提高用户体验</li>
+</ul>
+<h3 id="Session-和-Cookie的区别"><a href="#Session-和-Cookie的区别" class="headerlink" title="Session 和 Cookie的区别"></a>Session 和 Cookie的区别</h3><hr>
+<h2 id="Tp5"><a href="#Tp5" class="headerlink" title="Tp5"></a>Tp5</h2><h3 id="常见的PHP框架-对比Tp总结优缺点，描述让自己印象深刻的功能和特性"><a href="#常见的PHP框架-对比Tp总结优缺点，描述让自己印象深刻的功能和特性" class="headerlink" title="常见的PHP框架(对比Tp总结优缺点，描述让自己印象深刻的功能和特性)"></a>常见的PHP框架(对比Tp总结优缺点，描述让自己印象深刻的功能和特性)</h3><ol>
+<li>Thinkphp5</li>
+<li>Laravel</li>
+<li>Yaf框架</li>
+</ol>
+<ul>
+<li><p>优点：</p>
+<ol>
+<li>执行效率高</li>
+<li>轻量级框架</li>
+<li>可扩展性强</li>
+</ol>
+</li>
+<li><p>缺点:</p>
+<ol>
+<li>高版本兼容性差</li>
+<li>底层代码可读性差</li>
+<li>需要安装扩展</li>
+<li>功能单一</li>
+<li>开发需要编写大量的插件：文件上传类</li>
+</ol>
+</li>
+</ul>
+<ol start="4">
+<li>Yii2</li>
+</ol>
+<ul>
+<li><p>优点</p>
+<ol>
+<li>结构简单</li>
+<li>使用功能丰富</li>
+<li>扩展性强</li>
+<li>性能高</li>
+</ol>
+</li>
+<li><p>缺点</p>
+<ol>
+<li>学习成本高</li>
+<li>相比Yaf，量级重</li>
+</ol>
+</li>
+</ul>
+<h3 id="MVC工作原理"><a href="#MVC工作原理" class="headerlink" title="MVC工作原理"></a>MVC工作原理</h3><ul>
+<li><p>MVC</p>
+<ul>
+<li>Model数据模型层</li>
+<li>View视图层</li>
+<li>Controller控制器层</li>
+</ul>
+</li>
+<li><p>用户操作所有流程如下</p>
+<ol>
+<li>用户通过 <code>View视图层</code> 操作</li>
+<li>发送请求到 <code>Controller控制器层</code></li>
+<li><code>Controller控制器层</code> 鉴权完成之后，修改通过 <code>Model数据模型层</code> 修改数据库内容</li>
+<li>结果返回 <code>Controller控制器层</code></li>
+<li>结果再次返回到 <code>View视图层</code></li>
+</ol>
+</li>
+<li><p>单一入口的工作原理</p>
+<ul>
+<li><p>用一个应用程序文件处理所有的HTTP请求，根据请求时的参数区分不同模块和操作的请求</p>
+</li>
+<li><p>一般参数的形式有 path_info，&#x2F;</p>
+</li>
+<li><p>优势：</p>
+<ul>
+<li>可以进行统一的安全性检查</li>
+<li>集中处理程序(加载框架核心文件、定义目录路径、开启缓存和Session等等)</li>
+</ul>
+</li>
+<li><p>劣势</p>
+<ul>
+<li>URL不美观</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="什么是SQL注入？（理解）"><a href="#什么是SQL注入？（理解）" class="headerlink" title="什么是SQL注入？（理解）"></a>什么是SQL注入？（理解）</h3><ul>
+<li>SQL注入攻击是黑客对数据库进行攻击的常用手段之一。</li>
+<li>一部分程序员在编写代码的时候，没有对用户输入数据的合法性进行判断，注入者可以在表单中输入一段数据库查询代码并提交，程序将提交的信息拼凑生成一个完整sql语句，服务器被欺骗而执行该条恶意的SQL命令。注入者根据程序返回的结果，成功获取一些敏感数据，甚至控制整个服务器，这就是SQL注入。</li>
+</ul>
+<h3 id="ThinkPHP5如何防止SQL注入？（理解）"><a href="#ThinkPHP5如何防止SQL注入？（理解）" class="headerlink" title="ThinkPHP5如何防止SQL注入？（理解）"></a>ThinkPHP5如何防止SQL注入？（理解）</h3><ol>
+<li>在控制器层加入一个控制器基类，里面加一个获取安全参数的方法，手动过滤或格式化参数</li>
+<li>使用tp5的验证类验证参数是否合法</li>
+<li>使用tp5当中的内置转换功能，对数据进行操作时，自动将用到的参数格式化</li>
+<li>TP5核心代码当中使用了Mysql预处理机制</li>
+</ol>
+<h3 id="如何开启调试模式？调试模式有什么好处？"><a href="#如何开启调试模式？调试模式有什么好处？" class="headerlink" title="如何开启调试模式？调试模式有什么好处？"></a>如何开启调试模式？调试模式有什么好处？</h3><ol>
+<li>开启日志记录，任何错误信息和调试信息都会详细记录，便于调试；</li>
+<li>会详细记录整个执行过程；</li>
+<li>模板修改可以即时生效；</li>
+<li>记录SQL日志，方便分析SQL；</li>
+<li>通过Trace功能更好的调试和发现错误；</li>
+<li>发生异常的时候会显示详细的异常信息；</li>
+</ol>
+<h3 id="如何获取系统变量？"><a href="#如何获取系统变量？" class="headerlink" title="如何获取系统变量？"></a>如何获取系统变量？</h3><ul>
+<li>TP5.1使用了Facade模式(外观模式)，通过Env::get(‘database.username’)获取，底层代码通过手动添加目录，系统自动包含所有目录下的所有文件，形成数组，以便获取</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>系统路径</th>
+<th>Env参数名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>应用根目录</td>
+<td>root_path</td>
+</tr>
+<tr>
+<td>应用目录</td>
+<td>app_path</td>
+</tr>
+<tr>
+<td>框架目录</td>
+<td>think_path</td>
+</tr>
+<tr>
+<td>配置目录</td>
+<td>config_path</td>
+</tr>
+<tr>
+<td>扩展目录</td>
+<td>extend_path</td>
+</tr>
+<tr>
+<td>composer目录</td>
+<td>vendor_path</td>
+</tr>
+<tr>
+<td>运行缓存目录</td>
+<td>runtime_path</td>
+</tr>
+<tr>
+<td>路由目录</td>
+<td>route_path</td>
+</tr>
+<tr>
+<td>当前模块目录</td>
+<td>module_path</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h2><ul>
+<li><p>1XX：请求已经被服务器接收，客户端应该继续请求</p>
+</li>
+<li><p>2XX：代表请求已经被服务器理解、接收、接受</p>
+<ul>
+<li>200 [GET] 请求获取数据成功</li>
+<li>201 [POST&#x2F;PUT&#x2F;PATCH] 用户新建或更新数据成功</li>
+<li>202 [*] 表示请求在返回后已经进行处理或处理中，用于异步</li>
+<li>204 [DELETE] 用户删除数据成功</li>
+</ul>
+</li>
+<li><p>300：重定向</p>
+<ul>
+<li>301 被请求的资源已永久移动到新位置，并且服务器可能指向一个新的URL超链接</li>
+<li>302 临时重定向</li>
+</ul>
+</li>
+<li><p>4XX：请求错误</p>
+<ul>
+<li>400 请求参数 或 语义有误</li>
+<li>401 没有权限进行此操作</li>
+<li>403 没有权限访问</li>
+<li>404 找不到服务器上的资源</li>
+<li>410 [GET] 用户请求的资源被永久删除，且不会再得到的，用于网站闭站</li>
+</ul>
+</li>
+<li><p>500：服务器错误</p>
+<ul>
+<li>500 [*]：服务器发生错误，用户将无法判断发出的请求是否成功。</li>
+</ul>
+</li>
+</ul>
+<h2 id="OSI七层模型"><a href="#OSI七层模型" class="headerlink" title="OSI七层模型"></a>OSI七层模型</h2><ul>
+<li>物理层</li>
+<li>数据链路层</li>
+<li>网络层</li>
+<li>传输层</li>
+<li>会话层</li>
+<li>表示层</li>
+<li>应用层</li>
+</ul>
+<h2 id="XML-与-HTML-的主要区别"><a href="#XML-与-HTML-的主要区别" class="headerlink" title="XML 与 HTML 的主要区别"></a>XML 与 HTML 的主要区别</h2><ol>
+<li><p>语法要求不同：</p>
+<ul>
+<li>在html中不区分大小写，在xml中严格区分。</li>
+<li>在HTML中，有时不严格，如果上下文清楚地显示出段落或者列表键在何处结尾，那么可以省略</li>
+<li>在XML中，是严格的树状结构，绝对不能省略掉结束标记。</li>
+<li>在XML中，拥有单个标记而没有匹配的结束标记的元素必须用一个&#x2F; 字符作为结尾。这样分析器就知道不用查找结束标记了。</li>
+<li>在XML中，属性值必须分装在引号中。在HTML中，引号是可用可不用的。</li>
+<li>在HTML中，可以拥有不带值的属性名。在XML中，所有的属性都必须带有相应的值。</li>
+<li>在XML文档中，空白部分不会被解析器自动删除；但是html是过滤掉空格的。</li>
+</ul>
+</li>
+<li><p>标记不同：</p>
+<ul>
+<li>html使用固有的标记；而xml没有固有的标记。</li>
+<li>Html标签是预定义的；XML标签是免费的、自定义的、可扩展的。</li>
+</ul>
+</li>
+<li><p>作用不同：</p>
+<ul>
+<li>html是用来显示数据的；xml是用来描述数据、存放数据的，所以可以作为持久化的介质！Html将数据和显示结合在一起，在页面中把这数据显示出来；xml则将数据和显示分开。 XML被设计用来描述数据，其焦点是数据的内容。HTML被设计用来显示数据，其焦点是数据的外观。</li>
+<li>xml不是HTML的替代品，xml和html是两种不同用途的语言。 XML 不是要替换 HTML；实际上XML 可以视作对 HTML 的补充。XML 和HTML 的目标不同HTML 的设计目标是显示数据并集中于数据外观，而XML的设计目标是描述数据并集中于数据的内容。</li>
+<li>对于XML最好的形容可能是: XML是一种跨平台的，与软、硬件无关的，处理与传输信息的工具。</li>
+<li>XML未来将会无所不在。XML将成为最普遍的数据处理和数据传输的工具。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="Smarty模板引擎"><a href="#Smarty模板引擎" class="headerlink" title="Smarty模板引擎"></a>Smarty模板引擎</h2><ol>
+<li><p>编译和缓存区别？</p>
+<ul>
+<li>编译过程就是将模板中的部分内容通过正则匹配替换成PHP代码</li>
+<li>缓存需要手动开启，缓存机制是将编译好的文件生成一份静态的html页面，当再次访问的时候直接返回HTML</li>
+</ul>
+</li>
+<li><p>什么是smarty? Smarty的优点是什么?</p>
+<ul>
+<li>Smarty是一个使用PHP写出来的PHP模板引擎</li>
+<li>为了php与html分开，美工和程序员各司其职，互不干扰。</li>
+</ul>
+</li>
+<li><p>Smarty优点</p>
+<ul>
+<li>速度快：相对其他模板引擎。</li>
+<li>编译型：采用smarty编写的程序在运行时要编译成一个非模板技术的PHP文件</li>
+<li>缓存技术：它可以将用户最终看到的HTML文件缓存成一个静态的HTML页</li>
+<li>插件技术：smarty可以自定义插件。</li>
+</ul>
+</li>
+<li><p>不适合使用smarty的地方</p>
+<ul>
+<li>需要实时更新的内容。例如像股票显示，它需要经常对数据进行更新</li>
+<li>小项目。小项目因为项目简单而美工与程序员兼于一人的项目</li>
+</ul>
+</li>
+<li><p>在模板中使用{$smarty}保留变量</p>
+ <figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;KaTeX parse<span class="built_in"> error</span>: Expected <span class="string">&#x27;EOF&#x27;</span>, got <span class="string">&#x27;&#125;&#x27;</span> <span class="keyword">at</span><span class="built_in"> position</span> <span class="number">16</span>: smarty.get.page&#125;̲ //类似在php脚本中访问_GET[page]</span><br><span class="line">&#123;KaTeX parse<span class="built_in"> error</span>: Expected <span class="string">&#x27;EOF&#x27;</span>, got <span class="string">&#x27;&#125;&#x27;</span> <span class="keyword">at</span><span class="built_in"> position</span> <span class="number">16</span>: smarty.cookies.&#125;̲ &#123;smarty.post.&#125;</span><br><span class="line">&#123;KaTeX parse<span class="built_in"> error</span>: Expected <span class="string">&#x27;EOF&#x27;</span>, got <span class="string">&#x27;&#125;&#x27;</span> <span class="keyword">at</span><span class="built_in"> position</span> <span class="number">16</span>: smarty.session.&#125;̲ &#123;smarty.server.&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>smarty的赋值和载入模板</p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$Smarty</span>-&gt;assign(name,value) <span class="comment">#渲染模板内容 tp5当中的display()</span></span><br><span class="line"><span class="variable">$Smarty</span>-&gt;display(<span class="string">&#x27;index.html&#x27;</span>) <span class="comment">#渲染模板文件 tp5当中的fetch()</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>smarty配置主要有哪几项？</p>
+<ul>
+<li>引入smarty.class.php;</li>
+<li>实例化smarty对象；</li>
+<li>重新修改默认的模板路径；</li>
+<li>重新修改默认的编译后文件的路径；</li>
+<li>重新修改默认的配置文件的路径；</li>
+<li>重新修改默认的cache的路径。</li>
+<li>可以设置是否开启cache。</li>
+<li>可以设置左侧和右侧定界符。</li>
+</ul>
+</li>
+<li><p>smarty运用过程中要注意以下几个问题：</p>
+<ul>
+<li>smarty模板文件中不允许出现php代码段，所有的注释，变量，函数都要包含在定界符内。</li>
+</ul>
+</li>
+</ol>
+<h2 id="二次开发系统（DEDE、ecshop）"><a href="#二次开发系统（DEDE、ecshop）" class="headerlink" title="二次开发系统（DEDE、ecshop）"></a>二次开发系统（DEDE、ecshop）</h2><ol>
+<li><p>对二次开发的理解</p>
+<ul>
+<li>二次开发，简单的说就是在现有的软件上进行定制修改，功能的扩展，然后达到自己想要的功能，一般来说都不会改变原有系统的内核。</li>
+</ul>
+</li>
+<li><p>用过哪些二次开发的东西？</p>
+<ul>
+<li>Dedecms</li>
+<li>phpcms</li>
+<li>ecshop</li>
+<li>discuz</li>
+</ul>
+</li>
+<li><p>像php做一次开发好，还是二次开发好？</p>
+<ul>
+<li>一般中小企业都用cms系统二次开发，都是为了效率。</li>
+<li>当然如果想一次开发也行，会用框架而且时间充足的话就可以了，大企业都是团队来开发的，杜绝版权问题。</li>
+</ul>
+</li>
+<li><p>二次开发过程中很多类与类之间进行之间的方法访问，是通过什么方式传递的？</p>
+<ul>
+<li>注册器设计模式，通过实例化的对象获取值</li>
+</ul>
+</li>
+<li><p>dedecms如果更换目录，后台某项就进不去了如何解决？</p>
+<ul>
+<li>后台核心配置项中 目录名称 修改成现在的 项目目录名称</li>
+</ul>
+</li>
+<li><p>dedecms中自定义模型的理解？</p>
+<ul>
+<li>在织梦系统中有内容模型这个概念，不同内容模型可以用来构建不同内容形式的站点，在系统中自带了以下几种模型：普通文章、图集、软件、商品、分类信息、专题。通过系统自带的模型，我们可以用来构建不同类型的站点，例如：使用图集可以做一个图片站，用软件模型构建一个软件下载站点。</li>
+<li>当然以上随系统附带的模型被称为系统模型，用户可以自己定义一些模型，比如图书、音乐专辑等，自定义了这些模型才可以构建更多内容形式的站点。<br> 相当于我们自动添加了表结构，适应现在当前需求的变化</li>
+</ul>
+</li>
+<li><p>dede中概念，设计和使用模板，必须要理解下面几个概念</p>
+<ul>
+<li><p>板块（封面）模板：指网站主页或比较重要的栏目封面频道使用的模板，一般用“index_识别ID.htm”命名，此外，用户单独定义的单个页面或自定义标记，也可选是否支持板块模板标记，如果支持，系统会用板块模板标记引擎去解析后才输出内容或生成特定的文件。</p>
+</li>
+<li><p>列表模板：指网站某个栏目的所有文章列表的模板，一般用 “list_识别ID.htm” 命名。</p>
+</li>
+<li><p>档案模板：表示文档查看页的模板，如文章模板，一般用 “article_识别ID.htm” 命名。</p>
+</li>
+<li><p>其它模板：一般系统常规包含的模板有：主页模板、搜索模板、ＲＳＳ、ＪＳ编译功能模板等，此外用户也可以自定义一个模板创建为任意文件。</p>
+</li>
+</ul>
+</li>
+<li><p>dede中几种标签的使用？</p>
+<ul>
+<li>列表 内容 等标签 只能在其本范围内使用，列表标签只能在列表中使用，内容标签只能在内容标签中使用。</li>
+<li>全局标签能在所有页面中使用</li>
+</ul>
+</li>
+<li><p>熟悉常用类库</p>
+<ul>
+<li>dedesql.class.php</li>
+<li>熟悉系统函数库（common.func.php）</li>
+<li>熟悉自定义函数库（extend.func.php）</li>
+<li>熟悉前台入口文件（common.inc.php）</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="微信公众平台开发"><a href="#微信公众平台开发" class="headerlink" title="微信公众平台开发"></a>微信公众平台开发</h2><ol>
+<li><p>微信运行机制</p>
+<ul>
+<li>公众号与php之间用 <code>xml</code> 语言通信:</li>
+<li>weixin.php是通过 <code>$GLOBALS[&#39;HTTPRAW_POST_DATA&#39;]</code> 接收XML数据的</li>
+</ul>
+</li>
+<li><p>微信目前提供了7种基本消息类型</p>
+<ol>
+<li>文本消息（text）</li>
+<li>图片消息（image）</li>
+<li>语音（voice）</li>
+<li>视频（video）</li>
+<li>地理位置（location）</li>
+<li>链接消息（link）</li>
+<li>事件推送（event）</li>
+</ol>
+</li>
+<li><p>常用函数</p>
+<ul>
+<li><code>file_get_content()</code></li>
+<li><code>file_put_content()</code></li>
+<li><code>simplexml_load_string()</code> #把xml数据解析成对象</li>
+<li><code>explode()</code> #将字符串分割成数组</li>
+<li><code>implode()</code> #将数组合并成字符串</li>
+<li><code>urlencode()</code> #将url编码成字符串</li>
+</ul>
+</li>
+<li><p>微信公众号出现无法提供服务的原因？</p>
+<ul>
+<li>手机网络问题</li>
+<li>网站服务器网络问题(不是微信服务器)</li>
+<li>网站与微信服务器通信有误</li>
+</ul>
+</li>
+<li><p>自定义菜单的事件推送</p>
+<ul>
+<li>单击</li>
+<li>单击跳转链接</li>
+<li>扫码推事件</li>
+<li>扫码推且弹出</li>
+<li>弹出系统拍照发图的事件</li>
+<li>弹出微信相册发图器的事件</li>
+<li>弹出地理位置选择器的事件</li>
+</ul>
+</li>
+<li><p>token的作用</p>
+<ul>
+<li>安全机制验证，用于微信服务器与PHP服务器之间的安全验证</li>
+</ul>
+</li>
+<li><p>Appid与secrect的作用</p>
+<ul>
+<li>请求api接口（例如菜单的操作）时需要传appid与secrect两个值，用来获取应用的授权码</li>
+</ul>
+</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/e6337b7f/" class="prev">上一篇</a><a href="/blog/p/dc16d8cd/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/cf930505/';
+var disqus_title = 'Mian';
+var disqus_url = 'https://ayou129.github.io/blog/p/cf930505/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

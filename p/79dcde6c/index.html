@@ -1,0 +1,32 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 加密算法 · 阿尤</title><meta name="description" content="加密算法 - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">加密算法</h1><div class="post-info">创建于：2022年11月24日<span style="margin-left: 0.5rem"></span>上次更新：2022年9月2日</div><div class="post-content"><p>介绍经常用到的加密算法，不同场景对加密算法的选择。</p>
+<span id="more"></span>
+
+
+<h2 id="对称加密和非对称加密"><a href="#对称加密和非对称加密" class="headerlink" title="对称加密和非对称加密"></a>对称加密和非对称加密</h2><p><code>https://zhuanlan.zhihu.com/p/347114235</code></p>
+<p>加密算法分 <code>对称加密</code> 和 <code>非对称加密</code>，其中<br><code>对称加密算法</code> 的加密与解密 密钥相同<br><code>非对称加密算法</code> 的加密密钥与解密 密钥不同，<br>此外，还有一类 不需要密钥 的 散列算法。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">常见的 对称加密 算法主要有 DES、<span class="number">3</span>DES、AES 等</span><br><span class="line">常见的 非对称算法 主要有 RSA、DSA 等</span><br><span class="line">散列算法 主要有 <span class="keyword">SHA-1、MD5 </span>等</span><br></pre></td></tr></table></figure>
+
+<h3 id="对称加密-私钥-早期加密算法"><a href="#对称加密-私钥-早期加密算法" class="headerlink" title="对称加密(私钥)(早期加密算法)"></a>对称加密(私钥)(早期加密算法)</h3><p>发送放和接收方 使用相同的私钥<br>例子：</p>
+<ul>
+<li>寄快递 收快递 快递上了保险盒，两人都有相同的钥匙。<img src="/blog/p/79dcde6c/%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86.png" class="" title="对称加密.png"></li>
+</ul>
+<h3 id="非对称加密-公开密钥加密算法"><a href="#非对称加密-公开密钥加密算法" class="headerlink" title="非对称加密(公开密钥加密算法)"></a>非对称加密(公开密钥加密算法)</h3><p><code>加密</code> 和 <code>解密</code> 使用不同的密钥(一公一私)</p>
+<img src="/blog/p/79dcde6c/%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86.png" class="" title="非对称加密.png">
+
+<h3 id="常见的签名加密算法"><a href="#常见的签名加密算法" class="headerlink" title="常见的签名加密算法"></a>常见的签名加密算法</h3><h4 id="md5"><a href="#md5" class="headerlink" title="md5"></a>md5</h4><p>MD5 用的是 哈希函数，它的典型应用是对一段信息产生 信息摘要，以 防止被篡改。<br>严格来说，MD5 不是一种 加密算法 而是 摘要算法。<br>无论是多长的输入，MD5 都会输出长度为 128bits 的一个串 (通常用 16 进制 表示为 32 个字符)。</p>
+<h4 id="SHA1"><a href="#SHA1" class="headerlink" title="SHA1"></a>SHA1</h4><p>SHA1 是和 MD5 一样流行的 消息摘要算法，然而 SHA1 比 MD5 的 安全性更强。<br>对于长度小于 2 ^ 64 位的消息，SHA1 会产生一个 160 位的 消息摘要。<br>基于 MD5、SHA1 的信息摘要特性以及 不可逆 (一般而言)，可以被应用在检查 文件完整性 以及 数字签名 等场景。</p>
+<h4 id="HMAC"><a href="#HMAC" class="headerlink" title="HMAC"></a>HMAC</h4><p>HMAC 是密钥相关的 哈希运算消息认证码（Hash-based Message Authentication Code），HMAC 运算利用 哈希算法 (MD5、SHA1 等)，以 一个密钥 和 一个消息 为输入，生成一个 消息摘要 作为 输出。<br>HMAC 发送方 和 接收方 都有的 key 进行计算，而没有这把 key 的第三方，则是 无法计算 出正确的 散列值的，这样就可以 防止数据被篡改。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">测试结论：HMAC 算法实例在 多线程环境 下是 不安全的。但是需要在 多线程访问 时，进行同步的辅助类，使用 ThreadLocal 为 每个线程缓存 一个实例可以避免进行锁操作。</span><br></pre></td></tr></table></figure>
+
+<h4 id="AES-x2F-DES-x2F-3DES算法"><a href="#AES-x2F-DES-x2F-3DES算法" class="headerlink" title="AES&#x2F;DES&#x2F;3DES算法"></a>AES&#x2F;DES&#x2F;3DES算法</h4><p>AES、DES、3DES 都是 对称 的 块加密算法，加解密 的过程是 可逆的。<br>常用的有 AES128、AES192、AES256 (默认安装的 JDK 尚不支持 AES256，需要安装对应的 jce 补丁进行升级 jce1.7，jce1.8)。</p>
+<h4 id="RSA算法"><a href="#RSA算法" class="headerlink" title="RSA算法"></a>RSA算法</h4><p>RSA 加密算法是目前最有影响力的 公钥加密算法，并且被普遍认为是目前 最优秀的公钥方案 之一。<br>RSA 是第一个能同时用于 加密 和 数字签名 的算法，它能够 抵抗 到目前为止已知的 所有密码攻击，已被 ISO 推荐为公钥数据加密标准。</p>
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/5001f0a0/" class="prev">上一篇</a><a href="/blog/p/f3599f9f/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/79dcde6c/';
+var disqus_title = '加密算法';
+var disqus_url = 'https://ayou129.github.io/blog/p/79dcde6c/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

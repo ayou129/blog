@@ -1,0 +1,17 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Elasticsearch · 阿尤</title><meta name="description" content="Elasticsearch - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Elasticsearch</h1><div class="post-info">创建于：2020年4月23日<span style="margin-left: 0.5rem"></span>上次更新：2021年10月2日</div><div class="post-content"><p>核心点是将 <code>索引</code> 存储在内存当中，所以查询快<br>注意事项：</p>
+<ul>
+<li>在生产环境合理的给ES配置内存大小尤为重要，内存小的时候，ES会根据热点淘汰机制不断更新索引。</li>
+<li>查询不到，因为es根据分片算法将数据存储到某个分片，是需要一定耗时的。</li>
+<li>es会给每个字段都建立索引，所以要针对性的选择某些字段做分词</li>
+<li>es的聚合能力很差文档检索才是它的强项，所以尽量避免用es进行聚合操作<br>业内解决方案用Hbase来存储海量数据，数据ID和文档存储到ES，通过ES获取ID，在通过高性能的getRowkey的能力获取该数据的全集。</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/80f3ea77/" class="prev">上一篇</a><a href="/blog/p/bcbac40b/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/2a7b23ef/';
+var disqus_title = 'Elasticsearch';
+var disqus_url = 'https://ayou129.github.io/blog/p/2a7b23ef/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> CharlesProxy抓包指南 · 阿尤</title><meta name="description" content="CharlesProxy抓包指南 - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">CharlesProxy抓包指南</h1><div class="post-info">创建于：2021年3月28日<span style="margin-left: 0.5rem"></span>上次更新：2022年7月23日</div><div class="post-content"><p>蒸无语辣，大厂的app抓不到包，解决方案跳转到 <a href="/blog/p/5001f0a0/" title="安卓反编译">安卓反编译</a></p>
+<span id="more"></span>
+
+<h2 id="Charles"><a href="#Charles" class="headerlink" title="Charles"></a>Charles</h2><ol>
+<li>Charles是一个运行在自己计算机中的Web代理（http代理&#x2F;http监视器）</li>
+<li>将web浏览器(或者其他任何的Internet应用程序,手机或物联网设备)配置通过Charles访问Internet</li>
+<li>然后就可以通过Charles看到所有发送和接收的数据</li>
+</ol>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
+<p>官网 <a href="https://charlesproxy.com/" target="_blank" rel="noopener">https://charlesproxy.com</a></p>
+</blockquote>
+<p>…省略步骤</p>
+<h2 id="常见的抓包需求"><a href="#常见的抓包需求" class="headerlink" title="常见的抓包需求"></a>常见的抓包需求</h2><ol>
+<li>数据缺陷分析（分析数据结构，一般分析手机或物联网设备）</li>
+<li>模拟不同网络速度场景（龟龟）</li>
+<li>模拟各种疑难杂症网络场景（各种http错误状态码）</li>
+<li>更改请求数据 或 response数据（BreakPoint）</li>
+<li>将目的源地址替换成其他，或本地（Map）</li>
+<li>压测</li>
+</ol>
+<h2 id="HTTPS代理-安装SSL"><a href="#HTTPS代理-安装SSL" class="headerlink" title="HTTPS代理 安装SSL"></a>HTTPS代理 安装SSL</h2><blockquote>
+<p><a href="https://www.charlesproxy.com/documentation/using-charles/ssl-certificates/" target="_blank" rel="noopener">https://www.charlesproxy.com/documentation/using-charles/ssl-certificates/</a></p>
+</blockquote>
+<p>如果不安装ssl则无法以纯文本的方式查看内容，通俗点讲就是看不到实际内容，而只能看到加密后的乱码<br>步骤详情：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 手机端安装SSL  https:<span class="comment">//www.charlesproxy.com/documentation/using-charles/ssl-certificates/</span></span><br><span class="line">## 这里是 `iphone` 手机的安装步骤，不同机型进入网站按照提示安装</span><br><span class="line"><span class="number">1.</span> iphone打开Safari(重点)浏览器访问 https:<span class="comment">//chls.pro/ssl 并下载SSL证书</span></span><br><span class="line"><span class="number">2.</span> 进入iphone设置-&gt;已下载描述文件-&gt;安装-&gt;输入密码</span><br><span class="line"><span class="number">3.</span> 进入iphone设置-&gt;通用-&gt;关于本机-&gt;证书信任设置-&gt;信任Charles Proxy CA...</span><br><span class="line"></span><br><span class="line">## 这里是 `android` 手机的安装步骤，不同机型进入网站按照提示安装</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># CharlesProxy客户端安装SSL证书</span><br><span class="line"><span class="number">1.</span> Help-&gt;SSL Proxying-&gt;Install Charles Root Certificate，安装到系统</span><br><span class="line"><span class="number">2.</span> 默认会弹出钥匙串访问的窗口，要点击CharlesProxy的证书，并且添加信任，没有的话自行打开 Mac-&gt;启动台-&gt;钥匙串访问</span><br><span class="line"><span class="number">3.</span> Proxy-&gt;SSL Proxy Settings-&gt;Enable SSL Proxying 并且添加域名</span><br><span class="line">note:域名处觉得麻烦可以直接填写*</span><br><span class="line"></span><br><span class="line"># Charles默认禁止所有IP连接，连接时，会要求授权，若不想授权，可 Proxy -&gt; Access Control Settgings -&gt; Add <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>/<span class="number">0</span> 以允许所有IP连接</span><br></pre></td></tr></table></figure>
+<img src="/blog/p/3aa747c4/%E9%92%A5%E5%8C%99%E4%B8%B2%E8%AE%BF%E9%97%AE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%AF%81%E4%B9%A6%E5%B9%B6%E4%BF%A1%E4%BB%BB.png" class="" title="钥匙串访问中添加证书并信任.png">
+
+<img src="/blog/p/3aa747c4/CharlesProxySSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A41.png" class="" title="CharlesProxySSl证书安装步骤1">
+<img src="/blog/p/3aa747c4/CharlesProxySSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A42.png" class="" title="CharlesProxySSl证书安装步骤2">
+<img src="/blog/p/3aa747c4/CharlesProxySSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A43.png" class="" title="CharlesProxySSl证书安装步骤3">
+<img src="/blog/p/3aa747c4/CharlesProxySSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A44.png" class="" title="CharlesProxySSl证书安装步骤4">
+<img src="/blog/p/3aa747c4/CharlesProxySSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A45.png" class="" title="CharlesProxySSl证书安装步骤5">
+<img src="/blog/p/3aa747c4/CharlesProxySSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A46.png" class="" title="CharlesProxySSl证书安装步骤6">
+<img src="/blog/p/3aa747c4/CharlesProxySSl%E8%AF%81%E4%B9%A6%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A47.png" class="" title="CharlesProxySSl证书安装步骤7">
+
+
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="网速模拟"><a href="#网速模拟" class="headerlink" title="网速模拟"></a>网速模拟</h3><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Proxy</span>-&gt;Throtte Setting</span><br><span class="line">Bandwidth 带宽</span><br><span class="line">Utilistation 利用百分比</span><br><span class="line">Round-trip 往返延迟</span><br><span class="line">MTU 字节</span><br></pre></td></tr></table></figure>
+
+<h3 id="Map-remote"><a href="#Map-remote" class="headerlink" title="Map remote"></a>Map remote</h3><p>将指定的网络请求重定向到指定网址<br>一般用于正式环境&#x2F;测试环境的切换<br>使用步骤：抓包之后，选中需要替换的请求，Map remote，修改更改后的指定网址，重新请求即可</p>
+<h3 id="Map-local"><a href="#Map-local" class="headerlink" title="Map local"></a>Map local</h3><blockquote>
+<p>常用操作，一般用在调试服务端代码</p>
+</blockquote>
+<p>将指定的网络请求的结果重定向到本地文件，<br>每个API都可以 <code>Save response</code><br>保存之后 选中一个网络请求 开启Map local选择本地文件路径保存。重新请求即可</p>
+<h3 id="断点"><a href="#断点" class="headerlink" title="断点"></a>断点</h3><p>在 请求 与 返回结果中间通过断点停顿编辑所有相关信息<br>操作步骤：抓包之后，选中需要打断点的请求，重新请求即可</p>
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/1ckaiojcz/" class="prev">上一篇</a><a href="/blog/p/2252453f/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/3aa747c4/';
+var disqus_title = 'CharlesProxy抓包指南';
+var disqus_url = 'https://ayou129.github.io/blog/p/3aa747c4/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

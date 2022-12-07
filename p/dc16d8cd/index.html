@@ -1,0 +1,260 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 高并发 · 阿尤</title><meta name="description" content="高并发 - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">高并发</h1><div class="post-info">创建于：2019年12月22日<span style="margin-left: 0.5rem"></span>上次更新：2022年10月22日</div><div class="post-content"><p>从业5年相关高并发的经验总结，与分布式内容有交错，慢慢补充…</p>
+<span id="more"></span>
+<h2 id="高并发"><a href="#高并发" class="headerlink" title="高并发"></a>高并发</h2><h3 id="概念："><a href="#概念：" class="headerlink" title="概念："></a>概念：</h3><ul>
+<li>同一时间内有数量极多的请求 访问服务器</li>
+<li>一个系统的日PV在千万以上，可能是一个高并发的系统</li>
+</ul>
+<h3 id="QPS"><a href="#QPS" class="headerlink" title="QPS"></a>QPS</h3><ul>
+<li>每秒钟请求或查询系统的次数 HTTP请求</li>
+<li>峰值算法：(总PV数<em>80%) &#x2F; 6小时秒数</em>20%</li>
+</ul>
+<h3 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h3><ul>
+<li>单位时间内处理的请求数量(通常是由QPS与并发数决定)</li>
+</ul>
+<h3 id="响应时间"><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h3><ul>
+<li>从请求发出到收到相应花费的时间</li>
+</ul>
+<h3 id="PV"><a href="#PV" class="headerlink" title="PV"></a>PV</h3><ul>
+<li>综合浏览量</li>
+<li>页面浏览量或者点击量，一个访客在24小时内访问的页面数量</li>
+<li>同一个用户访问网站同一个页面，只记做一次PV</li>
+</ul>
+<h3 id="UV"><a href="#UV" class="headerlink" title="UV"></a>UV</h3><ul>
+<li>独立访客量</li>
+<li>统计1天内访问某站点的用户数(以cookie为依据)</li>
+<li>访问网站的一台电脑客户端为一个访客。</li>
+</ul>
+<h2 id="高并发的问题，我们具体应该关心什么？"><a href="#高并发的问题，我们具体应该关心什么？" class="headerlink" title="高并发的问题，我们具体应该关心什么？"></a>高并发的问题，我们具体应该关心什么？</h2><ul>
+<li>UV：独立访客(Unique Visitor)(类似IP)</li>
+<li>一定时间范围内相同访客多次访问网站，只计算为一个独立访客</li>
+</ul>
+<h3 id="带宽"><a href="#带宽" class="headerlink" title="带宽"></a>带宽</h3><ul>
+<li>日网站带宽 &#x3D; PV&#x2F; 统计时间(换算到秒)* 平均页面大小(单位KB) * 8</li>
+<li>峰值一半是平均值的倍数，根据实际情况来定</li>
+</ul>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>QPS不等于并发连接数</li>
+<li>QPS是每秒的HTTP请求数量，并发连接数是系统同时处理的请求数量</li>
+</ul>
+<h3 id="QPS计算"><a href="#QPS计算" class="headerlink" title="QPS计算"></a>QPS计算</h3><ul>
+<li>(总PV数 * 80%) &#x2F; (6小时秒数 * 20%) &#x3D; 峰值每秒请求数(QPS)</li>
+<li>表示： 80%的访问量集中在20%的时间，6小时是估计(中午、下午、晚上各两个小时)</li>
+</ul>
+<p>日QPS是200<br>单机QPS是50<br>则至少需要四台服务器</p>
+<h3 id="压力测试-了解单台服务器最大承受的QPS值、最大并发"><a href="#压力测试-了解单台服务器最大承受的QPS值、最大并发" class="headerlink" title="压力测试(了解单台服务器最大承受的QPS值、最大并发)"></a>压力测试(了解单台服务器最大承受的QPS值、最大并发)</h3><ul>
+<li>ab<br>  指令：ab -c 100 -n 5000</li>
+<li>wrk</li>
+<li>web bench</li>
+</ul>
+<h3 id="ab使用方法"><a href="#ab使用方法" class="headerlink" title="ab使用方法"></a>ab使用方法</h3><blockquote>
+<p>ab全称是apache benchmark，是apache官方推出的工具，创建多个并发访问线程模拟多个访问者同时对某一URL地址进行访问。它的测试目标是基于URL的<br>可以测试：apache、nginx、lighthttp、tomacat、IIS等其他web服务器的压力</p>
+</blockquote>
+<p>apache里面自带<br>如果没有则，安装 yum -y install http-tools</p>
+<ul>
+<li>模拟并发请求100次，总共请求5000次。</li>
+<li>ab -c (并发数) -n (总请求数量) 待测试网站url</li>
+<li>注意事项：测试机器要与被测试机器分开(数据会不准确)</li>
+<li>不要对线上服务做压力测试</li>
+<li>观察测试工具ab所在的及其，以及被测试的前端机的CPU、内存、网络等都不超过最高限度的75%</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;ab -c <span class="number">100</span> -n <span class="number">1000</span> url</span><br><span class="line"></span><br><span class="line">#返回的内容</span><br><span class="line">Complete requests： 总共请求的次数</span><br><span class="line">Failed requests： 请求失败的次数</span><br><span class="line">Requests per second: 是QPS值</span><br></pre></td></tr></table></figure>
+<h3 id="QPS过低解决方案"><a href="#QPS过低解决方案" class="headerlink" title="QPS过低解决方案"></a>QPS过低解决方案</h3><ol>
+<li>开启apache的 <code>httpd.mpm.conf</code> 模块并设置<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">&lt;IfModule mpm_winnt_module&gt;</span></span><br><span class="line">    <span class="attribute">ThreadsPerChild</span>        <span class="number">3000</span></span><br><span class="line">    <span class="attribute">MaxConnectionsPerChild</span>   <span class="number">0</span></span><br><span class="line"><span class="section">&lt;/IfModule&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li>增加FastCGI进程(fpm)</li>
+<li>opcache</li>
+<li>tmpfs，基于内存的文件系统</li>
+</ol>
+<h3 id="QPS达到极限"><a href="#QPS达到极限" class="headerlink" title="QPS达到极限"></a>QPS达到极限</h3><p>优化方案：硬件条件、网络带宽</p>
+<p>QPS：每秒的次数</p>
+<p>QPS达到50，小型网站，一半服务器可以应付<br>QPS达到100:</p>
+<ul>
+<li>假设关系型数据库的每次请求在0.01秒完成</li>
+<li>假设单页面只有一个SQL查询，那么100QPS意味着1秒钟完成100次请求，但是不能保证数据库查询能完成100次</li>
+<li>方案：数据库缓存，负载均衡</li>
+</ul>
+<p>QPS达到800：</p>
+<ul>
+<li>假设服务器是百兆宽带，那么网站出口的实际带宽是8M左右</li>
+<li>假设每个页面只有10K，那么百兆已经不够用了</li>
+<li>方案：CDN加速，负载均衡</li>
+</ul>
+<p>QPS达到1000：</p>
+<ul>
+<li>假设使用Memcache缓存数据库查询数据，每个页面对Memcache的请求大于直接对DB的请求</li>
+<li>Memcache的悲观并发数在2W左右，那么带宽则可能不够用，出现不稳定的情况</li>
+<li>方案：静态HTML缓存</li>
+</ul>
+<p>QPS达到2000：</p>
+<ul>
+<li>文件访问锁都成了灾难</li>
+<li>方案：业务分离，分布式存储</li>
+</ul>
+<h2 id="优化步骤"><a href="#优化步骤" class="headerlink" title="优化步骤"></a>优化步骤</h2><h3 id="流量优化"><a href="#流量优化" class="headerlink" title="流量优化"></a>流量优化</h3><h4 id="防盗链"><a href="#防盗链" class="headerlink" title="防盗链"></a>防盗链</h4><ul>
+<li><p>概念：他人在他网站页面上展示一些我们服务器的资源(图片、音乐、视频、软件等)，减轻他网站服务器的负担。</p>
+</li>
+<li><p>实现方法</p>
+<ul>
+<li>通过referer 或者 签名 判断是否能够合法访问</li>
+<li>Nginx模块 ngx_http_referer_module用于阻挡来源非法的域名请求</li>
+<li>Nginx指令 valid_referers，全局变量 $invalid_referer</li>
+</ul>
+  <figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">valid_referers 参数</span><br><span class="line"><span class="literal">none</span>：“<span class="keyword">referer</span>”来源头部为空的情况</span><br><span class="line">blocked：“<span class="keyword">Referer</span>”来源头部不为空，但是里面的值被代理或者防火墙删除了，这些值都不以 <span class="string">`http://`</span>  或 <span class="string">`https://`</span> 开头</span><br><span class="line">server_names：“<span class="keyword">Referer</span>”来源头部包含当前的server_names</span><br></pre></td></tr></table></figure>
+  <img src="/blog/p/dc16d8cd/%E9%98%B2%E7%9B%97%E9%93%BE%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95_nginx.png" class="" title="防盗链的实现方法_nginx.png">
+
+
+<p>  传统防盗链 可以 通过伪造Referer破解<br>  待整理…</p>
+</li>
+</ul>
+<h3 id="前端优化："><a href="#前端优化：" class="headerlink" title="前端优化："></a>前端优化：</h3><h4 id="添加异步请求-需要的时候再访问"><a href="#添加异步请求-需要的时候再访问" class="headerlink" title="添加异步请求 需要的时候再访问"></a>添加异步请求 需要的时候再访问</h4><h4 id="减少HTTP请求"><a href="#减少HTTP请求" class="headerlink" title="减少HTTP请求"></a>减少HTTP请求</h4><blockquote>
+<p>用户响应时间大部分花在加载HTML文档所引用的组件(image、js、css、flash)上<br>http连接的逻辑：域名解析&#x2F;TCP连接&#x2F;发送请求&#x2F;等待&#x2F;下载资源&#x2F;解析时间</p>
+</blockquote>
+<p>解决方案：</p>
+<ol>
+<li><p>减少组件的数量、合并css、js、图片文件</p>
+<ul>
+<li>webpack中有uglifyjs打包css、js文件，并且可以按需加载js</li>
+<li>图片使用Base64编码减少页面请求数，将编码写入img标签的src</li>
+</ul>
+</li>
+<li><p>图片地图</p>
+<ul>
+<li><p>方式1</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">usemap</span>=<span class="string">&quot;#map1&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">map</span> <span class="attr">name</span>=<span class="string">&quot;map1&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">area</span> <span class="attr">shape</span>=<span class="string">&quot;矩形&quot;</span> <span class="attr">coords</span>=<span class="string">&quot;位置A&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">area</span> <span class="attr">shape</span>=<span class="string">&quot;矩形&quot;</span> <span class="attr">coords</span>=<span class="string">&quot;位置B&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">area</span> <span class="attr">shape</span>=<span class="string">&quot;矩形&quot;</span> <span class="attr">coords</span>=<span class="string">&quot;位置C&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">map</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<img src="/blog/p/dc16d8cd/img_usemap.png" class="" title="img_usemap.png">
+</li>
+<li><p>方式2 CSS精灵(首选)</p>
+</li>
+</ul>
+ <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">background</span>-images: ();</span><br><span class="line"><span class="attribute">background-position</span>: x y;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="启用浏览器缓存和文件压缩"><a href="#启用浏览器缓存和文件压缩" class="headerlink" title="启用浏览器缓存和文件压缩"></a>启用浏览器缓存和文件压缩</h4><blockquote>
+<p>HTTP缓存机制.</p>
+</blockquote>
+<p>待补充。。。</p>
+<h4 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h4><p>CDN系统会将用户的请求重新导向离用户最近的服务节点，保证不同网络的用户都得到良好的访问质量<br>适合有大量图片和静态文件<br>    - 将数据缓存到cdn节点<br>    - 使用lvs实现四层负载均衡<br>    - BAT和七牛云提供</p>
+<h4 id="建立图片服务器-建立图片服务器-更换成非计算型服务器"><a href="#建立图片服务器-建立图片服务器-更换成非计算型服务器" class="headerlink" title="建立图片服务器 建立图片服务器 更换成非计算型服务器"></a>建立图片服务器 建立图片服务器 更换成非计算型服务器</h4><ul>
+<li><p>分摊Web服务器的I&#x2F;O负载-将耗费资源的图片服务分离出来，提高服务器的性能和稳定性</p>
+</li>
+<li><p>能够专门为图片服务器进行优化-为图片服务设置有针对性的缓存方案，减少带宽成本，提高访问速度<br>提高网站的可扩展性-通过增加图片服务器，提高图片吞吐能力</p>
+</li>
+<li><p>采用独立域名</p>
+<ul>
+<li>因为同一域名下浏览器的并发连接数有限制(2-6个)</li>
+</ul>
+</li>
+<li><p>如何进行图片上传和图片同步</p>
+<ul>
+<li>NFS共享方式</li>
+<li>利用FTP同步</li>
+</ul>
+</li>
+</ul>
+<h3 id="服务端优化"><a href="#服务端优化" class="headerlink" title="服务端优化"></a>服务端优化</h3><h4 id="页面静态化-ob"><a href="#页面静态化-ob" class="headerlink" title="页面静态化 ob"></a>页面静态化 ob</h4><p>将现有PHP等动态语言的逻辑代码生成为静态HTML文件用户访问动态脚本重定向到静态HTML文件的过程</p>
+<p>使用模板引擎<br>Smarty缓存机制生成静态HTML</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Smarty</span></span><br><span class="line"><span class="comment">#(1)</span></span><br><span class="line"><span class="variable">$smarty</span>-&gt;cache_dir = <span class="variable">$ROOT</span>.<span class="string">&quot;/cache&quot;</span> <span class="comment">#缓存目录</span></span><br><span class="line"><span class="variable">$smarty</span>-&gt;cacheing = <span class="literal">true</span>; <span class="comment">#开启缓存</span></span><br><span class="line"><span class="variable">$smarty</span>-&gt;cache_lifttime = <span class="string">&#x27;3600&#x27;</span>; <span class="comment">#缓存时间</span></span><br><span class="line"><span class="variable">$smarty</span>-&gt;display(<span class="variable">$template</span>,[<span class="variable">$cache_id</span>,<span class="variable">$compile_id</span>]); <span class="comment">#生成模版文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#(2)</span></span><br><span class="line"><span class="variable">$smarty</span>-&gt;clear_all_cache(); <span class="comment">#清除所有缓存</span></span><br><span class="line"><span class="variable">$smarty</span>-&gt;clear_cache(<span class="string">&quot;file.html&quot;</span>); <span class="comment">#清除指定缓存</span></span><br><span class="line"><span class="variable">$smarty</span>-&gt;clear_cache(<span class="string">&quot;file.html&quot;</span>,<span class="variable">$art_id</span>); <span class="comment">#清除同一个模板下的指定缓存号的缓存</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#OB</span></span><br><span class="line">ob_start(); <span class="comment">#打开输出控制缓冲</span></span><br><span class="line">ob_get_contents(); <span class="comment">#返回输出缓冲区内容</span></span><br><span class="line">ob_clean(); <span class="comment">#清空输出缓冲区</span></span><br><span class="line">ob_end_flush(); <span class="comment">#冲刷出(送出)输出缓冲区内容并关闭缓冲</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#具体方法</span></span><br><span class="line">ob_start();</span><br><span class="line">输出到页面的html代码</span><br><span class="line"></span><br><span class="line">ob_get_contents();</span><br><span class="line">ob_end_flush();</span><br><span class="line">fopen(); <span class="comment">#写入</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#判断文件的inode修改时间，判断是否过期使用filectime函数</span></span><br></pre></td></tr></table></figure>
+<h4 id="并发处理"><a href="#并发处理" class="headerlink" title="并发处理"></a>并发处理</h4><h5 id="PHP的Swoole扩展"><a href="#PHP的Swoole扩展" class="headerlink" title="PHP的Swoole扩展"></a>PHP的Swoole扩展</h5><img src="/blog/p/dc16d8cd/PHP%E7%9A%84Swoole%E6%89%A9%E5%B1%95.png" class="" title="PHP的Swoole扩展.png">
+<img src="/blog/p/dc16d8cd/PHP%E7%9A%84Swoole%E6%89%A9%E5%B1%952.png" class="" title="PHP的Swoole扩展2.png">
+<img src="/blog/p/dc16d8cd/Swoole%E7%9A%84%E5%BC%82%E6%AD%A5Mysql%E5%AE%9E%E7%8E%B0.png" class="" title="Swoole的异步Mysql实现.png">
+
+<ol>
+<li>串行，每个任务依次执行，执行完成，返回</li>
+<li>并行，所有任务都完成后，返回</li>
+<li>消息队列方式，通过异步操作(邮件、短信)</li>
+</ol>
+<h4 id="服务库优化-缓存-内置查询缓存"><a href="#服务库优化-缓存-内置查询缓存" class="headerlink" title="服务库优化 缓存 (内置查询缓存)"></a>服务库优化 缓存 (内置查询缓存)</h4><p>Redis与Memcache的区别<br>M不支持持久化，通常做缓存，提升性能<br>M在并发场景下，用cas保持一致性，redis事务支持比较弱，只能保证事务中的每个操作连续执行<br>Redis支持多种类的数据类型<br>Redis用于数据量较小的高性能操作和运算上<br>M用于在动态系统中减少数据库负载，提升性能；适合做缓存，提高性能</p>
+<h4 id="分库分表、分区操作、负载均衡、读写分离"><a href="#分库分表、分区操作、负载均衡、读写分离" class="headerlink" title="分库分表、分区操作、负载均衡、读写分离"></a>分库分表、分区操作、负载均衡、读写分离</h4><h3 id="web服务器优化"><a href="#web服务器优化" class="headerlink" title="web服务器优化"></a>web服务器优化</h3><h4 id="负载均衡-4层LVS-7层LVS"><a href="#负载均衡-4层LVS-7层LVS" class="headerlink" title="负载均衡 4层LVS 7层LVS"></a>负载均衡 4层LVS 7层LVS</h4><hr>
+<h1 id="下面的随时可删"><a href="#下面的随时可删" class="headerlink" title="下面的随时可删"></a>下面的随时可删</h1><hr>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>网站架构的整个演变主要围绕 <code>大数据</code> 和 <code>高并发</code> 而展开。解决的方案主要是 <code>使用缓存</code> 和 <code>多资源</code> 两种类型。</p>
+<ul>
+<li>多资源：多存储，多CPU，多网络。</li>
+</ul>
+<h2 id="网站架构-优化"><a href="#网站架构-优化" class="headerlink" title="网站架构(优化)"></a>网站架构(优化)</h2><h3 id="大数据"><a href="#大数据" class="headerlink" title="大数据"></a>大数据</h3><ol>
+<li>使用缓存: 使用程序直接保存到内存中。主要使用Map，尤其ConcurrentHashMap。</li>
+<li>使用缓存框架。常用的框架：Ehcache，Memcache，Redis等。</li>
+</ol>
+<ul>
+<li>最关键的问题是：什么时候创建缓存，以及其失效机制。</li>
+<li>对于空数据的缓冲：最好用一个特定的类型值来保存，以区别空数据和未缓存的两种状态。</li>
+</ul>
+<ol start="3">
+<li>数据库优化：<ul>
+<li>表结构优化。</li>
+<li>SQL语句优化，语法优化和处理逻辑优化。可记录各语句执行时间，有针对性的分析。</li>
+<li>分区</li>
+<li>分表</li>
+<li>索引优化</li>
+<li>使用存储过程代替直接操作</li>
+</ul>
+</li>
+<li>分离活跃数据<ul>
+<li>例如用户，可以分为活跃用户和不活跃用户。</li>
+</ul>
+</li>
+<li>批量读取和延迟修改<ul>
+<li>高并发情况可以将多个查询请求合并到一个。</li>
+<li>高并发且频繁修改的可以暂存缓存中。</li>
+</ul>
+</li>
+<li>读写分离<ul>
+<li>上图，数据库服务器配置多个，配置主从数据库。写用主数据库，读用从数据库。</li>
+</ul>
+</li>
+<li>分布式数据库<ul>
+<li>将不同的表存放到不同的数据库中，然后再放到不同的服务器中。有些复杂问题，如：事务处理，多表查询。</li>
+</ul>
+</li>
+<li>NoSql和Hadoop<ul>
+<li>NoSql，not only SQL。没有关系型数据库那么多限制，比较灵活高效。</li>
+<li>Hadoop，将一个表中的数据分层多块，保存到多个节点（分布式）。每一块数据都有多个节点保存（集群）。集群可以并行处理相同的数据，还可以保证数据的完整性。</li>
+</ul>
+</li>
+</ol>
+<h3 id="高并发-1"><a href="#高并发-1" class="headerlink" title="高并发"></a>高并发</h3><ol>
+<li>应用和静态资源分离。<ul>
+<li>将静态资源（js，css，图片等）放到专门的服务器中。</li>
+</ul>
+</li>
+<li>页面缓存<ul>
+<li>将应用生成的页面缓存起来可以节省大量cpu资源。</li>
+<li>对于部分页面经常变换数据的，可以使用ajax来处理。</li>
+</ul>
+</li>
+<li>集群和分布式<ul>
+<li>集群，多台服务器具有相同的功能，主要起分流的作用。</li>
+<li>分布式，将不同的业务放到不同的服务器中，处理一个请求可能需要多台服务器，进而提高一个请求的处理速度。</li>
+<li>又分为静态资源集群和应用程序集群。后者较复杂，经常要考虑session同步等问题。</li>
+</ul>
+</li>
+<li>反向代理<ul>
+<li>客户端直接访问的服务器并不是直接提供服务的服务器，它从别的服务器获取资源，然后将结果返回给用户。</li>
+<li>代理服务器和反向代理服务器：<ul>
+<li>代理服务器是代我们访获取资源，然后将结果返回。例如，访问外网的代理服务器。反向代理服务器是我们正常访问一台服务器的时候，服务器自己调用了别的服务器。</li>
+<li>代理服务器我们主动使用，是为我们服务的，不需要有自己的域名；反向代理是服务器自己使用的，我们并不知道，有自己的域名。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>CDN<ul>
+<li>CDN是一种特殊的集群页面缓冲服务器，和普通的集群的多台页面缓冲服务器相比主要区别是：其存放位置和分配请求方式不同。</li>
+<li>CDN的服务器分布在全国各地，接收到请求后会将请求分配到最合适的CDN服务器节点来获取数据。其每一个CDN节点就是一个页面缓存服务器。</li>
+<li>分配方式：并不是普通的负载均衡，而是专门的CDN域名解析服务器在解析域名的时候就分配好的，一般的做饭是：ISP那里使用CNAME将域名解析到一个特定的域名，然后再将解析到的那个域名用专门的CD服务器解析（返回给浏览器，再访问）到相应的CDN节点。每个节点可能也集群了多台服务器。</li>
+</ul>
+</li>
+</ol>
+<h2 id="总体业务逻辑"><a href="#总体业务逻辑" class="headerlink" title="总体业务逻辑"></a>总体业务逻辑</h2><ul>
+<li>前端:异步请求+资源静态化+cdn</li>
+<li>后端:请求队列+轮询分发+负载均衡+共享缓存</li>
+<li>数据层:redis缓存+数据分表+写队列</li>
+<li>存储:raid阵列+热备</li>
+<li>网络:dns轮询+DDOS攻击防护</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/cf930505/" class="prev">上一篇</a><a href="/blog/p/cc1b7711/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/dc16d8cd/';
+var disqus_title = '高并发';
+var disqus_url = 'https://ayou129.github.io/blog/p/dc16d8cd/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

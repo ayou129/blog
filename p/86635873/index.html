@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Git · 阿尤</title><meta name="description" content="Git - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Git</h1><div class="post-info">创建于：2019年12月23日<span style="margin-left: 0.5rem"></span>上次更新：2022年10月10日</div><div class="post-content"><p>不必多言，代码管理我只爱它🥰！</p>
+<span id="more"></span>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> <span class="keyword">install</span> git-all</span><br></pre></td></tr></table></figure>
+
+<h2 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h2><p>远程端：</p>
+<ul>
+<li>项目的元数据</li>
+<li><code>压缩的</code> 对象数据库</li>
+</ul>
+<h2 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h2><h3 id="Git是什么"><a href="#Git是什么" class="headerlink" title="Git是什么"></a>Git是什么</h3><ul>
+<li>一个 <code>分布式版本控制系统</code></li>
+</ul>
+<h3 id="历史迭代-衍生"><a href="#历史迭代-衍生" class="headerlink" title="历史迭代(衍生)"></a>历史迭代(衍生)</h3><ul>
+<li>在不同时期，市面上主流CVS使用情况</li>
+</ul>
+<ol>
+<li><p><code>本地</code> 版本控制系统</p>
+<ul>
+<li>例如：RCS</li>
+<li>采用简单的数据库记录 <b>文件的历次更新差异</b>(也就是补丁集，补丁是指文件修订前后的变化)</li>
+<li>缺点： 特别容易犯错，有时候会混淆所在的工作目录，一不小心会写错文件或者覆盖意想外的文件。</li>
+</ul>
+</li>
+<li><p><code>集中式</code> 版本控制系统 CVCS (Centralized Version Control Systems)</p>
+<ul>
+<li>例如：CVS、Subversion 以及 Perforce 等</li>
+<li>采用单一的集管理的服务器，保存所有的补丁集</li>
+<li>优点：让在不同系统上的开发者协同工作，管理员可以分配合适的权限进行限制</li>
+<li>缺点：服务器的单点故障</li>
+</ul>
+</li>
+<li><p><code>分布式</code> 版本控制系统 DCVS (Distributed Version Control System)</p>
+<ul>
+<li>例如：Git、Mercurial、Bazaar 以及 Darcs 等</li>
+<li>采用分布式的服务器，保存项目所有的文件镜像，包括完整的历史记录</li>
+<li>优点：让在不同系统上的开发者协同工作，管理员可以分配合适的权限进行限制，不担心服务器会发生故障</li>
+</ul>
+</li>
+</ol>
+<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><h3 id="Git-速度慢-卡-解决方案"><a href="#Git-速度慢-卡-解决方案" class="headerlink" title="Git 速度慢,卡 解决方案"></a>Git 速度慢,卡 解决方案</h3><h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><ol>
+<li>修改本机hosts文件，添加下方两行code，并重启网络服务<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">151.101.72.249 github.global.ssl.fastly.net</span><br><span class="line">192.30.253.112 github.com</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>tip:win10中文件路径为C:\Windows\System32\drivers\etc\hosts</p>
+</blockquote>
+</li>
+<li>cmd(命令行)中执行下方code<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipconfig /flushdns</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><ol>
+<li>修改本机hosts文件，添加下方两行code，并重启网络服务<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">151.101.72.249 github.global.ssl.fastly.net</span><br><span class="line">192.30.253.112 github.com</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>tip:Linux中文件路径为&#x2F;etc&#x2F;hosts</p>
+</blockquote>
+</li>
+<li>cmd(命令行)中执行下方code<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="regexp">/etc/i</span>nit.d/networking restart</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h3 id="分支的概念"><a href="#分支的概念" class="headerlink" title="分支的概念"></a>分支的概念</h3><h3 id="分支的作用"><a href="#分支的作用" class="headerlink" title="分支的作用"></a>分支的作用</h3><h3 id="使用分支"><a href="#使用分支" class="headerlink" title="使用分支"></a>使用分支</h3><h3 id="与其他版本控制系统的区别"><a href="#与其他版本控制系统的区别" class="headerlink" title="与其他版本控制系统的区别"></a>与其他版本控制系统的区别</h3><table>
+<thead>
+<tr>
+<th>*CVS</th>
+<th>对待数据的方法</th>
+<th>操作环境</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>git</td>
+<td>直接记录所有文件的快照(内容以及索引)</td>
+<td>大部分操作都是本地操作</td>
+</tr>
+<tr>
+<td>其他版本控制系统</td>
+<td><b>基于差异（delta-based）：</b> <br>以文件变更列表的方式存储信息</td>
+<td>操作服务器内容时，必须要联网</td>
+</tr>
+</tbody></table>
+<h3 id="存储的逻辑"><a href="#存储的逻辑" class="headerlink" title="存储的逻辑"></a>存储的逻辑</h3><ol>
+<li>基于 <code>Git</code> 中 <code>文件的内容或目录结构</code>，存储前计算校验和 <code>(哈希散列)</code>，校验和是 40个十六进制字符（0-9和a-f）组成的字符串</li>
+<li>优势：不容易丢失信息或损坏文件</li>
+</ol>
+<h3 id="三种状态"><a href="#三种状态" class="headerlink" title="三种状态"></a>三种状态</h3><ul>
+<li>已修改(只是修改了文件)</li>
+<li>已暂存(对已经修改的文件做标记，之后可以提交到本地数据库当中)</li>
+<li>已提交(已经保存至本地数据库当中)</li>
+</ul>
+<img src="/blog/p/86635873/git%E7%9A%84%E4%B8%89%E4%B8%AA%E7%8A%B6%E6%80%81%E4%BB%A5%E5%8F%8A%E9%98%B6%E6%AE%B5.png" class="" title="git的三个状态以及阶段">
+
+<h2 id="生成秘钥"><a href="#生成秘钥" class="headerlink" title="生成秘钥"></a>生成秘钥</h2><ol>
+<li>cd ~&#x2F;.ssh</li>
+<li>ssh-keygen -t rsa -C “guoxinlee129@gmail”</li>
+<li>接着按3个回车</li>
+<li>在c&#x2F;Users&#x2F;Administrator&#x2F;.ssh生成了加密文件，复制id_rsa.pub</li>
+<li>打开github 添加New SSH key</li>
+<li>验证是否连接成功 ssh -T <a href="mailto:&#103;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#x63;&#x6f;&#109;">&#103;&#x69;&#116;&#x40;&#103;&#x69;&#116;&#x68;&#117;&#x62;&#x2e;&#x63;&#x6f;&#109;</a>(gitee site)</li>
+</ol>
+<h2 id="区域"><a href="#区域" class="headerlink" title="区域"></a>区域</h2><p>跟踪文件	暂存区		仓库<br>(已修改 未提交	已修改	已提交)</p>
+<p>未跟踪–&gt;add后跟踪文件，变为未修改，等待commit–&gt;commit后 暂存区(进入暂存区同时将状态更换为未修改)<br>        修改文件后，变为已修改，等待commit–&gt;commit后 暂存区(进入暂存区同时将状态更换为未修改)<br>touch file  add后 进入缓存区 等待commit<br>修改文件后  add后 进入缓存区 等待commit</p>
+<ul>
+<li>modified 已修改</li>
+<li>staged &#x3D;&#x3D; cached缓存</li>
+<li>remote 远程</li>
+<li>origin 源</li>
+<li>master 主</li>
+</ul>
+<h2 id="核心命令"><a href="#核心命令" class="headerlink" title="核心命令"></a>核心命令</h2><ul>
+<li>git init	初始化git项目</li>
+<li>git config –list	查看当前git所有配置 VCS</li>
+<li>git config –global user.name ‘lee’			设置当前用户名称为lee</li>
+<li>git config –global  user.email ‘<a href="mailto:&#103;&#117;&#x6f;&#x78;&#x69;&#x6e;&#108;&#x65;&#x65;&#49;&#x32;&#x39;&#x40;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;">&#103;&#117;&#x6f;&#x78;&#x69;&#x6e;&#108;&#x65;&#x65;&#49;&#x32;&#x39;&#x40;&#x67;&#x6d;&#97;&#x69;&#x6c;&#46;&#x63;&#x6f;&#109;</a>‘ 设置当前email</li>
+<li>git clone -b 版本号 url 项目名称	克隆项目</li>
+</ul>
+<p>Remote</p>
+<ul>
+<li>git remote 远程连接列表</li>
+<li>git remote add <name> <url> 添加远程连接</li>
+<li>git remote add origin <a href="https://gitee.com/lee129/My-blog.git" target="_blank" rel="noopener">https://gitee.com/lee129/My-blog.git</a></li>
+<li>git remote rm <name> 移除远程连接</li>
+</ul>
+<p>与源服务器交互</p>
+<ul>
+<li>git push origin master 上传到远程服务器</li>
+<li>git status	查看当前版本库状态</li>
+<li>git add		跟踪某文件</li>
+<li>git add .	跟踪所有文件</li>
+<li>git commit -a -m ‘message’  添加文件到暂存区（-a 将已跟踪的文件直接放入仓库中）</li>
+<li>git commit –amend 	    撤销commit并重新提交</li>
+<li>git rm 		从git删除某文件记录以及文件</li>
+<li>git rm –cached 从git删除某文件记录</li>
+<li>git rm -r –cached 从git删除某文件记录（备用）</li>
+<li>git mv		将git中的某个文件重命名</li>
+</ul>
+<p>查看工作区</p>
+<ul>
+<li>git diff		查看 当前工作区 与 暂存区 的不同处</li>
+<li>git diff –cached 	查看 暂存区 	与 HEAD(上次提交时)的不同处</li>
+<li>git diff –staged	同上</li>
+</ul>
+<p>分支相关</p>
+<ul>
+<li>git branch -a 查看当前所有分支</li>
+<li>git branch ask 新建分支</li>
+<li>git checkout ask 切换分支</li>
+<li>git checkout -b ask 新建并切换到该分支</li>
+<li>git branch -d ask 删除分支</li>
+<li>git branch -D ask 强制删除分支</li>
+<li>git merge ask 合并分支</li>
+<li>git branch –merged 查看合并的分支</li>
+<li>git branch –no-merged 查看未合并的分支</li>
+</ul>
+<p>缓存相关</p>
+<ul>
+<li>git stash 添加缓存</li>
+<li>git stash list 查看缓存列表</li>
+<li>git stash apply stash@{0}恢复缓存不删除缓存记录   注意切换分支</li>
+<li>git stash pop stash@{0}  恢复缓存并且删除缓存记录</li>
+<li>git stash drop  stash@{0} 删除缓存 	</li>
+<li>git log –name-only</li>
+</ul>
+<h2 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h2><ol>
+<li>先 <code>git pull</code> 或者在 <code>git push</code> 时会发生代码冲突</li>
+<li>使用 <code>git diff</code> 解决冲突（<code>git</code> 会将冲突的代码“合并”到文件当中，修改发生冲突的文件即可）</li>
+<li><code>git add *</code></li>
+<li><code>git commit -m &quot;*&quot;</code></li>
+<li><code>git push origin</code></li>
+</ol>
+<h2 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h2><ol>
+<li><p>每次提交前diff</p>
+</li>
+<li><p>下班前，整理好工作区</p>
+<ul>
+<li>保留</li>
+<li>清除</li>
+</ul>
+</li>
+<li><p>并行的项目，使用分支开发</p>
+</li>
+<li><p>遇到冲突要及时解决，不能随意丢代码</p>
+</li>
+<li><p>产品发布后，要打 <code>tag</code>，方便将来拉分支修复 <code>bug</code></p>
+</li>
+</ol>
+<img src="/blog/p/86635873/fetch%E5%92%8Cpull%E7%9A%84%E5%8C%BA%E5%88%AB.jpg" class="" title="fetch和pull的区别.jpg">
+
+<p><code>git pull = git fetch + git merge</code></p>
+<h2 id="Yiqi"><a href="#Yiqi" class="headerlink" title="Yiqi"></a>Yiqi</h2><h3 id="上传到DEV"><a href="#上传到DEV" class="headerlink" title="上传到DEV"></a>上传到DEV</h3><ol>
+<li><code>git pull master</code> 获取 <code>master</code> 最新的代码</li>
+<li><code>git pull origin dev</code> 获取 <code>dev</code> 分支最新的代码</li>
+<li><code>git checkout -b 分支名</code> 建立自己的分支</li>
+<li><code>git checkout dev</code> + <code>git merge</code> 最新的分支名，进行合并</li>
+<li>如果有冲突则处理</li>
+<li><code>git push origin dev</code></li>
+</ol>
+<h3 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h3><ol>
+<li><code>git pull origin dev</code></li>
+<li>进行测试</li>
+<li>测试完毕 通知管理员 合并主分支</li>
+</ol>
+<p>删除本地分支 <code>git checkout master</code> + <code>git branch -D 分支名</code><br>删除远程分支 <code>git push origin --delete 分支名</code></p>
+<ol>
+<li>git rm –cached .&#x2F;vendor&#x2F;*</li>
+<li>git reset</li>
+<li>git update-index –assume-unchanged<br>modified状态下使用 <code>git update-index --assume-unchanged 文件名</code></li>
+</ol>
+<h2 id="git库所在的文件夹中的文件大致有4种状态"><a href="#git库所在的文件夹中的文件大致有4种状态" class="headerlink" title="git库所在的文件夹中的文件大致有4种状态"></a>git库所在的文件夹中的文件大致有4种状态</h2><h3 id="Untracked"><a href="#Untracked" class="headerlink" title="Untracked:"></a>Untracked:</h3><p>未跟踪, 此文件在文件夹中, 但并没有加入到git库, 不参与版本控制. 通过git add 状态变为Staged.</p>
+<h3 id="Unmodify"><a href="#Unmodify" class="headerlink" title="Unmodify:"></a>Unmodify:</h3><p>文件已经入库, 未修改, 即版本库中的文件快照内容与文件夹中完全一致. 这种类型的文件有两种去处, 如果它被修改,<br>而变为Modified. 如果使用git rm移出版本库, 则成为Untracked文件</p>
+<h3 id="Modified"><a href="#Modified" class="headerlink" title="Modified:"></a>Modified:</h3><p>文件已修改, 仅仅是修改, 并没有进行其他的操作. 这个文件也有两个去处, 通过git add可进入暂存staged状态,<br>使用git checkout 则丢弃修改过, 返回到unmodify状态, 这个git checkout即从库中取出文件, 覆盖当前修改</p>
+<h3 id="Staged"><a href="#Staged" class="headerlink" title="Staged:"></a>Staged:</h3><p>暂存状态. 执行git commit则将修改同步到库中, 这时库中的文件和本地文件又变为一致, 文件为Unmodify状态.<br>执行git reset HEAD filename取消暂存, 文件状态为Modified</p>
+<p>Git 状态 untracked 和 not staged的区别<br>1）untrack     表示是新文件，没有被add过，是为跟踪的意思。<br>2）not staged  表示add过的文件，即跟踪文件，再次修改没有add，就是没有暂存的意思</p>
+<h2 id="二次开发不影响依赖项目的更新，比如hyperf"><a href="#二次开发不影响依赖项目的更新，比如hyperf" class="headerlink" title="二次开发不影响依赖项目的更新，比如hyperf"></a>二次开发不影响依赖项目的更新，比如hyperf</h2><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. fork hyper到github上</span><br><span class="line"><span class="number">2</span>. git clone github上的项目，也就是真正的项目代码</span><br><span class="line"><span class="number">3</span>. git <span class="comment">remote add fork git@github.com:hyperf/hyperf.git #将依赖的项目添加到remote，并起名字</span></span><br><span class="line"><span class="number">4</span>. git pull fork master # 依赖的项目更新了，可以拉取</span><br><span class="line"><span class="number">5</span>. 相继处理</span><br></pre></td></tr></table></figure>
+
+<h2 id="相关命令"><a href="#相关命令" class="headerlink" title="相关命令"></a>相关命令</h2><ol>
+<li><code>git reset --hard 索引</code> 重置目前的版本号</li>
+<li><code>git push origin HEAD --force</code> 强推本地版本到远程</li>
+<li><code>git push origin -d 分支名</code> 删除远程分支</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/aa9fa5e8/" class="prev">上一篇</a><a href="/blog/p/5a4ef2d2/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/86635873/';
+var disqus_title = 'Git';
+var disqus_url = 'https://ayou129.github.io/blog/p/86635873/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Ubuntu核心知识要点 · 阿尤</title><meta name="description" content="Ubuntu核心知识要点 - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Ubuntu核心知识要点</h1><div class="post-info">创建于：2016年4月26日<span style="margin-left: 0.5rem"></span>上次更新：2022年9月28日</div><div class="post-content"><p>个人使用CentOS比较多，Ubuntu作为拓展学习一下。</p>
+<span id="more"></span>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>下载链接 <code>https://ubuntu.com/download/alternative-downloads</code></p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
+<li><p>没有root密码</p>
+<ul>
+<li>解决方案：<ol>
+<li><code>sudo passwd</code></li>
+<li>输入用户的密码</li>
+<li>输入root的初始化密码</li>
+<li>重复输入</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>刚安装好的系统 出现 <code>Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?</code></p>
+<ul>
+<li>解决方案：<ol>
+<li><code>sudo vim /etc/resolv.conf</code></li>
+<li>添加nameserver 223.5.5.5,8.8.8.8</li>
+<li>执行 <code>sudo apt-get update</code></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>无法登录ROOT账号</p>
+<ol>
+<li><code>su root</code></li>
+<li><code>sudo gedit /etc/lightdm/lightdm.conf</code></li>
+<li>添加<ul>
+<li><code>greeter-show-manual-login=true #手工输入登陆系统的用户名和密码</code></li>
+<li><code>allow-guest=false #不允许guest登录</code></li>
+</ul>
+</li>
+<li><code>reboot</code></li>
+</ol>
+</li>
+</ol>
+<p>systemd-resolve –status<br>systemd-resolved.service</p>
+<h2 id="LVS"><a href="#LVS" class="headerlink" title="LVS"></a>LVS</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>Linux Virtual Server的简写，即Linux虚拟服务器，是一个虚拟的服务器集群系统</p>
+<h3 id="使用的目的"><a href="#使用的目的" class="headerlink" title="使用的目的"></a>使用的目的</h3><p>通过LVS提供的负载均衡技术和Linux操作系统实现一个高性能、高可用的服务器集群，具有良好可靠性、可扩展性和可操作性</p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><p>虚拟服务器所有的方法</p>
+<ol>
+<li>基于DNS域名轮流解析的方法</li>
+<li>基于客户端调度访问的方法</li>
+<li>基于应用层系统负载的调用方法</li>
+<li>基于IP地址的调度方法(LVS使用它)</li>
+</ol>
+<p>IP负载均衡技术是通过IPVS内核模块来实现的，IPVS是LVS集群的核心软件<br>安装在Director Server上，同时在Director Server上虚拟出一个IP(Virtual IP)地址</p>
+<p>访问流程：域名访问 -&gt; 域名解析 解析到 IP -&gt; Director Server<br>访问的请求首先经过 Virtual IP 到达负载调度器<br>由负载调度器从 真实 服务器列表中选取一个服务器借点响应用户的请求</p>
+<p>Real Server借点如何返回数据给用户：是IPVS实现的重点技术<br>IPVS实现负载均衡极致有三种方法</p>
+<ol>
+<li>NAT 地址转发</li>
+<li>TUN IP ** 模式</li>
+<li>DR 直接路由</li>
+</ol>
+<img src="/blog/p/33b1610c/LVS%E8%99%9A%E6%8B%9F%E6%9C%8D%E5%8A%A1%E5%99%A8_DR%E6%A8%A1%E5%BC%8F.png" class="" title="LVS虚拟服务器_DR模式">
+
+<p>使用LVS优点：<br>开源免费<br>技术资源很丰富<br>###</p>
+<p>1</p>
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/953688bc/" class="prev">上一篇</a><a href="/blog/p/320c859b/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/33b1610c/';
+var disqus_title = 'Ubuntu核心知识要点';
+var disqus_url = 'https://ayou129.github.io/blog/p/33b1610c/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

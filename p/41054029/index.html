@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Phpstorm · 阿尤</title><meta name="description" content="Phpstorm - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Phpstorm</h1><div class="post-info">创建于：2017年4月19日<span style="margin-left: 0.5rem"></span>上次更新：2021年10月8日</div><div class="post-content"><p>Phpstorm开发工具的使用说明</p>
+<span id="more"></span>
+<h2 id="注释不顶格"><a href="#注释不顶格" class="headerlink" title="注释不顶格"></a>注释不顶格</h2><ol>
+<li>setting</li>
+<li>editor</li>
+<li>color style</li>
+<li>PHP</li>
+<li>Code Generatio</li>
+<li>Comment Code</li>
+<li>Line Comment at first column 取消勾选</li>
+<li>勾选 add a space at comment start</li>
+</ol>
+<img src="/blog/p/41054029/%E6%B3%A8%E9%87%8A%E4%B8%8D%E9%A1%B6%E6%A0%BC.png" class="" title="注释不顶格.png">
+
+
+<h2 id="设置-工具栏字体大小"><a href="#设置-工具栏字体大小" class="headerlink" title="设置 工具栏字体大小"></a>设置 工具栏字体大小</h2><ol>
+<li>setting</li>
+<li>appearance &amp; behavior</li>
+<li>appearance</li>
+</ol>
+<img src="/blog/p/41054029/%E8%AE%BE%E7%BD%AE%E5%B7%A5%E5%85%B7%E6%A0%8F%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F.jpg" class="" title="设置工具栏字体大小.jpg">
+
+<h2 id="设置工作区字体大小"><a href="#设置工作区字体大小" class="headerlink" title="设置工作区字体大小"></a>设置工作区字体大小</h2><ol>
+<li>setting</li>
+<li>editor</li>
+<li>color scheme</li>
+<li>color scheme font</li>
+</ol>
+<img src="/blog/p/41054029/%E8%AE%BE%E7%BD%AE%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%AD%97%E4%BD%93%E5%A4%A7%E5%B0%8F.jpg" class="" title="设置工作区字体大小.jpg">
+
+<h2 id="空格代替制表符"><a href="#空格代替制表符" class="headerlink" title="空格代替制表符"></a>空格代替制表符</h2><ol>
+<li>setting</li>
+<li>editor</li>
+<li>color style</li>
+<li>PHP</li>
+<li>tab和缩进</li>
+<li>取消勾选 <code>Use tab character</code></li>
+</ol>
+<h2 id="命令行中文乱码"><a href="#命令行中文乱码" class="headerlink" title="命令行中文乱码"></a>命令行中文乱码</h2><ol>
+<li>setting</li>
+<li>editor</li>
+<li>file encodings 全部设置为<code>utf8</code></li>
+</ol>
+<h2 id="添加template"><a href="#添加template" class="headerlink" title="添加template"></a>添加template</h2><ol>
+<li>setting</li>
+<li>editor</li>
+<li>file and code templates</li>
+<li>添加如下内容：<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* <span class="variable">@Author</span>: Li Guo Xin &lt;guoxinlee129<span class="variable">@gmail</span>.com&gt;</span><br><span class="line">* <span class="variable">@Date</span>: <span class="variable">$&#123;</span>DATE&#125;</span><br><span class="line">* <span class="variable">@Time</span>: <span class="variable">$&#123;</span>TIME&#125;</span><br></pre></td></tr></table></figure>
+<img src="/blog/p/41054029/phpstorm%E6%B7%BB%E5%8A%A0%E4%BD%9C%E8%80%85%E5%90%8D%E7%A7%B0template.jpg" class="" title="phpstorm添加作者名称template.jpg"></li>
+</ol>
+<h2 id="开启xdebug断点调试"><a href="#开启xdebug断点调试" class="headerlink" title="开启xdebug断点调试"></a>开启xdebug断点调试</h2><h3 id="注意：phpstorm2020-3才支持xdebug3断点调试"><a href="#注意：phpstorm2020-3才支持xdebug3断点调试" class="headerlink" title="注意：phpstorm2020.3才支持xdebug3断点调试"></a>注意：phpstorm2020.3才支持xdebug3断点调试</h3><ul>
+<li>下载xdebug历史进入 <code>https://xdebug.org/download/historical</code></li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#php.ini xdebug2</span></span><br><span class="line"><span class="section">[xdebug]</span></span><br><span class="line"><span class="attr">xdebug.idekey</span>=<span class="string">&quot;PHPSTORM&quot;</span></span><br><span class="line"><span class="attr">xdebug.remote_enable</span> =<span class="number">1</span></span><br><span class="line"><span class="attr">xdebug.remote_handler</span> = <span class="string">&quot;dbgp&quot;</span></span><br><span class="line"><span class="attr">xdebug.remote_host</span> = localhost</span><br><span class="line"><span class="attr">xdebug.remote_mode</span> = <span class="string">&quot;req&quot;</span></span><br><span class="line"><span class="attr">xdebug.remote_port</span> = <span class="number">9001</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#php.ini xdebug3更新后的配置</span></span><br><span class="line"><span class="section">[xdebug]</span></span><br><span class="line"><span class="attr">zend_extension</span>=<span class="string">&quot;xdebug.so&quot;</span></span><br><span class="line"><span class="attr">xdebug.idekey</span>=<span class="string">&quot;PHPSTORM&quot;</span></span><br><span class="line"><span class="attr">xdebug.mode</span>=debug</span><br><span class="line"><span class="attr">xdebug.client_host</span> = localhost</span><br><span class="line"><span class="attr">xdebug.client_port</span> = <span class="number">9001</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># dyld: Library not loaded: <span class="regexp">/opt/</span>homebrew<span class="regexp">/opt/i</span>cu4c<span class="regexp">/lib/</span>libicuio.<span class="number">68</span>.dylib</span><br><span class="line">ln -s <span class="regexp">/opt/</span>homebrew<span class="regexp">/include/</span>pcre2.h <span class="regexp">/opt/</span>homebrew<span class="regexp">/Cellar/</span>php@<span class="number">7.4</span><span class="regexp">/7.4.16/i</span>nclude<span class="regexp">/php/</span>ext<span class="regexp">/pcre/</span>pcre2.h</span><br></pre></td></tr></table></figure>
+<h1 id="使用-yasd"><a href="#使用-yasd" class="headerlink" title="使用 yasd"></a>使用 yasd</h1><h2 id="安装boost"><a href="#安装boost" class="headerlink" title="安装boost"></a>安装boost</h2><h3 id="brew"><a href="#brew" class="headerlink" title="brew"></a>brew</h3><p><code>brew install boost</code> 但是不知道目前为啥不行</p>
+<h3 id="源码安装"><a href="#源码安装" class="headerlink" title="源码安装"></a>源码安装</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 下载Boost源码 https:<span class="regexp">//</span>www.boost.org<span class="regexp">/doc/</span>libs<span class="regexp">/1_57_0/m</span>ore<span class="regexp">/getting_started/u</span>nix-variants.html</span><br><span class="line"><span class="number">2</span>. 解压放在任意目录</span><br><span class="line"><span class="number">3</span>. ./bootstrap.sh</span><br><span class="line"><span class="number">4</span>. ./b2 headers 查看headers可跳过</span><br><span class="line"><span class="number">5</span>. .<span class="regexp">/b2 install --prefix=/u</span>sr/local</span><br><span class="line"></span><br><span class="line">留意运行日志头文件目录: <span class="regexp">/usr/</span>local/boost_1_76_0</span><br><span class="line">lib目录: <span class="regexp">/usr/</span>local<span class="regexp">/boost_1_76_0/</span>stage/lib</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果出现 checking for boost... configure: error: lib boost not found.  Try: install boost library</span></span><br><span class="line">vim ~/.zshrc</span><br><span class="line">export CPLUS_INCLUDE_PATH=<span class="regexp">/opt/</span>homebrew<span class="regexp">/Cellar/</span>boost<span class="regexp">/1.75.0_3/i</span>nclude</span><br><span class="line">export LIBRARY_PATH=<span class="regexp">/opt/</span>homebrew<span class="regexp">/Cellar/</span>boost<span class="regexp">/1.75.0_3/</span>lib</span><br><span class="line">source ~/.zshrc</span><br></pre></td></tr></table></figure>
+
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/4618cb0a/" class="prev">上一篇</a><a href="/blog/p/b80c9de7/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/41054029/';
+var disqus_title = 'Phpstorm';
+var disqus_url = 'https://ayou129.github.io/blog/p/41054029/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

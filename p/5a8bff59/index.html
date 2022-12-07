@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Adobe-Premiere · 阿尤</title><meta name="description" content="Adobe-Premiere - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Adobe-Premiere</h1><div class="post-info">创建于：2020年8月4日<span style="margin-left: 0.5rem"></span>上次更新：2021年8月9日</div><div class="post-content"><h3 id="防止跳帧"><a href="#防止跳帧" class="headerlink" title="防止跳帧"></a>防止跳帧</h3><blockquote>
+<p>一段视频中间删掉n个帧后会发生跳帧</p>
+</blockquote>
+<p>操作：视频过度 -&gt; 溶解 -&gt; MorphCut -&gt; 拖动<br>如果有瑕疵，可以在时间线面板 右键 设置过度持续时间大一些</p>
+<p>红色状态：正在处理<br>绿色：处理成功</p>
+<h3 id="快速对齐音视频"><a href="#快速对齐音视频" class="headerlink" title="快速对齐音视频"></a>快速对齐音视频</h3><p>在项目中选中音频&amp;&amp;视频 右键 -&gt; 合并剪辑</p>
+<h3 id="标记"><a href="#标记" class="headerlink" title="标记"></a>标记</h3><p>两种标记(M键)</p>
+<ol>
+<li><p>适用于采访类节目(单个项目总时间固定)<br>针对音视频的标记</p>
+</li>
+<li><p>适用于新闻类节目(总时间、单个项目时间固定)<br>针对时间线的标记</p>
+</li>
+</ol>
+<p>标记可以导出，方便沟通吸纳意见<br>操作：文件 -&gt; 导出 -&gt; 标记</p>
+<h3 id="批量只做字幕"><a href="#批量只做字幕" class="headerlink" title="批量只做字幕"></a>批量只做字幕</h3><p>编写字幕txt</p>
+<ol>
+<li>第一行，字幕标题</li>
+<li>后面每一行都是一次字幕</li>
+</ol>
+<p>使用 PS：</p>
+<ol>
+<li>新建</li>
+<li>文档类型：胶片和视频 </li>
+<li>背景：透明</li>
+<li>增加文字 样式自定义(大小、对齐方式、颜色、描边等)</li>
+<li>图像 -&gt; 变量 -&gt; 定义 -&gt; 文本替换：写上字幕标题</li>
+<li>点击下一个</li>
+<li>导入字幕txt文件，编码utf8</li>
+<li>文件 -&gt; 导出 -&gt; 数据组作为文件 -&gt; 选择文件夹 -&gt; 确定</li>
+</ol>
+<p>使用 Premiere：</p>
+<ol>
+<li>导入时，右键选中所有字幕右键，设置持续时间(默认是5秒)</li>
+<li>拖动时间线</li>
+</ol>
+<h3 id="制作-静态-分屏效果"><a href="#制作-静态-分屏效果" class="headerlink" title="制作(静态)分屏效果"></a>制作(静态)分屏效果</h3><p>方式1：裁剪</p>
+<ol>
+<li>缩小所有素材并且摆放</li>
+<li>视频效果 -&gt; 变换 -&gt; 裁剪 视频的边缘，制作黑色边框(分屏效果)</li>
+</ol>
+<p>方式2：遮罩</p>
+<p>分屏效果使用场景</p>
+<ol>
+<li>素材量比较大 但是质量参差不齐</li>
+<li>视频有核心主题(线索) 贯穿始终</li>
+<li>可以做强调效果</li>
+<li>表达同一时间不同空间发生的事情(平行蒙太奇)</li>
+<li>阿卡贝拉 纯人声</li>
+</ol>
+<p>扩展：局部去色</p>
+<h3 id="制作-动态-分屏效果"><a href="#制作-动态-分屏效果" class="headerlink" title="制作(动态)分屏效果"></a>制作(动态)分屏效果</h3><p>选中A视频</p>
+<ol>
+<li>裁剪</li>
+<li>位置</li>
+<li>选方向并打关键帧</li>
+<li>shift + 方向右键 每按一次平移5帧</li>
+</ol>
+<p>前缓出、后缓入</p>
+<h3 id="保留视频单一颜色"><a href="#保留视频单一颜色" class="headerlink" title="保留视频单一颜色"></a>保留视频单一颜色</h3><h3 id="快速删除视频间隙"><a href="#快速删除视频间隙" class="headerlink" title="快速删除视频间隙"></a>快速删除视频间隙</h3><ol>
+<li>序列菜单</li>
+<li>封闭间隙</li>
+</ol>
+<h3 id="制作电影职位表字幕"><a href="#制作电影职位表字幕" class="headerlink" title="制作电影职位表字幕"></a>制作电影职位表字幕</h3><p>方式1：内置功能：滚动字幕<br>方式2：PS制作图片，位移动画功能<br>方式3：</p>
+<ol>
+<li>在节目面板中增加文字工具，把txt文本复制进去</li>
+<li>把文字区域拉满，显示全部的字幕</li>
+<li>水平、垂直居中对齐</li>
+<li>增加滚动效果：基本图形面板 -&gt; 编辑 -&gt; 滚动</li>
+<li>通过文字图层的长度决定</li>
+</ol>
+<h3 id="音频降噪-amp-amp-修复"><a href="#音频降噪-amp-amp-修复" class="headerlink" title="音频降噪 &amp;&amp; 修复"></a>音频降噪 &amp;&amp; 修复</h3><ol>
+<li>选中premiere中的音频</li>
+<li>右键 -&gt; 在 audition 中编辑</li>
+<li>找出有噪音的地方</li>
+<li>效果 -&gt; 降噪&#x2F;恢复 -&gt; 降噪(处理)</li>
+<li>捕捉 噪声样本</li>
+<li>降噪 调低百分比(50% - 60%)</li>
+<li>可以重复降噪 ctrl + R</li>
+</ol>
+<p>消除所有声音：</p>
+<ol>
+<li>选中某段声音</li>
+<li>效果 -&gt; 静音</li>
+</ol>
+<p>声音更大更稳定：</p>
+<ol>
+<li>效果组</li>
+<li>振幅与压限</li>
+<li>语音音量级别</li>
+<li>目标音量级别调至 -15</li>
+<li>电平值 50</li>
+</ol>
+<p>去除部分口水音</p>
+<ol>
+<li>工具栏 -&gt; 污点修复画笔工具</li>
+<li>涂抹即可</li>
+</ol>
+<p>16:9<br>9张长方形的图<br>(320,180) (960,180) (1600,180)<br>(320,540) (960,540) (1600,540)<br>(320,900) (960,900) (1600,900)</p>
+<h2 id="Audition"><a href="#Audition" class="headerlink" title="Audition"></a>Audition</h2><h3 id="屏蔽-b一声"><a href="#屏蔽-b一声" class="headerlink" title="屏蔽 b一声"></a>屏蔽 b一声</h3><p>找到所有覆盖的地方<br>效果<br>生成<br>音调<br>基频880hz<br>形状 三角形&#x2F;锯齿<br>振幅 -50</p>
+<p>注意事项：</p>
+<ol>
+<li>将剪辑置于底层</li>
+<li>淡入淡出</li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/801262be/" class="prev">上一篇</a><a href="/blog/p/9422d617/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/5a8bff59/';
+var disqus_title = 'Adobe-Premiere';
+var disqus_url = 'https://ayou129.github.io/blog/p/5a8bff59/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> RabbitMQ · 阿尤</title><meta name="description" content="RabbitMQ - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">RabbitMQ</h1><div class="post-info">创建于：2019年4月3日<span style="margin-left: 0.5rem"></span>上次更新：2022年10月2日</div><div class="post-content"><p>RabbitMQ基础知识+生产环境所遇到的问题的总结。</p>
+<span id="more"></span>
+<h2 id="RabbitMQ-是什么？"><a href="#RabbitMQ-是什么？" class="headerlink" title="RabbitMQ 是什么？"></a>RabbitMQ 是什么？</h2><p>采用 <code>AMQP(高级消息队列协议)</code> 的一种消息队列技术。</p>
+<h2 id="AMQP的作用"><a href="#AMQP的作用" class="headerlink" title="AMQP的作用"></a>AMQP的作用</h2><ul>
+<li>解耦 <ul>
+<li>例子：用户注册后有一系列操作： 头像剪裁压缩水印、汇总该用户可能认识的人、将用户的整个一体系信息汇总到可视化表中<br>通过消息队列分配给 <code>具有不同单一职责的消费者</code> 进行处理，极大程度上<code>解耦</code>。</li>
+</ul>
+</li>
+<li>异步应用<ul>
+<li>例子：一个请求中使用异步处理可以 <code>缩短请求时间</code>，并且可以 <code>避免一个请求中任何环节出现问题</code> 影响业务逻辑。</li>
+</ul>
+</li>
+<li>流量削峰<ul>
+<li>一天内每个时段系统请求的数量都不同，存在 <code>请求高峰期</code>，对于mq来说，设置合理的消费者每s消费的数量，在不影响系统稳定性的前提下依然能够处理数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="AMQP的缺陷"><a href="#AMQP的缺陷" class="headerlink" title="AMQP的缺陷"></a>AMQP的缺陷</h2><ul>
+<li>降低系统可用性<ul>
+<li>引入外部依赖越多，系统稳定性越低，MQ挂了应用就停滞数据处理，业务造成影响。</li>
+</ul>
+</li>
+<li>系统复杂度提高<ul>
+<li>会出现许多问题，如何保证消息没有重复消费？如何处理消息丢失的情况？如何保证消息传递的顺序性？</li>
+</ul>
+</li>
+<li>一致性问题<ul>
+<li>使用异步消息队列分成若干个小系统，有的系统会处理失败，对用户体验造成影响。</li>
+</ul>
+</li>
+</ul>
+<h2 id="如何选择-各个AMQP产品的对比"><a href="#如何选择-各个AMQP产品的对比" class="headerlink" title="如何选择(各个AMQP产品的对比)"></a>如何选择(各个AMQP产品的对比)</h2><table>
+<thead>
+<tr>
+<th>AMQP</th>
+<th>单机吞吐量</th>
+<th>topic数量对吞吐量的影响</th>
+<th>时效性</th>
+<th>可用性</th>
+<th>消息可靠性</th>
+<th>功能支持</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ActiveMQ</td>
+<td>w级</td>
+<td>-</td>
+<td>毫秒级</td>
+<td>高可用，主从架构</td>
+<td>有较低的概率丢失数据</td>
+<td>MQ领域中的功能及其完备</td>
+</tr>
+<tr>
+<td>RabbitMQ</td>
+<td>w级</td>
+<td>-</td>
+<td>微妙级，低延迟</td>
+<td>高可用，主从架构</td>
+<td>-</td>
+<td>基于erlang开发，并发能力很强，性能好，延时很低</td>
+</tr>
+<tr>
+<td>RockerMQ</td>
+<td>10w级</td>
+<td>topic达到几百、几千的级别，吞吐量会有较小幅度的下降，这是RocketMQ的优势，在同等机器的数量下，可以支持大量的topic</td>
+<td>毫秒级</td>
+<td>非常高，分布式架构</td>
+<td>参数优化后可以0丢失</td>
+<td>MQ功能完善，支持分布式扩招</td>
+</tr>
+<tr>
+<td>Kafka</td>
+<td>10w级</td>
+<td>topic达到几十到几百个的时候，吞吐量会大幅度下降，在同等的机器数量下，Kafka尽量保证topic的数量不要过多，如果需要支持支撑大规模的topic，需要增加机器资源</td>
+<td>延迟在毫秒级以内</td>
+<td>非常高，分布式架构，一个数据多个副本，少数机器宕机，不会丢失数据</td>
+<td>参数优化后可以0丢失</td>
+<td>功能较为简单，支持简单的MQ功能，主要用于大数据领域，如实时计算以及日志采集等场景，缺点就是学习成本高，比如需要额外学习zookeeper(分布式协调服务)</td>
+</tr>
+</tbody></table>
+<p>总结：</p>
+<ul>
+<li><code>ActiveMQ</code> 最早使用，但是没经历过大吞吐场景验证，社区不活跃</li>
+<li><code>RabbitMQ</code> 稳定，高吞吐，适合单机或主从部署</li>
+<li><code>RocketMQ</code> 稳定，阿里出品，进入了Apache基金会，社区活跃，支持分布式</li>
+<li><code>Kafka</code> 稳定，社区活跃，适合大数据领域的实时计算、日志采集等场景，支持分布式</li>
+</ul>
+<h2 id="RabbitMQ-概念"><a href="#RabbitMQ-概念" class="headerlink" title="RabbitMQ 概念"></a>RabbitMQ 概念</h2><img src="/blog/p/b543ced0/exchanges-topic-fanout-direct.png" class="" title="交换器所有的类型(exchanges&#x2F;topic&#x2F;fanout&#x2F;direct)">
+<ul>
+<li><p><code>Broker</code>：简单来说就是消息队列服务器实体。</p>
+</li>
+<li><p><code>Exchange</code>：消息交换机，它指定消息按什么规则，路由到哪个队列。</p>
+</li>
+<li><p><code>Queue</code>：消息队列载体，每个消息都会被投入到一个或多个队列。</p>
+</li>
+<li><p><code>Binding</code>：绑定，它的作用就是把exchange和queue按照路由规则绑定起来。</p>
+</li>
+<li><p><code>Routing Key</code>：路由关键字，exchange根据这个关键字进行消息投递。</p>
+</li>
+<li><p><code>vhost</code>：虚拟主机，一个broker里可以开设多个vhost，用作不同用户的权限分离。</p>
+</li>
+<li><p><code>producer</code>：消息生产者，就是投递消息的程序。</p>
+</li>
+<li><p><code>consumer</code>：消息消费者，就是接受消息的程序。</p>
+</li>
+<li><p><code>Connection</code>：脚本程序 和 amqp程序 之间真实的 <code>TCP</code> 连接。</p>
+</li>
+<li><p><code>Channel</code>：虚拟通道，复用 <code>Connection</code>节省系统开销，可建立多个channel，每个channel代表一个会话任务。</p>
+<blockquote>
+<p>在生产中： 一个 <code>消费者</code> 一个 <code>channel</code>(出于 监听queue 和 消费速度 考虑)，对于 <code>生产者</code> 复用一个 <code>channel</code> 就行。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><ol>
+<li>php脚本(客户端)连接到消息队列服务器(tcp进程)，并打开一个channel(线程)。</li>
+<li>php脚本(客户端)声明一个 exchange、routing key、queue，绑定好其关系并设置相关属性。</li>
+<li>php脚本(客户端)投递消息到exchange。<ul>
+<li>exchange 接收到消息后，就根据消息的 key 和已经设置的 binding，进行消息路由，将消息投递到一个或多个队列里。</li>
+<li>exchange 也有几个类型，完全根据key进行投递的叫做 <code>Direct</code> 交换机，例如，绑定时设置了 routing key 为”abc”，那么客户端提交的消息，只有设置了key为”abc”的才会投递到队列。对key进行模式匹配后进行投递的叫做 <code>Topic</code> 交换机，符号”#”匹配一个或多个词，符号”*”匹配正好一个词。例如”abc.#”匹配”abc.def.ghi”，”abc.*”只匹配”abc.def”。还有一种不需要key的，叫做 <code>Fanout</code> 交换机，它采取广播模式，一个消息进来时，投递到与该交换机绑定的所有队列。</li>
+</ul>
+</li>
+</ol>
+<h3 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h3><blockquote>
+<p>三者都需要开启持久化，缺一不可</p>
+</blockquote>
+<ol>
+<li>交换器持久化 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">                                                        <span class="comment">#持久化bool</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;exchange_declare(<span class="string">&#x27;direct_logs&#x27;</span>, <span class="string">&#x27;direct&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure></li>
+<li>队列持久化 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">                                      <span class="comment">#持久化bool</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;queue_declare(<span class="string">&#x27;hello&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure></li>
+<li>Message持久化 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$msg</span> = <span class="keyword">new</span> AMQPMessage(<span class="string">&#x27;Hello World!&#x27;</span>,[</span><br><span class="line">    <span class="string">&#x27;delivery_mode&#x27;</span> =&gt; AMQPMessage::DELIVERY_MODE_PERSISTENT </span><br><span class="line">]);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="投递失败"><a href="#投递失败" class="headerlink" title="投递失败"></a>投递失败</h3><p>什么情况下产生的？</p>
+<ul>
+<li>生产者将消息 传递到RabbitMQ后PHP故障没有回应，MQ拒收</li>
+</ul>
+<p>解决方案：</p>
+<ul>
+<li>消息失败后记录信息，后台可视化界面判断是否重复发送</li>
+</ul>
+<h3 id="重复消息"><a href="#重复消息" class="headerlink" title="重复消息"></a>重复消息</h3><p>什么情况下产生的？</p>
+<ul>
+<li><p>生产者重复：生产者将消息 传递给到RabbitMQ后，RabbitMQ故障，迟迟没有给生产者确认，生产者可能重复发送。 </p>
+</li>
+<li><p>消费者重复：处理完数据后 RabbitMQ宕机或其他(网络波动，内部错误，超时) 没有及时返回ack</p>
+<hr>
+<hr>
+<p>  <b>详细解释</b>：<br>  在互联网应用中，尤其在网络不稳定的情况下，消息队列RabbitMQ版的消息有可能会出现重复。如果消息重复消费会影响您的业务处理，请对消息做幂等处理。消息重复的可能原因如下：</p>
+<ul>
+<li><p>发送时消息重复</p>
+<blockquote>
+<p>当一条消息已被成功发送到服务端并完成持久化，此时出现了网络闪断或者客户端宕机，导致服务端对客户端应答失败。 如果此时Producer意识到消息发送失败并尝试再次发送消息，Consumer后续会收到两条内容相同并且Message ID也相同的消息。</p>
+</blockquote>
+</li>
+<li><p>投递时消息重复</p>
+<blockquote>
+<p>消息消费的场景下，消息已投递到Consumer并完成业务处理，当客户端给服务端反馈应答的时候网络闪断。为了保证消息至少被消费一次，消息队列RabbitMQ版的服务端将在网络恢复后再次尝试投递之前已被处理过的消息，Consumer后续会收到两条内容相同并且Message ID也相同的消息。</p>
+</blockquote>
+</li>
+<li><p>负载均衡时消息重复（包括但不限于网络抖动、服务端重启以及Consumer应用重启）</p>
+<blockquote>
+<p>当消息队列RabbitMQ版的服务端或客户端重启、扩容或缩容时，会触发Rebalance，此时Consumer可能会收到重复消息。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<p>解决思路：使用幂等性概念解决</p>
+<blockquote>
+<p>幂等性: 执行一次和多次产生的影响均相同</p>
+</blockquote>
+<p>解决方法：</p>
+<ol>
+<li>在数据库中创建一个 <code>含有唯一索引的key</code> 在消费时<code>开启事务</code>并 Insert <code>唯一Message ID</code></li>
+<li>解决重复发送：发送的时候ack确认，生成唯一ID(查询表验证唯一性) 并传递 <code>唯一Message ID</code></li>
+<li>解决重复消费：消费的时候ack确认，并且以唯一 <code>Message ID</code> 判断是否重复消费(Mysql事务)，对于重复投递的消息：<code>记录+不执行+确认ACK</code>，等待管理员判断</li>
+</ol>
+<h3 id="发送者确认模式"><a href="#发送者确认模式" class="headerlink" title="发送者确认模式"></a>发送者确认模式</h3><ol>
+<li><b>无法路由</b>，使用 <code>mandatory = ture</code><ul>
+<li>进而使用备用交换器(声明交换器时，将备用捆绑到主交换器上)，可以将无法路由的 <code>Message</code> 提交，避免无法路由的情况 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">returnCallBack;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><b>可以路由</b>，但是内部异常，使用发送者通知模式 <code>confirmSelect</code>，并且可以使用异步模式<ul>
+<li>成功返回 <code>hack</code></li>
+<li>失败返回 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ConfirmCallBack;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<h3 id="消费者确认模式"><a href="#消费者确认模式" class="headerlink" title="消费者确认模式"></a>消费者确认模式</h3><ol>
+<li><p><code>get</code> 手动确认</p>
+</li>
+<li><p><code>consume</code> 自动确认<br> 可以返回 <code>reject</code> 拒绝该 <code>Message</code>，拒绝后，进入队列中重新分发，可以声明并进入到 死信队列</p>
+<blockquote>
+<p>死信队列(声明队列时)：1.消息过期 2.队列过期 3.队列消息数满了，后续的进入死信队列</p>
+</blockquote>
+</li>
+<li><p><code>ack</code> 单条数据执行成功，返回已执行标识 </p>
+</li>
+<li><p><code>nack</code> 单条数据执行失败，返回未执行标识</p>
+</li>
+</ol>
+<h3 id="死信Exchange"><a href="#死信Exchange" class="headerlink" title="死信Exchange"></a>死信Exchange</h3><blockquote>
+<p><a href="https://help.aliyun.com/document_detail/148081.htm?spm=a2c4g.11186623.0.0.44e61cf4zhvLbh#concept-2341972" target="_blank" rel="noopener">https://help.aliyun.com/document_detail/148081.htm?spm=a2c4g.11186623.0.0.44e61cf4zhvLbh#concept-2341972</a></p>
+</blockquote>
+<p><code>死信Exchange</code>适用于处理被消费者否定应答或重试失败的消息。</p>
+<img src="/blog/p/b543ced0/%E6%AD%BB%E4%BF%A1.png" class="" title="死信">
+<p>消息变成死信消息的可能原因如下：</p>
+<ul>
+<li>requeue参数被设置为true，消息重试超过16次，消息重试失败</li>
+<li>requeue参数被设置为false，消费者使用basic.reject或basic.nack否定应答（NACK）消息。</li>
+</ul>
+<div class="tip">
+注意 过期消息或超过队列最大长度被丢弃的消息不会成为死信消息。
+</div>
+
+<p>路由流程：</p>
+<ol>
+<li>消费者消费失败后消息重试次数超过16次依然没有成功，或者消费者没有消费消息而直接否定应答，消息变成死信消息。</li>
+<li>Queue根据x-dead-letter-exchange将死信消息发送到死信Exchange，并根据x-dead-letter-routing-key为死信消息设置死信Routing Key。</li>
+<li>死信Exchange将死信消息路由到死信Queue。</li>
+</ol>
+<h3 id="延时队列"><a href="#延时队列" class="headerlink" title="延时队列"></a>延时队列</h3><ul>
+<li><p>简介:带有延迟功能的消息队列</p>
+</li>
+<li><p>用处:</p>
+<ol>
+<li>订单未支付，自动更新为 <code>过期</code> 状态</li>
+<li>支付相关的分频通知请求</li>
+</ol>
+</li>
+<li><p>使用方式:</p>
+<ul>
+<li>使用Rabbitmq中的插件 <code>rabbitmq_delayed_message_exchange</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="发布消息时的权衡"><a href="#发布消息时的权衡" class="headerlink" title="发布消息时的权衡"></a>发布消息时的权衡</h2><h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><ol>
+<li>有严重的性能问题(降低2-10倍的性能)</li>
+<li>使生产者应用产生同步</li>
+</ol>
+<p>解决方案：</p>
+<ol>
+<li>开启失败通知 <code>mandatory</code> ，解决无法路由的问题</li>
+<li>开启发送方确认模式，交换器将信件通过路由交给队列时，通知生产者投递成功<ul>
+<li>揽收成功 ack</li>
+<li>发生内部错误无法投递进入队列 nack</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.开启失败通知</span></span><br><span class="line"><span class="comment">#2.开启发送方确认模式confirmSelect</span></span><br><span class="line"><span class="comment">#3.批量确认waitForConfirmsOrDie</span></span><br><span class="line"><span class="comment">#4.开启异步模式addConfirmListener，不添加就是同步</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_publish(<span class="variable">$msg</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;hello&#x27;</span>,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
+<li><code>1线程</code> 对应 <code>1信道</code>，<code>n线程</code> 共享 <code>1TCP连接</code></li>
+<li>消息需要确认，如果一直不确认，则会一直存在</li>
+<li>多个消费者共同绑定多个交换器，MQ会轮询消费者</li>
+<li>生产者发送message，没有路由键匹配和相应的配置(<code>mandatory=true</code>打开发消息时的失败通知)，则会被丢弃<br> 无法获取消息是否发送成功 的状态 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第四个参数 $mandatory 开启失败通知</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_publish(<span class="variable">$msg</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;hello&#x27;</span>,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure></li>
+<li>如果exchange和queue都是持久化的，那么它们之间的binding也是持久化的。如果exchange和queue两者之间有一个持久化，一个非持久化，就不允许建立绑定。</li>
+<li>当路由键找不到主交换器时(无法路由)，进入备用交换器进行消费</li>
+</ol>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
+<p><a href="https://www.rabbitmq.com/install-rpm.html" target="_blank" rel="noopener">https://www.rabbitmq.com/install-rpm.html</a><br><a href="https://github.com/rabbitmq/rabbitmq-server" target="_blank" rel="noopener">https://github.com/rabbitmq/rabbitmq-server</a><br><a href="https://github.com/rabbitmq/rabbitmq-server/releases" target="_blank" rel="noopener">https://github.com/rabbitmq/rabbitmq-server/releases</a></p>
+</blockquote>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">#安装依赖</span><br><span class="line">yum install -y socat logrotate </span><br><span class="line"></span><br><span class="line">#安装erlang</span><br><span class="line">yum install -y erlang-R16B-<span class="number">03</span>.<span class="number">18</span>.el7.x86_64 epel-release</span><br><span class="line"></span><br><span class="line">#安装rabbitmq-server</span><br><span class="line"><span class="built_in">cd</span> /usr/local/src &amp;&amp; wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.<span class="number">6</span>.<span class="number">6</span>/rabbitmq-server-<span class="number">3</span>.<span class="number">6</span>.<span class="number">6</span>-<span class="number">1</span>.el7.noarch.rpm</span><br><span class="line">yum install –y rabbitmq-server-<span class="number">3</span>.<span class="number">6</span>.<span class="number">6</span>-<span class="number">1</span>.el7.noarch.rpm</span><br><span class="line"></span><br><span class="line">#开机自启</span><br><span class="line">chkconfig rabbitmq-server on</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#使用命令：<span class="built_in">start</span>|stop|restart|try-restart|reload|force-reload|status</span><br><span class="line">service rabbitmq-server 命令</span><br><span class="line">##开机自启后，就需要使用下方的命令重启一次服务，生成cookie</span><br><span class="line">systemctl restart rabbitmq-server.service</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#复制配置文件</span><br><span class="line">cp /usr/share/doc/rabbitmq-server-<span class="number">3</span>.<span class="number">6</span>.<span class="number">6</span>/rabbitmq.config.example /etc/rabbitmq/rabbitmq.config</span><br><span class="line"></span><br><span class="line">#修改配置文件</span><br><span class="line">#使任意的ip都可以使用guest账号访问(待验证)</span><br><span class="line">loopback_users(待验证)</span><br><span class="line">#打开端口(待验证)</span><br><span class="line">&#123;rabbitmq_management,</span><br><span class="line">     &#123;listener, [&#123;port,     <span class="number">15672</span>&#125;]&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#开启端口 RabbitMQ常用端口：client端通信端口： <span class="number">5672</span>      管理端口 ： <span class="number">15672</span>   server间内部通信端口： <span class="number">25672</span></span><br><span class="line">##查看服务器<span class="number">80</span>端口是否打开</span><br><span class="line">firewall-<span class="built_in">cmd</span> --query-port=<span class="number">15672</span>/tcp </span><br><span class="line"></span><br><span class="line">##--permanent #打开<span class="number">80</span>端口，`--permanent`永久生效，没有此参数重启后失效</span><br><span class="line">firewall-<span class="built_in">cmd</span> --add-port=<span class="number">15672</span>/tcp --permanent</span><br><span class="line">firewall-<span class="built_in">cmd</span> --add-port=<span class="number">5672</span>/tcp --permanent</span><br><span class="line">firewall-<span class="built_in">cmd</span> --add-port=<span class="number">25672</span>/tcp --permanent</span><br><span class="line">firewall-<span class="built_in">cmd</span> --add-port=<span class="number">4369</span>/tcp --permanent</span><br><span class="line"></span><br><span class="line">#重启防火墙</span><br><span class="line">systemctl restart firewalld</span><br></pre></td></tr></table></figure>
+<h3 id="安装目录"><a href="#安装目录" class="headerlink" title="安装目录"></a>安装目录</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/share/doc/rabbitmq-server-3.6.6</span><br></pre></td></tr></table></figure>
+<h3 id="rabbitmq-plugins"><a href="#rabbitmq-plugins" class="headerlink" title="rabbitmq-plugins"></a>rabbitmq-plugins</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#查看所有插件 以及 状态</span><br><span class="line">rabbitmq-plugins list</span><br><span class="line"></span><br><span class="line">#开启插件</span><br><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line"></span><br><span class="line">#先安装界面管理工具再配置(rabbitmq_management)</span><br><span class="line">#增加用户 rmq150，增加后就可以使用management登陆了</span><br><span class="line">rabbitmqctl add_user rmq150 rmq150</span><br><span class="line">rabbitmqctl set_user_tags rmq150 administrator</span><br><span class="line"></span><br><span class="line">默认浏览器访问端口：`http://localhost:15672/#/`</span><br><span class="line">默认账号密码：guest/guest</span><br></pre></td></tr></table></figure>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#开启管理界面</span><br><span class="line">#日志一般放在：</span><br><span class="line">    /var/log/rabbitmq/rabbit@centosvm.log</span><br><span class="line">    /var/log/rabbitmq/rabbit@centosvm-sasl.log</span><br><span class="line"></span><br><span class="line">#管理虚拟主机 </span><br><span class="line">    rabbitmqctl add_vhost [vhost_name] </span><br><span class="line">    rabbitmqctl list_vhosts </span><br><span class="line"></span><br><span class="line">#启动和关闭rabbitmq</span><br><span class="line">    rabbitmq-server 会启动Erlang节点和Rabbitmq应用</span><br><span class="line">    rabbitmqctl stop 会关闭Erlang节点和Rabbitmq应用</span><br><span class="line">    rabbitmqctl stop_app 关闭Rabbitmq应用</span><br><span class="line">    rabbitmqctl start_app 启动Rabbitmq应用</span><br><span class="line"></span><br><span class="line">#用户管理</span><br><span class="line">    rabbitmqctl add_user [username] [pwd]</span><br><span class="line">    rabbitmqctl delete_user [username]</span><br><span class="line"></span><br><span class="line">#用户权限控制</span><br><span class="line">    rabbitmqctl set_permissions [-p &lt;vhostpath&gt;] &lt;user&gt; &lt;conf&gt; &lt;write&gt; &lt;read&gt;</span><br><span class="line"></span><br><span class="line">#如用户Mark在虚拟主机logHost上的所有权限：</span><br><span class="line">    rabbitmqctl set_permissions –p logHost Mark  “.*” “.*” “.*” </span><br><span class="line"></span><br><span class="line">查看队列</span><br><span class="line">rabbitmqctl list_queues</span><br><span class="line"></span><br><span class="line">查看交换器</span><br><span class="line">rabbitmqctl list_exchanges</span><br><span class="line"></span><br><span class="line">查看绑定</span><br><span class="line">rabbitmqctl list_bindings</span><br></pre></td></tr></table></figure>
+
+<h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><p>优势：</p>
+<ol>
+<li>负载均衡</li>
+</ol>
+<p>注意事项：</p>
+<ol>
+<li>只能在同一机房下的局域网中配置</li>
+<li>集群节点有两种类型：磁盘节点、内存节点(–ram)</li>
+</ol>
+<h3 id="第一步-hosts，并且hosts需要可执行-chmod-777-etc-hosts"><a href="#第一步-hosts，并且hosts需要可执行-chmod-777-etc-hosts" class="headerlink" title="第一步 hosts，并且hosts需要可执行 chmod 777 /etc/hosts"></a>第一步 hosts，并且hosts需要可执行 <code>chmod 777 /etc/hosts</code></h3><blockquote>
+<p>如果不填写的话，能配置成功，但是集群是不通信的</p>
+</blockquote>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#有多少个集群就需要配置多少个地址-&gt;节点</span><br><span class="line">#每个机器下面都需要写同一份配置</span><br><span class="line"></span><br><span class="line">192.168.3.160 ip160</span><br><span class="line">192.168.3.161 ip161</span><br><span class="line">192.168.3.162 ip162</span><br><span class="line">192.168.3.163 ip163</span><br></pre></td></tr></table></figure>
+
+<h3 id="第二步-ls-l-var-lib-rabbitmq-erlang-cookie，需要与所有的集群机器一致"><a href="#第二步-ls-l-var-lib-rabbitmq-erlang-cookie，需要与所有的集群机器一致" class="headerlink" title="第二步 ls -l /var/lib/rabbitmq/.erlang.cookie，需要与所有的集群机器一致"></a>第二步 <code>ls -l /var/lib/rabbitmq/.erlang.cookie</code>，需要与所有的集群机器一致</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">修改的时候，需要设置 `chmod 777`</span><br><span class="line">修改后，需要设置成 `chmod 400`</span><br></pre></td></tr></table></figure>
+<h3 id="第三步-开启tcp和udp"><a href="#第三步-开启tcp和udp" class="headerlink" title="第三步 开启tcp和udp"></a>第三步 开启tcp和udp</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --add-port=15672/tcp --permanent</span><br><span class="line">firewall-cmd --add-port=5672/tcp --permanent</span><br><span class="line">firewall-cmd --add-port=25672/tcp --permanent</span><br><span class="line">firewall-cmd --add-port=4369/tcp --permanent</span><br><span class="line">systemctl restart firewalld  #重启防火墙</span><br></pre></td></tr></table></figure>
+<h3 id="第四步-添加环境变量文件"><a href="#第四步-添加环境变量文件" class="headerlink" title="第四步 添加环境变量文件"></a>第四步 添加环境变量文件</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rabbitmq/rabbitmq-env.conf</span><br><span class="line"></span><br><span class="line">NODENAME=rabbit@ipXXX</span><br></pre></td></tr></table></figure>
+
+<h3 id="第五步-添加集群"><a href="#第五步-添加集群" class="headerlink" title="第五步 添加集群"></a>第五步 添加集群</h3><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl stop_app</span><br><span class="line"></span><br><span class="line">rabbitmqctl reset</span><br><span class="line"></span><br><span class="line">rabbitmqctl join_cluster rabbit@ip161 --ram</span><br><span class="line"></span><br><span class="line">rabbitmqctl start_app</span><br></pre></td></tr></table></figure>
+
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><ol>
+<li>运行rabbitmqctl status出现Error: unable to connect to node rabbit@controller: nodedown之类问题考虑如下几种解决办法：<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、重启服务</span><br><span class="line">service rabbitmq-server stop</span><br><span class="line">service rabbitmq-server start</span><br><span class="line"></span><br><span class="line">2、检查/var/lib/rabbitmq中是否存在.erlang.cookie，没有则新建一个，里面随便输入一段字符串</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 报错Server ack<span class="symbol">&#x27;ed</span> unknown delivery_tag <span class="string">&quot;2&quot;</span></span><br><span class="line">循环publisher时， $this<span class="punctuation">-&gt;</span>channel<span class="punctuation">-&gt;</span><span class="title function_ invoke__">confirm_select</span>();要首先执行，不能嵌入</span><br></pre></td></tr></table></figure></div></article></div></main><footer><div class="paginator"><a href="/blog/p/b829b66a/" class="prev">上一篇</a><a href="/blog/p/aaeff957/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/b543ced0/';
+var disqus_title = 'RabbitMQ';
+var disqus_url = 'https://ayou129.github.io/blog/p/b543ced0/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

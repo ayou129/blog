@@ -1,0 +1,838 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Mysql · 阿尤</title><meta name="description" content="Mysql - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Mysql</h1><div class="post-info">创建于：2018年6月2日<span style="margin-left: 0.5rem"></span>上次更新：2022年10月15日</div><div class="post-content"><p>Mysql基础知识+生产环境所遇到的问题的总结，由于不同版本不断迭代，慢慢补充…</p>
+<span id="more"></span>
+
+<h2 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h2><p>省略…</p>
+<h3 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h3><p>通配符也是用在过滤语句中，但它只能用于文本字段。</p>
+<ul>
+<li>% 匹配 &gt;&#x3D;0 个任意字符；</li>
+<li>_ 匹配 &#x3D;&#x3D;1 个任意字符；</li>
+<li>[] 可以匹配集合内的字符，例如 [ab] 将匹配字符 a 或者 b。用脱字符 ^ 可以对其进行否定，也就是不匹配集合内的字符。</li>
+</ul>
+<p>使用 Like 来进行通配符匹配。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span></span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">WHERE</span> col <span class="keyword">LIKE</span> <span class="string">&#x27;[^AB]%&#x27;</span>; <span class="comment">-- 不以 A 和 B 开头的任意文本</span></span><br></pre></td></tr></table></figure>
+<h3 id="计算字段"><a href="#计算字段" class="headerlink" title="计算字段"></a>计算字段</h3><p>CONCAT() 用于连接两个字段。许多数据库会使用空格把一个值填充为列宽，因此连接的结果会出现一些不必要的空格，使用 TRIM() 可以去除首尾空格。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> CONCAT(TRIM(col1), <span class="string">&#x27;(&#x27;</span>, TRIM(col2), <span class="string">&#x27;)&#x27;</span>) <span class="keyword">AS</span> concat_col</span><br><span class="line"><span class="keyword">FROM</span> mytable;</span><br></pre></td></tr></table></figure>
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AVG()</td>
+<td>返回某列的平均值</td>
+</tr>
+<tr>
+<td>COUNT()</td>
+<td>返回某列的行数</td>
+</tr>
+<tr>
+<td>MAX()</td>
+<td>返回某列的最大值</td>
+</tr>
+<tr>
+<td>MIN()</td>
+<td>返回某列的最小值</td>
+</tr>
+<tr>
+<td>SUM()</td>
+<td>返回某列值之和</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Tips:AVG() 会忽略 NULL 行。</p>
+</blockquote>
+<p>使用 DISTINCT(去重) 可以汇总不同的值。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">AVG</span>(<span class="keyword">DISTINCT</span> col1) <span class="keyword">AS</span> avg_col</span><br><span class="line"><span class="keyword">FROM</span> mytable;</span><br></pre></td></tr></table></figure>
+<h3 id="分组"><a href="#分组" class="headerlink" title="分组"></a>分组</h3><p>把具有相同的数据值的行放在同一组中。</p>
+<p>可以对同一分组数据使用汇总函数进行处理，例如求分组数据的平均值等。</p>
+<p>指定的分组字段除了能按该字段进行分组，也会自动按该字段进行排序。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> col, <span class="built_in">COUNT</span>(*) <span class="keyword">AS</span> num</span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> col;</span><br></pre></td></tr></table></figure>
+
+<p>GROUP BY 自动按分组字段进行排序，ORDER BY 也可以按汇总字段来进行排序。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> col, <span class="built_in">COUNT</span>(*) <span class="keyword">AS</span> num</span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> col</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> num;</span><br></pre></td></tr></table></figure>
+
+<p>WHERE 过滤行，HAVING 过滤分组，行过滤应当先于分组过滤。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> col, <span class="built_in">COUNT</span>(*) <span class="keyword">AS</span> num</span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">WHERE</span> col &gt; <span class="number">2</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> col</span><br><span class="line"><span class="keyword">HAVING</span> num &gt;= <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>分组规定：</p>
+<ul>
+<li>GROUP BY 子句出现在 WHERE 子句之后，ORDER BY 子句之前；</li>
+<li>除了汇总字段外，SELECT 语句中的每一字段都必须在 GROUP BY 子句中给出；</li>
+<li>NULL 的行会单独分为一组；</li>
+<li>大多数 SQL 实现不支持 GROUP BY 列具有可变长度的数据类型。</li>
+</ul>
+<h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>子查询中只能返回一个字段的数据。</p>
+<p>可以将子查询的结果作为 WHRER 语句的过滤条件：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> mytable1</span><br><span class="line"><span class="keyword">WHERE</span> col1 <span class="keyword">IN</span> (<span class="keyword">SELECT</span> col2</span><br><span class="line"><span class="keyword">FROM</span> mytable2);</span><br></pre></td></tr></table></figure>
+
+<p>下面的语句可以检索出客户的订单数量，子查询语句会对第一个查询检索出的每个客户执行一次：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> cust_name, (<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(*)</span><br><span class="line"><span class="keyword">FROM</span> Orders</span><br><span class="line"><span class="keyword">WHERE</span> Orders.cust_id = Customers.cust_id)</span><br><span class="line"><span class="keyword">AS</span> orders_num</span><br><span class="line"><span class="keyword">FROM</span> Customers</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> cust_name;</span><br></pre></td></tr></table></figure>
+
+<h3 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h3><p>连接用于连接多个表，使用 JOIN 关键字，并且条件语句使用 ON 而不是 WHERE。</p>
+<p>连接可以替换子查询，并且比子查询的效率一般会更快。</p>
+<p>可以用 AS 给列名、计算字段和表名取别名，给表名取别名是为了简化 SQL 语句以及连接相同表。</p>
+<h4 id="内连接"><a href="#内连接" class="headerlink" title="内连接"></a>内连接</h4><p>内连接又称等值连接，使用 INNER JOIN 关键字。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> A.<span class="keyword">value</span>, B.<span class="keyword">value</span></span><br><span class="line"><span class="keyword">FROM</span> tablea <span class="keyword">AS</span> A <span class="keyword">INNER</span> <span class="keyword">JOIN</span> tableb <span class="keyword">AS</span> B</span><br><span class="line"><span class="keyword">ON</span> A.<span class="keyword">key</span> = B.<span class="keyword">key</span>;</span><br></pre></td></tr></table></figure>
+
+<p>可以不明确使用 INNER JOIN，而使用普通查询并在 WHERE 中将两个表中要连接的列用等值方法连接起来。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> A.<span class="keyword">value</span>, B.<span class="keyword">value</span></span><br><span class="line"><span class="keyword">FROM</span> tablea <span class="keyword">AS</span> A, tableb <span class="keyword">AS</span> B</span><br><span class="line"><span class="keyword">WHERE</span> A.<span class="keyword">key</span> = B.<span class="keyword">key</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h4><p>自连接可以看成内连接的一种，只是连接的表是自身而已。</p>
+<p>一张员工表，包含员工姓名和员工所属部门，要找出与 Jim 处在同一部门的所有员工姓名。</p>
+<p>子查询版本</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="type">name</span></span><br><span class="line"><span class="keyword">FROM</span> employee</span><br><span class="line"><span class="keyword">WHERE</span> department = (</span><br><span class="line"><span class="keyword">SELECT</span> department</span><br><span class="line"><span class="keyword">FROM</span> employee</span><br><span class="line"><span class="keyword">WHERE</span> <span class="type">name</span> = &quot;Jim&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>自连接版本</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e1.name</span><br><span class="line"><span class="keyword">FROM</span> employee <span class="keyword">AS</span> e1 <span class="keyword">INNER</span> <span class="keyword">JOIN</span> employee <span class="keyword">AS</span> e2</span><br><span class="line"><span class="keyword">ON</span> e1.department = e2.department</span><br><span class="line"><span class="keyword">AND</span> e2.name = &quot;Jim&quot;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="自然连接"><a href="#自然连接" class="headerlink" title="自然连接"></a>自然连接</h4><p>自然连接是把同名列通过等值测试连接起来的，同名列可以有多个。</p>
+<p>内连接和自然连接的区别：内连接提供连接的列，而自然连接自动连接所有同名列。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> A.<span class="keyword">value</span>, B.<span class="keyword">value</span></span><br><span class="line"><span class="keyword">FROM</span> tablea <span class="keyword">AS</span> A <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> tableb <span class="keyword">AS</span> B;</span><br></pre></td></tr></table></figure>
+
+<h4 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h4><p>外连接保留了没有关联的那些行。分为左外连接，右外连接以及全外连接，左外连接就是保留左表没有关联的行。</p>
+<p>检索所有顾客的订单信息，包括还没有订单信息的顾客。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Customers.cust_id, Customer.cust_name, Orders.order_id</span><br><span class="line"><span class="keyword">FROM</span> Customers <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> Orders</span><br><span class="line"><span class="keyword">ON</span> Customers.cust_id = Orders.cust_id;</span><br></pre></td></tr></table></figure>
+<p>customers 表：</p>
+<p>cust_id	cust_name<br>1	a<br>2	b<br>3	c<br>orders 表：</p>
+<p>order_id	cust_id<br>1	1<br>2	1<br>3	3<br>4	3<br>结果：</p>
+<p>cust_id	cust_name	order_id<br>1	a	1<br>1	a	2<br>3	c	3<br>3	c	4<br>2	b	Null</p>
+<h3 id="组合查询"><a href="#组合查询" class="headerlink" title="组合查询"></a>组合查询</h3><p>使用 UNION 来组合两个查询，如果第一个查询返回 M 行，第二个查询返回 N 行，那么组合查询的结果一般为 M+N 行。</p>
+<p>每个查询必须包含相同的列、表达式和聚集函数。</p>
+<p>默认会去除相同行，如果需要保留相同行，使用 UNION ALL。</p>
+<p>只能包含一个 ORDER BY 子句，并且必须位于语句的最后。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> col</span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">WHERE</span> col = <span class="number">1</span></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> col</span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">WHERE</span> col =<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h3><p>视图是虚拟的表，本身不包含数据，也就不能对其进行索引操作。</p>
+<p>对视图的操作和对普通表的操作一样。</p>
+<p>视图具有如下好处：</p>
+<p>简化复杂的 SQL 操作，比如复杂的连接；<br>只使用实际表的一部分数据；<br>通过只给用户访问视图的权限，保证数据的安全性；<br>更改数据格式和表示。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> myview <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> Concat(col1, col2) <span class="keyword">AS</span> concat_col, col3*col4 <span class="keyword">AS</span> compute_col</span><br><span class="line"><span class="keyword">FROM</span> mytable</span><br><span class="line"><span class="keyword">WHERE</span> col5 = val;</span><br></pre></td></tr></table></figure>
+
+<h3 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h3><p>使用存储过程的好处：</p>
+<p>代码封装，保证了一定的安全性；<br>代码复用；<br>由于是预先编译，因此具有很高的性能。<br>命令行中创建存储过程需要自定义分隔符，因为命令行是以 ; 为结束符，而存储过程中也包含了分号，因此会错误把这部分分号当成是结束符，造成语法错误。</p>
+<p>包含 in、out 和 inout 三种参数。</p>
+<p>给变量赋值都需要用 select into 语句。</p>
+<p>每次只能给一个变量赋值，不支持集合的操作。</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">delimiter <span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="function"><span class="keyword">procedure</span> <span class="title">myprocedure</span><span class="params">( <span class="keyword">out</span> ret int )</span></span></span><br><span class="line"><span class="function"><span class="title">begin</span></span></span><br><span class="line"><span class="function"><span class="title">declare</span> <span class="title">y</span> <span class="title">int</span>;</span></span><br><span class="line"><span class="keyword">select</span> sum(col1)</span><br><span class="line"><span class="keyword">from</span> mytable</span><br><span class="line"><span class="keyword">into</span> y;</span><br><span class="line"><span class="keyword">select</span> y*y <span class="keyword">into</span> ret;</span><br><span class="line"><span class="keyword">end</span> <span class="comment">//</span></span><br><span class="line">delimiter ;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">call</span> <span class="selector-tag">myprocedure</span>(<span class="variable">@ret</span>);</span><br><span class="line"><span class="selector-tag">select</span> @<span class="selector-tag">ret</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h3><ul>
+<li>考点1：INT(11): 对大多数应用没有意义，他不会限制值的合法范围，只会影响显示字符的个数 也就是 <code>宽度</code>，长度范围是随数据类型就已经是固定的值，而显示宽度与长度范围无关。</li>
+<li>考点2：unsigned</li>
+<li>考点3：范围计算：<ul>
+<li>每个字节[byte(B)]有8个位[bit(b)]，一个位(b)就代表一个0或者1，也就是2的次幂</li>
+<li>INT 是4个字节 &#x3D; 4*8b &#x3D; 2的32次方</li>
+<li>4294967296 减去 一个0是 4294967295</li>
+<li>如果 <code>存储值</code> 超过了 定义的范围，分情况：<code>启用严格模式</code>，报错，插入失败。<code>禁用严格模式</code>，值可以插入，但是会被裁剪成 <code>定义的最大值</code></li>
+<li>存储浮点数值 先看安全性<ul>
+<li>高安全性 选decimal</li>
+<li>低安全性<ul>
+<li>如果需要存储的数值对精度要求不高时，选用float，否者选double</li>
+<li>如果需要存储的数值对精度要求不高时，选用float，否者选double</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>大小</th>
+<th>范围（默认有符号）</th>
+<th>范围（unsigned）</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>整数值(极小) TINYINT</td>
+<td>1 字节</td>
+<td>(-128，127)</td>
+<td>(0，255)</td>
+<td></td>
+</tr>
+<tr>
+<td>整数值(小) SMALLINT</td>
+<td>2 字节</td>
+<td>(-32 768，32 767)</td>
+<td>(0，65 535)</td>
+<td></td>
+</tr>
+<tr>
+<td>整数值(中等) MEDIUMINT</td>
+<td>3 字节</td>
+<td>(-8 388 608，8 388 607)</td>
+<td>(0，16 777 215)</td>
+<td></td>
+</tr>
+<tr>
+<td>整数值 INT或INTEGER</td>
+<td>4 字节</td>
+<td>(-2 147 483 648，2 147 483 647)</td>
+<td>(0，4 294 967 295)</td>
+<td></td>
+</tr>
+<tr>
+<td>整数值(大) BIGINT</td>
+<td>8 字节</td>
+<td>(-9,223,372,036,854,775,808，9 223 372 036 854 775 807)</td>
+<td>(0，18 446 744 073 709 551 615)</td>
+<td></td>
+</tr>
+<tr>
+<td>浮点数值(单精度) FLOAT</td>
+<td>4 字节</td>
+<td>(-3.402 823 466 E+38，-1.175 494 351 E-38)，<br>0，<br>(1.175 494 351 E-38，3.402 823 466 351 E+38)</td>
+<td>0，<br>(1.175 494 351 E-38，3.402 823 466 E+38)</td>
+<td></td>
+</tr>
+<tr>
+<td>浮点数值(双精度)DOUBLE</td>
+<td>8 字节</td>
+<td>(-1.797 693 134 862 315 7 E+308，-2.225 073 858 507 201 4 E-308)，<br>0，<br>(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td>0，<br>(2.225 073 858 507 201 4 E-308，1.797 693 134 862 315 7 E+308)</td>
+<td></td>
+</tr>
+<tr>
+<td>小数值 DECIMAL</td>
+<td>对DECIMAL(M,D) ，如果M&gt;D，为M+2否则为D+2</td>
+<td>依赖于M和D的值</td>
+<td>依赖于M和D的值</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>补充：FLOAT、DOUBLE 和 DECIMAL 都可以指定列宽，例如 DECIMAL(18, 9) 表示总共 18 位，取 9 位存储小数部分，剩下 9 位存储整数部分。</p>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><ul>
+<li>考点1：char适合较短、定长、经常变更的字符串</li>
+<li>考点2：尽量避免使用BLOB和TEXT类型，查询会使用临时表，消耗性能</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>大小</th>
+<th>用途</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CHAR</td>
+<td>0-255字节</td>
+<td>定长字符串</td>
+<td>提取比Varchar效率高<br>会用空格填充</td>
+</tr>
+<tr>
+<td>VARCHAR</td>
+<td>0-65535 字节</td>
+<td>变长字符串</td>
+<td>比定长节省空间，<br>&lt;255会用一个字节存字符串的长度，<br>&gt;255会用两个字节 <br> <font color="red"><b>超过宽度会截断</b></font></td>
+</tr>
+<tr>
+<td>TINYBLOB</td>
+<td>0-255字节</td>
+<td>不超过 255 个字符的二进制字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>TINYTEXT</td>
+<td>0-255字节</td>
+<td>短文本字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>BLOB</td>
+<td>0-65 535字节</td>
+<td>二进制形式的长文本数据</td>
+<td><font color="red"><b>尽量少用</b></font></td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>0-65 535字节</td>
+<td>长文本数据</td>
+<td><font color="red"><b>尽量少用</b></font></td>
+</tr>
+<tr>
+<td>MEDIUMBLOB</td>
+<td>0-16 777 215字节</td>
+<td>二进制形式的中等长度文本数据</td>
+<td></td>
+</tr>
+<tr>
+<td>MEDIUMTEXT</td>
+<td>0-16 777 215字节</td>
+<td>中等长度文本数据</td>
+<td></td>
+</tr>
+<tr>
+<td>LONGBLOB</td>
+<td>0-4 294 967 295字节</td>
+<td>二进制形式的极大文本数据</td>
+<td></td>
+</tr>
+<tr>
+<td>LONGTEXT</td>
+<td>0-4 294 967 295字节</td>
+<td>极大文本数据</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h3><ul>
+<li>考点1：可以使用枚举类型替换常用的字符串，比如性别：男女保密 123，</li>
+<li>考点2：枚举类型会减少表的大小，因为内部是按照数字存储的，而且每个<ul>
+<li>NULL   索引是NULL</li>
+<li>‘’     索引是0</li>
+<li>‘one’  索引是1</li>
+<li>其他值依次类推  索引是2.3….</li>
+</ul>
+</li>
+<li>考点3：不建议用数字保存到ENUM列，数字被视为索引，并且保存的值是该索引对应的枚举成员，很容易引起混淆<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">enum(&#x27;男&#x27;,&#x27;女&#x27;),</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="日期类型"><a href="#日期类型" class="headerlink" title="日期类型"></a>日期类型</h3><ul>
+<li>考点1：<font color="red"><b>优先使用timestamp</b></font>，比datatime空间效率高，而且有专有的自动更新特性</li>
+<li>考点2：用整数保存时间戳的格式通常不方便处理</li>
+<li>考点3：存储微妙，使用bigint</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>大小(字节)</th>
+<th>范围</th>
+<th>格式</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DATE</td>
+<td>3</td>
+<td>1000-01-01&#x2F;9999-12-31</td>
+<td>YYYY-MM-DD</td>
+<td>日期值</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>3</td>
+<td>‘-838:59:59’&#x2F;‘838:59:59’</td>
+<td>HH:MM:SS</td>
+<td>时间值或持续时间</td>
+</tr>
+<tr>
+<td>YEAR</td>
+<td>1</td>
+<td>1901&#x2F;2155</td>
+<td>YYYY</td>
+<td>年份值</td>
+</tr>
+<tr>
+<td>DATETIME</td>
+<td>8</td>
+<td>1000-01-01 00:00:00&#x2F;9999-12-31 23:59:59</td>
+<td>YYYY-MM-DD HH:MM:SS</td>
+<td>混合日期和时间值</td>
+</tr>
+<tr>
+<td>TIMESTAMP</td>
+<td>4</td>
+<td>1970-01-01 00:00:00&#x2F;2038-1-19 11:14:07</td>
+<td>YYYYMMDD HHMMSS</td>
+<td>混合日期和时间值，UNIX 时间戳</td>
+</tr>
+</tbody></table>
+<h3 id="列属性"><a href="#列属性" class="headerlink" title="列属性"></a>列属性</h3><ul>
+<li>auto_increment</li>
+<li>default</li>
+<li>not NULL</li>
+<li>zerofill</li>
+</ul>
+<h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>Engine|事务|锁级别|外键|热备份|全文索引|系统崩溃后安全恢复|存储方式|说明<br>-|-|-|-|-<br>InnoDB(default)|支持|行锁-支持更高的并发|支持|支持||支持|.frm文件：与该表相关的元数据信息、表结构的定义信息等。 <br>.ibd文件：与该表相关的数据、索引、表的内部数据字典信息。|默认的事务型存储引擎，只有需要用到它不支持的特性时，才考虑使用其它存储引擎<br>MyISAM||表锁|||支持||MYD(数据文件) <br>MYI(索引文件)|非事务处理存储引擎<br>MEMORY||表锁|||||全部数据放在内存中|访问速度较快，但是系统崩溃的话数据都会丢失。<br>CSV||||||||主要存储的是.csv格式的文本数据，可以直接打开存储的文件进行编辑。</p>
+<h3 id="InnoDB补充"><a href="#InnoDB补充" class="headerlink" title="InnoDB补充"></a>InnoDB补充</h3><p>主索引是聚簇索引，在索引中保存了数据，从而避免直接读取磁盘，因此对查询性能有很大的提升。</p>
+<p>内部做了很多优化，包括从磁盘读取数据时采用的可预测性读、能够加快读操作并且自动创建的自适应哈希索引、能够加速插入操作的插入缓冲区等。</p>
+<p>支持真正的在线热备份。其它存储引擎不支持在线热备份，要获取一致性视图需要停止对所有表的写入，而在读写混合场景中，停止写入可能也意味着停止读取。</p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>事务指的是满足 ACID 特性的一组操作，可以通过 Commit 提交一个事务，也可以使用 Rollback 进行回滚。</p>
+<h3 id="ACID"><a href="#ACID" class="headerlink" title="ACID"></a>ACID</h3><ul>
+<li><code>原子性(Atomicity)</code>：被视为不可分割的最小单元，所有操作要么全部提交成功，要么全部失败回滚。</li>
+<li><code>一致性(Consistency)</code>：数据库在事务执行前后都保持一致性状态。在一致性状态下，所有事务对同一个数据的读取结果都是相同的。</li>
+<li><code>隔离性(Isolation)</code>一个事务所做的修改在最终提交以前，对其他事务是不可见的。</li>
+<li><code>持久性(Durability)</code>：一旦事务提交，则其所做的修改就会永久保存到数据库中，即使系统发生崩溃，事务执行的结果也不能丢失，应对系统崩溃的情况。<ul>
+<li>系统发生崩溃可以用重做日志（Redo Log）进行恢复，从而实现持久性。与回滚日志记录数据的逻辑修改不同，重做日志记录的是数据页的物理修改。</li>
+</ul>
+</li>
+</ul>
+<h3 id="AUTOCOMMIT"><a href="#AUTOCOMMIT" class="headerlink" title="AUTOCOMMIT"></a>AUTOCOMMIT</h3><p>MySQL 默认采用自动提交模式。也就是说，如果不显式使用START TRANSACTION语句来开始一个事务，那么每个查询操作都会被当做一个事务并自动提交。</p>
+<h3 id="并发一致性的问题"><a href="#并发一致性的问题" class="headerlink" title="并发一致性的问题"></a>并发一致性的问题</h3><h4 id="丢失修改"><a href="#丢失修改" class="headerlink" title="丢失修改"></a>丢失修改</h4><p>丢失修改指一个事务的更新操作被另外一个事务的更新操作替换。</p>
+<p>一般在现实生活中常会遇到， 例如：T1 和 T2 两个事务都对一个数据进行修改，T1 先修改并提交生效，T2 随后修改，T2 的修改覆盖了 T1 的修改。</p>
+<img src="/blog/p/e4d2e8fb/%E4%B8%A2%E5%A4%B1%E4%BF%AE%E6%94%B9.png" class="" title="丢失修改.png">
+
+<h4 id="读脏数据"><a href="#读脏数据" class="headerlink" title="读脏数据"></a>读脏数据</h4><p>读脏数据指在不同的事务下，当前事务可以读到另外事务未提交的数据。</p>
+<p>例如：T1 修改一个数据但未提交，T2 随后读取这个数据。如果 T1 撤销了这次修改，那么 T2 读取的数据是脏数据。</p>
+<img src="/blog/p/e4d2e8fb/%E8%AF%BB%E8%84%8F%E6%95%B0%E6%8D%AE.png" class="" title="读脏数据">
+
+<h4 id="不可重复读"><a href="#不可重复读" class="headerlink" title="不可重复读"></a>不可重复读</h4><p>不可重复读指在一个事务内多次读取同一数据集合。<br>在这一事务还未结束前，另一事务也访问了该同一数据集合并做了修改，由于第二个事务的修改，第一次事务的两次读取的数据可能不一致。</p>
+<p>例如：T2 读取一个数据，T1 对该数据做了修改。如果 T2 再次读取这个数据，此时读取的结果和第一次读取的结果不同。</p>
+<img src="/blog/p/e4d2e8fb/%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB.png" class="" title="不可重复读.png">
+
+
+<h4 id="幻读"><a href="#幻读" class="headerlink" title="幻读"></a>幻读</h4><p>幻读本质上也属于不可重复读的情况</p>
+<p>T1 读取某个范围的数据，T2 在这个范围内插入新的数据，T1 再次读取这个范围的数据，此时读取的结果和和第一次读取的结果不同。</p>
+<img src="/blog/p/e4d2e8fb/%E5%B9%BB%E8%AF%BB.png" class="" title="幻读.png">
+
+
+<p>产生并发不一致性问题的主要原因是破坏了事务的隔离性，解决方法是通过并发控制来保证隔离性。<br>并发控制可以通过封锁来实现，但是封锁操作需要用户自己控制，相当复杂。数据库管理系统提供了事务的隔离级别，让用户以一种更轻松的方式处理并发一致性问题。</p>
+<h3 id="封锁"><a href="#封锁" class="headerlink" title="封锁"></a>封锁</h3><h4 id="封锁粒度"><a href="#封锁粒度" class="headerlink" title="封锁粒度"></a>封锁粒度</h4><p>MySQL 中提供了两种封锁粒度：行级锁以及表级锁。</p>
+<p>应该尽量只锁定需要修改的那部分数据，而不是所有的资源。<br>锁定的数据量越少，发生锁争用的可能就越小，系统的并发程度就越高。</p>
+<p>但是加锁需要消耗资源，锁的各种操作（包括获取锁、释放锁、以及检查锁状态）都会增加系统开销。<br>因此封锁粒度越小，系统开销就越大。</p>
+<p>在选择封锁粒度时，需要在锁开销和并发程度之间做一个权衡。</p>
+<h4 id="封锁类型"><a href="#封锁类型" class="headerlink" title="封锁类型"></a>封锁类型</h4><ol>
+<li>读写锁</li>
+</ol>
+<ul>
+<li>互斥锁（Exclusive），简写为 X 锁，又称写锁。</li>
+<li>共享锁（Shared），简写为 S 锁，又称读锁。</li>
+</ul>
+<p>有以下两个规定：</p>
+<ul>
+<li>一个事务对数据对象 A 加了 X 锁，就可以对 A 进行读取和更新。加锁期间其它事务不能对 A 加任何锁。</li>
+<li>一个事务对数据对象 A 加了 S 锁，可以对 A 进行读取操作，但是不能进行更新操作。加锁期间其它事务能对 A 加 S 锁，但是不能加 X 锁。</li>
+</ul>
+<p>锁的兼容关系如下：</p>
+<img src="/blog/p/e4d2e8fb/%E9%94%81%E7%9A%84%E5%85%BC%E5%AE%B9%E5%85%B3%E7%B3%BB.png" class="" title="锁的兼容关系.png">
+
+<ol start="2">
+<li>意向锁<br>使用意向锁（Intention Locks）可以更容易地支持多粒度封锁。</li>
+</ol>
+<p>在存在行级锁和表级锁的情况下，事务 T 想要对表 A 加 X 锁，就需要先检测是否有其它事务对表 A 或者表 A 中的任意一行加了锁，那么就需要对表 A 的每一行都检测一次，这是非常耗时的。</p>
+<p>意向锁在原来的 X&#x2F;S 锁之上引入了 IX&#x2F;IS，IX&#x2F;IS 都是表锁，用来表示一个事务想要在表中的某个数据行上加 X 锁或 S 锁。<br>有以下两个规定：</p>
+<ul>
+<li>一个事务在获得某个数据行对象的 S 锁之前，必须先获得表的 IS 锁或者更强的锁；</li>
+<li>一个事务在获得某个数据行对象的 X 锁之前，必须先获得表的 IX 锁。</li>
+</ul>
+<p>通过引入意向锁，事务 T 想要对表 A 加 X 锁，只需要先检测是否有其它事务对表 A 加了 X&#x2F;IX&#x2F;S&#x2F;IS 锁，如果加了就表示有其它事务正在使用这个表或者表中某一行的锁，因此事务 T 加 X 锁失败。</p>
+<p>各种锁的兼容关系如下：</p>
+<img src="/blog/p/e4d2e8fb/%E5%90%84%E7%A7%8D%E9%94%81%E7%9A%84%E5%85%BC%E5%AE%B9%E5%85%B3%E7%B3%BB.png" class="" title="各种锁的兼容关系.png">
+
+<p>解释如下：</p>
+<p>任意 IS&#x2F;IX 锁之间都是兼容的，因为它们只表示想要对表加锁，而不是真正加锁；<br>这里兼容关系针对的是表级锁，而表级的 IX 锁和行级的 X 锁兼容，两个事务可以对两个数据行加 X 锁。<br>（事务 T1 想要对数据行 R1 加 X 锁，事务 T2 想要对同一个表的数据行 R2 加 X 锁，两个事务都需要对该表加 IX 锁，但是 IX 锁是兼容的，并且 IX 锁与行级的 X 锁也是兼容的，因此两个事务都能加锁成功，对同一个表中的两个数据行做修改。）</p>
+<h3 id="隔离级别"><a href="#隔离级别" class="headerlink" title="隔离级别"></a>隔离级别</h3><p>事务中有四个标准的隔离级别，<code>默认级别</code>是 <code>可重复读(Repeatable read)</code>。</p>
+<p>隔离级别|含义|实现方式|出现的问题|问题核心|举例问题|解决办法<br>-|-|-|-|-|-<br>读未提交<br>(Read uncommitted)|A事务中修改了数据但还没提交时，别的事务就可以看到修改后的数据|直接读取最新值|<span style="color:red;font-weight: bold;">脏读</span>|读取到了其他事务未提交或者回滚的数据|A事务读取到了B未提交的数据|隔离级别设置为读已提交<br>读已提交<br>(Read committed)|A事务提交之后，别的事务才可以看到修改的数据|每一次读数据都生成快照，读取快照值(先不深入)|<span style="color:red;font-weight: bold;">不可重复读</span>|在一次事务中读到的数据不一样（这期间别的事务提交了）|A事务两次相同的查询语句，结果却不一样。|隔离级别设置为可重复读<br>可重复读<br>(Repeatable read)|保证在同一个事务中多次读取同一数据的结果是一样的。|事务开始后第一次读的时候生成快照，之后的操作都重复使用这个快照，从而避免幻读。|<span style="color:red;font-weight: bold;">幻读</span>|一个事务按相同条件检索，发现了新的数据（发现不了修改了的数据）|A事务把表中某个字段+1，恰巧这时候事务B向该表中表中插入了一条数据。A用户提交事务之后发现还有数据未修改，好像产生了幻觉。|隔离级别设置成串行化（效率差），不建议。｜｜增加范围锁RangeS，锁定检索范围为只读<br>可串行化<br>(Serializable)|强制事务串行执行，这样多个事务互不干扰，不会出现并发一致性问题。|需要加锁实现||||</p>
+<h3 id="多版本并发控制"><a href="#多版本并发控制" class="headerlink" title="多版本并发控制"></a>多版本并发控制</h3><p>多版本并发控制（Multi-Version Concurrency Control, MVCC）是 MySQL 的 InnoDB 存储引擎实现隔离级别的一种具体方式，用于实现提交读和可重复读这两种隔离级别。<br>而未提交读隔离级别总是读取最新的数据行，要求很低，无需使用 MVCC。可串行化隔离级别需要对所有读取的行都加锁，单纯使用 MVCC 无法实现。</p>
+<h3 id="解决幻读"><a href="#解决幻读" class="headerlink" title="解决幻读"></a>解决幻读</h3><p>MySQL 可重复读隔离级别并没有彻底解决幻读，只是很大程度上避免了幻读现象的发生。<br>要完全解决幻读需要在开启事务之后，马上执行 select … for update 这类当前读的语句，因为它会对记录加 next-key lock，从而避免其他事务插入一条新记录。</p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>InnDB文件是在mysql&#x2F;data&#x2F;数据库名&#x2F;*</p>
+<p>影响</p>
+<ul>
+<li>减少服务器需要扫描的数据量</li>
+<li>帮助服务器避免排序和临时表</li>
+<li>将随机I&#x2F;O变 顺序I&#x2F;O</li>
+<li>提高查询速度，降低写的速度，占用磁盘(文件存储)</li>
+</ul>
+<p>索引类型</p>
+<ol>
+<li><p>普通索引</p>
+</li>
+<li><p>组合索引(联合索引)</p>
+<blockquote>
+<p>将多个列组合在一起创建索引，可以覆盖多个列<br>遵循 <b>前缀原则</b><br>将选择性较高的列放到索引的最前列</p>
+</blockquote>
+<p> <code>create index idx_articl_ccv on article(category_id,comments,view);</code></p>
+</li>
+<li><p>唯一索引：和前面的“普通索引”基本相同，但有一个区别：索引列的所有值都只能出现一次，即必须唯一<br><code>create unique index idx_articl on article(category_id);</code></p>
+</li>
+<li><p>联合唯一索引</p>
+</li>
+<li><p>主键索引(特殊的唯一索引，不允许有空值) 只能有一个</p>
+</li>
+<li><p>外键索引(InnoDB才能用)(不常用)(主键索引可以与外键索引构成参照完整性约束，防止数据不一致)</p>
+</li>
+<li><p>全文索引(MyISAM才能用)(不常用)(只能对英文进行全文检索)(可以使用全文检索引擎)</p>
+</li>
+</ol>
+<h2 id="SQL语句"><a href="#SQL语句" class="headerlink" title="SQL语句"></a>SQL语句</h2><h3 id="真题："><a href="#真题：" class="headerlink" title="真题："></a>真题：</h3><p>A(id, sex, par, c1, c2)<br>B(id, age, c1, c1)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">update A,B set A.c1 = B.c1,A.c2=B.c2</span><br><span class="line">where A.id = B.id and B.age&gt;50</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">update A INNER JOIN B on A.id = B.id #on做关联</span><br><span class="line">set A.c1 = B.c1,A.c2=B.c2 #修改的数据</span><br><span class="line">where B.age&gt;50 #设置条件</span><br></pre></td></tr></table></figure>
+<h3 id="关联更新"><a href="#关联更新" class="headerlink" title="关联更新"></a>关联更新</h3><ol>
+<li><p>交叉连接CROSS JOIN</p>
+<blockquote>
+<p>没有关联条件，结果是笛卡尔积，没有任何意义</p>
+</blockquote>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select * from A,B(,C)</span><br><span class="line">||</span><br><span class="line">select * from A CROSS JOIN B(CROSS JOIN C)</span><br></pre></td></tr></table></figure></li>
+<li><p>内连接 INNER JION 或 JOIN</p>
+<blockquote>
+<p>多表中同时符合某种条件的数据记录的集合</p>
+</blockquote>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ON A.id &gt; B.id</span><br><span class="line">ON A.id &gt; B.id</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from A INNER JOIN B on A.id = B.id</span><br></pre></td></tr></table></figure></li>
+<li><p>外连接<br>(1)左连接(left (outer) join)</p>
+<blockquote>
+<p>以左表为主，先查询出 <code>左表</code>，按照ON后的关联条件匹配 <code>右表</code>，没有匹配到的用NULL填充</p>
+</blockquote>
+<p>(2)右连接(right join)</p>
+<blockquote>
+<p>以左表为主，先查询出 <code>右表</code>，按照ON后的关联条件匹配 <code>左表</code>，没有匹配到的用NULL填充</p>
+</blockquote>
+</li>
+<li><p>联合查询</p>
+<ul>
+<li>UNION ALL 效率高于 UNION</li>
+</ul>
+<p>(1)UNION</p>
+<blockquote>
+<p>把多个结果集集中在一起，UNION前的结果为基准<br>列数要相等，相同的记录行会合并<br>合并重复项</p>
+</blockquote>
+<p>(2)UNION ALL</p>
+<blockquote>
+<p>显示重复项</p>
+</blockquote>
+</li>
+<li><p>全连接FULL JOIN(Mysql不支持)</p>
+<blockquote>
+<p>可以使用 外连接和联合查询 联合使用</p>
+</blockquote>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM A LEFT JOIN B ON A.id=B.id UNION</span><br><span class="line">SELECT * FRPM A RIGHT JOIN B ON A.id=B.id</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="查询优化"><a href="#查询优化" class="headerlink" title="查询优化"></a>查询优化</h2><h3 id="怎么判断SQL速度慢"><a href="#怎么判断SQL速度慢" class="headerlink" title="怎么判断SQL速度慢"></a>怎么判断SQL速度慢</h3><ul>
+<li><p>通过慢查询日志，工具是pt-query-digest</p>
+</li>
+<li><p>使用 <code>query profile</code> 功能</p>
+<ul>
+<li><code>set profiling = 1</code> 开启，将所有语句消耗的时间存到临时表<img src="/blog/p/e4d2e8fb/set_profiling_1.png" class="" title="set_profiling_1.png">
+
+<ul>
+<li><p><code>show profiles</code> 从临时表中查看所有语句 和 执行时间</p>
+<img src="/blog/p/e4d2e8fb/show_profiles.png" class="" title="show_profiles.png">
+</li>
+<li><p><code>show profile for query 临时表ID</code> 查看某个临时表中的记录详情</p>
+<img src="/blog/p/e4d2e8fb/show_profile_for_query.png" class="" title="show_profile_for_query命令">
+</li>
+<li><p><code>show profile cpu,block for query 临时表ID</code> 查看某个临时表中的CPU和Block IO的消耗记录详情</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>使用 <code>show status</code></p>
+<ul>
+<li><code>show status</code> 会返回一些计数器，<code>show global status</code> 查看服务器级别的所有计数</li>
+<li>根据这些计数，可以猜测出哪些操作代价比较高或者消耗时间多</li>
+</ul>
+</li>
+<li><p>使用 <code>show processlist</code></p>
+<ul>
+<li><code>show processlist</code> 观察是否有大量线程处于不正常的状态或者特征</li>
+</ul>
+</li>
+<li><p>使用 <code>explain</code> 别名 <code>desc</code></p>
+<ul>
+<li><code>explain</code> 分析单条SQL语句<img src="/blog/p/e4d2e8fb/explain_and_desc.png" class="" title="explain_and_desc命令"></li>
+</ul>
+</li>
+</ul>
+<h2 id="生成大量测试数据"><a href="#生成大量测试数据" class="headerlink" title="生成大量测试数据"></a>生成大量测试数据</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">set_time_limit(<span class="number">1000</span>);</span><br><span class="line"><span class="variable">$t</span> = time();</span><br><span class="line"><span class="variable">$pwd</span> = getcwd();</span><br><span class="line"><span class="variable">$myFile</span> = <span class="variable">$pwd</span> . <span class="string">&#x27;\\&#x27;</span> . <span class="string">&#x27;insert.sql&#x27;</span>;</span><br><span class="line"><span class="variable">$fhandler</span> = fopen(<span class="variable">$myFile</span>, <span class="string">&#x27;wb&#x27;</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$fhandler</span>) &#123;</span><br><span class="line"></span><br><span class="line">	<span class="variable">$i</span> = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (<span class="variable">$i</span> &lt; <span class="number">1000</span>)<span class="comment">//1,0000,000</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="variable">$name</span> = <span class="string">&#x27;linfeng&#x27;</span> . <span class="variable">$i</span>;</span><br><span class="line">		<span class="variable">$age</span> = rand(<span class="number">1</span>, <span class="number">150</span>);</span><br><span class="line">		<span class="variable">$m</span> = rand(<span class="number">100000000</span>, <span class="number">999999999</span>);</span><br><span class="line">		<span class="variable">$phone</span> = <span class="string">&#x27;13&#x27;</span> . <span class="variable">$m</span>;</span><br><span class="line">		<span class="variable">$time</span> = time();</span><br><span class="line">		<span class="variable">$static</span> = rand(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">		<span class="variable">$i</span>++;</span><br><span class="line">		<span class="variable">$sql</span> = <span class="string">&quot;<span class="subst">$i</span>\t<span class="subst">$name</span>\t<span class="subst">$age</span>\t<span class="subst">$phone</span>\t<span class="subst">$time</span>\t<span class="subst">$static</span>&quot;</span>;</span><br><span class="line">		fwrite(<span class="variable">$fhandler</span>, <span class="variable">$sql</span> . <span class="string">&quot;\r\n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">echo</span> <span class="string">&quot;写入成功,耗时：&quot;</span>, time() - <span class="variable">$t</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE IF exists `cache`;</span><br><span class="line">CREATE TABLE `cache`</span><br><span class="line">(</span><br><span class="line">    `id`    int(10) NOT NULL AUTO_INCREMENT,</span><br><span class="line">    `name`  varchar(50) DEFAULT NULL,</span><br><span class="line">    `age`   varchar(50) DEFAULT NULL,</span><br><span class="line">    `phone` varchar(50) DEFAULT NULL,</span><br><span class="line">    `time`  TIMESTAMP   DEFAULT NULL,</span><br><span class="line">    `static`  varchar(50)   DEFAULT NULL,</span><br><span class="line">    PRIMARY KEY (`id`)</span><br><span class="line">    #KEY `a` (`a`),</span><br><span class="line">) ENGINE = InnoDB</span><br><span class="line">  DEFAULT CHARSET = utf8;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">use study;</span><br><span class="line">DROP TABLE IF exists `cache`;</span><br><span class="line"></span><br><span class="line">LOAD DATA local INFILE &#x27;C:/Users/Administrator/Desktop/study_php/insert.sql&#x27; INTO TABLE `cache`(`id`,`name`,`age`,`phone`,`time`,`static`);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mysql分区、分表、负载均衡"><a href="#Mysql分区、分表、负载均衡" class="headerlink" title="Mysql分区、分表、负载均衡"></a>Mysql分区、分表、负载均衡</h2><h3 id="分区"><a href="#分区" class="headerlink" title="分区"></a>分区</h3><h4 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h4><ul>
+<li>对于Mysql底层：将表分成多个物理表</li>
+<li>对于用户和程序调用MYSQL处是无感知的</li>
+</ul>
+<h4 id="工作原理"><a href="#工作原理" class="headerlink" title="工作原理"></a>工作原理</h4><p>创建表时使用 <code>partition by</code> 子句定义每个分区存放的数据，执行查询时，优化器会根据分区定义过滤那些没有我们需要数据的分区，这样查询只需要查询所需数组在的分区即可<br>如果想一次性删除整个分区的数据也方便<br>比如：以年龄分配，更新时间分配</p>
+<h4 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h4><ol>
+<li>容易维护，可以对独立的分区进行独立的操作</li>
+<li>分区表的数据可以分布在不同的机器上，从而高效的使用资源</li>
+<li>方便备份和恢复独立的分区</li>
+</ol>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ol>
+<li>一个表只能有1024个分区</li>
+<li>5.1版本分区表表达式必须是整数，5.5可以使用列分区</li>
+<li>分区字段中如果有主键和唯一索引列，那么主键列和唯一列都必须包含进来</li>
+<li>分区表中无法使用外键约束</li>
+<li>现有表想分区则需要修改表的结构</li>
+<li>所有分区都必须使用相同的存储引擎</li>
+<li>分区函数中可以使用的函数和表达式会有一些限制</li>
+<li>InnoDB和MyISAM都可以使用分区，但是有些不支持分区功能</li>
+<li>对于MyISAM的分区表，不能使用load index into cache</li>
+<li>对于MyISAM的分区表，需要打开更多的文件描述符</li>
+</ol>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><ol>
+<li>表非常大</li>
+<li>局部有热点数据，其他都是不常更新XX数据</li>
+</ol>
+<hr>
+<h3 id="分表"><a href="#分表" class="headerlink" title="分表"></a>分表</h3><ul>
+<li>分表的缺点<ol>
+<li>有些分表的策略基于应用层的逻辑算法，一旦改变，整个分表逻辑都会改变，扩展性较差</li>
+<li>对于应用层，逻辑算法增加开发成本</li>
+</ol>
+</li>
+</ul>
+<h4 id="工作原理-1"><a href="#工作原理-1" class="headerlink" title="工作原理"></a>工作原理</h4><p>通过一些HASH算法或者工具时限将一张数据表垂直或者水平进行物理切分</p>
+<ol>
+<li>通过hash算法，找出 已经切分中 存放的数据表</li>
+</ol>
+<h4 id="分表方式"><a href="#分表方式" class="headerlink" title="分表方式"></a>分表方式</h4><ol>
+<li><p>水平分割<br>表很大，分割后可以降低在查询时需要读的数据和索引的页数，同时也降低了索引的层数，提高查询速度</p>
+<ul>
+<li><p>作用</p>
+<ol>
+<li>按照活跃、不活跃数据区分</li>
+<li>按照不同地区、不同时期区分</li>
+<li>需要把数据存放在多个介质上(缓存、不同服务器)</li>
+</ol>
+</li>
+<li><p>缺点</p>
+<ol>
+<li>操作变复杂，通常查询时需要多个表明，查询所有数据时需要UNION操作</li>
+<li>使用水平分表查询时，会增加一个读索引层的磁盘次数</li>
+</ol>
+</li>
+<li><p>使用场景</p>
+</li>
+</ul>
+</li>
+<li><p>垂直分割<br>把主键和一些列放在一个表，然后把主键和另外的列放在另外一个表中</p>
+<ul>
+<li><p>作用</p>
+<ol>
+<li>可以使数据行变小，一个数据页能存储更多的数据，查询时减少I&#x2F;O次数</li>
+</ol>
+</li>
+<li><p>缺点</p>
+<ol>
+<li>管理冗余列，查询所有数据都需要关联操作(JION)</li>
+</ol>
+</li>
+<li><p>使用场景</p>
+<ol>
+<li>如果一个表中某些列常用，另外一些列不常用</li>
+<li>可以将</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="主从复制-和-负载均衡"><a href="#主从复制-和-负载均衡" class="headerlink" title="主从复制 和 负载均衡"></a>主从复制 和 负载均衡</h3><h4 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h4><ol>
+<li>将主库上 把数据更改 记录到 二进制日志</li>
+<li>从库将 主库的日志 复制到自己的 中继日志</li>
+<li>从库读取中继日志的事件(SQL)，将其重放到从库数据中</li>
+</ol>
+<h4 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h4><ol>
+<li>数据分布：随意停止或开始复制，并在不同地理位置分布数据备份</li>
+<li>负载均衡：降低单个服务器的压力</li>
+<li>高可用和故障切换：帮助应用程序避免单点失败</li>
+<li>升级测试：可以使用更高版本的Mysql作为从库 (灰度测试从库，可以则全部覆盖)</li>
+</ol>
+<h4 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h4><ol>
+<li>分区分表 概述 优点 缺点 使用场景</li>
+<li>主从复制、负载均衡 概述 优点 缺点 使用场景</li>
+</ol>
+<h4 id="真题：-1"><a href="#真题：-1" class="headerlink" title="真题："></a>真题：</h4><ul>
+<li>设定网站的用户数量在千万级，但是活跃用户的数量只有1%，如何优化数据库提高活跃用户访问数据？</li>
+</ul>
+<hr>
+<h2 id="Mysql安全性"><a href="#Mysql安全性" class="headerlink" title="Mysql安全性"></a>Mysql安全性</h2><h3 id="SQL安全"><a href="#SQL安全" class="headerlink" title="SQL安全"></a>SQL安全</h3><ol>
+<li>使用预处理语句，防止SQL注入，建议使用PDO， <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url= &#x27;user/delete/?id=1 or 1=1&#x27;</span><br><span class="line">delete from user where id = 1 or 1=1;</span><br><span class="line">PDO prepare(预处理)</span><br></pre></td></tr></table></figure></li>
+<li>写入数据库的数据要进行特殊字符的转义</li>
+<li>查询错误信息不返回给用户，将错误记录到日志</li>
+</ol>
+<h3 id="其他安全设置"><a href="#其他安全设置" class="headerlink" title="其他安全设置"></a>其他安全设置</h3><ol>
+<li>定期做数据备份</li>
+<li>不给查询用户ROOT权限，合理分配权限(sql权限)</li>
+<li>限制用户对数据文件的访问权限(文件权限)</li>
+<li>限制一般用户浏览其他库</li>
+<li>关闭远程访问数据库权限</li>
+<li>修改ROOT密码</li>
+<li>删除多余的用户</li>
+<li>改变root用户的名称</li>
+</ol>
+<h3 id="真题"><a href="#真题" class="headerlink" title="真题"></a>真题</h3><ul>
+<li>为什么使用PDO和mysqli连接数据库会比mysql函数库更加安全<br>答：Mysqli和PDO有预处理功能，防止SQL注入，安全性高</li>
+</ul>
+<h3 id="PDO使用方式"><a href="#PDO使用方式" class="headerlink" title="PDO使用方式"></a>PDO使用方式</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#dsn: &quot;mysql:host=127.0.0.1;dbname=study&quot;</span></span><br><span class="line"><span class="comment">#options = [PDO::MYSQL_ATTR_INIT_COMMAND=&gt;&quot;SET NAMES UTF8&quot;]</span></span><br><span class="line"><span class="variable">$pdo</span> = <span class="keyword">new</span> PDO(<span class="variable">$dsn</span>,<span class="variable">$username</span>,<span class="variable">$password</span>,<span class="keyword">array</span> <span class="variable">$options</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#增(方式1)</span></span><br><span class="line"><span class="variable">$name</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;name&#x27;</span>];</span><br><span class="line"><span class="variable">$content</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;content&#x27;</span>];</span><br><span class="line"><span class="variable">$pdo_pre</span> = <span class="string">&#x27;insert into liuyan(`name`,`content`) values(?,?)&#x27;</span>;</span><br><span class="line"><span class="variable">$pdo_pre</span>-&gt;bindValue(<span class="number">1</span>,<span class="variable">$name</span>);</span><br><span class="line"><span class="variable">$pdo_pre</span>-&gt;bindValue(<span class="number">2</span>,<span class="variable">$content</span>);</span><br><span class="line"><span class="variable">$pdo_pre</span>-&gt;execute()</span><br><span class="line"><span class="variable">$pdo</span>-&gt;insertLastId();</span><br><span class="line"></span><br><span class="line"><span class="comment">#增(方式2)</span></span><br><span class="line"><span class="variable">$name</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;name&#x27;</span>];</span><br><span class="line"><span class="variable">$content</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;content&#x27;</span>];</span><br><span class="line"><span class="variable">$pdo_pre</span> = <span class="string">&#x27;insert into liuyan(`name`,`content`) values(name=:name,content:content)&#x27;</span>;</span><br><span class="line"><span class="variable">$pdo_pre</span>-&gt;execute([<span class="string">&#x27;:name&#x27;</span>=&gt;<span class="variable">$name</span>,<span class="string">&#x27;:content&#x27;</span>=&gt;<span class="variable">$content</span>]);</span><br><span class="line"><span class="variable">$pdo</span>-&gt;insertLastId();</span><br><span class="line"></span><br><span class="line"><span class="comment">#查询(方式1)</span></span><br><span class="line"><span class="variable">$content</span> = <span class="string">&#x27;neirong&#x27;</span>;</span><br><span class="line"><span class="variable">$sql</span> = <span class="string">&#x27;select * from liuyan where content = ?&#x27;</span>;</span><br><span class="line"><span class="variable">$pdo_pre</span> = <span class="variable">$pdo</span>-&gt;prepare(<span class="variable">$sql</span>);</span><br><span class="line"><span class="variable">$pdo_pre</span>-&gt;bindvalue(<span class="number">1</span>,<span class="variable">$content</span>);</span><br><span class="line"><span class="variable">$pdo_pre</span>-&gt;execute();</span><br><span class="line"><span class="variable">$res</span> = <span class="variable">$pdo_pre</span>-&gt;fetchAll(PDO::FETCH_ASSOC);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#查询(方式2)</span></span><br><span class="line"><span class="variable">$content</span> = <span class="string">&#x27;neirong&#x27;</span>;</span><br><span class="line"><span class="variable">$sql</span> = <span class="string">&#x27;select * from liuyan where content = :content&#x27;</span>;</span><br><span class="line"><span class="variable">$pdo_pre</span> = <span class="variable">$pdo</span>-&gt;prepare(<span class="variable">$sql</span>);</span><br><span class="line"><span class="variable">$pdo_pre</span>-&gt;execute([<span class="string">&#x27;:content&#x27;</span>=&gt;<span class="variable">$content</span>]);</span><br><span class="line"><span class="variable">$res</span> = <span class="variable">$pdo_pre</span>-&gt;fetchAll(PDO::FETCH_ASSOC);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="主从复制"><a href="#主从复制" class="headerlink" title="主从复制"></a>主从复制</h2><h3 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h3><p>主要涉及三个线程：binlog 线程、I&#x2F;O 线程和 SQL 线程。</p>
+<ul>
+<li>binlog 线程 ：数据更改后，负责将主服务器上的数据更改写入二进制日志（Binary log）中。</li>
+<li>I&#x2F;O 线程 ：负责通过端口从主服务器上读取二进制日志，并写入从服务器的中继日志（Relay log）。</li>
+<li>SQL 线程 ：负责读取中继日志，解析出主服务器已经执行的数据更改并在从服务器中重放（Replay）。<img src="/blog/p/e4d2e8fb/zhucongfuzhi.png" class="" title="zhucongfuzhi.png"></li>
+</ul>
+<h2 id="读写分离"><a href="#读写分离" class="headerlink" title="读写分离"></a>读写分离</h2><p>主服务器处理写操作以及实时性要求比较高的读操作，而从服务器处理读操作。</p>
+<p>读写分离能提高性能的原因在于：</p>
+<ul>
+<li>主从服务器负责各自的读和写，极大程度缓解了锁的争用；</li>
+<li>从服务器可以使用 MyISAM，提升查询性能以及节约系统开销；</li>
+<li>增加冗余，提高可用性。</li>
+</ul>
+<p>读写分离常用代理方式来实现(php框架几乎都有读写分离代理功能)，代理服务器接收应用层传来的读写请求，然后决定转发到哪个服务器。</p>
+<img src="/blog/p/e4d2e8fb/duxiefenliproxy.png" class="" title="duxiefenliproxy.png">
+
+<h3 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h3><h4 id="主服务器"><a href="#主服务器" class="headerlink" title="主服务器"></a>主服务器</h4><ol>
+<li><p>修改主服务器mysql的配置文件，开启 binary log</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/mysql/bin/my.ini</span><br><span class="line"><span class="attr">log-bin</span>=mysql-bin <span class="comment">#mysql-bin是日志文件名称</span></span><br><span class="line"><span class="attr">bin_log_format</span>=fixed <span class="comment">#混合模式，记录SQL语句 以及 被修改的数据详情</span></span><br><span class="line"><span class="attr">server_id</span>=唯一的id <span class="comment">#可以设置成ip的最后面位数</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启主服务器</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 会在mysql目录下的var目录生成日志文件 XXX.00001/XXX.00002</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看主服务器的状态信息</span></span><br><span class="line">show <span class="keyword">master</span> <span class="title">status</span> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置master的信息</span></span><br><span class="line">reset <span class="keyword">master</span> <span class="title"></span></span><br></pre></td></tr></table></figure>
+
+</li>
+<li><p>设置 允许从服务器监听</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;<span class="keyword">grant</span> <span class="keyword">replication</span> slave <span class="keyword">on</span> \*\.\*(所有库的所有表) <span class="keyword">to</span> slave@<span class="number">192.168</span><span class="number">.1</span>.IP identified <span class="keyword">by</span> <span class="string">&#x27;密码&#x27;</span></span><br><span class="line">允许slave用户 使用ip和密码访问 主服务器所有库的所有表信息</span><br><span class="line">&gt; <span class="keyword">GRANT</span> <span class="keyword">REPLICATION</span> SLAVE <span class="keyword">ON</span> *.* <span class="keyword">to</span> <span class="string">&#x27;slave3110&#x27;</span>@<span class="string">&#x27;192.168.3.110&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;abcABC123&#x27;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="从服务器"><a href="#从服务器" class="headerlink" title="从服务器"></a>从服务器</h4><ol>
+<li><p>开启 binary log</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="regexp">/etc/my</span>sql<span class="regexp">/bin/my</span>.ini</span><br><span class="line"></span><br><span class="line"><span class="comment">#log-bin=mysql-bin #注释掉</span></span><br><span class="line"><span class="comment">#bin_log_format=fixed #注释掉</span></span><br><span class="line">relay_log=mysql-relay-bin <span class="comment">#mysql-relay-bin是中继日志文件名称</span></span><br><span class="line">server_id=唯一的id <span class="comment">#可以设置成ip的最后面位数</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启</p>
+</li>
+<li><p>确定是否与主服务器ip连通 <code>ping 主服务器ip</code></p>
+</li>
+<li><p>监听主服务器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;change master to</span><br><span class="line">master_host=&#x27;主服务器ip,</span><br><span class="line">master_port=3306,</span><br><span class="line">master_user=&#x27;slave&#x27;,</span><br><span class="line">master_password=&#x27;&#x27;,</span><br><span class="line">master_log_file=&#x27;中继文件名称&#x27; ,</span><br><span class="line">master_log_pos=主服务器show master status时显示的位置;</span><br><span class="line"></span><br><span class="line">&gt;start slave;  #开启监听</span><br><span class="line">&gt;show slave status;</span><br><span class="line">#查看 slave status的 `Slave_IO_Running: Yes` 以及 `Slave_SQL_Running: Yes` 判断是否连接成功即可</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Mysql-双主热备"><a href="#Mysql-双主热备" class="headerlink" title="Mysql 双主热备"></a>Mysql 双主热备</h2><p>概念：Master挂掉不会影响业务，实现心跳感应</p>
+<img src="/blog/p/e4d2e8fb/Mysql%E5%BC%80%E5%90%AF%E5%8F%8C%E4%B8%BB%E7%83%AD%E5%A4%87.png" class="" title="Mysql开启双主热备.png">
+
+<p>核心：将一台正在使用的Slave更改成主服务器</p>
+<blockquote>
+<p>服务器A 和 服务器B 互为主从</p>
+</blockquote>
+<img src="/blog/p/e4d2e8fb/Mysql%E5%BC%80%E5%90%AF%E5%8F%8C%E4%B8%BB%E7%83%AD%E5%A4%87_%E4%BA%92%E4%B8%BA%E4%B8%BB%E4%BB%8E.png" class="" title="Mysql开启双主热备_互为主从.png">
+
+<p><font color="red"><b>注意事项：</b></font></p>
+<ol>
+<li>从服务器开启 binary 日志记录 <font color="red"><b>和 <code>log_slave_updates = 1</code></b></font></li>
+<li>主服务器开启 relay 日志拷贝</li>
+<li>从服务器赋予 主服务器权限 以及 从服务器&#x2F;用户名&#x2F;密码&#x2F;master_pos</li>
+<li>主服务器 <code>change master to (主服务器/用户名/密码/master_pos)</code> 并 <code>start master</code> 开启监听</li>
+<li>使用 <code>show master</code> 查看是否正常运行</li>
+</ol>
+<p>从服务器设置</p>
+<ol>
+<li><p>从服务器开启 <code>log_slave_updates = 1</code><br>vim &#x2F;etc&#x2F;mysql&#x2F;bin&#x2F;my.ini</p>
+<p>log-bin&#x3D;mysql-bin #打开<br>bin_log_format&#x3D;fixed #打开<br>新增 <code>log_slave_updates = 1</code> #含义是将中继日志文件的内容拷贝到 日志文件(mysql-bin)当中<br>relay_log&#x3D;mysql-relay-bin #mysql-relay-bin是中继日志文件名称<br>server_id&#x3D;唯一的id #可以设置成ip的最后面位数</p>
+</li>
+<li><p>重启从服务器</p>
+</li>
+<li><p>确定是否与主服务器ip连通 <code>ping 主服务器ip</code></p>
+</li>
+<li><p>授权主服务器可以监听<br>mysql&gt;grant replication slave on *.*(所有库的所有表) to master@主服务器IP indentified by ‘密码’<br>允许master用户 使用ip和密码访问 从服务器所有库的所有表信息</p>
+</li>
+<li><p>在主服务器的my.ini开启 <code>relay_log = mysql-relay-bin</code> 和 <code>log_slave_updates = 1</code></p>
+</li>
+<li><p>主服务器 监听 从服务器</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;change master to</span><br><span class="line">master_host=&#x27;从服务器ip,</span><br><span class="line">master_port=3306,</span><br><span class="line">master_user=&#x27;master&#x27;,</span><br><span class="line">master_password=&#x27;&#x27;,</span><br><span class="line">master_log_file=&#x27;中继文件名称&#x27; ,</span><br><span class="line">master_log_pos=从服务器show master status时显示的位置;</span><br><span class="line"></span><br><span class="line">&gt;start master;  #开启监听</span><br><span class="line">&gt;show master status;</span><br><span class="line">#查看 master status的 `Slave_IO_Running: Yes` 以及 `Slave_SQL_Running: Yes` 判断是否连接成功即可</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="Mysql中间件-Mycat-代理"><a href="#Mysql中间件-Mycat-代理" class="headerlink" title="Mysql中间件 Mycat 代理"></a>Mysql中间件 Mycat 代理</h2><p>基本概念：彻底开源，面向企业应用开发的大数据库集群</p>
+<hr>
+<h2 id="并发检查"><a href="#并发检查" class="headerlink" title="并发检查"></a>并发检查</h2><p>优化索引<br>是否建立合理的索引<br>查看索引是否正常使用<br>优化SQL</p>
+<h2 id="基础操作"><a href="#基础操作" class="headerlink" title="基础操作"></a>基础操作</h2><ul>
+<li><p>连接</p>
+<blockquote>
+<p>mysql -u -p -h -P 用户名 密码 主机 端口</p>
+</blockquote>
+</li>
+<li><p>关闭 or 其他</p>
+</li>
+<li><p><code>\G</code> 打印结果格式化 垂直显示</p>
+</li>
+<li><p><code>\c</code> 取消当前mysql命令</p>
+</li>
+<li><p><code>\q</code> 退出mysql</p>
+</li>
+<li><p><code>\s</code> 显示服务器状态</p>
+</li>
+<li><p><code>\h</code> 显示帮助信息</p>
+</li>
+<li><p><code>\d</code> 改变 执行符号;</p>
+</li>
+</ul>
+<h2 id="查看配置文件"><a href="#查看配置文件" class="headerlink" title="查看配置文件"></a>查看配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看所有端口(或3306)的进程信息</span></span><br><span class="line">lsof -i(:3306)</span><br><span class="line"></span><br><span class="line"><span class="comment">#列出指定进程所打开的文件</span></span><br><span class="line">lsof -c mysqld</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看my.ini的存储位置优先级排序</span></span><br><span class="line">mysql --<span class="built_in">help</span> | grep <span class="string">&#x27;my.cnf&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="安装Mysql"><a href="#安装Mysql" class="headerlink" title="安装Mysql"></a>安装Mysql</h2><h3 id="安装前预准备"><a href="#安装前预准备" class="headerlink" title="安装前预准备"></a>安装前预准备</h3><p>首先检查系统中是否存在使用rpm安装的mysql或者mariadb，如果有需要先删除后再编译安装。<br>卸载完以后用 <code>rpm -qa|grep mariadb</code> 或者 <code>rpm -qa|grep mysql</code> 查看结果。</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rpm -<span class="keyword">qa</span> | <span class="keyword">grep</span> mysql</span><br><span class="line">rpm -<span class="keyword">qa</span> | <span class="keyword">grep</span> mariadb</span><br><span class="line"></span><br><span class="line">#如果存在则卸载</span><br><span class="line">rpm -<span class="keyword">e</span> --nodeps XXXX</span><br></pre></td></tr></table></figure>
+<img src="/blog/p/e4d2e8fb/rpm%E5%8D%B8%E8%BD%BDmariadb.png" class="" title="rpm卸载mariadb">
+
+<h4 id="安装mysql（下载源代码编译安装）"><a href="#安装mysql（下载源代码编译安装）" class="headerlink" title="安装mysql（下载源代码编译安装）"></a>安装mysql（下载源代码编译安装）</h4><blockquote>
+<p><a href="https://downloads.mysql.com/archives/community/" target="_blank" rel="noopener">https://downloads.mysql.com/archives/community/</a></p>
+</blockquote>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装相关依赖包</span></span><br><span class="line">yum install -y libaio-* cmake boost bison m4 libtirpc libtirpc-devel</span><br><span class="line"></span><br><span class="line"><span class="comment">#下载boost 59文件</span></span><br><span class="line">cd <span class="regexp">/usr/</span>local/src</span><br><span class="line">wget https:<span class="regexp">//</span>newcontinuum.dl.sourceforge.net<span class="regexp">/project/</span>boost<span class="regexp">/boost/</span><span class="number">1.59</span>.<span class="number">0</span>/boost_1_59_0.tar.gz</span><br><span class="line">tar zxvf boost_1_59_0.tar.gz</span><br><span class="line">mv boost_1_59_0 ../</span><br><span class="line"></span><br><span class="line"><span class="comment">#预配置设置</span></span><br><span class="line">groupadd mysql</span><br><span class="line">useradd -r -g mysql -s <span class="regexp">/bin/</span>false mysql</span><br><span class="line">mkdir -p <span class="regexp">/usr/</span>local/mysql</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#开始源代码构建</span></span><br><span class="line">cd <span class="regexp">/usr/</span>local/src</span><br><span class="line">wget https:<span class="regexp">//</span>cdn.mysql.com<span class="regexp">/archives/my</span>sql-<span class="number">5.7</span>/mysql-<span class="number">5.7</span>.<span class="number">28</span>.tar.gz</span><br><span class="line">tar -xzvf mysql-<span class="number">5.7</span>.xxxxx.tar.gz</span><br><span class="line">cd mysql-<span class="number">5.7</span>.xxx</span><br><span class="line">mkdir bld</span><br><span class="line">cd bld</span><br><span class="line"></span><br><span class="line"><span class="comment">#cmake</span></span><br><span class="line">cmake .. \</span><br><span class="line">-DBUILD_CONFIG=mysql_release \</span><br><span class="line">-DDOWNLOAD_BOOST=<span class="number">1</span> \</span><br><span class="line">-DWITH_BOOST=<span class="regexp">/usr/</span>local/boost_1_59_0 \</span><br><span class="line">-DCMAKE_INSTALL_PREFIX=<span class="regexp">/usr/</span>local/mysql \</span><br><span class="line">-SYSTEMD_PID_DIR=<span class="regexp">/usr/</span>local<span class="regexp">/mysql/</span>systemd \</span><br><span class="line">-DDEFAULT_CHARSET=utf8 \</span><br><span class="line">-DDEFAULT_COLLATION=utf8_general_ci \</span><br><span class="line">-DSYSCONFDIR=<span class="regexp">/usr/</span>local<span class="regexp">/mysql/</span>conf</span><br><span class="line"></span><br><span class="line"><span class="comment">#编译</span></span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装后初始化Mysql</span></span><br><span class="line">cd <span class="regexp">/usr/</span>local/mysql</span><br><span class="line">mkdir mysql-files</span><br><span class="line">chown mysql:mysql mysql-files</span><br><span class="line">chmod <span class="number">750</span> mysql-files</span><br><span class="line">bin/mysqld --initialize-insecure --user=mysql</span><br><span class="line">bin/mysql_ssl_rsa_setup</span><br><span class="line"></span><br><span class="line"><span class="comment">#开启进程守护</span></span><br><span class="line">bin/mysqld_safe --user=mysql &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment">#更改mysql安装目录的属主属组</span></span><br><span class="line">chown -R mysql:mysql <span class="regexp">/usr/</span>local/mysql</span><br><span class="line"></span><br><span class="line"><span class="comment">#可选命令</span></span><br><span class="line">cp support-files<span class="regexp">/mysql.server /</span>etc<span class="regexp">/init.d/my</span>sql.server</span><br><span class="line"></span><br><span class="line"><span class="comment">#初始化mysql数据库</span></span><br><span class="line"><span class="comment">#使用--initialize了 “ 默认安全 ”安装（即包括生成随机初始的 root密码）。在这种情况下，密码被标记为已过期，您将需要选择一个新密码。</span></span><br><span class="line"><span class="comment">#使用--initialize-insecure，不会root生成密码。这是不安全的；假定您在将服务器投入生产使用之前会及时为帐户分配密码。</span></span><br><span class="line"><span class="regexp">/usr/</span>local<span class="regexp">/mysql/</span>bin/mysqld --initialize-insecure --user=mysql</span><br></pre></td></tr></table></figure>
+<h4 id="数据库备份"><a href="#数据库备份" class="headerlink" title="数据库备份"></a>数据库备份</h4><figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">[</span><span class="comment">root@www</span> <span class="comment">~</span><span class="title">]</span><span class="comment">#</span> <span class="comment">mysqldump</span> <span class="literal">-</span><span class="comment">uroot</span> --<span class="comment">single</span><span class="literal">-</span><span class="comment">transaction</span> --<span class="comment">master</span><span class="literal">-</span><span class="comment">data=2</span> --<span class="comment">databases</span> <span class="comment">数据库名称</span> &gt; <span class="comment">/backup/hellodb_`date</span> <span class="literal">+</span><span class="comment">%F`</span><span class="string">.</span><span class="comment">sql</span></span><br><span class="line">--<span class="comment">single</span><span class="literal">-</span><span class="comment">transaction:</span> <span class="comment">基于此选项能实现热备InnoDB表；因此，不需要同时使用</span>--<span class="comment">lock</span><span class="literal">-</span><span class="comment">all</span><span class="literal">-</span><span class="comment">tables；</span></span><br><span class="line">--<span class="comment">master</span><span class="literal">-</span><span class="comment">data=2</span>  <span class="comment">记录备份那一时刻的二进制日志的位置，并且注释掉，1是不注释的</span></span><br><span class="line">--<span class="comment">databases</span> <span class="comment">hellodb</span> <span class="comment">指定备份的数据库</span></span><br><span class="line"><span class="comment">然后回到mysql服务器端，</span> </span><br></pre></td></tr></table></figure>
+<h4 id="设置开机自启"><a href="#设置开机自启" class="headerlink" title="设置开机自启"></a>设置开机自启</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim <span class="regexp">/lib/</span>systemd<span class="regexp">/system/my</span>sqld.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Documentation=http:<span class="regexp">//</span>dev.mysql.com<span class="regexp">/doc/</span>refman<span class="regexp">/en/u</span>sing-systemd.html</span><br><span class="line">After=network.target</span><br><span class="line">After=syslog.target</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">PIDFile=<span class="regexp">/usr/</span>local<span class="regexp">/mysql/</span>data/localhost.pid</span><br><span class="line">ExecStart=<span class="regexp">/usr/</span>local<span class="regexp">/mysql/</span>bin<span class="regexp">/mysqld_safe --explicit_defaults_for_timestamp --user=mysql --pid-file=/u</span>sr<span class="regexp">/local/my</span>sql<span class="regexp">/data/</span>localhost.pid <span class="variable">$MYSQLD_OPTS</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight nsis"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#重新启动systemd管理器</span></span><br><span class="line"><span class="params">system</span>ctl daemon-reexec</span><br><span class="line"></span><br><span class="line"><span class="comment">#nginx开机自启</span></span><br><span class="line"><span class="params">system</span>ctl enable mysqld</span><br></pre></td></tr></table></figure>
+
+<h4 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑文件</span></span><br><span class="line">vim <span class="regexp">/etc/</span>profile</span><br><span class="line"></span><br><span class="line"><span class="comment">#增加下列code</span></span><br><span class="line">PATH=<span class="variable">$PATH</span>:<span class="variable">$HOME</span><span class="regexp">/bin:/u</span>sr<span class="regexp">/local/my</span>sql<span class="regexp">/bin:/u</span>sr<span class="regexp">/local/my</span>sql/lib</span><br><span class="line">export PATH</span><br><span class="line"></span><br><span class="line"><span class="comment">#重新载入profile</span></span><br><span class="line">source <span class="regexp">/etc/</span>profile</span><br></pre></td></tr></table></figure>
+
+<h4 id="启动MySQL数据库"><a href="#启动MySQL数据库" class="headerlink" title="启动MySQL数据库"></a>启动MySQL数据库</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/etc/i</span>nit.d/mysql start           </span><br></pre></td></tr></table></figure>
+<p>如果报下方错，则是之前没有完全卸载，<a href="#%E5%AE%89%E8%A3%85%E5%89%8D%E9%A2%84%E5%87%86%E5%A4%87">返回上方操作</a></p>
+<img src="/blog/p/e4d2e8fb/mysql_safe_error.png" class="" title="Mysql数据库 mysqld.saft error">
+
+<h4 id="登录mysql（默认密码是空），修改密码"><a href="#登录mysql（默认密码是空），修改密码" class="headerlink" title="登录mysql（默认密码是空），修改密码"></a>登录mysql（默认密码是空），修改密码</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p</span><br><span class="line"></span><br><span class="line"><span class="comment">#登录后进行操作</span></span><br><span class="line"><span class="built_in">set</span> password fo<span class="string">r&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span>=password(<span class="string">&#x27;这是密码&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#更换mysql密码</span><br><span class="line"><span class="keyword">update</span> mysql.<span class="keyword">user</span> <span class="keyword">set</span> authentication_string=<span class="keyword">password</span>(<span class="string">&#x27;JDCAMCLAJDCAMCLA&#x27;</span>) <span class="keyword">where</span> <span class="keyword">user</span>=<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#创建用户</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span>`用户名`@`*` identified <span class="keyword">by</span><span class="string">&#x27;密码&#x27;</span>;  \*代表任意ip地址，</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span>`yzx_discuz`@`localhost` identified <span class="keyword">by</span><span class="string">&#x27;JCDS&amp;&amp;JDCAMCLA&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#删除用户</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> <span class="string">&#x27;用户名&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span>;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> `yzx_discuz`@`localhost`;</span><br><span class="line"></span><br><span class="line">#修改用户</span><br><span class="line"><span class="keyword">rename</span> <span class="keyword">user</span> <span class="string">&#x27;用户名&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#查看权限</span><br><span class="line"><span class="keyword">show</span> grants <span class="keyword">for</span> <span class="string">&#x27;用户&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span>;</span><br><span class="line"><span class="keyword">show</span> grants <span class="keyword">for</span> <span class="string">&#x27;yzx_discuz&#x27;</span>@<span class="string">&#x27;127.0.0.1&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#授权操作</span><br><span class="line"><span class="keyword">grant</span>  权限/<span class="keyword">all</span> <span class="keyword">on</span> 数据库.表 <span class="keyword">to</span>   <span class="string">&#x27;用户&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> <span class="keyword">privileges</span> <span class="keyword">on</span> discuz.* <span class="keyword">to</span> <span class="string">&#x27;yzx_discuz&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;yzx_discuz&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#删除权限</span><br><span class="line"><span class="keyword">revoke</span> 权限 <span class="keyword">on</span> 数据库.表 <span class="keyword">from</span> <span class="string">&#x27;用户&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#将修改后的配置推入mysql内存</span><br><span class="line">flush <span class="keyword">privileges</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><h4 id="数据库级别优化"><a href="#数据库级别优化" class="headerlink" title="数据库级别优化"></a>数据库级别优化</h4><p>例如：</p>
+<ul>
+<li>应用程序是否使用适当的 锁定策略？(行表锁)</li>
+<li>用于缓存的 所有内存区域大小是否正确？</li>
+<li>是否为每个表使用了 <code>正确的存储引擎</code></li>
+<li><code>表结构</code> 是否正确</li>
+<li>是否使用了 <code>正确的索引</code>，提高查询效率</li>
+<li>是否为每一行使用了 <code>正确的属性</code></li>
+</ul>
+<p>|支持事务|系统崩溃后安全恢复|锁|文件存储|使用场景|其他|<br>-|-|-|-|-<br>InnoDB | √  | √ | 行锁(select * … for update)(只能在事务以及InnoDB中执行) | <b>.frm文件</b>：与该表相关的元数据信息、表结构的定义信息等。<br> <b>.ibd文件</b>：与该表相关的数据、索引、表的内部数据字典信息。 | <b>小型数据</b>：全盘扫描<br> <b>中型数据</b>：索引<br> <b>大型数据</b>：索引+分区分表<br>|通过机制工具支持热备份<br>MyISAM | ×  | × | 表锁 | MYD(数据文件)<br>MYI(索引文件) | |</p>
+<p>InnoDB中<br>主键查询，可能是行级锁<br>索引查询，可能是行级锁<br>非主键查询，可能是表锁</p>
+<p>以下情况下，表锁优于行级锁</p>
+<ol>
+<li>表的大多数语句均为读取</li>
+</ol>
+<h2 id="高并发下-数据不一致-的解决方案"><a href="#高并发下-数据不一致-的解决方案" class="headerlink" title="高并发下 数据不一致 的解决方案"></a>高并发下 数据不一致 的解决方案</h2><p>排他锁(悲观锁) &#x3D; 行锁 或 表锁<br>并发处理方案：</p>
+<ol>
+<li>排他锁(悲观锁)，但是会阻塞其他请求，效率低下</li>
+<li>乐观锁(CAS，Version)，但是有ABA的问题以及bad请求过多，解决办法：重入机制</li>
+</ol>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h2 id="优化-1"><a href="#优化-1" class="headerlink" title="优化"></a>优化</h2><blockquote>
+<p><a href="https://dev.mysql.com/doc/refman/5.7/en/optimization.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/optimization.html</a></p>
+</blockquote>
+<h3 id="优化SQL语句"><a href="#优化SQL语句" class="headerlink" title="优化SQL语句"></a>优化SQL语句</h3><ol>
+<li>添加合理的索引，EXPLAIN查询是否正确使用</li>
+<li>隔离和调整查询中花费时间过多的任何地方，例如函数调用。根据查询的结构，可以对结果集中的每一行调用一次函数，甚至可以对表中的每一行调用一次函数，从而极大地提高了效率。</li>
+<li>减少全盘扫描的次数，特别是大表</li>
+<li>通过 <code>analyze table</code> 定期使用该语句来使表统计信息保持最新 ，因此优化器具有构造有效执行计划所需的信息。</li>
+<li>优化存储引擎</li>
+<li>优化InnoDB表的 单查询事务</li>
+<li>避免以难以理解的方式转换查询，尤其是在优化程序自动执行某些相同转换的情况下。</li>
+<li>通过阅读EXPLAIN计划并调整索引，WHERE子句，连接子句等来调查特定查询的内部详细信息 。</li>
+<li>调整MySQL用于缓存的内存区域的大小和属性。通过有效地使用 InnoDB 缓冲池， MyISAM键高速缓存和MySQL查询高速缓存，重复查询的运行速度更快，因为第二次及其后的结果是从内存中检索的。</li>
+<li>进一步优化缓存区域快速运行的查询</li>
+<li>处理锁定问题，其中其他会话同时访问表可能会影响查询速度。</li>
+</ol>
+<h4 id="优化InnoDB缓冲池"><a href="#优化InnoDB缓冲池" class="headerlink" title="优化InnoDB缓冲池"></a>优化InnoDB缓冲池</h4><p>概念</p>
+<ol>
+<li>缓冲池(buffer pool)是一种常见的降低磁盘访问的机制；</li>
+<li>缓冲池通常以页(page)为单位缓存数据；</li>
+<li>缓冲池的常见管理算法是LRU，memcache，OS，InnoDB都使用了这种算法；</li>
+<li>InnoDB对普通LRU进行了优化：</li>
+</ol>
+<p>将缓冲池分为老生代和新生代，入缓冲池的页，优先进入老生代，页被访问，才进入新生代，以解决预读失效的问题<br>页被访问，且在老生代停留时间超过配置阈值的，才进入新生代，以解决批量数据访问，大量热数据淘汰的问题</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">参数：innodb_buffer_pool_size，默认128MB</span><br><span class="line">介绍：配置缓冲池的大小，在内存允许的情况下，DBA往往会建议调大这个参数，越多数据和索引放到内存里，数据库的性能会越好。</span><br><span class="line"></span><br><span class="line">参数：innodb_old_blocks_pct</span><br><span class="line"><span class="section">介绍：老生代占整个LRU链长度的比例，默认是37，即整个LRU中新生代与老生代长度比例是63:37。</span></span><br><span class="line"></span><br><span class="line">画外音：如果把这个参数设为100，就退化为普通LRU了。</span><br><span class="line">参数：innodb_old_blocks_time</span><br><span class="line">介绍：老生代停留时间窗口，单位是毫秒，默认是1000，即同时满足“被访问”与“在老生代停留时间超过1秒”两个条件，才会被插入到新生代头部。</span><br></pre></td></tr></table></figure>
+<h4 id="优化-where子句"><a href="#优化-where子句" class="headerlink" title="优化 where子句"></a>优化 where子句</h4><ol>
+<li>删除不必要的括号<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">   ((a <span class="keyword">AND </span><span class="keyword">b) </span><span class="keyword">AND </span>c <span class="keyword">OR </span>(((a <span class="keyword">AND </span><span class="keyword">b) </span><span class="keyword">AND </span>(c <span class="keyword">AND </span>d))))</span><br><span class="line">-&gt; (a <span class="keyword">AND </span><span class="keyword">b </span><span class="keyword">AND </span>c) <span class="keyword">OR </span>(a <span class="keyword">AND </span><span class="keyword">b </span><span class="keyword">AND </span>c <span class="keyword">AND </span>d)</span><br></pre></td></tr></table></figure></li>
+<li>恒定折叠<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">   (a&lt;<span class="keyword">b </span><span class="keyword">AND </span><span class="keyword">b=c) </span><span class="keyword">AND </span>a=<span class="number">5</span></span><br><span class="line">-&gt; <span class="keyword">b&gt;5 </span><span class="keyword">AND </span><span class="keyword">b=c </span><span class="keyword">AND </span>a=<span class="number">5</span></span><br></pre></td></tr></table></figure></li>
+<li>恒定条件消除<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">   (b&gt;=5 <span class="keyword">AND</span> <span class="attribute">b</span>=5) <span class="keyword">OR</span> (<span class="attribute">b</span>=6 <span class="keyword">AND</span> <span class="attribute">5</span>=5) <span class="keyword">OR</span> (<span class="attribute">b</span>=7 <span class="keyword">AND</span> <span class="attribute">5</span>=6)</span><br><span class="line">-&gt; <span class="attribute">b</span>=5 <span class="keyword">OR</span> <span class="attribute">b</span>=6</span><br></pre></td></tr></table></figure></li>
+<li>索引使用的常量表达式仅计算一次。</li>
+<li></li>
+</ol>
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/a28b9864/" class="prev">上一篇</a><a href="/blog/p/f3599f9d/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/e4d2e8fb/';
+var disqus_title = 'Mysql';
+var disqus_url = 'https://ayou129.github.io/blog/p/e4d2e8fb/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

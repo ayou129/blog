@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 架构 · 阿尤</title><meta name="description" content="架构 - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">架构</h1><div class="post-info">创建于：2019年7月15日<span style="margin-left: 0.5rem"></span>上次更新：2019年7月15日</div><div class="post-content"><h1 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h1><blockquote>
+<p>请求的次数超过服务器的负载时</p>
+</blockquote>
+<ul>
+<li>通常采取的方案是提高服务器的配置</li>
+<li>第二种方案是增加服务器的台数(集群+负载均衡)</li>
+<li>分布式架构(多台机器共同存储数据)</li>
+</ul>
+<p>架构演变<br>MVC -&gt; RPC -&gt; SOA -&gt; 微服务</p>
+<h2 id="分布式架构"><a href="#分布式架构" class="headerlink" title="分布式架构"></a>分布式架构</h2><p>docker<br>负载均衡</p>
+<p>|集群，高可用(每台机器的数据都相同)|分布式架构(多台机器共同存储数据)|RPC-服务(垂直)拆分<br>-|-|-|-<br>Nginx|无|无|<br>Mysql|双主热备|待填写|<br>Redis|主从(哨兵)|槽位算法|<br>RabbitMQ|主从|HA Proxy|<br>Zookeeper|主从|分布式|</p>
+<h2 id="架构思路"><a href="#架构思路" class="headerlink" title="架构思路"></a>架构思路</h2><ol>
+<li>阶段1，单击部署 Nginx php mysql redis memcached </li>
+<li>阶段2，集群保证高可用</li>
+<li>阶段3，分布式架构</li>
+<li>阶段4，微服务</li>
+<li>阶段5，</li>
+</ol>
+<h2 id="实战项目"><a href="#实战项目" class="headerlink" title="实战项目"></a>实战项目</h2><h3 id="高并发下全局session共享"><a href="#高并发下全局session共享" class="headerlink" title="高并发下全局session共享"></a>高并发下全局session共享</h3><p>问题描述：<code>负载均衡</code>后，<code>不同服务器session不一致</code>，导致需要重新登录(服务器需要共享session存储)<br>解决方案：</p>
+<ol>
+<li>Session 会话保持</li>
+<li>Session 会话复制</li>
+<li>Session 会话共享</li>
+</ol>
+<h4 id="Session-会话保持的含义是按照算法，让同一个用户始终被分配到某一台服务器，并存储数据，例如nginx的ip-hash"><a href="#Session-会话保持的含义是按照算法，让同一个用户始终被分配到某一台服务器，并存储数据，例如nginx的ip-hash" class="headerlink" title="Session 会话保持的含义是按照算法，让同一个用户始终被分配到某一台服务器，并存储数据，例如nginx的ip_hash"></a>Session 会话保持的含义是按照算法，让同一个用户始终被分配到某一台服务器，并存储数据，例如nginx的ip_hash</h4><p>导致的问题：</p>
+<ol>
+<li>负载不均衡</li>
+<li>单台服务器数据丢失，该用户需要重新登录</li>
+</ol>
+<h4 id="Session-会话复制的含义是存储一份session数据后，将数据复制到集群的其他节点当中"><a href="#Session-会话复制的含义是存储一份session数据后，将数据复制到集群的其他节点当中" class="headerlink" title="Session 会话复制的含义是存储一份session数据后，将数据复制到集群的其他节点当中"></a>Session 会话复制的含义是存储一份session数据后，将数据复制到集群的其他节点当中</h4><p>全局会话复制：利用Delta Manager复制会话中的变更信息到集群中的所有其他节点。<br>非全局复制：使用Backup Manager进行复制，它会把Session复制给一个指定的备份节点。<br>导致的问题：</p>
+<ol>
+<li>集群、分布式规模很大的时候，非常低效</li>
+</ol>
+<h4 id="Session-会话共享的含义是将数据存储到统一的地方。"><a href="#Session-会话共享的含义是将数据存储到统一的地方。" class="headerlink" title="Session 会话共享的含义是将数据存储到统一的地方。"></a>Session 会话共享的含义是将数据存储到统一的地方。</h4><p>实现方式：</p>
+<ol>
+<li>php.ini 开启或者php框架中开启 session.auto_start(); </li>
+<li>配置 session_set_save_handler($回调类，true);</li>
+<li>在类中写清楚需要以redis方式存储即可</li>
+</ol>
+<p>redis key:<code>(string)sid:XXXXXX  value是user_id 有ttl</code></p>
+<h3 id="高并发下秒杀商品"><a href="#高并发下秒杀商品" class="headerlink" title="高并发下秒杀商品"></a>高并发下秒杀商品</h3><blockquote>
+<p><a href="https://juejin.im/post/5d407cb7f265da03d1552d5f" target="_blank" rel="noopener">https://juejin.im/post/5d407cb7f265da03d1552d5f</a></p>
+</blockquote>
+<p>问题描述：<br>实现方式：</p>
+<ol>
+<li>秒杀并发量非常高，必须使用kv内存数据库实现</li>
+<li>在核心代码前(入口层)限制每秒请求次数</li>
+<li>判断用户是否请求多次(5秒20次)，封禁</li>
+<li>在程序入口处，一个账号只允许接受1个请求，其他请求过滤。</li>
+<li>带宽&#x2F;机器配置要跟得上</li>
+</ol>
+<h3 id="高并发下商品超卖"><a href="#高并发下商品超卖" class="headerlink" title="高并发下商品超卖"></a>高并发下商品超卖</h3><p>问题描述：解决锁的问题</p>
+<h3 id="单点登录"><a href="#单点登录" class="headerlink" title="单点登录"></a>单点登录</h3><p>问题描述：</p>
+<h3 id="支付防抖动"><a href="#支付防抖动" class="headerlink" title="支付防抖动"></a>支付防抖动</h3><h2 id="架构方案2"><a href="#架构方案2" class="headerlink" title="架构方案2"></a>架构方案2</h2><p>代码部署</p>
+<p>gitlab-runner-ci 代码管理+审查<br>k8s 容器快速部署<br>TracingAnalysis 链路追踪<br>    产品页面：<a href="https://www.aliyun.com/product/xtrace" target="_blank" rel="noopener">https://www.aliyun.com/product/xtrace</a><br>    控制台：<a href="https://tracing.console.aliyun.com/?xshare=1" target="_blank" rel="noopener">https://tracing.console.aliyun.com/?xshare=1</a><br>Prometheus 监控服务<br>    数据库监控<br>        Mysql<br>        MongoDB<br>    中间件监控<br>        nginx<br>        redis<br>        rabbitmq<br>    其他监控<br>        php<br>        k8s<br>        阿里云服务监控</p>
+<p>微服务架构<br>    网站首页<br>        x.com<br>    商城<br>        api.store.x.com<br>        store.x.com</p>
+<pre><code>用户表
+下单 付款
+</code></pre>
+</div></article></div></main><footer><div class="paginator"><a href="/blog/p/f8e09374/" class="prev">上一篇</a><a href="/blog/p/5a4ef2d3/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
+var disqus_identifier = 'p/8f889db4/';
+var disqus_title = '架构';
+var disqus_url = 'https://ayou129.github.io/blog/p/8f889db4/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
