@@ -347,6 +347,78 @@ header .nav-list-item a {
     color: #7f8c8d
 }
 
+.category {
+    max-width: 500px;
+    margin: 1em auto
+}
+
+.category .post-item {
+    padding: 2px 0 0 50px
+}
+
+.category .post-time, .category .post-title-link {
+    font-size: 1rem
+}
+
+.category .post-title-link {
+    display: block;
+    margin-left: 0px;
+    color: #42b983;
+    word-break: break-all
+}
+
+.category .post-title-link:hover {
+    border-bottom: 0;
+    color: #267B54
+}
+
+.category .post-info {
+    float: left;
+    width: 125px;
+    color: #7f8c8d
+}
+
+.category .category-item{
+    margin-right: 1em;
+}
+
+
+.tag {
+    max-width: 500px;
+    margin: 1em auto
+}
+
+.tag .post-item {
+    padding: 2px 0 0 50px
+}
+
+.tag .post-time, .tag .post-title-link {
+    font-size: 1rem
+}
+
+.tag .post-title-link {
+    display: block;
+    margin-left: 0px;
+    color: #42b983;
+    word-break: break-all
+}
+
+.tag .post-title-link:hover {
+    border-bottom: 0;
+    color: #267B54
+}
+
+.tag .post-info {
+    float: left;
+    width: 125px;
+    color: #7f8c8d
+}
+
+.tag .tag-item{
+    margin-right: 1em;
+}
+
+
 .post {
     padding-top: 1em
 }
@@ -696,11 +768,19 @@ main.container {
         padding: 10px 10px
     }
 
-    main.container, .home.post-list, .archive {
+    main.container, .home.post-list, .archive, .category, .tag {
         margin-top: 0
     }
 
     .archive .post-item {
+        padding-left: 20px
+    }
+
+    .category .post-item {
+        padding-left: 20px
+    }
+
+    .tag .post-item {
         padding-left: 20px
     }
 
