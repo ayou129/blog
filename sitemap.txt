@@ -1,4 +1,5 @@
 https://ayou129.github.io/blog/p/b5f422e3/
+https://ayou129.github.io/blog/p/6fbb57c1/
 https://ayou129.github.io/blog/p/5001f0a0/
 https://ayou129.github.io/blog/p/cc1b7711/
 https://ayou129.github.io/blog/p/41057579/
@@ -26,7 +27,6 @@ https://ayou129.github.io/blog/p/79dcde6c/
 https://ayou129.github.io/blog/p/5efa849c/
 https://ayou129.github.io/blog/p/3aa747c4/
 https://ayou129.github.io/blog/p/fad6aeba/
-https://ayou129.github.io/blog/p/6edc6731/
 https://ayou129.github.io/blog/p/c7fd79ff/
 https://ayou129.github.io/blog/p/953688bc/
 https://ayou129.github.io/blog/p/801262bc/
@@ -114,6 +114,8 @@ https://ayou129.github.io/blog/tags/AMQP/
 https://ayou129.github.io/blog/tags/RabbitMQ/
 https://ayou129.github.io/blog/tags/Cache/
 https://ayou129.github.io/blog/tags/DesignPattern/
+https://ayou129.github.io/blog/tags/Lua/
+https://ayou129.github.io/blog/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/
 https://ayou129.github.io/blog/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/
 https://ayou129.github.io/blog/categories/Diary/
 https://ayou129.github.io/blog/categories/1/

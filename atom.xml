@@ -6,7 +6,7 @@
   <link href="https://ayou129.github.io/blog/atom.xml" rel="self"/>
   
   <link href="https://ayou129.github.io/blog/"/>
-  <updated>2022-11-08T12:19:49.000Z</updated>
+  <updated>2022-12-07T11:44:01.000Z</updated>
   <id>https://ayou129.github.io/blog/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Lua</title>
+    <link href="https://ayou129.github.io/blog/p/6fbb57c1/"/>
+    <id>https://ayou129.github.io/blog/p/6fbb57c1/</id>
+    <published>2022-12-09T11:44:01.000Z</published>
+    <updated>2022-12-07T11:44:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>学习一下lua语言，使用到的场景有许多，游戏开发、redis中并发问题。</p><span id="more"></span><h2 id="有关游戏的"><a href="#有关游戏的" class="headerlink" title="有关游戏的"></a>有关游戏的</h2><p>在编写<code>第三人称游戏</code>的开发核心代码时，我们可以考虑以下几个方面：</p><ul><li>使用<code>变量</code>来存储<code>玩家的位置和姿势</code>，并根据键盘或控制器的输入来更新玩家的位置。</li><li>使用<code>函数</code>来封装<code>游戏世界中的各种对象</code>，例如：敌人、道具、建筑物等。</li><li>使用<code>循环</code>来处理<code>游戏世界中各个对象的逻辑</code>，例如：敌人的移动、道具的消失、建筑物的损坏等。</li><li>使用<code>条件语句</code>来处理游戏<code>世界中各种事件的发生</code>，例如：玩家的死亡、敌人的攻击、道具的收集等。</li></ul><p>以下是一段基本的第三人称游戏开发核心代码的例子：</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 定义玩家的位置和姿势变量</span></span><br><span class="line"><span class="keyword">local</span> playerPosition = &#123;x = <span class="number">0</span>, y = <span class="number">0</span>, z = <span class="number">0</span>&#125;</span><br><span class="line"><span class="keyword">local</span> playerRotation = &#123;x = <span class="number">0</span>, y = <span class="number">0</span>, z = <span class="number">0</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 定义游戏世界中各种对象的函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createEnemy</span><span class="params">(position, rotation)</span></span></span><br><span class="line"><span class="keyword">local</span> enemy = &#123;</span><br><span class="line">    position = position,</span><br><span class="line">    rotation = rotation,</span><br><span class="line">    health = <span class="number">100</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> enemy</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createItem</span><span class="params">(position, rotation)</span></span></span><br><span class="line"><span class="keyword">local</span> item = &#123;</span><br><span class="line">    position = position,</span><br><span class="line">    rotation = rotation,</span><br><span class="line">    duration = <span class="number">10</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> item</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createBuilding</span><span class="params">(position, rotation)</span></span></span><br><span class="line"><span class="keyword">local</span> building = &#123;</span><br><span class="line">    position = position,</span><br><span class="line">    rotation = rotation,</span><br><span class="line">    health = <span class="number">1000</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> building</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 初始化游戏世界中的各种对象</span></span><br><span class="line"><span class="keyword">local</span> enemies = &#123;&#125;</span><br><span class="line"><span class="keyword">local</span> items = &#123;&#125;</span><br><span class="line"><span class="keyword">local</span> buildings = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 处理游戏世界中各个对象</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">&lt;p&gt;学习一下lua语言，使用到的场景有许多，游戏开发、redis中并发问题。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="编程语言" scheme="https://ayou129.github.io/blog/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
+    
+    <category term="Lua" scheme="https://ayou129.github.io/blog/tags/Lua/"/>
+    
+    <category term="游戏开发" scheme="https://ayou129.github.io/blog/tags/%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
   
   <entry>
     <title>安卓反编译</title>
@@ -372,25 +395,6 @@
     
     
     
-    
-  </entry>
-  
-  <entry>
-    <title>杂谈：中国财富的九个层级</title>
-    <link href="https://ayou129.github.io/blog/p/80f3ea77/"/>
-    <id>https://ayou129.github.io/blog/p/80f3ea77/</id>
-    <published>2020-05-19T15:05:24.000Z</published>
-    <updated>2021-10-02T08:05:29.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>不断刷新自己的认知，让自己脱胎换骨，但是说实话挺痛苦的。。</p><span id="more"></span><h2 id="第一层：神秘层"><a href="#第一层：神秘层" class="headerlink" title="第一层：神秘层"></a>第一层：神秘层</h2><p>处于中国财富最顶端的，一般都神龙见首不见尾，不出事你根本可能连听都没听过。再比如北京某企业市值超过上千亿，但作为发起人的股东居然是一群婴儿和儿童。这些人往往站在很多大公司后面，面目模糊，但却掌握着真正的财富。这个层级我们称为神秘层。</p><img src="/blog/p/80f3ea77/%E7%A5%9E%E7%A7%98%E5%B1%82.jpg" class="" title="神秘层.jpg"><h2 id="第二层：趋势层"><a href="#第二层：趋势层" class="headerlink" title="第二层：趋势层"></a>第二层：趋势层</h2><p>第二个层级的人，是一些行业的风云领袖，比如阿里的马云、腾讯的马化腾、华为的任正非，长江实业的李嘉诚等等。他们强大到已经可以决定一个行业的兴衰，大到已经不能倒闭的程度。这个层级人的财富已经不仅仅来自于国内，他们早就开始规划世界的版图，他们的财富触角随时可以抵达政策允许的地方。相比于那些天天想着跟趋势共舞的企业家来说，他们就是造趋势的人。这个层级我们叫趋势层。</p><img src="/blog/p/80f3ea77/%E9%A9%AC%E4%BA%91.jpg" class="" title="马云.jpg"><h2 id="第三层：爆发层"><a href="#第三层：爆发层" class="headerlink" title="第三层：爆发层"></a>第三层：爆发层</h2><p>第三个层级的人，是一些创业成功的企业家，他们跟第二个层级的区别在于，他们并没有造趋势的能力，他们仅仅是在某个领域取得了建树。比如很多上市公司的董事长们大部分是在这个层级。他们通过上市的运作，已经实现了财富的倍增。在外人眼中他们已经是富豪的身份，但如果趋势没了，也可能迅速败落。这个层级我们叫爆发层。</p><img src="/blog/p/80f3ea77/%E4%BC%81%E4%B8%9A%E5%AE%B6.jpg" class="" title="企业家.jpg"><h2 id="第四层：资源层"><a href="#第四层：资源层" class="headerlink" title="第四层：资源层"></a>第四层：资源层</h2><p>第四个层级的人，是一些明星名人。他们一般跟上面三个层级有着千丝万缕的联系，在这个时代，明星有帮富豪们撑场面的作用，而明星帮他们撑场面的代价，就必须要分享利益。“不经意间”的一些信息，就会让明星们赚得盆满钵满。这个层级的人往往是要靠资源来获得财富，所以我们叫资源层。</p><img src="/blog/p/80f3ea77/%E6%98%8E%E6%98%9F.jpg" class="" title="明星.jpg"><h2 id="第五层：资本层"><a href="#第五层：资本层" class="headerlink" title="第五层：资本层"></a>第五层：资本层</h2><p>第五个层级的人，是投资人，私募基金负责人，基金经理，保险团队负责人等等。这部分是通过资本在市场上的运作，来获得增值。他们不做实业，实业在他们眼中就是资本运作的对象罢了。这部分人看起来挺风光，其实压力巨大无比，因为这个层级竞争压力非常剧烈。我们称他们为资本层。</p><img src="/blog/p/80f3ea77/%E6%8A%95%E8%B5%84%E4%BA%BA.jpg" class="" title="投资人.jpg"><h2 id="第六层：溢价层"><a href="#第六层：溢价层" class="headerlink" title="第六层：溢价层"></a>第六层：溢价层</h2><p>第六个层级的人，是大企业职业经理人，知名律师，有名的医生，稀缺的自由职业者等等。这部分人往往是靠能力赢得财富，能力越强，名气越大，财富越多。这个层级的人跟下面的层级比，往往具有溢价财富，名声往往会带给他们超出能力的财富。我们成为溢价层。</p><img src="/blog/p/80f3ea77/%E7%BB%8F%E7%90%86%E4%BA%BA.jpg" class="" title="经理人.jpg"><h2 id="第七层：中产层"><a href="#第七层：中产层" class="headerlink" title="第七层：中产层"></a>第七层：中产层</h2><p>第七个层级的人，是我们通常说的中产阶级。这部分人有着前六个层级的梦想，本质上却生活在社会的底层，因为一有点风吹草动，比如父母生个病，他们半生的积累就功亏一篑。好在他们在城市里基本已经扎下根来，往往他们已经贷款买了房子，买了车，买了点理财产品，他们小心翼翼地呵护着自己的财富。他们既非常警惕的上面的人来掠夺自己，又非常刻意地拉开与下面的距离，我们称他们为中产层。</p><img src="/blog/p/80f3ea77/%E4%B8%AD%E4%BA%A7.jpg" class="" title="中产.jpg"><h2 id="第八层：韭菜层"><a href="#第八层：韭菜层" class="headerlink" title="第八层：韭菜层"></a>第八层：韭菜层</h2><p>第八个层级的人，是普通打工一族。他们起早贪黑地在城市里奔波，只要功劳不被人抢走，年底能发个双薪就感恩戴德了。他们在城市里没有依靠感，虽然有着可能不错的薪水，但因为种种原因错过了财富增长的机会，比如没有在前几年买房，所以他们经常发出要逃离北上广的哀叹。这个群体缴纳财富的智商税是最多的，他们需要经常被收割，否则就会变成中产阶级，所以我们称他们为韭菜层。</p><img src="/blog/p/80f3ea77/%E9%9F%AD%E8%8F%9C.jpg" class="" title="韭菜.jpg"><h2 id="第九层：草根层"><a href="#第九层：草根层" class="headerlink" title="第九层：草根层"></a>第九层：草根层</h2><p>第九个层级的人，是没有稳定收入的人，比如他们在享受低保，或者在高危行业，他们往往只能靠出卖体力来获得报酬。哪怕他们生活在城市里，他们也不属于城市，比如孩子教育，比如医疗社保，跟他们都没什么关系。这个层级的人我们称为草根层。</p><img src="/blog/p/80f3ea77/%E7%A9%B7%E4%BA%BA.jpg" class="" title="穷人.jpg"><h2 id="如何升级？"><a href="#如何升级？" class="headerlink" title="如何升级？"></a>如何升级？</h2><p>一个人身处某一个层级，跟能力有很大关系，跟人脉很有关系，但最重要的是思维。所谓穷人思维就是不管给你多少财富，你都可能挥霍一空，因为你根本不知道如何腾挪转移去获得增值。我们在看清层级的同时，也应该看懂每个层级人的思维模式，这样你才可能当机会到来的时候，一撮而就。</p>]]></content>
-    
-    
-    <summary type="html">无</summary>
-    
-    
-    
-    
-    <category term="Diary" scheme="https://ayou129.github.io/blog/tags/Diary/"/>
     
   </entry>
   

@@ -1,44 +1,41 @@
 <!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Git · 阿尤</title><meta name="description" content="Git - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
 </head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Git</h1><div class="post-info">创建于：2019年12月23日<span style="margin-left: 0.5rem"></span>上次更新：2022年10月10日</div><div class="post-content"><p>不必多言，代码管理我只爱它🥰！</p>
 <span id="more"></span>
+
+<h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><p>Git 是一种非常有用的版本控制工具，可以让用户轻松地跟踪文件的更改历史，并与其他用户协作开发项目。</p>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><table>
+<thead>
+<tr>
+<th>软件</th>
+<th>介绍</th>
+<th>分支</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Git</td>
+<td>分布式(每个本地仓库都是一个完整的备份，可以独立运作，不需要中央服务器)</td>
+<td>分支功能强大</td>
+<td>性能更快一些</td>
+</tr>
+<tr>
+<td>SVN</td>
+<td>集中式(需要中央服务器才能工作)</td>
+<td>分支功能较弱</td>
+<td>-</td>
+</tr>
+</tbody></table>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><p>在本地主机上创建 Git 仓库。<br>在 Git 仓库中编辑文件，并保存更改。<br>提交更改到 Git 仓库，以便将它们记录到版本历史中。<br>通过远程仓库与其他用户协作，以便快速完成项目。</p>
+<p>在整个工作流程中，Git 还提供了许多有用的功能，如分支管理、标签和撤销更改等。</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="如何在-Git-中跟踪更改？"><a href="#如何在-Git-中跟踪更改？" class="headerlink" title="如何在 Git 中跟踪更改？"></a>如何在 Git 中跟踪更改？</h3><p>可以使用 git log 命令查看所有提交的历史记录，以查看所有已跟踪的更改。</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git log</span><br></pre></td></tr></table></figure>
+<h3 id="如何在-Git-中撤销更改？"><a href="#如何在-Git-中撤销更改？" class="headerlink" title="如何在 Git 中撤销更改？"></a>如何在 Git 中撤销更改？</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git revert file.txt</span><br><span class="line">$ git commit -m &quot;Reverted changes to file.txt&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="合并分支"><a href="#合并分支" class="headerlink" title="合并分支"></a>合并分支</h3><p>当前分支合并其他分支</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>git merge feature</span><br><span class="line"><span class="comment"># 如果有冲突就先解决冲突</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$ </span>git commit -m <span class="string">&quot;Merged feature branch&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h3><p>Git 会在冲突的部分添加特殊的标记，例如 &lt;&lt;&lt;&lt;&lt;&lt;&lt; 和 &gt;&gt;&gt;&gt;&gt;&gt;&gt;，表示冲突的两个版本。您需要手动修改文件，解决冲突，并删除这些标记。</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum <span class="keyword">install</span> <span class="keyword">install</span> git-all</span><br></pre></td></tr></table></figure>
 
-<h2 id="Repository"><a href="#Repository" class="headerlink" title="Repository"></a>Repository</h2><p>远程端：</p>
-<ul>
-<li>项目的元数据</li>
-<li><code>压缩的</code> 对象数据库</li>
-</ul>
-<h2 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h2><h3 id="Git是什么"><a href="#Git是什么" class="headerlink" title="Git是什么"></a>Git是什么</h3><ul>
-<li>一个 <code>分布式版本控制系统</code></li>
-</ul>
-<h3 id="历史迭代-衍生"><a href="#历史迭代-衍生" class="headerlink" title="历史迭代(衍生)"></a>历史迭代(衍生)</h3><ul>
-<li>在不同时期，市面上主流CVS使用情况</li>
-</ul>
-<ol>
-<li><p><code>本地</code> 版本控制系统</p>
-<ul>
-<li>例如：RCS</li>
-<li>采用简单的数据库记录 <b>文件的历次更新差异</b>(也就是补丁集，补丁是指文件修订前后的变化)</li>
-<li>缺点： 特别容易犯错，有时候会混淆所在的工作目录，一不小心会写错文件或者覆盖意想外的文件。</li>
-</ul>
-</li>
-<li><p><code>集中式</code> 版本控制系统 CVCS (Centralized Version Control Systems)</p>
-<ul>
-<li>例如：CVS、Subversion 以及 Perforce 等</li>
-<li>采用单一的集管理的服务器，保存所有的补丁集</li>
-<li>优点：让在不同系统上的开发者协同工作，管理员可以分配合适的权限进行限制</li>
-<li>缺点：服务器的单点故障</li>
-</ul>
-</li>
-<li><p><code>分布式</code> 版本控制系统 DCVS (Distributed Version Control System)</p>
-<ul>
-<li>例如：Git、Mercurial、Bazaar 以及 Darcs 等</li>
-<li>采用分布式的服务器，保存项目所有的文件镜像，包括完整的历史记录</li>
-<li>优点：让在不同系统上的开发者协同工作，管理员可以分配合适的权限进行限制，不担心服务器会发生故障</li>
-</ul>
-</li>
-</ol>
-<h2 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h2><h3 id="Git-速度慢-卡-解决方案"><a href="#Git-速度慢-卡-解决方案" class="headerlink" title="Git 速度慢,卡 解决方案"></a>Git 速度慢,卡 解决方案</h3><h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><ol>
+<h3 id="Git-速度慢-卡-解决方案"><a href="#Git-速度慢-卡-解决方案" class="headerlink" title="Git 速度慢,卡 解决方案"></a>Git 速度慢,卡 解决方案</h3><h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><ol>
 <li>修改本机hosts文件，添加下方两行code，并重启网络服务<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">151.101.72.249 github.global.ssl.fastly.net</span><br><span class="line">192.30.253.112 github.com</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>tip:win10中文件路径为C:\Windows\System32\drivers\etc\hosts</p>
@@ -54,26 +51,7 @@
 </li>
 <li>cmd(命令行)中执行下方code<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="regexp">/etc/i</span>nit.d/networking restart</span><br></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h3 id="分支的概念"><a href="#分支的概念" class="headerlink" title="分支的概念"></a>分支的概念</h3><h3 id="分支的作用"><a href="#分支的作用" class="headerlink" title="分支的作用"></a>分支的作用</h3><h3 id="使用分支"><a href="#使用分支" class="headerlink" title="使用分支"></a>使用分支</h3><h3 id="与其他版本控制系统的区别"><a href="#与其他版本控制系统的区别" class="headerlink" title="与其他版本控制系统的区别"></a>与其他版本控制系统的区别</h3><table>
-<thead>
-<tr>
-<th>*CVS</th>
-<th>对待数据的方法</th>
-<th>操作环境</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>git</td>
-<td>直接记录所有文件的快照(内容以及索引)</td>
-<td>大部分操作都是本地操作</td>
-</tr>
-<tr>
-<td>其他版本控制系统</td>
-<td><b>基于差异（delta-based）：</b> <br>以文件变更列表的方式存储信息</td>
-<td>操作服务器内容时，必须要联网</td>
-</tr>
-</tbody></table>
-<h3 id="存储的逻辑"><a href="#存储的逻辑" class="headerlink" title="存储的逻辑"></a>存储的逻辑</h3><ol>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><h3 id="存储的逻辑"><a href="#存储的逻辑" class="headerlink" title="存储的逻辑"></a>存储的逻辑</h3><ol>
 <li>基于 <code>Git</code> 中 <code>文件的内容或目录结构</code>，存储前计算校验和 <code>(哈希散列)</code>，校验和是 40个十六进制字符（0-9和a-f）组成的字符串</li>
 <li>优势：不容易丢失信息或损坏文件</li>
 </ol>
@@ -90,7 +68,7 @@
 <li>接着按3个回车</li>
 <li>在c&#x2F;Users&#x2F;Administrator&#x2F;.ssh生成了加密文件，复制id_rsa.pub</li>
 <li>打开github 添加New SSH key</li>
-<li>验证是否连接成功 ssh -T <a href="mailto:&#103;&#105;&#116;&#x40;&#103;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#111;&#x6d;">&#103;&#105;&#116;&#x40;&#103;&#105;&#116;&#x68;&#117;&#x62;&#46;&#x63;&#111;&#x6d;</a>(gitee site)</li>
+<li>验证是否连接成功 ssh -T <a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#x75;&#98;&#x2e;&#x63;&#111;&#109;">&#103;&#105;&#116;&#64;&#x67;&#105;&#116;&#104;&#x75;&#98;&#x2e;&#x63;&#111;&#109;</a>(gitee site)</li>
 </ol>
 <h2 id="区域"><a href="#区域" class="headerlink" title="区域"></a>区域</h2><p>跟踪文件	暂存区		仓库<br>(已修改 未提交	已修改	已提交)</p>
 <p>未跟踪–&gt;add后跟踪文件，变为未修改，等待commit–&gt;commit后 暂存区(进入暂存区同时将状态更换为未修改)<br>        修改文件后，变为已修改，等待commit–&gt;commit后 暂存区(进入暂存区同时将状态更换为未修改)<br>touch file  add后 进入缓存区 等待commit<br>修改文件后  add后 进入缓存区 等待commit</p>
@@ -105,7 +83,7 @@
 <li>git init	初始化git项目</li>
 <li>git config –list	查看当前git所有配置 VCS</li>
 <li>git config –global user.name ‘lee’			设置当前用户名称为lee</li>
-<li>git config –global  user.email ‘<a href="mailto:&#x67;&#x75;&#x6f;&#120;&#105;&#x6e;&#x6c;&#x65;&#101;&#49;&#50;&#x39;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;">&#x67;&#x75;&#x6f;&#120;&#105;&#x6e;&#x6c;&#x65;&#101;&#49;&#50;&#x39;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;</a>‘ 设置当前email</li>
+<li>git config –global  user.email ‘<a href="mailto:&#103;&#117;&#x6f;&#120;&#x69;&#110;&#x6c;&#101;&#101;&#x31;&#50;&#57;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#103;&#117;&#x6f;&#120;&#x69;&#110;&#x6c;&#101;&#101;&#x31;&#50;&#57;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a>‘ 设置当前email</li>
 <li>git clone -b 版本号 url 项目名称	克隆项目</li>
 </ul>
 <p>Remote</p>
@@ -155,7 +133,7 @@
 <li>git stash drop  stash@{0} 删除缓存 	</li>
 <li>git log –name-only</li>
 </ul>
-<h2 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h2><ol>
+<h2 id="解决冲突-1"><a href="#解决冲突-1" class="headerlink" title="解决冲突"></a>解决冲突</h2><ol>
 <li>先 <code>git pull</code> 或者在 <code>git push</code> 时会发生代码冲突</li>
 <li>使用 <code>git diff</code> 解决冲突（<code>git</code> 会将冲突的代码“合并”到文件当中，修改发生冲突的文件即可）</li>
 <li><code>git add *</code></li>

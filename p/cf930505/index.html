@@ -1,8 +1,57 @@
 <!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Mian · 阿尤</title><meta name="description" content="Mian - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
 </head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Mian</h1><div class="post-info">创建于：2019年12月22日<span style="margin-left: 0.5rem"></span>上次更新：2019年12月22日</div><div class="post-content"><h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><a href="/blog/p/6fbb57c0/" title="设计模式">设计模式</a>
-<p>什么是设计模式？<br>设计模式有哪些？五个字母+3，不需要说出来，只需要背出一部分</p>
-<h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><a href="/blog/p/6edc6731/" title="Php">Php</a>
-<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><p>框架对比<br>手写框架解析<br>Base.php<br>Loader::register();注册自动加载<br>   spl_autoload_register<br>   Composer自动加载支持<br>Loader::addClassAlias注册类库别名<br>Error::register();注册错误和异常处理机制</p>
+<p>什么是设计模式？<br>设计模式有哪些？五个字母+2，不需要说出来，只需要背出一部分<br>SOLID<br>如果不这么做的话</p>
+<h2 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h2><a href="/blog/p/1417dc7c/" title="PHP">PHP</a>
+<h3 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h3><h3 id="workman"><a href="#workman" class="headerlink" title="workman"></a>workman</h3><h4 id="介绍一下Workman框架的工作原理。"><a href="#介绍一下Workman框架的工作原理。" class="headerlink" title="介绍一下Workman框架的工作原理。"></a>介绍一下Workman框架的工作原理。</h4><p>Workman框架是一个开源的PHP应用容器，它使用多进程模型来处理请求。它提供了一个简单易用的API，可以轻松实现应用程序的并发处理和实时通信。Workman框架的工作流程大致如下：</p>
+<p>首先，客户端发起请求，通过网络传输到服务器端。</p>
+<p>服务器端的Workman框架将请求放入消息队列中，并使用多个进程来处理请求。</p>
+<p>当每个进程完成请求处理后，Workman框架将结果返回给客户端。</p>
+<p>客户端接收到结果后，可以继续发起新的请求。</p>
+<h4 id="Workman框架与传统的PHP应用程序有什么区别？"><a href="#Workman框架与传统的PHP应用程序有什么区别？" class="headerlink" title="Workman框架与传统的PHP应用程序有什么区别？"></a>Workman框架与传统的PHP应用程序有什么区别？</h4><p>工作方式不同：传统的PHP应用程序是单进程的，每次只能处理一个请求，而Workman框架使用多进程模型，可以同时处理多个请求。</p>
+<p>通信方式不同：传统的PHP应用程序通常只能进行同步通信，客户端需要等待服务器端的响应，而Workman框架提供了异步通信功能，客户端可以在等待响应的同时发起新的请求。</p>
+<p>扩展能力不同：传统的PHP应用程序的扩展能力有限，通常需要修改应用程序本身来实现新的功能，而Workman框架提供了灵活的插件机制，可以轻松实现应用程序的扩展。</p>
+<p>可扩展性不同：传统的PHP应用程序通常难以提高吞吐量，而Workman框架可以通过调整进程数量来提高应用程序的吞吐量。</p>
+<h4 id="Workman框架有哪些优点和缺点？"><a href="#Workman框架有哪些优点和缺点？" class="headerlink" title="Workman框架有哪些优点和缺点？"></a>Workman框架有哪些优点和缺点？</h4><p>优点：</p>
+<ol>
+<li>高性能：Workman框架使用多进程模型，可以同时处理多个请求，提高应用程序的吞吐量。</li>
+<li>灵活的通信方式：Workman框架支持同步和异步通信，客户端可以根据需要进行选择。</li>
+<li>易于扩展：Workman框架提供了灵活的插件机制，可以轻松实现应用程序的扩展。</li>
+<li>简单易用：Workman框架提供了一个简单易用的API，开发人员可以轻松使用它来创建高性能的应用程序。</li>
+</ol>
+<p>缺点：</p>
+<ul>
+<li>对硬件资源要求较高：Workman框架使用多进程模型，需要较多的硬件资源来支持。</li>
+<li>适用场景有限：Workman框架适用于并发处理和实时通信等需要高性能的应用程序，不适用于所有类型的应用场景。</li>
+<li>使用门槛较高：Workman框架的使用方法与传统的PHP应用程序有些不同，开发人员需要花费一定的时间来学习和使用它。</li>
+<li>文档不够完善：Workman框架目前的文档还不够完善，有些细节和特性可能需要开发者自己寻找解决方案</li>
+</ul>
+<h4 id="Workman框架如何实现并发处理和实时通信？"><a href="#Workman框架如何实现并发处理和实时通信？" class="headerlink" title="Workman框架如何实现并发处理和实时通信？"></a>Workman框架如何实现并发处理和实时通信？</h4><ul>
+<li>使用多进程模型：Workman框架使用多个进程来处理请求，可以同时处理多个请求。</li>
+<li>提供异步通信功能：Workman框架提供了异步通信功能，客户端可以在等待响应的同时发起新的请求。</li>
+<li>实现消息队列：Workman框架使用消息队列来存储请求，每个进程都可以从消息队列中获取请求并处理。</li>
+<li>支持实时通信：Workman框架支持实时通信，客户端和服务器端可以通过WebSocket协议进行实时通信。</li>
+</ul>
+<p>通过以上方式，Workman框架可以实现并发处理和实时通信的功能，为开发人员提供了一个高效灵活的工作环境。</p>
+<h4 id="如何调整Workman框架中进程的数量？"><a href="#如何调整Workman框架中进程的数量？" class="headerlink" title="如何调整Workman框架中进程的数量？"></a>如何调整Workman框架中进程的数量？</h4><ul>
+<li>修改配置文件：Workman框架的配置文件中包含了进程数量的设置，可以通过修改配置文件来调整进程数量。</li>
+<li>使用命令行参数：在启动Workman框架时，可以使用命令行参数来指定进程数量。</li>
+<li>使用API接口：Workman框架提供了API接口，可以通过调用API接口来动态调整进程数量。</li>
+</ul>
+<h4 id="Workman框架的组件有哪些？"><a href="#Workman框架的组件有哪些？" class="headerlink" title="Workman框架的组件有哪些？"></a>Workman框架的组件有哪些？</h4><p>Server：Workman框架的服务器组件，负责监听客户端请求并转发给Worker进程处理。<br>Worker：Workman框架的工作进程组件，负责处理客户端请求并返回响应。<br>Router：Workman框架的路由组件，负责将客户端请求映射到相应的处理器，并调用处理器处理请求。<br>Request：Workman框架的请求组件，封装了客户端请求的信息，如请求方法、请求参数、请求头等。<br>Response：Workman框架的响应组件，封装了服务器返回给客户端的信息，如响应状态码、响应头、响应内容等。<br>Middleware：Workman框架的中间件组件，可以在请求和响应之间添加自定义的处理逻辑，如日志处理、权限验证等。<br>Event：Workman框架的事件组件，提供了事件驱动的架构，可以通过订阅和发布事件来实现模块之间的解耦。</p>
+<h4 id="如何使用Workman框架扩展应用程序的功能？"><a href="#如何使用Workman框架扩展应用程序的功能？" class="headerlink" title="如何使用Workman框架扩展应用程序的功能？"></a>如何使用Workman框架扩展应用程序的功能？</h4><h4 id="你在实际项目中如何使用Workman框架？"><a href="#你在实际项目中如何使用Workman框架？" class="headerlink" title="你在实际项目中如何使用Workman框架？"></a>你在实际项目中如何使用Workman框架？</h4><h4 id="你认为php语言的Workman框架的未来发展趋势是什么？"><a href="#你认为php语言的Workman框架的未来发展趋势是什么？" class="headerlink" title="你认为php语言的Workman框架的未来发展趋势是什么？"></a>你认为php语言的Workman框架的未来发展趋势是什么？</h4><h4 id="你认为Workman框架适用于哪些类型的应用程序？"><a href="#你认为Workman框架适用于哪些类型的应用程序？" class="headerlink" title="你认为Workman框架适用于哪些类型的应用程序？"></a>你认为Workman框架适用于哪些类型的应用程序？</h4><h4 id="在Workman框架中，如何进行单元测试？"><a href="#在Workman框架中，如何进行单元测试？" class="headerlink" title="在Workman框架中，如何进行单元测试？"></a>在Workman框架中，如何进行单元测试？</h4><p>可以使用PHPUnit来进行单元测试。PHPUnit是一个强大的PHP单元测试框架，提供了丰富的功能来帮助您测试您的代码。</p>
+<p>在Workman框架中，您需要安装PHPUnit并且在代码中引入它。然后，您可以使用PHPUnit的相关方法来编写测试用例，并运行测试用例来检验您的代码是否能够按预期工作。</p>
+<p>下面是一个简单的例子，展示了如何在Workman框架中使用PHPUnit进行单元测试：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">PHPUnit</span>\<span class="title">Framework</span>\<span class="title">TestCase</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Workman</span>\<span class="title">Workman</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExampleTest</span> <span class="keyword">extends</span> <span class="title">TestCase</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">// 测试Workman应用能否正常运行</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">testApp</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 创建一个Workman应用</span></span><br><span class="line">        <span class="variable">$app</span> = <span class="keyword">new</span> Workman();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 添加一个路由，返回&quot;Hello, World!&quot;</span></span><br><span class="line">        <span class="variable">$app</span>-&gt;get(<span class="string">&#x27;/&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&#x27;Hello, World!&#x27;</span>;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 启动Workman应用</span></span><br><span class="line">        <span class="variable">$app</span>-&gt;run();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 断言返回的响应内容是否为&quot;Hello, World!&quot;</span></span><br><span class="line">        <span class="keyword">$this</span>-&gt;assertEquals(<span class="string">&#x27;Hello, World!&#x27;</span>, <span class="variable">$app</span>-&gt;response-&gt;getBody());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用PHPUnit的TestCase类来创建一个测试用例，并编写了一个测试方法testApp来检验Workman应用是否能够正常运行。我们创建了一个Workman应用，添加了一个路由，并启动了应用。然后，我们使用PHPUnit的assertEquals方法来断言响应内容是否为</p>
+<h4 id="在Workman框架中，如何进行性能测试？"><a href="#在Workman框架中，如何进行性能测试？" class="headerlink" title="在Workman框架中，如何进行性能测试？"></a>在Workman框架中，如何进行性能测试？</h4><p>在Workman框架中，可以使用ApacheBench或Siege来进行性能测试。ApacheBench和Siege都是用于测试Web应用性能的工具，可以用来模拟大量并发请求并测量应用的响应时间。</p>
+<p>下面是使用ApacheBench进行性能测试的例子：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用ApacheBench发送<span class="number">1000</span>个并发请求</span><br><span class="line">`ab -c <span class="number">1000</span> -n <span class="number">1000</span> http:<span class="regexp">//</span>example.com/`</span><br></pre></td></tr></table></figure>
+<p>上面的命令会使用ApacheBench发送1000个并发请求到指定的URL，并测量应用的响应时间。</p>
+<p>对于Siege，下面是使用Siege进行性能测试的例子：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">使用Siege发送<span class="number">1000</span>个并发请求</span><br><span class="line">`siege -c <span class="number">1000</span> -n <span class="number">1000</span> http:<span class="regexp">//</span>example.com/`</span><br></pre></td></tr></table></figure>
+<p>上面的命令会使用Siege发送1000个并发请求到指定的URL，并测量应用的响应时间。</p>
+<p>通过使用ApacheBench或Siege进行性能测试，您可以了解应用在高并发情况下的性能表现，并对应用进行优化以提高性能。</p>
+<p>框架对比<br>手写框架解析<br>Base.php<br>Loader::register();注册自动加载<br>   spl_autoload_register<br>   Composer自动加载支持<br>Loader::addClassAlias注册类库别名<br>Error::register();注册错误和异常处理机制</p>
 <p>路由<br>控制器<br>相应</p>
 <h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><h2 id="Mysql"><a href="#Mysql" class="headerlink" title="Mysql"></a>Mysql</h2><a href="/blog/p/e4d2e8fb/" title="Mysql">Mysql</a>
 <h3 id="基础-1"><a href="#基础-1" class="headerlink" title="基础"></a>基础</h3><p>BTree + B+Tree<br>事务以及隔离级别<br>共享锁和排他锁<br>分库分表<br>   ShardingSphere<br>   Mycat<br>双主- mysql-keepalived</p>
@@ -11,10 +60,157 @@
 <h2 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h2><a href="/blog/p/65b69107/" title="Nginx">Nginx</a>
 <h3 id="基础-3"><a href="#基础-3" class="headerlink" title="基础"></a>基础</h3><p>进程模型<br>进程分流<br>location规则与rewrite解析<br>动静分离、反向代理以及跨域实战<br>缓存配置以及Gzip配置实战<br>https认证以及LVS高可用实战</p>
 <h3 id="优化-3"><a href="#优化-3" class="headerlink" title="优化"></a>优化</h3><h2 id="mongodb"><a href="#mongodb" class="headerlink" title="mongodb"></a>mongodb</h2><h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><h3 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h3><a href="/blog/p/b543ced0/" title="RabbitMQ">RabbitMQ</a>
-<h4 id="基础-4"><a href="#基础-4" class="headerlink" title="基础"></a>基础</h4><p>消息中间件和RPC的区别<br>消息发布与消费权衡<br>消息的拒绝怎么解决 死信队列<br>集群化与镜像队列实战</p>
-<h4 id="优化-4"><a href="#优化-4" class="headerlink" title="优化"></a>优化</h4><h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="基础-5"><a href="#基础-5" class="headerlink" title="基础"></a>基础</h3><h3 id="优化-5"><a href="#优化-5" class="headerlink" title="优化"></a>优化</h3><h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3><h4 id="主流分布式架构设计详解"><a href="#主流分布式架构设计详解" class="headerlink" title="主流分布式架构设计详解"></a>主流分布式架构设计详解</h4><h4 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h4><h5 id="Redis-1"><a href="#Redis-1" class="headerlink" title="Redis"></a>Redis</h5><h5 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h5><h6 id="基础-6"><a href="#基础-6" class="headerlink" title="基础"></a>基础</h6><p>开发实战<br>zkclient<br>curotor<br>原生客户端<br>应用实战<br>集群选举实战<br>分布式锁实战<br>底层协议解读<br>2p、3p<br>cap、base<br>paxos、zab</p>
+<h4 id="基础-4"><a href="#基础-4" class="headerlink" title="基础"></a>基础</h4><h4 id="优化-4"><a href="#优化-4" class="headerlink" title="优化"></a>优化</h4><p>RabbitMQ是什么，它有什么用？</p>
+<ul>
+<li>RabbitMQ是一个消息中间件，它允许应用程序之间的可靠消息传递。它的用途包括：异步通信、解耦、流量控制、消息路由。</li>
+</ul>
+<p>RabbitMQ如何保证消息传递的可靠性？</p>
+<ul>
+<li>RabbitMQ保证消息传递的可靠性通过实现消息持久化、可重新投递、发布确认等机制来实现。</li>
+</ul>
+<p>RabbitMQ中有哪些核心概念？</p>
+<ul>
+<li>RabbitMQ中的核心概念包括生产者、消费者、队列、交换器、绑定和路由键。</li>
+</ul>
+<p>RabbitMQ中队列是如何工作的？</p>
+<ul>
+<li>RabbitMQ中的队列是一个消息存储结构，它用于存储生产者发送的消息，并提供给消费者消费。</li>
+</ul>
+<p>RabbitMQ中交换器是如何工作的？</p>
+<ul>
+<li>RabbitMQ中的交换器是一个消息路由器，它用于接收生产者发送的消息，并根据绑定和路由键将消息路由到对应的队列。</li>
+</ul>
+<h2 id="RabbitMQ中绑定和路由键是如何工作的？"><a href="#RabbitMQ中绑定和路由键是如何工作的？" class="headerlink" title="RabbitMQ中绑定和路由键是如何工作的？"></a>RabbitMQ中绑定和路由键是如何工作的？</h2><h2 id="RabbitMQ支持哪些消息传递模式？"><a href="#RabbitMQ支持哪些消息传递模式？" class="headerlink" title="RabbitMQ支持哪些消息传递模式？"></a>RabbitMQ支持哪些消息传递模式？</h2><h2 id="RabbitMQ有哪些可用的客户端库？"><a href="#RabbitMQ有哪些可用的客户端库？" class="headerlink" title="RabbitMQ有哪些可用的客户端库？"></a>RabbitMQ有哪些可用的客户端库？</h2><h2 id="RabbitMQ有哪些主要的插件？"><a href="#RabbitMQ有哪些主要的插件？" class="headerlink" title="RabbitMQ有哪些主要的插件？"></a>RabbitMQ有哪些主要的插件？</h2><p>RabbitMQ有哪些可用的扩展选项，例如集群和故障转移？</p>
+<h2 id="Git"><a href="#Git" class="headerlink" title="Git"></a>Git</h2><h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="基础-5"><a href="#基础-5" class="headerlink" title="基础"></a>基础</h3><h3 id="优化-5"><a href="#优化-5" class="headerlink" title="优化"></a>优化</h3><h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3><h4 id="主流分布式架构设计详解"><a href="#主流分布式架构设计详解" class="headerlink" title="主流分布式架构设计详解"></a>主流分布式架构设计详解</h4><h4 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h4><h5 id="Redis-1"><a href="#Redis-1" class="headerlink" title="Redis"></a>Redis</h5><h5 id="Zookeeper"><a href="#Zookeeper" class="headerlink" title="Zookeeper"></a>Zookeeper</h5><h6 id="基础-6"><a href="#基础-6" class="headerlink" title="基础"></a>基础</h6><p>开发实战<br>zkclient<br>curotor<br>原生客户端<br>应用实战<br>集群选举实战<br>分布式锁实战<br>底层协议解读<br>2p、3p<br>cap、base<br>paxos、zab</p>
 <h6 id="优化-6"><a href="#优化-6" class="headerlink" title="优化"></a>优化</h6><h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3><h4 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h4><p>CAS原理<br>CAS带来的ABA问题 解决方案：原子操作</p>
-<h3 id="网络编程与高效IO"><a href="#网络编程与高效IO" class="headerlink" title="网络编程与高效IO"></a>网络编程与高效IO</h3><h4 id="HTTP-x2F-TCP-x2F-UDP网络协议原理透析"><a href="#HTTP-x2F-TCP-x2F-UDP网络协议原理透析" class="headerlink" title="HTTP&#x2F;TCP&#x2F;UDP网络协议原理透析"></a>HTTP&#x2F;TCP&#x2F;UDP网络协议原理透析</h4><h4 id="Swoole"><a href="#Swoole" class="headerlink" title="Swoole"></a>Swoole</h4><h4 id="Socks"><a href="#Socks" class="headerlink" title="Socks"></a>Socks</h4><h3 id="高效存储"><a href="#高效存储" class="headerlink" title="高效存储"></a>高效存储</h3><p>fastDFS</p>
+<h3 id="网络编程与高效IO"><a href="#网络编程与高效IO" class="headerlink" title="网络编程与高效IO"></a>网络编程与高效IO</h3><p>基本概念：</p>
+<ul>
+<li>进程有pid号</li>
+<li>协议(protocol)</li>
+<li>HTTP（Hypertext Transfer Protocol）是一种用于在万维网上传输超文本的协议。它是一种应用层协议，负责处理浏览器和服务器之间的请求和响应。 </li>
+<li>TCP（Transmission Control Protocol）一种面向连接的传输层协议，负责在两个主机之间建立可靠的数据传输通道，保证数据的正确传输。(具备顺序控制、重发控制等机制)</li>
+<li>UDP（User Datagram Protocol）是一种无连接的传输层协议，它不像TCP那样建立可靠的数据通道，而是直接把数据包发送到对方主机。(高速传输实时性较高要求的通信和广播，无法保证是否到大，不可重发)</li>
+<li>SOCKET（套接字） 操作系统提供的一种用于网络通信的接口(用到OS的类库，指定IP和port)，它允许程序通过网络发送数据或接收数据。SOCKET通常与TCP或UDP配合使用，实现网络通信的功能。 </li>
+<li>ARP 是正向地址解析协议，通过已知的 IP，寻找对应主机的 MAC 地址。</li>
+<li>RARP 是反向地址解析协议，通过 MAC 地址确定 IP 地址。比如无盘工作站还有 DHCP 服务。</li>
+<li>IP 是网络层的核心，通过路由选择将下一条IP封装后交给接口层。IP数据报是无连接服务。(任务是根据源主机和目的主机的地址传输数据，为了保证数据保证到达，ip地址指明节点被分配的地址，和MAC进行配对，IP地址可以变换，但是MAC几乎不会变)</li>
+<li>ICMP 是网络层的补充，可以回送报文。用来检测网络是否通畅。 </li>
+<li>Ping 命令就是发送 ICMP 的 echo 包，通过回送的 echo relay 进行网络测试。</li>
+</ul>
+<h4 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h4><p>在于是否面向连接。TCP是面向连接的，它在建立数据传输通道时需要进行三次握手，在断开连接时需要四次挥手。<br>而UDP是无连接的，它不需要进行握手和挥手，直接把数据包发送到对方主机。</p>
+<h4 id="TCP三次握手和四次挥手的过程"><a href="#TCP三次握手和四次挥手的过程" class="headerlink" title="TCP三次握手和四次挥手的过程"></a>TCP三次握手和四次挥手的过程</h4><p>TCP三次握手是指建立连接时，客户端和服务器之间经过的三个阶段。</p>
+<ul>
+<li>第一阶段，客户端发送一个连接请求；</li>
+<li>第二阶段，服务器收到连接请求，并发送确认信息；</li>
+<li>第三阶段，客户端收到确认信息，完成连接建立。</li>
+</ul>
+<p>四次挥手则是指断开连接时，客户端和服务器之间经过的四个阶段。</p>
+<ul>
+<li>第一阶段，客户端发送断开请求；</li>
+<li>第二阶段，服务器收到断开请求，并发送确认信息；</li>
+<li>第三阶段，客户端收到确认信息，并再次发送确认信息；</li>
+<li>第四阶段，服务器收到确认信息，完成连接断开。</li>
+</ul>
+<h4 id="TCP的流量控制和拥塞控制的原理是什么？"><a href="#TCP的流量控制和拥塞控制的原理是什么？" class="headerlink" title="TCP的流量控制和拥塞控制的原理是什么？"></a>TCP的流量控制和拥塞控制的原理是什么？</h4><p>TCP的流量控制是指在传输过程中，发送方不能无限制地发送数据，而需要根据接收方的处理能力来调整发送速率。拥塞控制则是指在网络中出现拥塞时，发送方需要降低发送速率，以避免网络拥塞造成的丢包。</p>
+<p>流量控制的原理是：<br>发送方和接收方之间通过滑动窗口协议来协商发送数据的速率。<br>发送方根据接收方的窗口大小来调整发送速率，接收方收到数据后会更新窗口大小，发送方再根据新的窗口大小来调整发送速率。</p>
+<p>拥塞控制的原理是：发送方通过探测网络拥塞情况来调整发送速率。<br>发送方会定期发送心跳数据包，接收方收到心跳数据包后会立即回复，发送方根据回复的时间来判断网络的拥塞程度，并根据拥塞程度调整发送速率。</p>
+<h4 id="TCP如何保证数据的正确传输？"><a href="#TCP如何保证数据的正确传输？" class="headerlink" title="TCP如何保证数据的正确传输？"></a>TCP如何保证数据的正确传输？</h4><ul>
+<li>可靠性：TCP通过确认和重传机制来保证数据的可靠传输，在收到数据后，接收方会发送确认信息给发送方，表示已收到数据。如果发送方在一定时间内没有收到确认信息，则会认为数据丢失，并重新发送数据。 </li>
+<li>顺序性：TCP通过序号来保证数据的顺序传输，在发送数据时，发送方会为每一个数据包分配一个序号，接收方收到数据后会根据序号来确定每个数据包的顺序。</li>
+<li>完整性：TCP通过校验和机制来保证数据的完整性，在发送数据时，发送方会计算出数据的校验和并附加在数据包上。接收方收到数据后会再次计算校验和，如果与发送方计算的校验和不一致，则认为数据已损坏，并丢弃数据。</li>
+</ul>
+<h4 id="TCP的窗口大小对网络性能的影响是什么？"><a href="#TCP的窗口大小对网络性能的影响是什么？" class="headerlink" title="TCP的窗口大小对网络性能的影响是什么？"></a>TCP的窗口大小对网络性能的影响是什么？</h4><p>带宽利用率：TCP的窗口大小越大，发送方就能发送更多的数据，从而提高带宽利用率。如果窗口大小设置过小，发送方会不断等待接收方的确认信息，导致发送速率降低，带宽利用率降低。<br>延迟：TCP的窗口大小越大，接收方就能缓存更多的数据，从而减少接收方发送确认信息的频率，降低延迟。如果窗口大小设置过小，接收方会经常发送确认信息，导致发送方频繁暂停发送，延迟增加。</p>
+<p>因此，在设置TCP的窗口大小时，需要考虑网络带宽和延迟，根据实际情况来设置合理的窗口大小。</p>
+<h4 id="TCP的慢启动和快速重传的原理是什么？"><a href="#TCP的慢启动和快速重传的原理是什么？" class="headerlink" title="TCP的慢启动和快速重传的原理是什么？"></a>TCP的慢启动和快速重传的原理是什么？</h4><p>慢启动是一种网络拥塞控制机制，它的作用是在建立连接时启动网络拥塞控制。慢启动的原理是，发送方在建立连接后会以较低的速率发送数据，并根据接收方的确认信息来逐步增加发送速率。这样可以避免在网络拥塞时发送过多数据导致丢包，从而保证网络的稳定性。</p>
+<p>快速重传是一种数据传输过程中的错误恢复机制，它的作用是快速恢复丢失的数据。快速重传的原理是，发送方在收到三个连续的重复确认时，会认为数据丢失，并立即重新发送数据。这样可以避免等待超时重传，从而提高数据传输的效率。</p>
+<h4 id="TCP的差错控制机制是如何实现的？"><a href="#TCP的差错控制机制是如何实现的？" class="headerlink" title="TCP的差错控制机制是如何实现的？"></a>TCP的差错控制机制是如何实现的？</h4><p>TCP（传输控制协议）是一种面向连接的传输层协议，它为应用层提供了可靠的数据传输服务。TCP的差错控制机制通过使用确认、重传和拥塞控制来确保数据在网络中可靠地传输。</p>
+<p>在TCP中，每个数据包都会携带一个序列号，用于标识该数据包的顺序。当一个数据包发送出去后，接收方会发送一个确认报文，告诉发送方这个数据包是否成功接收。如果发送方没有收到确认报文，则会认为这个数据包发送失败，并重新发送这个数据包。</p>
+<p>此外，TCP还使用拥塞控制来防止网络拥塞。如果发送方收到的确认报文数量超过了一定的阈值，则发送方会暂停发送数据包，以防止网络拥塞。</p>
+<p>总之，TCP的差错控制机制通过确认、重传和拥塞控制来确保数据在网络中可靠地传输。</p>
+<h4 id="TCP的滑动窗口协议是如何工作的？"><a href="#TCP的滑动窗口协议是如何工作的？" class="headerlink" title="TCP的滑动窗口协议是如何工作的？"></a>TCP的滑动窗口协议是如何工作的？</h4><p>TCP的滑动窗口协议通过维护一个可变大小的缓冲区来管理数据的发送和接收。<br>当一个计算机想要向另一个计算机发送数据时，它会在发送端的缓冲区中放入数据，并通过网络将数据发送到接收端。<br>接收端会把收到的数据放入接收端的缓冲区中，然后进行处理。滑动窗口协议通过不断调整缓冲区的大小来控制数据的流量，从而确保数据能够及时地发送和接收。</p>
+<h4 id="TCP的优缺点分别是什么？"><a href="#TCP的优缺点分别是什么？" class="headerlink" title="TCP的优缺点分别是什么？"></a>TCP的优缺点分别是什么？</h4><p>优点：</p>
+<ul>
+<li>可靠性：TCP提供了可靠的数据传输机制，能够保证数据的完整性和正确性。</li>
+<li>顺序性：TCP保证了数据包的发送顺序和接收顺序。</li>
+<li>流控：TCP通过滑动窗口协议来控制数据流量，从而避免网络拥塞。</li>
+<li>拥塞控制：TCP通过慢启动和拥塞避免算法来控制网络拥塞，从而提高网络的传输效率。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>时延：TCP的可靠性和顺序性需要通过确认和重传机制来实现，这会增加网络传输的时延。</li>
+<li>效率：TCP的可靠性和顺序性需要在数据包中添加额外的控制信息，这会增加数据包的大小，降低网络传输的效率。</li>
+<li>连接管理：TCP需要为每个连接维护状态信息，这会增加网络节点的复杂度。</li>
+</ul>
+<h4 id="请描述Socket的工作原理。"><a href="#请描述Socket的工作原理。" class="headerlink" title="请描述Socket的工作原理。"></a>请描述Socket的工作原理。</h4><p>Socket的工作原理是通过建立一个网络连接，它允许两个运行在不同计算机上的程序之间进行双向通信。<br>Socket会负责处理网络通信的细节，例如数据包的拆分和重组，网络地址的解析等。</p>
+<h4 id="常见的Socket类型有哪些？"><a href="#常见的Socket类型有哪些？" class="headerlink" title="常见的Socket类型有哪些？"></a>常见的Socket类型有哪些？</h4><p>TCP Socket和UDP Socket。<br>TCP Socket是基于流的，它提供了可靠的、面向连接的通信机制。<br>UDP Socket是基于数据报的，它提供了不可靠的、无连接的通信机制。</p>
+<h4 id="在TCP-Socket通信中，有哪些可能导致通信失败？"><a href="#在TCP-Socket通信中，有哪些可能导致通信失败？" class="headerlink" title="在TCP Socket通信中，有哪些可能导致通信失败？"></a>在TCP Socket通信中，有哪些可能导致通信失败？</h4><ul>
+<li>网络连接中断：如果网络连接中断，TCP Socket就无法进行通信。</li>
+<li>超时：如果Socket通信超时，它也会导致通信失败。</li>
+<li>协议不匹配：如果两个程序使用的协议不匹配，也会导致通信失败。</li>
+</ul>
+<h4 id="如何在PHP中使用Socket进行网络通信？"><a href="#如何在PHP中使用Socket进行网络通信？" class="headerlink" title="如何在PHP中使用Socket进行网络通信？"></a>如何在PHP中使用Socket进行网络通信？</h4><p>在PHP中使用Socket进行网络通信，需要使用PHP的网络函数。首先，需要使用socket_create()函数来创建一个Socket实例，然后使用socket_connect()函数来连接到远程服务器。<br>接下来，可以使用socket_read()和socket_write()函数来读取和写入数据。例如，下面是一个简单的PHP程序，它使用Socket连接到一个Web服务器，并读取首页的内容：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个Socket实例</span></span><br><span class="line"><span class="variable">$socket</span> = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接到Web服务器</span></span><br><span class="line"><span class="variable">$result</span> = socket_connect(<span class="variable">$socket</span>, <span class="string">&#x27;www.example.com&#x27;</span>, <span class="number">80</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 向Web服务器发送一个HTTP请求</span></span><br><span class="line"><span class="variable">$request</span> = <span class="string">&quot;GET / HTTP/1.1\r\nHost: www.example.com\r\n\r\n&quot;</span>;</span><br><span class="line">socket_write(<span class="variable">$socket</span>, <span class="variable">$request</span>, strlen(<span class="variable">$request</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取Web服务器的响应</span></span><br><span class="line"><span class="variable">$response</span> = socket_read(<span class="variable">$socket</span>, <span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭Socket连接</span></span><br><span class="line">socket_close(<span class="variable">$socket</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 显示响应内容</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$response</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注意：上面的代码只是一个简单的示例，实际应用中可能需要处理更多的细节，例如错误处理、超时处理等。</p>
+<h4 id="在UDP-Socket通信中，如何确保数据包不丢失？"><a href="#在UDP-Socket通信中，如何确保数据包不丢失？" class="headerlink" title="在UDP Socket通信中，如何确保数据包不丢失？"></a>在UDP Socket通信中，如何确保数据包不丢失？</h4><p>UDP是一种无连接的、不可靠的网络协议，它不提供数据包丢失的保证。因此，在使用UDP Socket进行通信时，数据包可能会丢失。<br>要确保数据包不丢失，可以使用应用层协议来提供可靠性保证。例如，可以在数据包中添加序列号，并在接收端对序列号进行排序，从而确保数据包的正确顺序。<br>此外，还可以使用应用层的重传机制来保证数据包的可靠传输。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="如何在PHP中使用Socket进行网络通信？-1"><a href="#如何在PHP中使用Socket进行网络通信？-1" class="headerlink" title="如何在PHP中使用Socket进行网络通信？"></a>如何在PHP中使用Socket进行网络通信？</h4><p>在PHP中使用Socket进行网络通信，需要使用PHP的网络函数。首先，需要使用socket_create()函数来创建一个Socket实例，然后使用socket_connect()函数来连接到远程服务器。<br>接下来，可以使用socket_read()和socket_write()函数来读取和写入数据。例如，下面是一个简单的PHP程序，它使用Socket连接到一个Web服务器，并读取首页的内容：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个Socket实例</span></span><br><span class="line"><span class="variable">$socket</span> = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接到Web服务器</span></span><br><span class="line"><span class="variable">$result</span> = socket_connect(<span class="variable">$socket</span>, <span class="string">&#x27;www.example.com&#x27;</span>, <span class="number">80</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 向Web服务器发送一个HTTP请求</span></span><br><span class="line"><span class="variable">$request</span> = <span class="string">&quot;GET / HTTP/1.1\r\nHost: www.example.com\r\n\r\n&quot;</span>;</span><br><span class="line">socket_write(<span class="variable">$socket</span>, <span class="variable">$request</span>, strlen(<span class="variable">$request</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 读取Web服务器的响应</span></span><br><span class="line"><span class="variable">$response</span> = socket_read(<span class="variable">$socket</span>, <span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 关闭Socket连接</span></span><br><span class="line">socket_close(<span class="variable">$socket</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 显示响应内容</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$response</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<p>注意：上面的代码只是一个简单的示例，实际应用中可能需要处理更多的细节，例如错误处理、超时处理等。</p>
+<h4 id="请描述Socket的三次握手过程。"><a href="#请描述Socket的三次握手过程。" class="headerlink" title="请描述Socket的三次握手过程。"></a>请描述Socket的三次握手过程。</h4><p>三次握手过程是一种网络协议，它是用来建立一个可靠的、双向的连接的。下面是Socket的三次握手过程的具体步骤：<br>第一次握手：客户端向服务器发送一个连接请求，并等待服务器的回应。<br>第二次握手：服务器收到客户端的连接请求后，会发送一个确认消息给客户端。<br>第三次握手：客户端收到服务器的确认消息后，会再次向服务器发送一个确认消息。</p>
+<p>在三次握手过程中，双方都会发送和接收一些控制消息来建立连接。这种方式能够确保连接的可靠性，同时还能保证数据的正确传输。</p>
+<h4 id="什么是Socket超时，它的作用是什么？"><a href="#什么是Socket超时，它的作用是什么？" class="headerlink" title="什么是Socket超时，它的作用是什么？"></a>什么是Socket超时，它的作用是什么？</h4><p>Socket超时是指Socket在等待远程服务器的响应时，如果超过了一定的时间间隔，就会发生超时。<br>Socket超时的作用是避免客户端一直等待远程服务器的响应，从而保证程序的可响应性。</p>
+<h4 id="在Socket通信中，如何保证数据的完整性？"><a href="#在Socket通信中，如何保证数据的完整性？" class="headerlink" title="在Socket通信中，如何保证数据的完整性？"></a>在Socket通信中，如何保证数据的完整性？</h4><p>在Socket通信中，可以使用检验和来保证数据的完整性。</p>
+<p>检验和是一种简单的数据校验方法，它通过对数据中的每个字节进行加和计算，然后对结果取模，得到一个校验码。<br>在数据传输过程中，接收端可以对数据进行同样的检验，如果检验码一致，就表示数据没有在传输过程中改变，完整性得到保证。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算数据的检验和</span></span><br><span class="line">uint8_t <span class="keyword">checksum</span> = 0;</span><br><span class="line"><span class="keyword">for</span> (int i = 0; i &lt; data_size; i++) &#123;</span><br><span class="line">  <span class="keyword">checksum</span> += data[i];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送数据和检验和</span></span><br><span class="line">send(sockfd, data, data_size, 0);</span><br><span class="line">send(sockfd, &amp;<span class="keyword">checksum</span>, sizeof(<span class="keyword">checksum</span>), 0);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收数据和检验和</span></span><br><span class="line">recv(sockfd, data, data_size, 0);</span><br><span class="line">recv(sockfd, &amp;<span class="keyword">checksum</span>, sizeof(<span class="keyword">checksum</span>), 0);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 校验数据</span></span><br><span class="line">uint8_t expected_checksum = 0;</span><br><span class="line"><span class="keyword">for</span> (int i = 0; i &lt; data_size; i++) &#123;</span><br><span class="line">  expected_checksum += data[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">checksum</span> != expected_checksum) &#123;</span><br><span class="line">  <span class="comment">// 数据不完整，需要重新接收</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：上面的代码只是一个简单的示例，实际应用中可能需要处理更多的细节。此外，检验和也不是唯一的数据完整性保证方式，还有其他一些算法可以用来保证数据</p>
+<p>IP协议是高速公路，TCP和UDP是卡车，携带的货物有HTTP、FTP等<br>第二个比喻：HTTP 是轿车，提供了封装或者显示数据的具体形式；Socket 是发动机，提供了网络通信的能力。<br>TCP和UDP使用IP协议从一个网络传送数据包到另一个网络。</p>
+<h4 id="OSI网络参考模型"><a href="#OSI网络参考模型" class="headerlink" title="OSI网络参考模型"></a>OSI网络参考模型</h4><p>一种用于规范网络通信的开放式系统互联模型。目的是为了让不同的网络设备和软件能够互相通信，实现网络资源的共享和互联。它提供了一种标准化的方法，让网络设备和软件可以按照统一的规范进行</p>
+<table>
+<thead>
+<tr>
+<th>OSI网络参考模型</th>
+<th>功能</th>
+<th>TCP&#x2F;IP协议族</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>7应用层</td>
+<td></td>
+<td>TFTP、HTTP、SNMP、FTP、SMTP、DNS、Telnet等</td>
+</tr>
+<tr>
+<td>6表示层</td>
+<td></td>
+<td>没有协议</td>
+</tr>
+<tr>
+<td>5会话层</td>
+<td></td>
+<td>没有协议</td>
+</tr>
+<tr>
+<td>4传输层</td>
+<td></td>
+<td>TCP、UDP</td>
+</tr>
+<tr>
+<td>3网络层</td>
+<td></td>
+<td>IP，ICMP、OSPF、EIGRP、IGMP</td>
+</tr>
+<tr>
+<td>2数据链路层</td>
+<td></td>
+<td>SLIP、CSLIP、PPP、MTU</td>
+</tr>
+<tr>
+<td>1物理层</td>
+<td></td>
+<td>IOS2110、IEEE802、IEEE802.2</td>
+</tr>
+</tbody></table>
+<h4 id="HTTP-x2F-TCP-x2F-UDP网络协议原理透析"><a href="#HTTP-x2F-TCP-x2F-UDP网络协议原理透析" class="headerlink" title="HTTP&#x2F;TCP&#x2F;UDP网络协议原理透析"></a>HTTP&#x2F;TCP&#x2F;UDP网络协议原理透析</h4><h4 id="Swoole"><a href="#Swoole" class="headerlink" title="Swoole"></a>Swoole</h4><h4 id="Socks"><a href="#Socks" class="headerlink" title="Socks"></a>Socks</h4><h3 id="高效存储"><a href="#高效存储" class="headerlink" title="高效存储"></a>高效存储</h3><p>fastDFS</p>
 <h3 id="分布式搜索和分析引擎"><a href="#分布式搜索和分析引擎" class="headerlink" title="分布式搜索和分析引擎"></a>分布式搜索和分析引擎</h3><h4 id="ElasticSearch"><a href="#ElasticSearch" class="headerlink" title="ElasticSearch"></a>ElasticSearch</h4><p>原理<br>搜索<br>索引以及映射<br>分布式CRUD<br>索引管理<br>分片<br>搜索优化</p>
 <h2 id="满意的功能"><a href="#满意的功能" class="headerlink" title="满意的功能"></a>满意的功能</h2><h3 id="红包"><a href="#红包" class="headerlink" title="红包"></a>红包</h3><h3 id="语音-amp-视频通话"><a href="#语音-amp-视频通话" class="headerlink" title="语音&amp;视频通话"></a>语音&amp;视频通话</h3><h2 id="项目介绍-简历上有详情"><a href="#项目介绍-简历上有详情" class="headerlink" title="项目介绍(简历上有详情)"></a>项目介绍(简历上有详情)</h2><h3 id="有资源网"><a href="#有资源网" class="headerlink" title="有资源网"></a>有资源网</h3><p>什么时候做的<br>是什么东西<br>怎么实现的</p>
 <h3 id="此刻芭蕾-服务APP"><a href="#此刻芭蕾-服务APP" class="headerlink" title="此刻芭蕾 服务APP"></a>此刻芭蕾 服务APP</h3><h3 id="奔赴科技-社交APP"><a href="#奔赴科技-社交APP" class="headerlink" title="奔赴科技 社交APP"></a>奔赴科技 社交APP</h3><h3 id="金博科技-商城-amp-amp-分销"><a href="#金博科技-商城-amp-amp-分销" class="headerlink" title="金博科技 商城&amp;&amp;分销"></a>金博科技 商城&amp;&amp;分销</h3><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><h3 id="微信、支付宝支付"><a href="#微信、支付宝支付" class="headerlink" title="微信、支付宝支付"></a>微信、支付宝支付</h3><h3 id="微信公众号"><a href="#微信公众号" class="headerlink" title="微信公众号"></a>微信公众号</h3><h3 id="秒杀场景"><a href="#秒杀场景" class="headerlink" title="秒杀场景"></a>秒杀场景</h3><h2 id="面试问题"><a href="#面试问题" class="headerlink" title="面试问题"></a>面试问题</h2><h3 id="介绍一下你自己"><a href="#介绍一下你自己" class="headerlink" title="介绍一下你自己"></a>介绍一下你自己</h3><p>who？<br>   过往经历串联起来，每段工作选择的动机是什么，沉淀下来了什么的能力<br>why 为什么我选择这份工作？<br>   行业发展趋势<br>   对公司产品的认可度<br>   个人和岗位的匹配度<br>what 能为公司带来什么？<br>   学习能力&amp;吃苦勤奋的品质<br>   专研精神+解决副作用(偶尔给自己一些社交活动)</p>
