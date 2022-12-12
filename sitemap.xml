@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://ayou129.github.io/blog/tags/index.html</loc>
+    
+    <lastmod>2022-12-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ayou129.github.io/blog/categories/index.html</loc>
+    
+    <lastmod>2022-12-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://ayou129.github.io/blog/p/b5f422e3/</loc>
     
     <lastmod>2022-12-07</lastmod>
@@ -653,13 +671,6 @@
   </url>
   
   <url>
-    <loc>https://ayou129.github.io/blog/tags/Composer/</loc>
-    <lastmod>2022-12-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ayou129.github.io/blog/tags/Atom/</loc>
     <lastmod>2022-12-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -667,7 +678,7 @@
   </url>
   
   <url>
-    <loc>https://ayou129.github.io/blog/tags/Git/</loc>
+    <loc>https://ayou129.github.io/blog/tags/Composer/</loc>
     <lastmod>2022-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -688,6 +699,13 @@
   </url>
   
   <url>
+    <loc>https://ayou129.github.io/blog/tags/Hexo/</loc>
+    <lastmod>2022-12-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ayou129.github.io/blog/tags/Java/</loc>
     <lastmod>2022-12-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -695,7 +713,7 @@
   </url>
   
   <url>
-    <loc>https://ayou129.github.io/blog/tags/Hexo/</loc>
+    <loc>https://ayou129.github.io/blog/tags/Git/</loc>
     <lastmod>2022-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -814,6 +832,13 @@
   </url>
   
   <url>
+    <loc>https://ayou129.github.io/blog/tags/Vue/</loc>
+    <lastmod>2022-12-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://ayou129.github.io/blog/tags/Webpack/</loc>
     <lastmod>2022-12-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -821,7 +846,7 @@
   </url>
   
   <url>
-    <loc>https://ayou129.github.io/blog/tags/Vue/</loc>
+    <loc>https://ayou129.github.io/blog/tags/Zookeeper/</loc>
     <lastmod>2022-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -849,13 +874,6 @@
   </url>
   
   <url>
-    <loc>https://ayou129.github.io/blog/tags/Zookeeper/</loc>
-    <lastmod>2022-12-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ayou129.github.io/blog/tags/Redis/</loc>
     <lastmod>2022-12-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -870,14 +888,14 @@
   </url>
   
   <url>
-    <loc>https://ayou129.github.io/blog/tags/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/</loc>
+    <loc>https://ayou129.github.io/blog/tags/%E5%AE%9E%E6%88%98/</loc>
     <lastmod>2022-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://ayou129.github.io/blog/tags/%E5%AE%9E%E6%88%98/</loc>
+    <loc>https://ayou129.github.io/blog/tags/%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2022-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -919,13 +937,6 @@
   </url>
   
   <url>
-    <loc>https://ayou129.github.io/blog/tags/Nginx/</loc>
-    <lastmod>2022-12-12</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://ayou129.github.io/blog/tags/AMQP/</loc>
     <lastmod>2022-12-12</lastmod>
     <changefreq>weekly</changefreq>
@@ -934,6 +945,13 @@
   
   <url>
     <loc>https://ayou129.github.io/blog/tags/RabbitMQ/</loc>
+    <lastmod>2022-12-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://ayou129.github.io/blog/tags/Nginx/</loc>
     <lastmod>2022-12-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
