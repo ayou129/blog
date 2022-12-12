@@ -1,5 +1,52 @@
 <!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> PHP · 阿尤</title><meta name="description" content="PHP - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
-</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">PHP</h1><div class="post-info">创建于：2018年7月25日<span style="margin-left: 0.5rem"></span>上次更新：2022年10月1日</div><div class="post-content"><h1 id="核心知识要点"><a href="#核心知识要点" class="headerlink" title="核心知识要点"></a>核心知识要点</h1><h2 id="9大数据类型"><a href="#9大数据类型" class="headerlink" title="9大数据类型"></a>9大数据类型</h2><h3 id="标量类型4个"><a href="#标量类型4个" class="headerlink" title="标量类型4个"></a>标量类型4个</h3><ul>
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">PHP</h1><div class="post-info">创建于：2018年7月25日<span style="margin-left: 0.5rem"></span>上次更新：2022年10月1日</div><div class="post-content"><h2 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h2><p>“超文本预处理器”，是在服务器端执行的脚本语言，尤其适用于Web开发并可嵌入HTML中。</p>
+<h2 id="各个框架的对比"><a href="#各个框架的对比" class="headerlink" title="各个框架的对比"></a>各个框架的对比</h2><table>
+<thead>
+<tr>
+<th>框架</th>
+<th>社区</th>
+<th>特点</th>
+<th>缺点</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>laravel</td>
+<td>国内外非常活跃</td>
+<td>全能</td>
+<td>基于组件式的框架，所以比较臃肿，大部分为英文文档，源码难理解</td>
+<td>使用率最高的框架，主流web(vue + laravel)</td>
+</tr>
+<tr>
+<td>yii</td>
+<td>不活跃</td>
+<td>面向接口、敏捷开发，轻量框架，性能最好</td>
+<td>组件非常少，多数为英文文档</td>
+<td></td>
+</tr>
+<tr>
+<td>thinkphp</td>
+<td>国内最活跃</td>
+<td>学习成本更低，易上手</td>
+<td>没有很好的设计模式</td>
+<td></td>
+</tr>
+<tr>
+<td>Yaf</td>
+<td>最不活跃</td>
+<td>常驻内存，提高内存利用率</td>
+<td>需要重复造轮子，维护成本高</td>
+<td></td>
+</tr>
+<tr>
+<td>Swoole</td>
+<td>一般</td>
+<td>让php不再局限于Web领域</td>
+<td>学习成本高，容易造成内存泄漏</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="框架的实现方式有哪些不同"><a href="#框架的实现方式有哪些不同" class="headerlink" title="框架的实现方式有哪些不同"></a>框架的实现方式有哪些不同</h2><h2 id="9大数据类型"><a href="#9大数据类型" class="headerlink" title="9大数据类型"></a>9大数据类型</h2><h3 id="标量类型4个"><a href="#标量类型4个" class="headerlink" title="标量类型4个"></a>标量类型4个</h3><ul>
 <li>浮点类型(double)</li>
 <li>整型</li>
 <li>布尔型(true|false)</li>
@@ -664,7 +711,12 @@
 <li>if经常出现的条件放在最前面，省去其他不必要的判断</li>
 <li>条件允许情况下，if多结合switch使用，效率高</li>
 </ul>
-<p>PHP框架源码<br>模型 使用了 链式操作</p>
+<h3 id="Laravel-ORM使用"><a href="#Laravel-ORM使用" class="headerlink" title="Laravel ORM使用"></a>Laravel ORM使用</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#保存</span></span><br><span class="line"><span class="variable">$flight</span> = <span class="keyword">new</span> Flight;</span><br><span class="line"><span class="variable">$flight</span>-&gt;name = <span class="variable">$request</span>-&gt;name;</span><br><span class="line"><span class="variable">$flight</span>-&gt;save();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="variable">$flight</span> = App\Flight::find(<span class="number">1</span>);</span><br><span class="line"><span class="variable">$flight</span>-&gt;name = <span class="string">&#x27;New Flight Name&#x27;</span>;</span><br><span class="line"><span class="variable">$flight</span>-&gt;save(); <span class="comment">#更新</span></span><br><span class="line"><span class="variable">$flight</span>-&gt;delete(); <span class="comment">#删除</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#根据主键删除</span></span><br><span class="line">App\Flight::destroy(<span class="number">1</span>);</span><br><span class="line">App\Flight::destroy(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">App\Flight::destroy([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line">App\Flight::destroy(collect([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]));</span><br><span class="line"></span><br><span class="line"><span class="comment">#批量更新</span></span><br><span class="line">App\Flight::where(<span class="string">&#x27;active&#x27;</span>, <span class="number">1</span>)</span><br><span class="line">          -&gt;where(<span class="string">&#x27;destination&#x27;</span>, <span class="string">&#x27;San Diego&#x27;</span>)</span><br><span class="line">          -&gt;update([<span class="string">&#x27;delayed&#x27;</span> =&gt; <span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">#查询所有数据</span></span><br><span class="line"><span class="variable">$flights</span> = App\Flight::all();</span><br><span class="line"><span class="keyword">foreach</span> (<span class="variable">$flights</span> <span class="keyword">as</span> <span class="variable">$flight</span>) &#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$flight</span>-&gt;name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#查询符合规则的数据</span></span><br><span class="line"><span class="variable">$flights</span> = App\Flight::where(<span class="string">&#x27;active&#x27;</span>, <span class="number">1</span>)</span><br><span class="line">               -&gt;orderBy(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;desc&#x27;</span>)</span><br><span class="line">               -&gt;take(<span class="number">10</span>)</span><br><span class="line">               -&gt;get();</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建数据之后返回模型</span></span><br><span class="line"><span class="variable">$user</span> = User::create([</span><br><span class="line">    <span class="string">&#x27;first_name&#x27;</span> =&gt; <span class="string">&#x27;Taylor&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;last_name&#x27;</span> =&gt; <span class="string">&#x27;Otwell&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;title&#x27;</span> =&gt; <span class="string">&#x27;Developer&#x27;</span>,</span><br><span class="line">]);</span><br><span class="line"></span><br><span class="line"><span class="comment">#console命令行</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
 <h2 id="查看配置文件"><a href="#查看配置文件" class="headerlink" title="查看配置文件"></a>查看配置文件</h2><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#查看php安装的扩展</span><br><span class="line"><span class="regexp">/usr/</span>local<span class="regexp">/php/</span>sbin/php -m 或 php -m | <span class="keyword">grep</span> zip</span><br><span class="line"></span><br><span class="line">#查看php.ini的存储位置</span><br><span class="line"><span class="regexp">/usr/</span>local<span class="regexp">/php/</span>sbin/php -i | <span class="keyword">grep</span> <span class="string">&#x27;php.ini&#x27;</span></span><br><span class="line"><span class="regexp">/usr/</span>local<span class="regexp">/php/</span>sbin/php-fpm -i | <span class="keyword">grep</span> <span class="string">&#x27;php.ini&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="安装-root权限"><a href="#安装-root权限" class="headerlink" title="安装(root权限)"></a>安装(root权限)</h2><blockquote>
