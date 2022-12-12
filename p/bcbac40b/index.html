@@ -1,9 +1,19 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 腾讯实时音视频 · 阿尤</title><meta name="description" content="腾讯实时音视频 - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
-</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">腾讯实时音视频</h1><div class="post-info">创建于：2020年3月5日<span style="margin-left: 0.5rem"></span>上次更新：2022年10月23日</div><div class="post-content"><h1 id="腾讯实时音视频，服务端实战讲解"><a href="#腾讯实时音视频，服务端实战讲解" class="headerlink" title="腾讯实时音视频，服务端实战讲解"></a>腾讯实时音视频，服务端实战讲解</h1><h2 id="服务端API讲解（此API是客户端请求的，非腾讯服务器请求）"><a href="#服务端API讲解（此API是客户端请求的，非腾讯服务器请求）" class="headerlink" title="服务端API讲解（此API是客户端请求的，非腾讯服务器请求）"></a>服务端API讲解（此API是客户端请求的，非腾讯服务器请求）</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第一个API：音视频接通前的验证</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">startVoice</span>或<span class="title">startVideo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">#这里是不同的验证操作</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#第二个API，音视频接通后的持续心跳(作用是检验双方的通话状态)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">heartbeat</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">#存储心跳的相关信息，如果心跳没有及时更新，则执行挂断操作</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#第三个API，挂断操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">endVoice</span>或<span class="title">endVideo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">#这里处理音视频的正常挂断操作 以及 心跳检测到异常时执行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="不同场景"><a href="#不同场景" class="headerlink" title="不同场景"></a>不同场景</h2><p>由于项目中镶嵌了计费功能，所以场景较多</p>
-<p>注：网络异常的含义是指心跳无法按照原约定定时请求服务器</p>
-<h3 id="正常通话以及挂断场景"><a href="#正常通话以及挂断场景" class="headerlink" title="正常通话以及挂断场景"></a>正常通话以及挂断场景</h3><p>用户<code>A</code> 与 用户<code>B</code>、用户<code>C</code> 的各种场景</p>
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 实战：腾讯实时语音视频通话 · 阿尤</title><meta name="description" content="实战：腾讯实时语音视频通话 - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">实战：腾讯实时语音视频通话</h1><div class="post-info">创建于：2020年3月5日<span style="margin-left: 0.5rem"></span>上次更新：2022年12月7日</div><div class="post-content"><h2 id="功能背景"><a href="#功能背景" class="headerlink" title="功能背景"></a>功能背景</h2><p>公司产品是一款<code>社交性APP</code>，用户群体大部分是年轻人，成年-30来岁。</p>
+<p>所以诞生了优先级很高的一个产品需求：<code>语音、视频通话功能</code>，整体上讲，也能提高产品整体营收。</p>
+<h2 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h2><p>与前端<code>Android</code>和<code>IOS</code>同事确认事实方案后，完成产品开发以及测试。</p>
+<h2 id="行动"><a href="#行动" class="headerlink" title="行动"></a>行动</h2><p>由于该功能是基于腾讯IM的，所以我阅读了腾讯云相关的功能介绍，并与同事进行了沟通，明确了<code>各自分工</code>、<code>共同制定通话场景的业务文档(心跳、开始和结束通话)</code>、<code>工作优先级</code>、<code>日期规划</code>(完成、提测、正式上线日期)等</p>
+<p>个人难点：</p>
+<ol>
+<li>通话功能中嵌套了计费功能</li>
+<li>语音通话、视频通话存在相同的特殊场景(网络异常的含义是指心跳无法按照原约定定时请求服务器)，如下</li>
+</ol>
+<h3 id="特殊异常场景"><a href="#特殊异常场景" class="headerlink" title="特殊异常场景"></a>特殊异常场景</h3><p>影响因素：</p>
+<ul>
+<li>多用户</li>
+<li>断网情况(网络异常、进程异常)</li>
+</ul>
+<h4 id="正常通话以及挂断场景"><a href="#正常通话以及挂断场景" class="headerlink" title="正常通话以及挂断场景"></a>正常通话以及挂断场景</h4><p>用户<code>A</code> 与 用户<code>B</code>、用户<code>C</code> 的各种场景</p>
 <ol>
 <li><code>A</code> 请求与 <code>B</code> 通话(正常场景)</li>
 <li><code>B</code> 未接通前 <code>A</code> 挂断(正常场景)</li>
@@ -11,7 +21,7 @@
 <li><code>B</code> 接收后 <code>A</code> 挂断(正常场景)</li>
 <li><code>B</code> 接收后 <code>B</code> 挂断(正常场景)</li>
 </ol>
-<h3 id="进程异常场景-例如：在手机中将-app-shuwdown"><a href="#进程异常场景-例如：在手机中将-app-shuwdown" class="headerlink" title="进程异常场景(例如：在手机中将 app shuwdown)"></a>进程异常场景(例如：在手机中将 app shuwdown)</h3><ol>
+<h4 id="进程异常场景-例如：在手机中将-app-shuwdown"><a href="#进程异常场景-例如：在手机中将-app-shuwdown" class="headerlink" title="进程异常场景(例如：在手机中将 app shuwdown)"></a>进程异常场景(例如：在手机中将 app shuwdown)</h4><ol>
 <li><code>A</code> 请求与 <code>B</code> 通话(正常场景)</li>
 <li><code>B</code> 未接通前 <code>A</code> 杀死进程(非正常场景)</li>
 <li><code>B</code> 未接通前 <code>B</code> 杀死进程(非正常场景)</li>
@@ -20,7 +30,7 @@
 <li><code>B</code> 接收后 <code>B</code> 杀死进程(非正常场景)</li>
 <li><code>B</code> 接收后 <code>A</code>、<code>B</code>同时杀死进程(非正常场景)</li>
 </ol>
-<h3 id="网络异常场景"><a href="#网络异常场景" class="headerlink" title="网络异常场景"></a>网络异常场景</h3><ol>
+<h4 id="网络异常场景"><a href="#网络异常场景" class="headerlink" title="网络异常场景"></a>网络异常场景</h4><ol>
 <li><code>A</code> 请求与 <code>B</code> 通话(正常场景)</li>
 <li><code>B</code> 未接通前 <code>A</code> 网络异常(非正常场景)</li>
 <li><code>B</code> 未接通前 <code>B</code> 网络异常(非正常场景)</li>
@@ -29,7 +39,7 @@
 <li><code>B</code> 接收后 <code>B</code> 网络异常(非正常场景)</li>
 <li><code>B</code> 接收后 <code>A</code>、<code>B</code>同时网络异常(非正常场景)</li>
 </ol>
-<h3 id="网络异常场景-重新恢复"><a href="#网络异常场景-重新恢复" class="headerlink" title="网络异常场景-重新恢复"></a>网络异常场景-重新恢复</h3><ol>
+<h4 id="网络异常场景-重新恢复"><a href="#网络异常场景-重新恢复" class="headerlink" title="网络异常场景-重新恢复"></a>网络异常场景-重新恢复</h4><ol>
 <li><code>A</code> 请求与 <code>B</code> 通话(正常场景)</li>
 <li><code>B</code> 未接通前 <code>A</code> 网络异常，一段时间后恢复网络，继续通话(非正常场景)</li>
 <li><code>B</code> 未接通前 <code>B</code> 网络异常，一段时间后恢复网络，继续通话(非正常场景)</li>
@@ -38,9 +48,22 @@
 <li><code>B</code> 接收后 <code>B</code> 网络异常，一段时间后恢复网络，继续通话(非正常场景)</li>
 <li><code>B</code> 接收后 <code>A</code>、<code>B</code>同时网络异常，一段时间后恢复网络，继续通话(非正常场景)</li>
 </ol>
+<h2 id="代码实施"><a href="#代码实施" class="headerlink" title="代码实施"></a>代码实施</h2><h3 id="服务端API讲解（此API是客户端请求的，非腾讯服务器请求）"><a href="#服务端API讲解（此API是客户端请求的，非腾讯服务器请求）" class="headerlink" title="服务端API讲解（此API是客户端请求的，非腾讯服务器请求）"></a>服务端API讲解（此API是客户端请求的，非腾讯服务器请求）</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第一个API：通话接通前的验证</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">startVoice</span>或<span class="title">startVideo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment"># 这里是不同的验证操作</span></span><br><span class="line">    <span class="comment">## 是否是允许的用户</span></span><br><span class="line">    <span class="comment">## 是否有足够的金币</span></span><br><span class="line">    <span class="comment">## 其他验证</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#第二个API，通话接通后的持续心跳(作用是检验双方的通话状态)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">heartbeat</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment"># 存储心跳的相关信息，如果心跳没有及时更新，则执行挂断操作</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#第三个API，通话挂断操作</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">endVoice</span>或<span class="title">endVideo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">#这里处理音视频的正常挂断操作 以及 心跳检测到异常时执行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="重点补充"><a href="#重点补充" class="headerlink" title="重点补充"></a>重点补充</h3><ul>
+<li>每个通话都有一个唯一Key和房间号，字段设计的方案为 <code>产品名+通话类型+IM房间号+唯一key+用户A(u_ID)+用户B(u_ID)</code>。</li>
+<li>通话时长、用户所剩时长由后端<code>redis key</code>进行统计，因为需求中有：用户所剩时长还剩xx秒的时候要提示。</li>
+<li>每个通话有多条心跳Log，进行统计和分析。</li>
+<li>定时脚本处理 <code>脱机的语音通话</code>: 使用<code>Redis scan</code>处理异常的通话房间，并且上报，为了追溯且定位原因。<br>  <code>定时脚本：trtc分支的TrtcController.php</code></li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>考虑到并发的问题，所以使用<code>redis+lua脚本</code>的方案解决<code>货币计算</code>等问题，思路和实现都OK。</li>
+<li>和同事沟通成本最大的地方在<code>梳理通话时的不同场景</code>，很多种异常情况都要考虑。</li>
+<li>完成这个功能之后，对自己的成长收益特别高，同时通话也是自己最满意的一个功能之一。</li>
+<li>完成语音及视频通话功能且上线稳定后，月统计出<code>平均日收益提升至23个百分点</code>，老大还给了奖金，开心！</li>
+</ol>
 </div></article></div></main><footer><div class="paginator"><a href="/blog/p/2a7b23ef/" class="prev">上一篇</a><a href="/blog/p/ff69a4f5/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
 var disqus_identifier = 'p/bcbac40b/';
-var disqus_title = '腾讯实时音视频';
+var disqus_title = '实战：腾讯实时语音视频通话';
 var disqus_url = 'https://ayou129.github.io/blog/p/bcbac40b/';
 (function() {
     var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
