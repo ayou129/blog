@@ -378,8 +378,10 @@ header .nav-list-item a {
     color: #7f8c8d
 }
 
-.category .category-item{
-    margin-right: 1em;
+.category .category-item {
+    padding: 0 0.5em;
+    word-wrap: break-word;
+    align-content: center;
 }
 
 
@@ -414,8 +416,10 @@ header .nav-list-item a {
     color: #7f8c8d
 }
 
-.tag .tag-item{
-    margin-right: 1em;
+.tag .tag-item {
+    padding: 0 0.5em;
+    word-wrap: break-word;
+    align-content: center;
 }
 
 
