@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://ayou129.github.io/blog/p/c8a4b253/</loc>
-    
-    <lastmod>2022-12-23</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://ayou129.github.io/blog/tags/index.html</loc>
     
     <lastmod>2022-12-14</lastmod>
@@ -113,6 +104,15 @@
     <loc>https://ayou129.github.io/blog/p/b829b66a/</loc>
     
     <lastmod>2022-10-23</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://ayou129.github.io/blog/p/c8a4b253/</loc>
+    
+    <lastmod>2022-10-21</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
