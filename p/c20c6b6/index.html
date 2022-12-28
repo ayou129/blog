@@ -1,15 +1,15 @@
 <!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Paxos · 阿尤</title><meta name="description" content="Paxos - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
 </head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/tags" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="/blog/categories" target="_self" class="nav-list-link">分类</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Paxos</h1><div class="post-info">创建于：2021年8月20日<span style="margin-left: 0.5rem"></span>上次更新：2021年10月22日</div><div class="post-content"><span id="more"></span>
 
-<h2 id="Paxos"><a href="#Paxos" class="headerlink" title="Paxos"></a>Paxos</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>一种基于 <code>消息传递</code> 的 <code>分布式一致性算法</code>。</p>
-<h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><p><code>分布式一致性</code> 即分布式系统中的各个进程如何就某个值达成一致</p>
-<h3 id="如何解决问题？"><a href="#如何解决问题？" class="headerlink" title="如何解决问题？"></a>如何解决问题？</h3><p>Paxos通过 <code>民主议会制度</code> 进行选举</p>
+<h2 id="Paxos-算法"><a href="#Paxos-算法" class="headerlink" title="Paxos 算法"></a>Paxos 算法</h2><p>「Pa so si」</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>一种基于<code>消息传递</code>的<code>分布式一致性算法</code>。</p>
+<h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><p>在分布式系统中的各个进程之间对某个值如何达成一致，即<code>分布式一致性</code>的问题。</p>
+<h3 id="如何解决问题？"><a href="#如何解决问题？" class="headerlink" title="如何解决问题？"></a>如何解决问题？</h3><p>Paxos通过类似 <code>民主议会制度</code> 进行选举</p>
 <ul>
-<li><code>所有的居民</code> 都可以进行 <code>提议和投票</code> 来选出决议。</li>
+<li><code>所有的人民</code> 都可以参与决议(提议和投票)。</li>
 <li><code>少数服从多数</code> 的方式来达成共识(只有超过一半的机器都认可某一个消息，最终所有的机器都对这个消息的决议达成共识)</li>
 </ul>
-<p>会有什么问题?<br>Paxos哪些部分 解决了哪些问题？</p>
-<p>算法中涉及到的角色：</p>
+<p>涉及到的角色：</p>
 <ul>
 <li><strong>提议者(Proposer)</strong> ：提出提案。提案信息包括：「提议编号、提议值」。</li>
 <li><strong>决策者(Acceptor)</strong> ：参与决策，回应P的提案。如果多数批准，则通过。</li>
