@@ -124,9 +124,9 @@
     
     <category term="Mysql" scheme="https://ayou129.github.io/blog/tags/Mysql/"/>
     
-    <category term="Redis" scheme="https://ayou129.github.io/blog/tags/Redis/"/>
-    
     <category term="Zookeeper" scheme="https://ayou129.github.io/blog/tags/Zookeeper/"/>
+    
+    <category term="Redis" scheme="https://ayou129.github.io/blog/tags/Redis/"/>
     
   </entry>
   
@@ -156,6 +156,30 @@
     
     
     <category term="实战" scheme="https://ayou129.github.io/blog/tags/%E5%AE%9E%E6%88%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Paxos</title>
+    <link href="https://ayou129.github.io/blog/p/c20c6b6/"/>
+    <id>https://ayou129.github.io/blog/p/c20c6b6/</id>
+    <published>2021-08-20T12:30:41.000Z</published>
+    <updated>2021-10-22T12:30:41.000Z</updated>
+    
+    <content type="html"><![CDATA[<span id="more"></span><h2 id="Paxos"><a href="#Paxos" class="headerlink" title="Paxos"></a>Paxos</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>一种基于 <code>消息传递</code> 的 <code>分布式一致性算法</code>。</p><h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><p><code>分布式一致性</code> 即分布式系统中的各个进程如何就某个值达成一致</p><h3 id="如何解决问题？"><a href="#如何解决问题？" class="headerlink" title="如何解决问题？"></a>如何解决问题？</h3><p>Paxos通过 <code>民主议会制度</code> 进行选举</p><ul><li><code>所有的居民</code> 都可以进行 <code>提议和投票</code> 来选出决议。</li><li><code>少数服从多数</code> 的方式来达成共识(只有超过一半的机器都认可某一个消息，最终所有的机器都对这个消息的决议达成共识)</li></ul><p>会有什么问题?<br>Paxos哪些部分 解决了哪些问题？</p><p>算法中涉及到的角色：</p><ul><li><strong>提议者(Proposer)</strong> ：提出提案。提案信息包括：「提议编号、提议值」。</li><li><strong>决策者(Acceptor)</strong> ：参与决策，回应P的提案。如果多数批准，则通过。</li><li><strong>最终决策学习者(Learner)</strong> ：不参与决策，从P和A学习最新达成一致的提案。</li></ul><p>在多副本状态机中，每个副本同时具有三种角色</p><img src="/blog/p/c20c6b6/Paxos%E7%AE%97%E6%B3%95%E4%B8%AD%E7%9A%84%E8%A7%92%E8%89%B2.png" class="" title="Paxos算法中的角色.png"><p>通过一个决议分成两个阶段(学习阶段之前决议已经形成)</p><ol><li><strong>第一：准备阶段(Prepare)</strong> ：<code>P</code> 向 <code>所有A</code> 发出准备决议请求，<code>所有A</code>收到请求后进行Promise承诺。</li><li><strong>第二：通过阶段(Accept)</strong> ：<code>P</code> 收到了 <code>多数A</code> 的Promise承诺，标志着本次决议成功，将决议结果发送给 <code>所有A</code>。</li><li><strong>第二：学习阶段(Learn)</strong> ：将决议结果抄送一份发给 <code>所有L</code></li></ol><img src="/blog/p/c20c6b6/Paxos%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B.png" class="" title="Paxos算法流程.png"><p>Paxos算法流程中的每条消息描述如下：</p><ul><li>Prepare: Proposer生成全局唯一且递增的Proposal ID (可使用时间戳加Server ID)，向所有Acceptors发送Prepare请求，这里无需携带提案内容，只携带Proposal ID即可。</li><li>Promise: Acceptors收到Prepare请求后，做出“两个承诺，一个应答”。</li></ul><p>两个承诺：</p><ol><li>不再接受Proposal ID小于等于（注意：这里是&lt;&#x3D; ）当前请求的Prepare请求。</li><li>不再接受Proposal ID小于（注意：这里是&lt; ）当前请求的Propose请求。</li></ol><p>一个应答：</p><ul><li><p>不违背以前作出的承诺下，回复已经Accept过的提案中Proposal ID最大的那个提案的Value和Proposal ID，没有则返回空值。</p></li><li><p>Propose: Proposer 收到多数Acceptors的Promise应答后，从应答中选择Proposal ID最大的提案的Value，作为本次要发起的提案。如果所有应答的提案Value均为空值，则可以自己随意决定提案Value。然后携带当前Proposal ID，向所有Acceptors发送Propose请求。</p></li><li><p>Accept: Acceptor收到Propose请求后，在不违背自己之前作出的承诺下，接受并持久化当前Proposal ID和提案Value。</p></li><li><p>Learn: Proposer收到多数Acceptors的Accept后，决议形成，将形成的决议发送给所有Learners。</p></li></ul><p>Paxos算法伪代码描述如下：</p><img src="/blog/p/c20c6b6/Paxos%E7%AE%97%E6%B3%95%E4%BC%AA%E4%BB%A3%E7%A0%81.png" class="" title="Paxos算法伪代码.png"><ol><li>获取一个Proposal ID n，为了保证Proposal ID唯一，可采用时间戳+Server ID生成；</li><li>Proposer向所有Acceptors广播Prepare(n)请求；</li><li>Acceptor比较n和minProposal，如果n&gt;minProposal，minProposal&#x3D;n，并且将 acceptedProposal 和 acceptedValue 返回；</li><li>Proposer接收到过半数回复后，如果发现有acceptedValue返回，将所有回复中acceptedProposal最大的acceptedValue作为本次提案的value，否则可以任意决定本次提案的value；</li><li>到这里可以进入第二阶段，广播Accept (n,value) 到所有节点；</li><li>Acceptor比较n和minProposal，如果n&gt;&#x3D;minProposal，则acceptedProposal&#x3D;minProposal&#x3D;n，acceptedValue&#x3D;value，本地持久化后，返回；否则，返回minProposal。</li><li>提议者接收到过半数请求后，如果发现有返回值result &gt;n，表示有更新的提议，跳转到1；否则value达成一致。</li></ol><p>几个例子，实例1如下图：</p><img src="/blog/p/c20c6b6/Paxos%E7%AE%97%E6%B3%95%E5%AE%9E%E4%BE%8B1.png" class="" title="Paxos算法实例1.png"><p>图中P代表Prepare阶段，A代表Accept阶段。3.1代表Proposal ID为3.1，其中3为时间戳，1为Server ID。X和Y代表提议Value。</p><p>实例1中P 3.1达成多数派，其Value(X)被Accept，然后P 4.5学习到Value(X)，并Accept。</p><img src="/blog/p/c20c6b6/Paxos%E7%AE%97%E6%B3%95%E5%AE%9E%E4%BE%8B2.png" class="" title="Paxos算法实例2.png"><p>实例2中P 3.1没有被多数派Accept（只有S3 Accept），但是被P 4.5学习到，P 4.5将自己的Value由Y替换为X，Accept（X）。</p><img src="/blog/p/c20c6b6/Paxos%E7%AE%97%E6%B3%95%E5%AE%9E%E4%BE%8B3.png" class="" title="Paxos算法实例3.png"><p>实例3中P 3.1没有被多数派Accept（只有S1 Accept），同时也没有被P 4.5学习到。由于P 4.5 Propose的所有应答，均未返回Value，则P 4.5可以Accept自己的Value (Y)。后续P 3.1的Accept (X) 会失败，已经Accept的S1，会被覆盖。</p><p>Paxos算法可能形成活锁而永远不会结束，如下图实例所示：</p><img src="/blog/p/c20c6b6/Paxos%E7%AE%97%E6%B3%95%E5%BD%A2%E6%88%90%E6%B4%BB%E9%94%81.png" class="" title="Paxos算法形成活锁.png"><p>回顾两个承诺之一，Acceptor不再应答Proposal ID小于等于当前请求的Prepare请求。意味着需要应答Proposal ID大于当前请求的Prepare请求。</p><p>两个Proposers交替Prepare成功，而Accept失败，形成活锁（Livelock）。</p><h2 id="三、Multi-Paxos算法"><a href="#三、Multi-Paxos算法" class="headerlink" title="三、Multi-Paxos算法"></a>三、Multi-Paxos算法</h2><p>原始的Paxos算法（Basic Paxos）只能对一个值形成决议，决议的形成至少需要两次网络来回，在高并发情况下可能需要更多的网络来回，极端情况下甚至可能形成活锁。如果想连续确定多个值，Basic Paxos搞不定了。因此Basic Paxos几乎只是用来做理论研究，并不直接应用在实际工程中。</p><p>实际应用中几乎都需要连续确定多个值，而且希望能有更高的效率。Multi-Paxos正是为解决此问题而提出。Multi-Paxos基于Basic Paxos做了两点改进：</p><ol><li>针对每一个要确定的值，运行一次Paxos算法实例（Instance），形成决议。每一个Paxos实例使用唯一的Instance ID标识。</li><li>在所有Proposers中选举一个Leader，由Leader唯一地提交Proposal给Acceptors进行表决。这样没有Proposer竞争，解决了活锁问题。在系统中仅有一个Leader进行Value提交的情况下，Prepare阶段就可以跳过，从而将两阶段变为一阶段，提高效率。</li></ol><img src="/blog/p/c20c6b6/Multi-Paxos%E6%B5%81%E7%A8%8B.png" class="" title="Multi-Paxos流程.png"><p>Multi-Paxos首先需要选举Leader，Leader的确定也是一次决议的形成，所以可执行一次Basic Paxos实例来选举出一个Leader。选出Leader之后只能由Leader提交Proposal，在Leader宕机之后服务临时不可用，需要重新选举Leader继续服务。在系统中仅有一个Leader进行Proposal提交的情况下，Prepare阶段可以跳过。</p><p>Multi-Paxos通过改变Prepare阶段的作用范围至后面Leader提交的所有实例，从而使得Leader的连续提交只需要执行一次Prepare阶段，后续只需要执行Accept阶段，将两阶段变为一阶段，提高了效率。为了区分连续提交的多个实例，每个实例使用一个Instance ID标识，Instance ID由Leader本地递增生成即可。</p><p>Multi-Paxos允许有多个自认为是Leader的节点并发提交Proposal而不影响其安全性，这样的场景即退化为Basic Paxos。</p><p>Chubby和Boxwood均使用Multi-Paxos。ZooKeeper使用的Zab也是Multi-Paxos的变形。</p><h2 id="Paxos算法推导过程"><a href="#Paxos算法推导过程" class="headerlink" title="Paxos算法推导过程"></a>Paxos算法推导过程</h2><p>Paxos算法的设计过程就是从正确性开始的，对于分布式一致性问题，很多进程提出（Propose）不同的值，共识算法保证最终只有其中一个值被选定，Safety表述如下：</p><ul><li>只有被提出（Propose）的值才可能被最终选定（Chosen）。</li><li>只有一个值会被选定（Chosen）。</li><li>进程只会获知到已经确认被选定（Chosen）的值。</li></ul><p>Paxos以这几条约束作为出发点进行设计，只要算法最终满足这几点，正确性就不需要证明了。Paxos算法中共分为三种参与者：Proposer、Acceptor以及Learner，通常实现中每个进程都同时扮演这三个角色。</p><p>Proposers向Acceptors提出Proposal，为了保证最多只有一个值被选定（Chosen），Proposal必须被超过一半的Acceptors所接受（Accept），且每个Acceptor只能接受一个值。</p><p>为了保证正常运行（必须有值被接受），所以Paxos算法中：</p><h3 id="P1：Acceptor必须接受（Accept）它所收到的第一个Proposal。"><a href="#P1：Acceptor必须接受（Accept）它所收到的第一个Proposal。" class="headerlink" title="P1：Acceptor必须接受（Accept）它所收到的第一个Proposal。"></a>P1：Acceptor必须接受（Accept）它所收到的第一个Proposal。</h3><p>先来先服务，合情合理。但这样产生一个问题，如果多个Proposers同时提出Proposal，很可能会导致无法达成一致，因为没有Propopal被超过一半Acceptors的接受，因此，Acceptor必须能够接受多个Proposal，不同的Proposal由不同的编号进行区分，当某个Proposal被超过一半的Acceptors接受后，这个Proposal就被选定了。<br>既然允许Acceptors接受多个Proposal就有可能出现多个不同值都被最终选定的情况，这违背了Safety要求，为了保证Safety要求，Paxos进一步提出：</p><h3 id="P2：如果值为v的Proposal被选定（Chosen），则任何被选定（Chosen）的具有更高编号的Proposal值也一定为v。"><a href="#P2：如果值为v的Proposal被选定（Chosen），则任何被选定（Chosen）的具有更高编号的Proposal值也一定为v。" class="headerlink" title="P2：如果值为v的Proposal被选定（Chosen），则任何被选定（Chosen）的具有更高编号的Proposal值也一定为v。"></a>P2：如果值为v的Proposal被选定（Chosen），则任何被选定（Chosen）的具有更高编号的Proposal值也一定为v。</h3><p>只要算法同时满足P1和P2，就保证了Safety。P2是一个比较宽泛的约定，完全没有算法细节，我们对其进一步延伸：</p><h3 id="P2a：如果值为v的Proposal被选定（Chosen），则对所有的Acceptors，它们接受（Accept）的任何具有更高编号的Proposal值也一定为v。"><a href="#P2a：如果值为v的Proposal被选定（Chosen），则对所有的Acceptors，它们接受（Accept）的任何具有更高编号的Proposal值也一定为v。" class="headerlink" title="P2a：如果值为v的Proposal被选定（Chosen），则对所有的Acceptors，它们接受（Accept）的任何具有更高编号的Proposal值也一定为v。"></a>P2a：如果值为v的Proposal被选定（Chosen），则对所有的Acceptors，它们接受（Accept）的任何具有更高编号的Proposal值也一定为v。</h3><p>如果满足P2a则一定满足P2，显然，因为只有首先被接受才有可能被最终选定。但是P2a依然难以实现，因为acceptor很有可能并不知道之前被选定的Proposal（恰好不在接受它的多数派中），因此进一步延伸：</p><h3 id="P2b：如果值为v的Proposal被选定（Chosen），则对所有的Proposer，它们提出的的任何具有更高编号的Proposal值也一定为v。"><a href="#P2b：如果值为v的Proposal被选定（Chosen），则对所有的Proposer，它们提出的的任何具有更高编号的Proposal值也一定为v。" class="headerlink" title="P2b：如果值为v的Proposal被选定（Chosen），则对所有的Proposer，它们提出的的任何具有更高编号的Proposal值也一定为v。"></a>P2b：如果值为v的Proposal被选定（Chosen），则对所有的Proposer，它们提出的的任何具有更高编号的Proposal值也一定为v。</h3><p>更进一步的： </p><h3 id="P2c：为了提出值为v且编号为n的Proposal，必须存在一个包含超过一半Acceptors的集合S，满足-1-没有任何S中的Acceptors曾经接受（Accept）过编号比n小的Proposal，或者-2-v和S中的Acceptors所接受过-Accept-的编号最大且小于n的Proposal值一致。"><a href="#P2c：为了提出值为v且编号为n的Proposal，必须存在一个包含超过一半Acceptors的集合S，满足-1-没有任何S中的Acceptors曾经接受（Accept）过编号比n小的Proposal，或者-2-v和S中的Acceptors所接受过-Accept-的编号最大且小于n的Proposal值一致。" class="headerlink" title="P2c：为了提出值为v且编号为n的Proposal，必须存在一个包含超过一半Acceptors的集合S，满足(1) 没有任何S中的Acceptors曾经接受（Accept）过编号比n小的Proposal，或者(2) v和S中的Acceptors所接受过(Accept)的编号最大且小于n的Proposal值一致。"></a>P2c：为了提出值为v且编号为n的Proposal，必须存在一个包含超过一半Acceptors的集合S，满足(1) 没有任何S中的Acceptors曾经接受（Accept）过编号比n小的Proposal，或者(2) v和S中的Acceptors所接受过(Accept)的编号最大且小于n的Proposal值一致。</h3><p>满足P2c即满足P2b即满足P2a即满足P2。至此Paxos提出了Proposer的执行流程，以满足P2c：</p><ol><li>Proposer选择一个新的编号n，向超过一半的Acceptors发送请求消息，Acceptor回复: (a)承诺不会接受编号比n小的proposal，以及(b)它所接受过的编号比n小的最大Proposal（如果有）。该请求称为Prepare请求。</li><li>如果Proposer收到超过一半Acceptors的回复，它就可以提出Proposal，Proposal的值为收到回复中编号最大的Proposal的值，如果没有这样的值，则可以自由提出任何值。</li><li>向收到回复的Acceptors发送Accept请求，请求对方接受提出的Proposal。</li></ol><p>仔细品味Proposer的执行流程，其完全吻合P2c中的要求，但你可能也发现了，当多个Proposer同时运行时，有可能出现没有任何Proposal可以成功被接受的情况（编号递增的交替完成第一步），这就是Paxos算法的Liveness问题，或者叫“活锁”，论文中建议通过对Proposers引入选主算法选出Distinguished Proposer来全权负责提出Proposal来解决这个问题，但是即使在出现多个Proposers同时提出Proposal的情况时，Paxos算法也可以保证Safety。</p><p>接下来看看Acceptors的执行过程，和我们对P2做的事情一样，我们对P1进行延伸：</p><h3 id="P1a：Acceptor可以接受（Accept）编号为n的Proposal当且仅当它没有回复过一个具有更大编号的Prepare消息。"><a href="#P1a：Acceptor可以接受（Accept）编号为n的Proposal当且仅当它没有回复过一个具有更大编号的Prepare消息。" class="headerlink" title="P1a：Acceptor可以接受（Accept）编号为n的Proposal当且仅当它没有回复过一个具有更大编号的Prepare消息。"></a>P1a：Acceptor可以接受（Accept）编号为n的Proposal当且仅当它没有回复过一个具有更大编号的Prepare消息。</h3><p>易见，P1a包含了P1，对于Acceptors：</p><ol><li>当收到Prepare请求时，如果其编号n大于之前所收到的Prepare消息，则回复。</li><li>当收到Accept请求时，仅当它没有回复过一个具有更大编号的Prepare消息，接受该Proposal并回复。<br>以上涵盖了满足P1a和P2b的一套完整一致性算法。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;span id=&quot;more&quot;&gt;&lt;/span&gt;
+
+&lt;h2 id=&quot;Paxos&quot;&gt;&lt;a href=&quot;#Paxos&quot; class=&quot;headerlink&quot; title=&quot;Paxos&quot;&gt;&lt;/a&gt;Paxos&lt;/h2&gt;&lt;h3 id=&quot;定义&quot;&gt;&lt;a href=&quot;#定义&quot; class=&quot;hea</summary>
+      
+    
+    
+    
+    <category term="编程语言" scheme="https://ayou129.github.io/blog/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
+    
     
   </entry>
   
@@ -331,6 +355,23 @@
   </entry>
   
   <entry>
+    <title>electronjs</title>
+    <link href="https://ayou129.github.io/blog/p/801262bc/"/>
+    <id>https://ayou129.github.io/blog/p/801262bc/</id>
+    <published>2020-09-10T11:04:59.000Z</published>
+    <updated>2021-12-10T11:04:59.000Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="下载-fiddle"><a href="#下载-fiddle" class="headerlink" title="下载 fiddle"></a>下载 fiddle</h2><blockquote><p><a href="https://www.electronjs.org/fiddle" target="_blank" rel="noopener">https://www.electronjs.org/fiddle</a></p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.npmrc</span><br><span class="line"></span><br><span class="line">增加</span><br><span class="line">ELECTRON_MIRROR=<span class="string">&quot;https://cdn.npm.taobao.org/dist/electron/&quot;</span></span><br><span class="line"></span><br><span class="line">~ sudo ELECTRON_MIRROR=<span class="string">&quot;https://cdn.npm.taobao.org/dist/electron/&quot;</span> npm install -g electron --unsafe-perm=<span class="keyword">true</span> --allow-root</span><br><span class="line"></span><br><span class="line">cmd运行程序</span><br><span class="line">~ sudo <span class="regexp">/Applications/</span>Electron\ Fiddle.app<span class="regexp">/Contents/M</span>acOS/electron-fiddle</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+    <summary type="html">ElementUI工具</summary>
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
     <title>ElementUI工具</title>
     <link href="https://ayou129.github.io/blog/p/801262be/"/>
     <id>https://ayou129.github.io/blog/p/801262be/</id>
@@ -345,23 +386,6 @@
     
     
     <category term="编程语言" scheme="https://ayou129.github.io/blog/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>electronjs</title>
-    <link href="https://ayou129.github.io/blog/p/801262bc/"/>
-    <id>https://ayou129.github.io/blog/p/801262bc/</id>
-    <published>2020-09-10T11:04:59.000Z</published>
-    <updated>2021-12-10T11:04:59.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="下载-fiddle"><a href="#下载-fiddle" class="headerlink" title="下载 fiddle"></a>下载 fiddle</h2><blockquote><p><a href="https://www.electronjs.org/fiddle" target="_blank" rel="noopener">https://www.electronjs.org/fiddle</a></p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.npmrc</span><br><span class="line"></span><br><span class="line">增加</span><br><span class="line">ELECTRON_MIRROR=<span class="string">&quot;https://cdn.npm.taobao.org/dist/electron/&quot;</span></span><br><span class="line"></span><br><span class="line">~ sudo ELECTRON_MIRROR=<span class="string">&quot;https://cdn.npm.taobao.org/dist/electron/&quot;</span> npm install -g electron --unsafe-perm=<span class="keyword">true</span> --allow-root</span><br><span class="line"></span><br><span class="line">cmd运行程序</span><br><span class="line">~ sudo <span class="regexp">/Applications/</span>Electron\ Fiddle.app<span class="regexp">/Contents/M</span>acOS/electron-fiddle</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">ElementUI工具</summary>
-    
-    
     
     
   </entry>
@@ -398,23 +422,6 @@
     
     
     <category term="Diary" scheme="https://ayou129.github.io/blog/categories/Diary/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>SSH</title>
-    <link href="https://ayou129.github.io/blog/p/782a8ece/"/>
-    <id>https://ayou129.github.io/blog/p/782a8ece/</id>
-    <published>2020-05-29T16:05:38.000Z</published>
-    <updated>2021-01-27T17:05:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="生成秘钥"><a href="#生成秘钥" class="headerlink" title="生成秘钥"></a>生成秘钥</h2><ol><li>cd ~&#x2F;.ssh</li><li>ssh-keygen -t rsa -C “guoxinlee129@gmail”</li><li>接着按3个回车</li><li>在c&#x2F;Users&#x2F;Administrator&#x2F;.ssh生成了加密文件，复制id_rsa.pub</li><li>打开github 添加New SSH key</li><li>验证是否连接成功 ssh -T <a href="mailto:&#103;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#104;&#117;&#x62;&#46;&#99;&#x6f;&#x6d;">&#103;&#x69;&#116;&#x40;&#x67;&#105;&#116;&#104;&#117;&#x62;&#46;&#99;&#x6f;&#x6d;</a>(gitee site)</li></ol><h2 id="开启xftp-公钥登录"><a href="#开启xftp-公钥登录" class="headerlink" title="开启xftp 公钥登录"></a>开启xftp 公钥登录</h2><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#生成一个.ssh文件</span><br><span class="line">ssh-keygen</span><br><span class="line"></span><br><span class="line">/etc/ssh/sshd_config</span><br><span class="line">RSAAuthentication yes</span><br><span class="line">PubkeyAuthentication yes</span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br><span class="line"></span><br><span class="line">systemctl start sshd.service</span><br><span class="line"></span><br><span class="line">adduser liguoxin</span><br><span class="line">passwd liguoxin</span><br><span class="line">abcABC123</span><br><span class="line">#将某个用户的公钥放进去</span><br><span class="line">vim /home/liguoxin/.ssh/authorized_keys</span><br><span class="line"></span><br><span class="line">firewall-cmd --add-port=22/tcp --permanent</span><br><span class="line">systemctl restart firewalld</span><br></pre></td></tr></table></figure><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#生成指定邮箱的ssh文件</span><br><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;1422476675@qq.com&quot;</span></span><br><span class="line"></span><br><span class="line">cat /root/.ssh/id_rsa<span class="selector-class">.pub</span></span><br><span class="line"></span><br><span class="line">git config <span class="attr">--global</span> user<span class="selector-class">.name</span> <span class="string">&quot;Administrator&quot;</span></span><br><span class="line">git config <span class="attr">--global</span> user<span class="selector-class">.email</span> <span class="string">&quot;1422476675@qq.com&quot;</span></span><br><span class="line"></span><br><span class="line">git remote add origin git@<span class="number">120.78</span>.<span class="number">175.202</span>:enticementchina/web<span class="selector-class">.git</span></span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-    <summary type="html">SSH学习</summary>
-    
-    
     
     
   </entry>
