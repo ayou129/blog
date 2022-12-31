@@ -1,5 +1,263 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Linux测试机构建 · 阿尤</title><meta name="description" content="Linux测试机构建 - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
-</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/tags" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="/blog/categories" target="_self" class="nav-list-link">分类</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Linux测试机构建</h1><div class="post-info">创建于：2020年1月20日<span style="margin-left: 0.5rem"></span>上次更新：2020年2月20日</div><div class="post-content"><h2 id="Linux版本选择"><a href="#Linux版本选择" class="headerlink" title="Linux版本选择"></a>Linux版本选择</h2><blockquote>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#42b983"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/public/index.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/public/index.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/public/index.ico">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#42b983">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayou129.github.io","root":"/blog/","images":"/blog/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":"flat","style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="纯净Linux OS构建web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux测试机构建">
+<meta property="og:url" content="https://ayou129.github.io/blog/p/aa9fa5e8/index.html">
+<meta property="og:site_name" content="阿尤">
+<meta property="og:description" content="纯净Linux OS构建web">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-20T00:30:02.000Z">
+<meta property="article:modified_time" content="2020-02-20T00:30:02.000Z">
+<meta property="article:author" content="阿尤">
+<meta property="article:tag" content="Linux">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://ayou129.github.io/blog/p/aa9fa5e8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayou129.github.io/blog/p/aa9fa5e8/","path":"p/aa9fa5e8/","title":"Linux测试机构建"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Linux测试机构建 | 阿尤</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/blog/public/%E9%98%BF%E5%B0%A4%E5%8A%A8%E6%BC%AB%E5%A4%B4.jpeg" alt="阿尤">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">阿尤</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">70</span></a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux%E7%89%88%E6%9C%AC%E9%80%89%E6%8B%A9"><span class="nav-number">1.</span> <span class="nav-text">Linux版本选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-Linux-%E7%BD%91%E7%BB%9C"><span class="nav-number">2.</span> <span class="nav-text">设置 Linux 网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%9F%BA%E7%A1%80%E8%BD%AF%E4%BB%B6%E5%8C%85"><span class="nav-number">3.</span> <span class="nav-text">安装基础软件包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AECentos%E6%BA%90"><span class="nav-number">4.</span> <span class="nav-text">设置Centos源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">设置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-VMwareTools"><span class="nav-number">6.</span> <span class="nav-text">安装 VMwareTools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Php"><span class="nav-number">7.</span> <span class="nav-text">安装Php</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Java"><span class="nav-number">8.</span> <span class="nav-text">安装Java</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Composer"><span class="nav-number">9.</span> <span class="nav-text">安装Composer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85NodeJs"><span class="nav-number">10.</span> <span class="nav-text">安装NodeJs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Mysql"><span class="nav-number">11.</span> <span class="nav-text">安装Mysql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Redis"><span class="nav-number">12.</span> <span class="nav-text">安装Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Nginx"><span class="nav-number">13.</span> <span class="nav-text">安装Nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Git"><span class="nav-number">14.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Gitlab"><span class="nav-number">15.</span> <span class="nav-text">安装Gitlab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Docker"><span class="nav-number">16.</span> <span class="nav-text">安装Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6%E4%BC%A0%E8%BE%93%E5%B7%A5%E5%85%B7"><span class="nav-number">17.</span> <span class="nav-text">安装文件传输工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85V2ray"><span class="nav-number">18.</span> <span class="nav-text">安装V2ray</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="nav-number">18.1.</span> <span class="nav-text">相关命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-x2F-etc-x2F-v2ray-x2F-config-json"><span class="nav-number">18.2.</span> <span class="nav-text">vim &#x2F;etc&#x2F;v2ray&#x2F;config.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vim-x2F-etc-x2F-profile"><span class="nav-number">18.3.</span> <span class="nav-text">vim &#x2F;etc&#x2F;profile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF-vim-x2F-etc-x2F-init-d-x2F-v2ray"><span class="nav-number">18.4.</span> <span class="nav-text">开机自启 vim &#x2F;etc&#x2F;init.d&#x2F;v2ray</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%BC%80AppImage"><span class="nav-number">19.</span> <span class="nav-text">打开AppImage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-electron"><span class="nav-number">20.</span> <span class="nav-text">安装 electron</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4-1"><span class="nav-number">21.</span> <span class="nav-text">相关命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99"><span class="nav-number">22.</span> <span class="nav-text">防火墙</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">23.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%AE%B9"><span class="nav-number">24.</span> <span class="nav-text">扩容</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">阿尤</p>
+  <div class="site-description" itemprop="description">成长就是不断发现自己是SB的过程！</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayou129.github.io/blog/p/aa9fa5e8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="阿尤">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿尤">
+      <meta itemprop="description" content="成长就是不断发现自己是SB的过程！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Linux测试机构建 | 阿尤">
+      <meta itemprop="description" content="纯净Linux OS构建web">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux测试机构建
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-20 08:30:02" itemprop="dateCreated datePublished" datetime="2020-01-20T08:30:02+08:00">2020-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-02-20 08:30:02" itemprop="dateModified" datetime="2020-02-20T08:30:02+08:00">2020-02-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">纯净Linux OS构建web</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>暂无描述</p>
+<span id="more"></span>
+
+<h2 id="Linux版本选择"><a href="#Linux版本选择" class="headerlink" title="Linux版本选择"></a>Linux版本选择</h2><blockquote>
 <p><code>https://developer.aliyun.com/mirror/</code> 选择 <code>OS</code> 镜像</p>
 </blockquote>
 <figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="language-bash">!/usr/bin/env bash</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">初始化</span></span><br><span class="line">output=`yum install -y lrzsz vim wget autoconf`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">设置Centos源</span></span><br><span class="line">cp /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup</span><br><span class="line"><span class="meta"># </span><span class="language-bash">非阿里云服务器</span></span><br><span class="line">output=`sed -i -e &#x27;/mirrors.cloud.aliyuncs.com/d&#x27; -e &#x27;/mirrors.aliyuncs.com/d&#x27; /etc/yum.repos.d/CentOS-Base.repo`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">阿里云服务器</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">output=`<span class="built_in">mv</span> /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup`</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">output=`curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo`</span></span><br><span class="line"></span><br><span class="line">output=`yum makecache`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">git</span></span><br><span class="line">output=`yum install -y git-all`</span><br><span class="line"></span><br><span class="line">output=` `</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">-N 密码 -f 保存文件 -q静默模式</span></span><br><span class="line">output=`ssh-keygen -t rsa -C &quot;guoxinle****e129@gmail&quot; -N &#x27;sisi5201314&#x27; -f id_rsa -q`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">docker</span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">step 1: 安装必要的一些系统工具</span></span><br><span class="line">output=`sudo yum install -y yum-utils device-mapper-persistent-data lvm2`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">Step 2: 添加软件源信息</span></span><br><span class="line">output=`sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">Step 3: 更新并安装Docker-CE</span></span><br><span class="line">output=`sudo yum makecache fast`</span><br><span class="line">output=`sudo yum -y install docker-ce-18.03.1.ce-1.el7.centos`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">Step 4: 开启Docker服务</span></span><br><span class="line">output=`systemctl start docker.service`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">查看安装的版本</span></span><br><span class="line">output=`sudo docker version`</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta"># </span><span class="language-bash">开机自启</span></span><br><span class="line">output=`systemctl enable docker.service`</span><br><span class="line"></span><br><span class="line">output=`echo &quot;&#123;\&quot;registry-mirrors\&quot;: [\&quot;https://9cpn8tt6.mirror.aliyuncs.com/\&quot;]&#125;&quot; &gt;&gt; /etc/docker/daemon.json`</span><br><span class="line">output=`sudo systemctl daemon-reload`</span><br><span class="line">output=`sudo systemctl restart docker`</span><br></pre></td></tr></table></figure>
@@ -22,7 +280,7 @@
 <hr>
 <h2 id="安装Php"><a href="#安装Php" class="headerlink" title="安装Php"></a>安装Php</h2><a href="/blog/p/1417dc7c/" title="PHP">PHP</a>
 
-<h2 id="安装Java"><a href="#安装Java" class="headerlink" title="安装Java"></a>安装Java</h2><a href="/blog/p/c8447915/" title="Java核心知识要点">Java核心知识要点</a>
+<h2 id="安装Java"><a href="#安装Java" class="headerlink" title="安装Java"></a>安装Java</h2><a href="/blog/p/c8447915/" title="Java">Java</a>
 
 <h2 id="安装Composer"><a href="#安装Composer" class="headerlink" title="安装Composer"></a>安装Composer</h2><a href="/blog/p/d5e309c2/" title="Composer">Composer</a>
 
@@ -88,12 +346,93 @@
 <li><a href="https://www.cnblogs.com/ldsweely/p/9400583.html" target="_blank" rel="noopener">https://www.cnblogs.com/ldsweely/p/9400583.html</a></li>
 </ul>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br></pre></td><td class="code"><pre><span class="line">虚拟机vmware centos7 扩展磁盘空间</span><br><span class="line"><span class="number">0</span>、思路</span><br><span class="line">创建一个新的逻辑分区，将新的逻辑分区格式化ext3（或其他类型）的文件系统，mount到磁盘空间不够的文件系统，就跟原来的分区/文件系统一样的使用</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>、准备</span><br><span class="line"><span class="number">1.1</span> 注意使用VMware自带的Expand功能不能有Snapshot存在，所以在expand之前先把所有的Snapshot删掉了</span><br><span class="line"></span><br><span class="line"><span class="number">1.2</span> 为了以防万一，把VMware虚拟机<span class="keyword">copy</span>了一份备用。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>、查看挂载点</span><br><span class="line">[root@vnode1 ~]# df -h</span><br><span class="line">文件系统 容量 已用 可用 已用% 挂载点</span><br><span class="line"><span class="regexp">/dev/m</span>apper<span class="regexp">/centos-root 36G 5.4G 31G 15% /</span></span><br><span class="line">devtmpfs <span class="number">3.9</span>G <span class="number">0</span> <span class="number">3.9</span>G <span class="number">0</span>% /dev</span><br><span class="line">tmpfs <span class="number">3.9</span>G <span class="number">0</span> <span class="number">3.9</span>G <span class="number">0</span>% <span class="regexp">/dev/</span>shm</span><br><span class="line">tmpfs <span class="number">3.9</span>G <span class="number">8.5</span>M <span class="number">3.9</span>G <span class="number">1</span>% /run</span><br><span class="line">tmpfs <span class="number">3.9</span>G <span class="number">0</span> <span class="number">3.9</span>G <span class="number">0</span>% <span class="regexp">/sys/</span>fs/cgroup</span><br><span class="line"><span class="regexp">/dev/</span>sda1 <span class="number">497</span>M <span class="number">125</span>M <span class="number">373</span>M <span class="number">26</span>% /boot</span><br><span class="line">tmpfs <span class="number">781</span>M <span class="number">0</span> <span class="number">781</span>M <span class="number">0</span>% <span class="regexp">/run/u</span>ser/<span class="number">0</span></span><br><span class="line"><span class="number">3</span>、扩展VMWare硬盘空间</span><br><span class="line"><span class="number">3.1</span> 关闭Vmware 的 Linux系统</span><br><span class="line"></span><br><span class="line"><span class="number">3.2</span> 在VMWare菜单中设置：</span><br><span class="line"></span><br><span class="line">VM -&gt; Settings… -&gt; Hardware -&gt; Hard Disk -&gt; Utilities -&gt; Expand</span><br><span class="line"></span><br><span class="line">输入你想要扩展到多少G，假设新增加了 <span class="number">40</span>G </span><br><span class="line">这里写图片描述</span><br><span class="line"></span><br><span class="line">这里写图片描述</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>、对新增加的硬盘进行分区</span><br><span class="line">执行步骤：</span><br><span class="line"></span><br><span class="line">执行“fdisk <span class="regexp">/dev/</span>sda”，进入到fdisk</span><br><span class="line">输入p指令，查看已分区数量（有两个 <span class="regexp">/dev/</span>sda1 <span class="regexp">/dev/</span>sda2）</span><br><span class="line">输入 n &#123;<span class="keyword">new</span> partition&#125;指令，新增加一个分区</span><br><span class="line">输入p &#123;primary partition&#125;，分区类型选择为主分区</span><br><span class="line">输入分区号 <span class="number">3</span> &#123;partition number&#125; ，分区号选<span class="number">3</span>（上面显示我已经有<span class="number">2</span>个分区了）</span><br><span class="line">回车　　　　　　默认（起始扇区）</span><br><span class="line">回车　　　　　　默认（结束扇区）</span><br><span class="line">输入t &#123;change partition id&#125;指令，修改分区类型</span><br><span class="line">按提示输入刚才的分区号<span class="number">3</span></span><br><span class="line">输入分区类型 <span class="number">8</span>e &#123;Linux LVM partition&#125;</span><br><span class="line">输入w指令，将以上改动写入分区表</span><br><span class="line">最后完成，退出fdisk命令</span><br><span class="line">[root@vnode1 ~]# fdisk <span class="regexp">/dev/</span>sda</span><br><span class="line">欢迎使用 fdisk (util-linux <span class="number">2.23</span>.<span class="number">2</span>)。</span><br><span class="line"> </span><br><span class="line">更改将停留在内存中，直到您决定将更改写入磁盘。</span><br><span class="line">使用写入命令前请三思。</span><br><span class="line"> </span><br><span class="line">命令(输入 m 获取帮助)：p</span><br><span class="line">....</span><br><span class="line">设备 Boot Start End Blocks Id System</span><br><span class="line"><span class="regexp">/dev/</span>sda1 * <span class="number">2048</span> <span class="number">1026047</span> <span class="number">512000</span> <span class="number">83</span> Linux</span><br><span class="line"><span class="regexp">/dev/</span>sda2 <span class="number">1026048</span> <span class="number">83886079</span> <span class="number">41430016</span> <span class="number">8</span>e Linux LVM</span><br><span class="line"> </span><br><span class="line">命令(输入 m 获取帮助)：n</span><br><span class="line">Partition type:</span><br><span class="line">p primary (<span class="number">2</span> primary, <span class="number">0</span> extended, <span class="number">2</span> free)</span><br><span class="line">e extended</span><br><span class="line">Select (<span class="keyword">default</span> p): p</span><br><span class="line">分区号 (<span class="number">3</span>,<span class="number">4</span>，默认 <span class="number">3</span>)：<span class="number">3</span></span><br><span class="line">起始 扇区 (<span class="number">83886080</span>-<span class="number">167772159</span>，默认为 <span class="number">83886080</span>)：</span><br><span class="line">将使用默认值 <span class="number">83886080</span></span><br><span class="line">Last 扇区, +扇区 or +<span class="keyword">size</span>&#123;K,M,G&#125; (<span class="number">83886080</span>-<span class="number">167772159</span>，默认为 <span class="number">167772159</span>)：</span><br><span class="line">将使用默认值 <span class="number">167772159</span></span><br><span class="line">分区 <span class="number">3</span> 已设置为 Linux 类型，大小设为 <span class="number">40</span> GiB</span><br><span class="line"> </span><br><span class="line">命令(输入 m 获取帮助)：t</span><br><span class="line">分区号 (<span class="number">1</span>-<span class="number">3</span>，默认 <span class="number">3</span>)：<span class="number">3</span></span><br><span class="line">Hex 代码(输入 L 列出所有代码)：<span class="number">8</span>e</span><br><span class="line">已将分区“Linux”的类型更改为“Linux LVM”</span><br><span class="line"> </span><br><span class="line">命令(输入 m 获取帮助)：w</span><br><span class="line">The partition table has been altered!</span><br><span class="line"> </span><br><span class="line">Calling ioctl() to re-<span class="keyword">read</span> partition table.</span><br><span class="line"> </span><br><span class="line">WARNING: Re-reading the partition table failed with error <span class="number">16</span>: 设备或资源忙.</span><br><span class="line">The kernel still uses the old table. The <span class="keyword">new</span> table will be used at</span><br><span class="line">the <span class="keyword">next</span> reboot or after you run partprobe(<span class="number">8</span>) or kpartx(<span class="number">8</span>)</span><br><span class="line">正在同步磁盘。</span><br><span class="line">重启系统: </span><br><span class="line">[root@vnode1 ~]# shutdown -r now （很重要）</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>、对新增加的硬盘格式化</span><br><span class="line">[root@vnode1 ~]# mkfs.ext3 <span class="regexp">/dev/</span>sda3</span><br><span class="line">mke2fs <span class="number">1.42</span>.<span class="number">9</span> (<span class="number">28</span>-Dec-<span class="number">2013</span>)</span><br><span class="line">文件系统标签=</span><br><span class="line">OS type: Linux</span><br><span class="line">块大小=<span class="number">4096</span> (log=<span class="number">2</span>)</span><br><span class="line">分块大小=<span class="number">4096</span> (log=<span class="number">2</span>)</span><br><span class="line">Stride=<span class="number">0</span> blocks, Stripe width=<span class="number">0</span> blocks</span><br><span class="line"><span class="number">2621440</span> inodes, <span class="number">10485760</span> blocks</span><br><span class="line"><span class="number">524288</span> blocks (<span class="number">5.00</span>%) reserved <span class="keyword">for</span> the <span class="keyword">super</span> user</span><br><span class="line">第一个数据块=<span class="number">0</span></span><br><span class="line">Maximum filesystem blocks=<span class="number">4294967296</span></span><br><span class="line"><span class="number">320</span> block groups</span><br><span class="line"><span class="number">32768</span> blocks per <span class="keyword">group</span>, <span class="number">32768</span> fragments per <span class="keyword">group</span></span><br><span class="line"><span class="number">8192</span> inodes per <span class="keyword">group</span></span><br><span class="line">Superblock backups stored on blocks:</span><br><span class="line"><span class="number">32768</span>, <span class="number">98304</span>, <span class="number">163840</span>, <span class="number">229376</span>, <span class="number">294912</span>, <span class="number">819200</span>, <span class="number">884736</span>, <span class="number">1605632</span>, <span class="number">2654208</span>,</span><br><span class="line"><span class="number">4096000</span>, <span class="number">7962624</span></span><br><span class="line"> </span><br><span class="line">Allocating <span class="keyword">group</span> tables: 完成</span><br><span class="line">正在写入inode表: 完成</span><br><span class="line">Creating journal (<span class="number">32768</span> blocks): 完成</span><br><span class="line">Writing superblocks and filesystem accounting information: 完成</span><br><span class="line"><span class="number">5</span>、添加新LVM到已有的LVM组，实现扩容</span><br><span class="line">[root@vnode1 ~]# lvm</span><br><span class="line">lvm&gt; pvcreate <span class="regexp">/dev/</span>sda3</span><br><span class="line">WARNING: ext3 signature detected on <span class="regexp">/dev/</span>sda3 at offset <span class="number">1080</span>. Wipe it? [y/n]: y</span><br><span class="line">Wiping ext3 signature on <span class="regexp">/dev/</span>sda3.</span><br><span class="line">Physical volume <span class="string">&quot;/dev/sda3&quot;</span> successfully created</span><br><span class="line">lvm&gt; vgextend centos <span class="regexp">/dev/</span>sda3</span><br><span class="line">Volume <span class="keyword">group</span> <span class="string">&quot;centos&quot;</span> successfully extended</span><br><span class="line">lvm&gt; lvextend -L +<span class="number">39.9</span>G <span class="regexp">/dev/m</span>apper/centos-root</span><br><span class="line">Rounding <span class="keyword">size</span> to boundary between physical extents: <span class="number">39.90</span> GiB</span><br><span class="line"><span class="keyword">Size</span> of logical volume centos/root changed <span class="keyword">from</span> <span class="number">35.47</span> GiB (<span class="number">9080</span> extents) to <span class="number">75.37</span> GiB (<span class="number">19295</span> extents).</span><br><span class="line">Logical volume root successfully resized.</span><br><span class="line">lvm&gt; pvdisplay</span><br><span class="line">--- Physical volume ---</span><br><span class="line">PV Name <span class="regexp">/dev/</span>sda2</span><br><span class="line">VG Name centos</span><br><span class="line">PV <span class="keyword">Size</span> <span class="number">39.51</span> GiB / not usable <span class="number">3.00</span> MiB</span><br><span class="line">Allocatable yes (but full)</span><br><span class="line">PE <span class="keyword">Size</span> <span class="number">4.00</span> MiB</span><br><span class="line">Total PE <span class="number">10114</span></span><br><span class="line">Free PE <span class="number">0</span></span><br><span class="line">Allocated PE <span class="number">10114</span></span><br><span class="line">PV UUID vtNvX3-b1yw-ePoh-YGHQ-tDhL-x0ru-mfts3k</span><br><span class="line"> </span><br><span class="line">--- Physical volume ---</span><br><span class="line">PV Name <span class="regexp">/dev/</span>sda3</span><br><span class="line">VG Name centos</span><br><span class="line">PV <span class="keyword">Size</span> <span class="number">40.00</span> GiB / not usable <span class="number">4.00</span> MiB</span><br><span class="line">Allocatable yes</span><br><span class="line">PE <span class="keyword">Size</span> <span class="number">4.00</span> MiB</span><br><span class="line">Total PE <span class="number">10239</span></span><br><span class="line">Free PE <span class="number">34</span></span><br><span class="line">Allocated PE <span class="number">10205</span></span><br><span class="line">PV UUID jWqvcF-R53u-ZeAy-zO2L-PbtI-<span class="number">51</span>VP-yHNZ1g</span><br><span class="line"> </span><br><span class="line">lvm&gt; quit</span><br><span class="line">Exiting.</span><br><span class="line">[root@vnode1 ~]#</span><br><span class="line">备注：</span><br><span class="line"></span><br><span class="line">lvm　　　　　　　　　　　　 进入lvm管理</span><br><span class="line">lvm&gt; pvcreate <span class="regexp">/dev/</span>sda3 这是初始化刚才的分区，必须的</span><br><span class="line">lvm&gt;vgextend centos <span class="regexp">/dev/</span>sda3 将初始化过的分区加入到虚拟卷组vg_dc01</span><br><span class="line">lvm&gt;lvextend -L +<span class="number">39.9</span>G <span class="regexp">/dev/m</span>apper/centos-root　　扩展已有卷的容量（注意容量大小）</span><br><span class="line">lvm&gt;pvdisplay　　　　　　　　　　　　　　 查看卷容量，这时你会看到一个很大的卷了</span><br><span class="line">lvm&gt;quit　　　　　　　　　　　　　　 　　　退出</span><br><span class="line">以上只是卷扩容了，下面是文件系统的真正扩容，输入以下命令：</span><br><span class="line"></span><br><span class="line">[root@vnode1 ~]# resize2fs <span class="regexp">/dev/m</span>apper/centos-root</span><br><span class="line">resize2fs <span class="number">1.42</span>.<span class="number">9</span> (<span class="number">28</span>-Dec-<span class="number">2013</span>)</span><br><span class="line">resize2fs: Bad magic number in <span class="keyword">super</span>-block 当尝试打开 <span class="regexp">/dev/m</span>apper/centos-root 时</span><br><span class="line">找不到有效的文件系统超级块.</span><br><span class="line">报错：当尝试打开 <span class="regexp">/dev/m</span>apper/centos-root 时 找不到有效的文件系统超级块</span><br><span class="line"></span><br><span class="line">因为我的centos7的某些分区用的是xfs的文件系统（使用df -T查看即可知道）</span><br><span class="line"></span><br><span class="line">[root@vnode1 ~]# df -T</span><br><span class="line">文件系统                           类型          <span class="number">1</span>K-块        已用        可用          已用%  挂载点</span><br><span class="line"><span class="regexp">/dev/m</span>apper<span class="regexp">/centos-root   xfs           37173520 5574340  31599180  15%      /</span></span><br><span class="line">devtmpfs 　　                   devtmpfs  <span class="number">3987400</span>   <span class="number">0</span>              <span class="number">3987400</span>    <span class="number">0</span>%       /dev</span><br><span class="line">tmpfs                                 tmpfs        <span class="number">3997856</span>   <span class="number">0</span>              <span class="number">3997856</span>    <span class="number">0</span>%      <span class="regexp">/dev/</span>shm</span><br><span class="line">tmpfs                                 tmpfs        <span class="number">3997856</span>   <span class="number">8628</span>        <span class="number">3989228</span>     <span class="number">1</span>%     /run</span><br><span class="line">tmpfs                                 tmpfs        <span class="number">3997856</span>   <span class="number">0</span>               <span class="number">3997856</span>     <span class="number">0</span>%    <span class="regexp">/sys/</span>fs/cgroup</span><br><span class="line"><span class="regexp">/dev/</span>sda1                          xfs            <span class="number">508588</span>      <span class="number">127152</span>    <span class="number">381436</span>       <span class="number">26</span>%  /boot</span><br><span class="line">tmpfs                                tmpfs         <span class="number">799572</span>      <span class="number">0</span>              <span class="number">799572</span>       <span class="number">0</span>%   run<span class="regexp">/user/</span><span class="number">0</span></span><br><span class="line">[root@vnode1 ~]#</span><br><span class="line">将resize2fs替换为xfs_growfs，重新执行一遍即可，如下：</span><br><span class="line"></span><br><span class="line">[root@vnode1 ~]# xfs_growfs <span class="regexp">/dev/m</span>apper/centos-root</span><br><span class="line">meta-data=<span class="regexp">/dev/m</span>apper/centos-root isize=<span class="number">256</span> agcount=<span class="number">4</span>, agsize=<span class="number">2324480</span> blks</span><br><span class="line">= sectsz=<span class="number">512</span> attr=<span class="number">2</span>, projid32bit=<span class="number">1</span></span><br><span class="line">= crc=<span class="number">0</span> finobt=<span class="number">0</span></span><br><span class="line">data = bsize=<span class="number">4096</span> blocks=<span class="number">9297920</span>, imaxpct=<span class="number">25</span></span><br><span class="line">= sunit=<span class="number">0</span> swidth=<span class="number">0</span> blks</span><br><span class="line">naming =version <span class="number">2</span> bsize=<span class="number">4096</span> ascii-ci=<span class="number">0</span> ftype=<span class="number">0</span></span><br><span class="line">log =internal bsize=<span class="number">4096</span> blocks=<span class="number">4540</span>, version=<span class="number">2</span></span><br><span class="line">= sectsz=<span class="number">512</span> sunit=<span class="number">0</span> blks, lazy-<span class="keyword">count</span>=<span class="number">1</span></span><br><span class="line">realtime =none extsz=<span class="number">4096</span> blocks=<span class="number">0</span>, rtextents=<span class="number">0</span></span><br><span class="line">data blocks changed <span class="keyword">from</span> <span class="number">9297920</span> to <span class="number">19758080</span></span><br><span class="line">最后再运行下：df -h </span><br><span class="line">即可看到扩容后的磁盘空间</span><br><span class="line"></span><br><span class="line">[root@vnode1 ~]# df -h</span><br><span class="line">文件系统 容量 已用 可用 已用% 挂载点</span><br><span class="line"><span class="regexp">/dev/m</span>apper<span class="regexp">/centos-root 76G 5.4G 71G 8% /</span></span><br><span class="line">devtmpfs <span class="number">3.9</span>G <span class="number">0</span> <span class="number">3.9</span>G <span class="number">0</span>% /dev</span><br><span class="line">tmpfs <span class="number">3.9</span>G <span class="number">0</span> <span class="number">3.9</span>G <span class="number">0</span>% <span class="regexp">/dev/</span>shm</span><br><span class="line">tmpfs <span class="number">3.9</span>G <span class="number">8.5</span>M <span class="number">3.9</span>G <span class="number">1</span>% /run</span><br><span class="line">tmpfs <span class="number">3.9</span>G <span class="number">0</span> <span class="number">3.9</span>G <span class="number">0</span>% <span class="regexp">/sys/</span>fs/cgroup</span><br><span class="line"><span class="regexp">/dev/</span>sda1 <span class="number">497</span>M <span class="number">125</span>M <span class="number">373</span>M <span class="number">26</span>% /boot</span><br><span class="line">tmpfs <span class="number">781</span>M <span class="number">0</span> <span class="number">781</span>M <span class="number">0</span>% <span class="regexp">/run/u</span>ser/<span class="number">0</span></span><br><span class="line">ps:修复 unknown 区  vgreduce --removemissing centos</span><br><span class="line"></span><br><span class="line">  --- Physical volume ---</span><br><span class="line">  PV Name               [unknown]</span><br><span class="line">  VG Name               centos</span><br><span class="line">  PV <span class="keyword">Size</span>               <span class="number">10.00</span> GiB / not usable <span class="number">4.00</span> MiB</span><br><span class="line">  Allocatable           yes</span><br><span class="line">  PE <span class="keyword">Size</span>               <span class="number">4.00</span> MiB</span><br><span class="line">  Total PE              <span class="number">2559</span></span><br><span class="line">  Free PE               <span class="number">2559</span></span><br><span class="line">  Allocated PE          <span class="number">0</span></span><br><span class="line">  PV UUID               VCwaaP-hhX8-YcSg-Cqji-ctob-AAod-wRnOLO</span><br></pre></td></tr></table></figure>
-</div></article></div></main><footer><div class="paginator"><a href="/blog/p/41057581/" class="prev">上一篇</a><a href="/blog/p/86635873/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
-var disqus_identifier = 'p/aa9fa5e8/';
-var disqus_title = 'Linux测试机构建';
-var disqus_url = 'https://ayou129.github.io/blog/p/aa9fa5e8/';
-(function() {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Linux/" rel="tag"># Linux</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/p/86635873/" rel="prev" title="Git">
+                  <i class="fa fa-chevron-left"></i> Git
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/p/41057581/" rel="next" title="Laravel学习指南">
+                  Laravel学习指南 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿尤</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/schemes/muse.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

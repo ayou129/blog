@@ -1,8 +1,266 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Webpack · 阿尤</title><meta name="description" content="Webpack - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
-</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/tags" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="/blog/categories" target="_self" class="nav-list-link">分类</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Webpack</h1><div class="post-info">创建于：2019年7月26日<span style="margin-left: 0.5rem"></span>上次更新：2021年5月26日</div><div class="post-content"><h1 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h1><h2 id="VueRoute"><a href="#VueRoute" class="headerlink" title="VueRoute"></a>VueRoute</h2><ul>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#42b983"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/public/index.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/public/index.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/public/index.ico">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#42b983">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayou129.github.io","root":"/blog/","images":"/blog/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":"flat","style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="Webpack学习文档">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack">
+<meta property="og:url" content="https://ayou129.github.io/blog/p/764f33bc/index.html">
+<meta property="og:site_name" content="阿尤">
+<meta property="og:description" content="Webpack学习文档">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-07-26T14:00:53.000Z">
+<meta property="article:modified_time" content="2021-05-26T15:00:53.000Z">
+<meta property="article:author" content="阿尤">
+<meta property="article:tag" content="Webpack">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://ayou129.github.io/blog/p/764f33bc/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayou129.github.io/blog/p/764f33bc/","path":"p/764f33bc/","title":"Webpack"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Webpack | 阿尤</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/blog/public/%E9%98%BF%E5%B0%A4%E5%8A%A8%E6%BC%AB%E5%A4%B4.jpeg" alt="阿尤">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">阿尤</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">70</span></a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Webpack"><span class="nav-number">1.</span> <span class="nav-text">Webpack</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#VueRoute"><span class="nav-number">1.1.</span> <span class="nav-text">VueRoute</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85eslint%EF%BC%8C%E5%A4%9A%E4%BA%BA%E5%8D%8F%E4%BD%9C%E8%A7%84%E8%8C%83"><span class="nav-number">1.2.</span> <span class="nav-text">安装eslint，多人协作规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-commit%E6%97%B6%E6%A3%80%E6%B5%8B%E5%B9%B6%E9%98%BB%E6%AD%A2%E9%94%99%E8%AF%AF%E4%BB%A3%E7%A0%81"><span class="nav-number">1.3.</span> <span class="nav-text">git commit时检测并阻止错误代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%89%93%E5%8C%85%E4%BC%98%E5%8C%96"><span class="nav-number">1.4.</span> <span class="nav-text">正式环境打包优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86css%E5%86%85%E5%AE%B9%E5%8D%95%E7%8B%AC%E5%88%86%E7%A6%BB%E5%87%BA%E6%9D%A5-mini-css-extract-plugin"><span class="nav-number">1.4.1.</span> <span class="nav-text">将css内容单独分离出来 mini-css-extract-plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#build%E4%B9%8B%E5%89%8D%E5%88%A0%E9%99%A4%E4%B9%8B%E5%89%8D%E7%94%9F%E6%88%90%E7%9A%84%E6%89%80%E6%9C%89build%E8%BF%87%E7%9A%84%E6%96%87%E4%BB%B6-clean-webpack-plugin"><span class="nav-number">1.4.2.</span> <span class="nav-text">build之前删除之前生成的所有build过的文件 clean-webpack-plugin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E4%B8%BAbase64%E7%BC%96%E7%A0%81%E5%B9%B6%E8%BD%BD%E5%85%A5%E6%B5%8F%E8%A7%88%E5%99%A8%E8%83%BD%E5%A4%9F%E5%87%8F%E5%B0%91http%E8%AF%B7%E6%B1%82%E6%95%B0%EF%BC%8C%E4%BD%86%E6%98%AF%E5%A2%9E%E5%A4%A7%E4%BA%86js%E6%88%96html%E6%96%87%E4%BB%B6%E7%9A%84%E4%BD%93%E7%A7%AF-url-loader"><span class="nav-number">1.4.3.</span> <span class="nav-text">将图片文件转换为base64编码并载入浏览器能够减少http请求数，但是增大了js或html文件的体积 url-loader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%99%E4%B8%8D%E5%90%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E6%A0%B7%E5%BC%8F%E5%8A%A0%E4%B8%8A%E5%89%8D%E7%BC%80%EF%BC%8C%E5%A6%82-webkit-postcss-loader"><span class="nav-number">1.4.4.</span> <span class="nav-text">给不同浏览器的样式加上前缀，如-webkit- postcss-loader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E7%8B%AC%E6%89%93%E5%8C%85%E7%B1%BB%E5%BA%93%E6%96%87%E4%BB%B6"><span class="nav-number">1.4.5.</span> <span class="nav-text">单独打包类库文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ElementUI"><span class="nav-number">1.5.</span> <span class="nav-text">ElementUI</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">阿尤</p>
+  <div class="site-description" itemprop="description">成长就是不断发现自己是SB的过程！</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayou129.github.io/blog/p/764f33bc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="阿尤">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿尤">
+      <meta itemprop="description" content="成长就是不断发现自己是SB的过程！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Webpack | 阿尤">
+      <meta itemprop="description" content="Webpack学习文档">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Webpack
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-26 22:00:53" itemprop="dateCreated datePublished" datetime="2019-07-26T22:00:53+08:00">2019-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-05-26 23:00:53" itemprop="dateModified" datetime="2021-05-26T23:00:53+08:00">2021-05-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">Webpack学习文档</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>暂无描述</p>
+<span id="more"></span>
+
+<h1 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h1><h2 id="VueRoute"><a href="#VueRoute" class="headerlink" title="VueRoute"></a>VueRoute</h2><ul>
 <li><p>问题一：导入route&#x2F;index.js时<br>使用import router from ‘.&#x2F;route’</p>
 </li>
-<li><p>问题二：new Router配置 mode:’history’时，手动输入url会404<br>npm i -g <a href="mailto:&#x77;&#x65;&#x62;&#112;&#x61;&#x63;&#107;&#x40;&#52;&#46;&#51;&#48;&#x2e;&#48;">&#x77;&#x65;&#x62;&#112;&#x61;&#x63;&#107;&#x40;&#52;&#46;&#51;&#48;&#x2e;&#48;</a> <a href="mailto:&#119;&#x65;&#x62;&#112;&#97;&#x63;&#107;&#45;&#x63;&#x6c;&#x69;&#x40;&#51;&#x2e;&#51;&#x2e;&#x30;">&#119;&#x65;&#x62;&#112;&#97;&#x63;&#107;&#45;&#x63;&#x6c;&#x69;&#x40;&#51;&#x2e;&#51;&#x2e;&#x30;</a> webpack-dev-server <a href="mailto:&#x68;&#116;&#109;&#108;&#x2d;&#x77;&#101;&#x62;&#x70;&#97;&#x63;&#x6b;&#45;&#x70;&#108;&#x75;&#x67;&#x69;&#110;&#x40;&#51;&#x2e;&#50;&#46;&#x30;">&#x68;&#116;&#109;&#108;&#x2d;&#x77;&#101;&#x62;&#x70;&#97;&#x63;&#x6b;&#45;&#x70;&#108;&#x75;&#x67;&#x69;&#110;&#x40;&#51;&#x2e;&#50;&#46;&#x30;</a><br>需要在webpack.config.js 中 devServer 添加&gt; historyApiFallback: true,</p>
+<li><p>问题二：new Router配置 mode:’history’时，手动输入url会404<br>npm i -g <a href="mailto:&#119;&#x65;&#98;&#112;&#x61;&#x63;&#107;&#x40;&#x34;&#46;&#x33;&#48;&#x2e;&#48;">&#119;&#x65;&#98;&#112;&#x61;&#x63;&#107;&#x40;&#x34;&#46;&#x33;&#48;&#x2e;&#48;</a> <a href="mailto:&#x77;&#101;&#98;&#112;&#x61;&#99;&#x6b;&#45;&#x63;&#108;&#105;&#x40;&#x33;&#46;&#x33;&#46;&#x30;">&#x77;&#101;&#98;&#112;&#x61;&#99;&#x6b;&#45;&#x63;&#108;&#105;&#x40;&#x33;&#46;&#x33;&#46;&#x30;</a> webpack-dev-server <a href="mailto:&#104;&#x74;&#109;&#108;&#x2d;&#119;&#101;&#98;&#x70;&#97;&#x63;&#x6b;&#x2d;&#x70;&#108;&#117;&#103;&#105;&#x6e;&#x40;&#x33;&#46;&#50;&#46;&#x30;">&#104;&#x74;&#109;&#108;&#x2d;&#119;&#101;&#98;&#x70;&#97;&#x63;&#x6b;&#x2d;&#x70;&#108;&#117;&#103;&#105;&#x6e;&#x40;&#x33;&#46;&#50;&#46;&#x30;</a><br>需要在webpack.config.js 中 devServer 添加&gt; historyApiFallback: true,</p>
 </li>
 </ul>
 <h2 id="安装eslint，多人协作规范"><a href="#安装eslint，多人协作规范" class="headerlink" title="安装eslint，多人协作规范"></a>安装eslint，多人协作规范</h2><blockquote>
@@ -34,12 +292,93 @@
 <li>设置 input textarea 行高 :rows&#x3D;”行数”</li>
 <li>el-dropdown-item下使用@click 失效<br> 正确使用方法：@click.native&#x3D;”” 失效</li>
 </ol>
-</div></article></div></main><footer><div class="paginator"><a href="/blog/p/a17632f98/" class="prev">上一篇</a><a href="/blog/p/f8e09374/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
-var disqus_identifier = 'p/764f33bc/';
-var disqus_title = 'Webpack';
-var disqus_url = 'https://ayou129.github.io/blog/p/764f33bc/';
-(function() {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Webpack/" rel="tag"># Webpack</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/p/f8e09374/" rel="prev" title="Vue">
+                  <i class="fa fa-chevron-left"></i> Vue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/p/a17632f98/" rel="next" title="爆品战略">
+                  爆品战略 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿尤</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/schemes/muse.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

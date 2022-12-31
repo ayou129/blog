@@ -1,5 +1,295 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Mysql · 阿尤</title><meta name="description" content="Mysql - 阿尤"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/blog/index.ico"><link rel="stylesheet" href="/blog/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://ayou129.github.io/blog/atom.xml" title="阿尤"><meta name="generator" content="Hexo 6.3.0"><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
-</head><body><div class="wrap"><header><a href="/blog/" class="logo-link"><img src="/blog/index.ico" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/blog/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/blog/tags" target="_self" class="nav-list-link">标签</a></li><li class="nav-list-item"><a href="/blog/categories" target="_self" class="nav-list-link">分类</a></li><li class="nav-list-item"><a href="/blog/archives/" target="_self" class="nav-list-link">历史文章</a></li><li class="nav-list-item"><a href="/blog/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><!--mixin postList()--><!--    .archive--><!--        - var year = 0;--><!--        - var change = false;--><!--        - page.posts.each(function (item) {--><!--            - var itemYear = date(item.date, 'YYYY') - 0;--><!--            - change = year !== itemYear;--><!--            - year = change ? itemYear : year;--><!--            if change--><!--                h2.archive-year!= year--><!--            .post-item--><!--                +postInfo(item)--><!--                a.post-title-link(href= url_for(item.path))--><!--                    != item.title--><!--        - })--><div class="post"><article class="post-block"><h1 class="post-title">Mysql</h1><div class="post-info">创建于：2018年6月2日<span style="margin-left: 0.5rem"></span>上次更新：2022年10月15日</div><div class="post-content"><p>Mysql基础知识+生产环境所遇到的问题的总结，由于不同版本不断迭代，慢慢补充…</p>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#42b983"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/public/index.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/public/index.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/public/index.ico">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#42b983">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayou129.github.io","root":"/blog/","images":"/blog/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":"flat","style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="学习Mysql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql">
+<meta property="og:url" content="https://ayou129.github.io/blog/p/e4d2e8fb/index.html">
+<meta property="og:site_name" content="阿尤">
+<meta property="og:description" content="学习Mysql">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E4%B8%A2%E5%A4%B1%E4%BF%AE%E6%94%B9.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E8%AF%BB%E8%84%8F%E6%95%B0%E6%8D%AE.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E5%B9%BB%E8%AF%BB.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E9%94%81%E7%9A%84%E5%85%BC%E5%AE%B9%E5%85%B3%E7%B3%BB.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E5%90%84%E7%A7%8D%E9%94%81%E7%9A%84%E5%85%BC%E5%AE%B9%E5%85%B3%E7%B3%BB.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/set_profiling_1.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/show_profiles.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/show_profile_for_query.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/explain_and_desc.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/zhucongfuzhi.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/duxiefenliproxy.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/Mysql%E5%BC%80%E5%90%AF%E5%8F%8C%E4%B8%BB%E7%83%AD%E5%A4%87.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/Mysql%E5%BC%80%E5%90%AF%E5%8F%8C%E4%B8%BB%E7%83%AD%E5%A4%87_%E4%BA%92%E4%B8%BA%E4%B8%BB%E4%BB%8E.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/rpm%E5%8D%B8%E8%BD%BDmariadb.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/mysql_safe_error.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/MGR%E7%A4%BA%E4%BE%8B.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E5%8D%95%E4%B8%BB%E6%A8%A1%E5%BC%8F%E9%9B%86%E7%BE%A4%E5%8E%9F%E7%90%86%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E5%A4%9A%E4%B8%BB%E6%A8%A1%E5%BC%8F%E9%9B%86%E7%BE%A4%E5%8E%9F%E7%90%86%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E4%BC%98%E5%8C%96%E6%89%8B%E6%AE%B5.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/B+Tree%E7%B4%A2%E5%BC%95.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/InnodbTable.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E7%B4%A2%E5%BC%95%E6%A3%80%E7%B4%A2%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E7%A4%BA%E4%BE%8B.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E5%99%A8%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92explain.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E4%BC%98%E5%8C%96%E5%99%A8%E5%BC%80%E5%85%B3show_variables.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/Condition:Or_And.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/Nested-Loop.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E5%85%B3%E8%81%94%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7-%E6%A1%88%E4%BE%8B.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E5%85%B3%E8%81%94%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7-%E6%A1%88%E4%BE%8B02.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E5%B0%8F%E8%A1%A8%E9%A9%B1%E5%8A%A8%E5%8E%9F%E5%88%99-%E6%A1%88%E4%BE%8B03.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E5%B0%8F%E8%A1%A8%E9%A9%B1%E5%8A%A8%E5%8E%9F%E5%88%992.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E5%B0%8F%E8%A1%A8%E9%A9%B1%E5%8A%A8%E5%8E%9F%E5%88%993.png">
+<meta property="article:published_time" content="2018-06-02T09:01:31.000Z">
+<meta property="article:modified_time" content="2022-10-14T16:58:05.000Z">
+<meta property="article:author" content="阿尤">
+<meta property="article:tag" content="Mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ayou129.github.io/blog/p/e4d2e8fb/%E4%B8%A2%E5%A4%B1%E4%BF%AE%E6%94%B9.png">
+
+
+<link rel="canonical" href="https://ayou129.github.io/blog/p/e4d2e8fb/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayou129.github.io/blog/p/e4d2e8fb/","path":"p/e4d2e8fb/","title":"Mysql"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Mysql | 阿尤</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/blog/public/%E9%98%BF%E5%B0%A4%E5%8A%A8%E6%BC%AB%E5%A4%B4.jpeg" alt="阿尤">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">阿尤</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">70</span></a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">基础介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="nav-number">1.1.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%AD%97%E6%AE%B5"><span class="nav-number">1.2.</span> <span class="nav-text">计算字段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%BB%84"><span class="nav-number">1.4.</span> <span class="nav-text">分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.5.</span> <span class="nav-text">子查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.6.</span> <span class="nav-text">连接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.6.1.</span> <span class="nav-text">内连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.6.2.</span> <span class="nav-text">自连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.6.3.</span> <span class="nav-text">自然连接</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.6.4.</span> <span class="nav-text">外连接</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E6%9F%A5%E8%AF%A2"><span class="nav-number">1.7.</span> <span class="nav-text">组合查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE"><span class="nav-number">1.8.</span> <span class="nav-text">视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">1.9.</span> <span class="nav-text">存储过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">整数类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">2.2.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">枚举类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.4.</span> <span class="nav-text">日期类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E5%B1%9E%E6%80%A7"><span class="nav-number">2.5.</span> <span class="nav-text">列属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E"><span class="nav-number">3.</span> <span class="nav-text">存储引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#InnoDB%E8%A1%A5%E5%85%85"><span class="nav-number">3.1.</span> <span class="nav-text">InnoDB补充</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">4.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ACID"><span class="nav-number">4.2.</span> <span class="nav-text">ACID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AUTOCOMMIT"><span class="nav-number">4.3.</span> <span class="nav-text">AUTOCOMMIT</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">4.4.</span> <span class="nav-text">并发一致性的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A2%E5%A4%B1%E4%BF%AE%E6%94%B9"><span class="nav-number">4.4.1.</span> <span class="nav-text">丢失修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%BB%E8%84%8F%E6%95%B0%E6%8D%AE"><span class="nav-number">4.4.2.</span> <span class="nav-text">读脏数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB"><span class="nav-number">4.4.3.</span> <span class="nav-text">不可重复读</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B9%BB%E8%AF%BB"><span class="nav-number">4.4.4.</span> <span class="nav-text">幻读</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%81%E9%94%81"><span class="nav-number">4.5.</span> <span class="nav-text">封锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%81%E9%94%81%E7%B2%92%E5%BA%A6"><span class="nav-number">4.5.1.</span> <span class="nav-text">封锁粒度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%81%E9%94%81%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.5.2.</span> <span class="nav-text">封锁类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">4.6.</span> <span class="nav-text">隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%89%88%E6%9C%AC%E5%B9%B6%E5%8F%91%E6%8E%A7%E5%88%B6"><span class="nav-number">4.7.</span> <span class="nav-text">多版本并发控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%B9%BB%E8%AF%BB"><span class="nav-number">4.8.</span> <span class="nav-text">解决幻读</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">5.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SQL%E8%AF%AD%E5%8F%A5"><span class="nav-number">6.</span> <span class="nav-text">SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%9F%E9%A2%98%EF%BC%9A"><span class="nav-number">6.1.</span> <span class="nav-text">真题：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E6%9B%B4%E6%96%B0"><span class="nav-number">6.2.</span> <span class="nav-text">关联更新</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96"><span class="nav-number">7.</span> <span class="nav-text">查询优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E5%88%A4%E6%96%ADSQL%E9%80%9F%E5%BA%A6%E6%85%A2"><span class="nav-number">7.1.</span> <span class="nav-text">怎么判断SQL速度慢</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%A4%A7%E9%87%8F%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE"><span class="nav-number">8.</span> <span class="nav-text">生成大量测试数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%88%86%E5%8C%BA%E3%80%81%E5%88%86%E8%A1%A8%E3%80%81%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">9.</span> <span class="nav-text">Mysql分区、分表、负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%8C%BA"><span class="nav-number">9.1.</span> <span class="nav-text">分区</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0"><span class="nav-number">9.1.1.</span> <span class="nav-text">简述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-number">9.1.2.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">9.1.3.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">9.1.4.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">9.1.5.</span> <span class="nav-text">使用场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E8%A1%A8"><span class="nav-number">9.2.</span> <span class="nav-text">分表</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-1"><span class="nav-number">9.2.1.</span> <span class="nav-text">工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%86%E8%A1%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">9.2.2.</span> <span class="nav-text">分表方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6-%E5%92%8C-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">9.3.</span> <span class="nav-text">主从复制 和 负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5-1"><span class="nav-number">9.3.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">9.3.2.</span> <span class="nav-text">解决的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%9A"><span class="nav-number">9.3.3.</span> <span class="nav-text">解题思路：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9C%9F%E9%A2%98%EF%BC%9A-1"><span class="nav-number">9.3.4.</span> <span class="nav-text">真题：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">10.</span> <span class="nav-text">Mysql安全性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL%E5%AE%89%E5%85%A8"><span class="nav-number">10.1.</span> <span class="nav-text">SQL安全</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%AE%89%E5%85%A8%E8%AE%BE%E7%BD%AE"><span class="nav-number">10.2.</span> <span class="nav-text">其他安全设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%9F%E9%A2%98"><span class="nav-number">10.3.</span> <span class="nav-text">真题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PDO%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">10.4.</span> <span class="nav-text">PDO使用方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-number">11.</span> <span class="nav-text">主从复制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF"><span class="nav-number">11.1.</span> <span class="nav-text">实现思路</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB"><span class="nav-number">12.</span> <span class="nav-text">读写分离</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E6%93%8D"><span class="nav-number">12.1.</span> <span class="nav-text">实操</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%BB%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">12.1.1.</span> <span class="nav-text">主服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">12.1.2.</span> <span class="nav-text">从服务器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql-%E5%8F%8C%E4%B8%BB%E7%83%AD%E5%A4%87"><span class="nav-number">13.</span> <span class="nav-text">Mysql 双主热备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E4%B8%AD%E9%97%B4%E4%BB%B6-Mycat-%E4%BB%A3%E7%90%86"><span class="nav-number">14.</span> <span class="nav-text">Mysql中间件 Mycat 代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E6%A3%80%E6%9F%A5"><span class="nav-number">15.</span> <span class="nav-text">并发检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%93%8D%E4%BD%9C"><span class="nav-number">16.</span> <span class="nav-text">基础操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">17.</span> <span class="nav-text">查看配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Mysql"><span class="nav-number">18.</span> <span class="nav-text">安装Mysql</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E5%89%8D%E9%A2%84%E5%87%86%E5%A4%87"><span class="nav-number">18.1.</span> <span class="nav-text">安装前预准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85mysql%EF%BC%88%E4%B8%8B%E8%BD%BD%E6%BA%90%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%EF%BC%89"><span class="nav-number">18.1.1.</span> <span class="nav-text">安装mysql（下载源代码编译安装）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD"><span class="nav-number">18.1.2.</span> <span class="nav-text">数据库备份</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%BC%80%E6%9C%BA%E8%87%AA%E5%90%AF"><span class="nav-number">18.1.3.</span> <span class="nav-text">设置开机自启</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">18.1.4.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8MySQL%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">18.1.5.</span> <span class="nav-text">启动MySQL数据库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E5%BD%95mysql%EF%BC%88%E9%BB%98%E8%AE%A4%E5%AF%86%E7%A0%81%E6%98%AF%E7%A9%BA%EF%BC%89%EF%BC%8C%E4%BF%AE%E6%94%B9%E5%AF%86%E7%A0%81"><span class="nav-number">18.1.6.</span> <span class="nav-text">登录mysql（默认密码是空），修改密码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4"><span class="nav-number">19.</span> <span class="nav-text">基础命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mysql%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">20.</span> <span class="nav-text">Mysql高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%98%AF%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="nav-number">20.1.</span> <span class="nav-text">（1）主从复制是异步复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="nav-number">20.2.</span> <span class="nav-text">（2）半同步复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%EF%BC%883%EF%BC%89%E7%BB%84%E5%A4%8D%E5%88%B6-MGR"><span class="nav-number">20.3.</span> <span class="nav-text">（3）组复制 MGR</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83"><span class="nav-number">20.3.1.</span> <span class="nav-text">核心</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E6%9E%B6%E6%9E%84"><span class="nav-number">20.3.2.</span> <span class="nav-text">集群架构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E4%B8%BB%E6%A8%A1%E5%BC%8F"><span class="nav-number">20.3.2.1.</span> <span class="nav-text">单主模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A4%9A%E4%B8%BB%E6%A8%A1%E5%BC%8F"><span class="nav-number">20.3.2.2.</span> <span class="nav-text">多主模式</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96"><span class="nav-number">21.</span> <span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96-1"><span class="nav-number">21.1.</span> <span class="nav-text">查询优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%BA%A7%E5%88%AB%E4%BC%98%E5%8C%96"><span class="nav-number">21.1.1.</span> <span class="nav-text">数据库级别优化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8B-%E6%95%B0%E6%8D%AE%E4%B8%8D%E4%B8%80%E8%87%B4-%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">22.</span> <span class="nav-text">高并发下 数据不一致 的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link"><span class="nav-number">22.0.1.</span> <span class="nav-text"></span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-1"><span class="nav-number">23.</span> <span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96SQL%E8%AF%AD%E5%8F%A5"><span class="nav-number">23.1.</span> <span class="nav-text">优化SQL语句</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96InnoDB%E7%BC%93%E5%86%B2%E6%B1%A0"><span class="nav-number">23.1.1.</span> <span class="nav-text">优化InnoDB缓冲池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-where%E5%AD%90%E5%8F%A5"><span class="nav-number">23.1.2.</span> <span class="nav-text">优化 where子句</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">阿尤</p>
+  <div class="site-description" itemprop="description">成长就是不断发现自己是SB的过程！</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">70</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayou129.github.io/blog/p/e4d2e8fb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="阿尤">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿尤">
+      <meta itemprop="description" content="成长就是不断发现自己是SB的过程！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Mysql | 阿尤">
+      <meta itemprop="description" content="学习Mysql">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mysql
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-06-02 17:01:31" itemprop="dateCreated datePublished" datetime="2018-06-02T17:01:31+08:00">2018-06-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-10-15 00:58:05" itemprop="dateModified" datetime="2022-10-15T00:58:05+08:00">2022-10-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">学习Mysql</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Mysql基础知识+生产环境所遇到的问题的总结，由于不同版本不断迭代，慢慢补充…</p>
 <span id="more"></span>
 
 <h2 id="基础介绍"><a href="#基础介绍" class="headerlink" title="基础介绍"></a>基础介绍</h2><p>省略…</p>
@@ -776,8 +1066,225 @@
 <h2 id="基础命令"><a href="#基础命令" class="headerlink" title="基础命令"></a>基础命令</h2><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#更换mysql密码</span><br><span class="line"><span class="keyword">update</span> mysql.<span class="keyword">user</span> <span class="keyword">set</span> authentication_string=<span class="keyword">password</span>(<span class="string">&#x27;JDCAMCLAJDCAMCLA&#x27;</span>) <span class="keyword">where</span> <span class="keyword">user</span>=<span class="string">&#x27;root&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#创建用户</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span>`用户名`@`*` identified <span class="keyword">by</span><span class="string">&#x27;密码&#x27;</span>;  \*代表任意ip地址，</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span>`yzx_discuz`@`localhost` identified <span class="keyword">by</span><span class="string">&#x27;JCDS&amp;&amp;JDCAMCLA&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#删除用户</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> <span class="string">&#x27;用户名&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span>;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">user</span> `yzx_discuz`@`localhost`;</span><br><span class="line"></span><br><span class="line">#修改用户</span><br><span class="line"><span class="keyword">rename</span> <span class="keyword">user</span> <span class="string">&#x27;用户名&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span> <span class="keyword">to</span> <span class="string">&#x27;新用户名&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#查看权限</span><br><span class="line"><span class="keyword">show</span> grants <span class="keyword">for</span> <span class="string">&#x27;用户&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span>;</span><br><span class="line"><span class="keyword">show</span> grants <span class="keyword">for</span> <span class="string">&#x27;yzx_discuz&#x27;</span>@<span class="string">&#x27;127.0.0.1&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#授权操作</span><br><span class="line"><span class="keyword">grant</span>  权限/<span class="keyword">all</span> <span class="keyword">on</span> 数据库.表 <span class="keyword">to</span>   <span class="string">&#x27;用户&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> <span class="keyword">privileges</span> <span class="keyword">on</span> discuz.* <span class="keyword">to</span> <span class="string">&#x27;yzx_discuz&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> identified <span class="keyword">by</span> <span class="string">&#x27;yzx_discuz&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#删除权限</span><br><span class="line"><span class="keyword">revoke</span> 权限 <span class="keyword">on</span> 数据库.表 <span class="keyword">from</span> <span class="string">&#x27;用户&#x27;</span>@<span class="string">&#x27;IP地址&#x27;</span>;</span><br><span class="line"></span><br><span class="line">#将修改后的配置推入mysql内存</span><br><span class="line">flush <span class="keyword">privileges</span>;</span><br></pre></td></tr></table></figure>
 
 <h2 id="Mysql高可用"><a href="#Mysql高可用" class="headerlink" title="Mysql高可用"></a>Mysql高可用</h2><p>方案：MGR8.0</p>
-<h3 id="MGR"><a href="#MGR" class="headerlink" title="MGR"></a>MGR</h3><p>定义：MGR是具备强大的分布式协调能力，可用于创建弹性、高可用性、高容错的复制拓扑的一个MySQL插件。<br>通讯协议：基于Paxos算法的GCS原子广播协议，保证了一条事务在集群内要么在全部节点上提交，要么全部回滚。<br>组成员资格：MGR内部提供一个视图服务，集群节点之间相互交换各自的视图信息， 从而且实现集群整体的稳态。<br>数据一致性：MGR内部实现了一套不同事务之间修改数据的冲突认证检测机制。在集群的所有节点当中进行一个冲突认证检测，反之，通过冲突认证检测的事务即可提交成功。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><h4 id="数据库级别优化"><a href="#数据库级别优化" class="headerlink" title="数据库级别优化"></a>数据库级别优化</h4><p>例如：</p>
+<h3 id="（1）主从复制是异步复制"><a href="#（1）主从复制是异步复制" class="headerlink" title="（1）主从复制是异步复制"></a>（1）主从复制是异步复制</h3><blockquote>
+<p>master事务的提交不需要经过slave的确认，slave是否接收到master的binlog，master并不care。slave接收到master binlog后先写relay log，最后异步地去执行relay log中的sql应用到自身。</p>
+</blockquote>
+<p>导致的问题：</p>
+<ul>
+<li>数据的一致性问题无法保证：当slave接受master binlog失败或者relay log应用失败，master无法感知。</li>
+</ul>
+<h3 id="（2）半同步复制"><a href="#（2）半同步复制" class="headerlink" title="（2）半同步复制"></a>（2）半同步复制</h3><blockquote>
+<p>对传统异步复制的改进，主库commit之前开启从库的ACK，收到回馈再进行commit。</p>
+</blockquote>
+<p>导致的问题：</p>
+<ul>
+<li>数据的一致性问题无法保证：slave对于relay log的应用仍然是异步进行的。</li>
+</ul>
+<h3 id="（3）组复制-MGR"><a href="#（3）组复制-MGR" class="headerlink" title="（3）组复制 MGR"></a>（3）组复制 MGR</h3><blockquote>
+<p>MGR是具备强大的分布式协调能力，可用于创建弹性、高可用性、高容错的复制拓扑的一个MySQL插件。</p>
+</blockquote>
+<p><strong>通讯协议</strong> ：基于Paxos算法的GCS原子广播协议，保证了一条事务在集群内要么在全部节点上提交，要么全部回滚。</p>
+<p><strong>组成员资格</strong> ：MGR内部提供一个视图服务，集群节点之间相互交换各自的视图信息， 从而且实现集群整体的稳态。</p>
+<p><strong>数据一致性</strong> ：MGR内部实现了一套不同事务之间修改数据的冲突认证检测机制。在集群的所有节点当中进行一个冲突认证检测，反之，通过冲突认证检测的事务即可提交成功。</p>
+<img src="/blog/p/e4d2e8fb/MGR%E7%A4%BA%E4%BE%8B.png" class="" title="MGR示例.png">
+<blockquote>
+<p>上图是一个三节点的MGR实例集群，Member1代表Primary主节点，Member2、Member3代表 Secondary副节点。</p>
+</blockquote>
+<h4 id="核心"><a href="#核心" class="headerlink" title="核心"></a>核心</h4><p>当一个<strong>事务发起提交后</strong>，它会通过原子广播协议分发到集群其他 Secondary副节点。集群的 Secondary副节点 通过冲突检测之后，事务提交成功。在大多数的 Secondary副节点 提交成功之后，会在Primary主节点进行提交。</p>
+<p>反之，如果在冲突认证检测失败，Secondary副节点会丢弃这段事务对应的Binlog，Primary主节点 回滚该事务。</p>
+<h4 id="集群架构"><a href="#集群架构" class="headerlink" title="集群架构"></a>集群架构</h4><blockquote>
+<p>MGR架构分为单主模式和多主模式。</p>
+</blockquote>
+<h5 id="单主模式"><a href="#单主模式" class="headerlink" title="单主模式"></a>单主模式</h5><blockquote>
+<p>group_replication_single_primary_mode &#x3D; ON # ON表示单主模式，也是默认模式，OFF表示多主模式。</p>
+</blockquote>
+<p>注意事项：</p>
+<ul>
+<li>同一个组中，不能将成员部署在不同模式中。例如，一个成员配置为单主 模式，另一个成员配置为多主模式。</li>
+<li>该集群具有一个设置为读写模式的主节点，组中的所有其他成员都设置为只读模式(superread-only &#x3D; ON);<img src="/blog/p/e4d2e8fb/%E5%8D%95%E4%B8%BB%E6%A8%A1%E5%BC%8F%E9%9B%86%E7%BE%A4%E5%8E%9F%E7%90%86%E6%B5%81%E7%A8%8B%E5%9B%BE.png" class="" title="单主模式集群原理流程图.png"> </li>
+<li>读写节点通常是引导该组的第一个节点，加入该集群的所有其他只读节点均需要从读写节点同步数据，并自动设置为只 读模式。</li>
+</ul>
+<h5 id="多主模式"><a href="#多主模式" class="headerlink" title="多主模式"></a>多主模式</h5><blockquote>
+<p>group_replication_single_primary_mode &#x3D; OFF # ON表示单主模式，也是默认模式，OFF表示多主模式。</p>
+</blockquote>
+<img src="/blog/p/e4d2e8fb/%E5%A4%9A%E4%B8%BB%E6%A8%A1%E5%BC%8F%E9%9B%86%E7%BE%A4%E5%8E%9F%E7%90%86%E6%B5%81%E7%A8%8B%E5%9B%BE.png" class="" title="多主模式集群原理流程图.png">
+<p>注意事项：</p>
+<ol>
+<li>所有节点不会区分Primary和Standby角色</li>
+<li>加入该集群时，与其他组成员兼容的任何节点都被设置为读写模式，并且可以处理写请求，即使它们在集群内是并发执 行的;</li>
+<li>如果组复制中的某个节点停止接受写事务，例如，在某个节点意外宕机的情况下，可以将与其连接的客户端重定向或故 障转移到处于读写模式的任何其他健康的节点;</li>
+<li>组复制本身不处理客户端故障转移，因此需要使用中间件框架(例如MySQL Router 8.0代理，连接器或应用程序本 身)来实现。</li>
+</ol>
+<blockquote>
+<p>MySQL Router 8.0 <a href="https://dev.mysql.com/doc/mysql-router/8.0/en/mysql-router-deploying-bootstrapping.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/mysql-router/8.0/en/mysql-router-deploying-bootstrapping.html</a></p>
+</blockquote>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><h3 id="查询优化-1"><a href="#查询优化-1" class="headerlink" title="查询优化"></a>查询优化</h3><p><strong>优化目的</strong></p>
+<blockquote>
+<p>提高资源的利用率，让资源充分发挥价值，能同时满足更多用户的在线需求。</p>
+</blockquote>
+<p><strong>优化目标</strong></p>
+<img src="/blog/p/e4d2e8fb/%E4%BC%98%E5%8C%96%E6%89%8B%E6%AE%B5.png" class="" title="优化手段.png">
+<p>上金字塔从下往上优化，成本是逐步提升的，效果反而越来越差。通常来说，<code>SQL及索引调优</code> 性价比最高。</p>
+<p>(一)B+ Tree index</p>
+<img src="/blog/p/e4d2e8fb/B+Tree%E7%B4%A2%E5%BC%95.png" class="" title="B+Tree索引">
+
+<p>如上图所示，B+ Tree Index索引分为3个部分:<code>根、枝、叶</code>。</p>
+<p>核心特点是根和枝不存储数据，行高比较固定。 通过“B+Tree”索引取数据，必然经过根枝叶三个节点路径，取数据的 代价比较稳定;</p>
+<p>另外一点，叶子节点上的数据是有序存储的。</p>
+<p>(二)Innodb Table<br>Innodb 是MySOL的核心存储引擎，Innodb Table是IOT有序存储，核心概念为:Innodb的表数据按照“B+ Tree”的结 构进行组织，表数据本身是“B+ Tree”索引的叶子节点。</p>
+<p>如下图所示，每张表，也就是每个存储段，实际是在MySOL里构建了一个“B+ Tree”索引的树状结构，段的物理存储跟 其他关系数据库的存储方式一样分区和块。</p>
+<img src="/blog/p/e4d2e8fb/InnodbTable.png" class="" title="InnodbTable">
+
+<p>(三)索引检索过程</p>
+<img src="/blog/p/e4d2e8fb/%E7%B4%A2%E5%BC%95%E6%A3%80%E7%B4%A2%E8%BF%87%E7%A8%8B.png" class="" title="索引检索过程">
+<p>如上图所示有三个流程，上面两块是二级索引，下面是属于主键索引，也叫聚集索引，是Innodb表的数据本身，依次看这 三个流程:</p>
+<ul>
+<li>第一，非主键查询，入口是从二级索引，通过二级索引，第一个过程返回聚集索引的ID;第二个过程是回表，相当于再做 一次数据检索，然后从聚集索引中获取数据。</li>
+<li>第二，主键查询，入口是直接通过聚集索引的ID，可以在聚集索引中获取数据。 </li>
+<li>第三，覆盖索引，入口是二级索引，直接从二级索引当中获取数据。</li>
+</ul>
+<p>MySQL的行为<br>(一)MySQL SQL执行过程</p>
+<img src="/blog/p/e4d2e8fb/%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B%E7%A4%BA%E4%BE%8B.png" class="" title="执行过程示例">
+
+<p>如上图所示，MySQL的执行的过程包括:</p>
+<ol>
+<li>客户端提交一条语句; </li>
+<li>先在查询缓存查看是否存在对应的缓存数据，如有则直接返回(一般有的可能性极小，因此一般建议关闭查询缓存. ; </li>
+<li>交给解析器处理，解析器会将提交的语句生成一个解析树; </li>
+<li>预处理器会处理解析树，形成新的解析树。这一阶段存在一些SQL改写的过程; </li>
+<li>改写后的解析树提交给查询优化器。查询优化器生成执行计划; </li>
+<li>执行计划交由执行引擎调用存储引擎接口，完成执行过程。这里要注意，MySQL的Server层和Engine层是分离的; </li>
+<li>最终的结果由执行引擎返回给客户端，如果开启查询缓存的话，则会缓存。</li>
+</ol>
+<p>SQL执行顺序<br>(8) SELECT (9) DISTINCT <select_list> (1) FROM <left_table><br>(3) <join_type> JOIN <right_table><br>(2) ON <join_condition><br>(4) WHERE <where_condition> (5) GROUP <group_by_list><br>(6) WITH {CUBE|ROLLUP}<br>(7) HAVING <having_condition> (10) ORDER BY <order_by_list> (11) LIMIT <limit_number><br>关于SQL的执行顺序，在某些时候也可以给我们一些指导性建议。<br>比如Where条件和Order by，在通常情况下，SQL语 句先获取数据，再做Select操作，先获取数据再返回到Server端结果集的存储区之后进行排序，从这里我们可以假设如 果通过索引获取数据，那么在取数据时，数据排序就已经完成，相当于MySQL存储引擎的层面已经做了优化，而不需要 再增加额外的排序计算操作。</p>
+<p>(二)MySQL优化器与执行计划</p>
+<ol>
+<li>查询优化器<br>查询优化器的主要作用是用来负责生成SQL语句的执行计划。优化器是数据库的核心价值所在，它是数据库的“大脑”， 优化SQL某种意义上就是理解优化器的行为。</li>
+</ol>
+<p>在MySQL里面，优化的依据是执行成本，它的本质是CBO，也就是说执行计划的生成是基于成本的。<br>目前MySQL优化 器没有那么完善，执行成本主要基于行数而定。优化器工作的前提是了解数据，工作的目的是解析SQL，生成执行计划。<br>总结如下:<br>    - 负责生成 SQL 语句的有效执行计划的数据库组件;<br>    - 优化器是数据库的核心价值所在，它是数据库的“大脑”;<br>    - 优化SQL，某种意义上就是理解优化器的行为;<br>    - 优化的依据是执行成本(CBO);<br>    - 优化器工作的前提是了解数据，工作的目的是解析SQL，生成执行计划。</p>
+<ol start="2">
+<li>查询优化器工作过程<img src="/blog/p/e4d2e8fb/%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E5%99%A8%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B.png" class="" title="查询优化器工作过程"></li>
+</ol>
+<p>如上图所示，查询优化器工作过程包括: </p>
+<ol>
+<li>词法分析、语法分析、语义检查; </li>
+<li>预处理阶段(查询改写等); </li>
+<li>查询优化阶段，可详细划分为逻辑优化、物理优化两部分 逻辑优化:把SQL交给查询优化器之后，会去做相应的改写动作。 物理优化:过程是优化器生成获取数据去扫描数据的路径。</li>
+<li>查询优化器优化依据，来自于代价估算器估算结果(它会调用统计信息作为计算依据); </li>
+<li>交由执行器执行。</li>
+</ol>
+<p>(三)查看和干预执行计划</p>
+<p>在MySQL里查看SQL的执行计划直接通过Explain关键词就可以了，或者我们可以添加Extended关键字，它会展示 MySQL优化器的逻辑优化改写过程。</p>
+<p>在MySQL里查看SQL的执行计划直接通过Explain关键词就可以了，或者我们可以添加Extended关键字，它会展示 MySQL优化器的逻辑优化改写过程。<br>1.执行计划<br>·explain [extended] SQL_Statement</p>
+<img src="/blog/p/e4d2e8fb/%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92explain.png" class="" title="执行计划explain">
+
+<p>当我们认为SQL的执行计划不合理时，可以通过适当的手段，强制加索引或者强制驱动表的顺序，通过这种hints方式干预 SQL的执行计划。另外MySQL查询优化器的一些关键特性，我们也可以通过控制优化器开关的参数，从而控制优化器相 关的行为。</p>
+<p>2.优化器开关<br>·show variables like ‘optimizer_switch’</p>
+<img src="/blog/p/e4d2e8fb/%E4%BC%98%E5%8C%96%E5%99%A8%E5%BC%80%E5%85%B3show_variables.png" class="" title="优化器开关show_variables">
+
+<p>3.Processlist<br>另一种观测MySQL行为的常用手段就是Processlist。</p>
+<p>通过Processlist，我们可以看到当前在MySQL中执行的所有SQL 语句，有没有异常的会话或比较特殊的SQL状态。</p>
+<p>查看会话操作可以通过2种途径:</p>
+<ul>
+<li>show [full] processlist; </li>
+<li>information_schema.processlist。</li>
+</ul>
+<p>这里列出了几种常见的异常行为: </p>
+<ol>
+<li>Copy to tmp table<br>出现在某些Alter Table语句的Copy Table操作。</li>
+<li>Copying to tmp table on disk<br>由于临时结果集大于tmp_table_size，正在将临时表从内存存储转为磁盘存储以此节省内存。</li>
+<li>Converting HEAP to MyISAM<br>线程正在转换内部Memory临时表到磁盘MyISAM临时表。</li>
+<li>Creating sort index<br>正在使用内部临时表处理Select查询。</li>
+<li>Sorting index<br>磁盘排序操作的一个过程。</li>
+<li>Sending data<br>正在处理Select查询的记录，同时正在把结果发送给客户端。</li>
+<li>Waiting for table metadata lock<br>等待元数据锁。</li>
+</ol>
+<p>常规优化策略<br>(一)Select优化</p>
+<ol>
+<li><p>Order by<br> Order by查询的两种情况:</p>
+<ol>
+<li>Using index，是针对查询优化器的两种行为来去区分的。Using index就是说MySQL它可以直接通过索引去返回有序 的记录，而不需要去经过额外的排序的操作;</li>
+<li>Using filesort需要去做额外的排序，在某些特殊的情况下，可能还会出现临时表排序的情况。</li>
+</ol>
+<p> 优化目标:尽量通过索引来避免额外的排序，减少CPU资源的消耗。</p>
+<p> 主要优化策略:</p>
+<ul>
+<li>Where条件和Order by使用相同的索引; </li>
+<li>Order by的顺序和索引顺序相同; </li>
+<li>Order by 的字段同为升序或降序。</li>
+</ul>
+<p> 注:当Where条件中的过滤字段为覆盖索引的前缀列，而Order by字段是第二个索引列时，只有Where条件是Const匹配 时，才可以通过索引消除排序，而between…and或&gt;?、&lt;?这种Range匹配都无法避免Filesort操作。</p>
+<p> <strong>当无法避免Filesort操作时，优化思路就是让Filesort的操作更快。</strong></p>
+<p> 排序算法 </p>
+<ol>
+<li>两次扫描算法。两次访问数据，第一步获取排序字段的行指针信息，在内存中排序，第二步根据行指针获取记录。 </li>
+<li>一次扫描算法。一次性取出满足条件的所有记录，在排序区中排序后输出结果集。是采用空间换时间的方式。<br> 注:需要排序的字段总长度越小，越趋向于第二种扫描算法，MySQL通过max_length_for_sort_data参数的值来进行参 考选择。</li>
+</ol>
+<p> 优化策略</p>
+<ol>
+<li>适当调大max_length_for_sort_data这个参数的值，让优化器更倾向于选择第二种扫描算法; </li>
+<li>只使用必要的字段，不要使用Select *的写法; </li>
+<li>适当加大sort_buffer_size这个参数的值，避免磁盘排序的出现(线程参数，不要设置过大)。</li>
+</ol>
+</li>
+<li><p>Subquery<br> 对于子查询，一般的优化策略是做等价改写，在MySQL查询优化器中也叫反嵌套。在MySQL里，查询优化器本身也可以 做一些简单查询的反嵌套操作，但在绝大部分情况下还是需要去做一些人为的干预。</p>
+<p> Subquery优化总结:<br>1. 子查询会用到临时表，需尽量避免;<br>2. 可以使用效率更高的Join查询来替代。<br> 优化策略 等价改写、反嵌套。 如下SQL:</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> customer <span class="keyword">where</span> customer_id <span class="keyword">not</span> <span class="keyword">in</span> (<span class="keyword">select</span> customer_id <span class="keyword">from</span> payment)</span><br></pre></td></tr></table></figure>
+<p> 改写形式:</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> customer a <span class="keyword">left</span> <span class="keyword">join</span> payment b <span class="keyword">on</span> a.customer_id<span class="operator">=</span>b.customer_id <span class="keyword">where</span> b.customer_id <span class="keyword">is</span> <span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+<p> 如上所示，SQL语句用Not In的这样的方式，在子查询里执行Select语句。对于这个SQL语句，直接把Not In改写成Left Join，从而提升它的执行效率。在MySQL里，一般情况下Join的效率比子查询要高。</p>
+</li>
+<li><p>Limit<br> 分页查询，就是将过多的结果在有限的界面上分多页来显示。<br> 其实质是每次查询只返回有限行，翻页一次执行一次。<br> 优化目标：</p>
+<ol>
+<li>消除排序;</li>
+<li>避免扫描到大量不需要的记录。</li>
+</ol>
+<p> SQL场景(film_id为主键):<code>select film_id,description from film order by title limit 10000,20</code></p>
+<p> 此时MySQL排序出前10020条记录后仅仅需要返回第10001到10020条记录，前 10000条记录造成额外的代价消耗。</p>
+<p> <strong>对于分页查询的优化的策略</strong><br> 优化策略一：“覆盖索引”<br> <code>Alter table film add index idx_lmtest(title,description);</code><br> 记录直接从索引中获取，效率最高。 仅适合查询字段较少的情况。</p>
+<p> 优化策略二：“SQL改写”<br> <code>select a.film_id,a.description from film a inner join (select film_id from film order by title limit 1000,20) b on a.film_id=b.film_id;</code><br> 优化的前提是Title字段有索引。<br> 思路是从索引中取出20条满足条件记录的主键值，然后回表获取记录。</p>
+</li>
+<li><p>Or&#x2F;And Condition</p>
+<img src="/blog/p/e4d2e8fb/Condition:Or_And.png" class="" title="Condition:Or_And">
+
+<p> And结果集为关键字前后过滤结果的交集;<br> Or结果集为关键字前后分别查询的并集;<br> And条件可以在前一个条件过滤基础上过滤;<br> Or条件被处理为UNION，相当于两个单独条件的查询;<br> 复合索引对于Or条件相当于一个单列索引。</p>
+<p> 处理策略<br> 1. And子句多个条件中拥有一个过滤性较高的索引即可;<br> 2. Or条件前后字段均要创建索引;<br> 3. 为最常用的And组合条件创建复合索引。</p>
+</li>
+</ol>
+<p>(二)Join优化</p>
+<ol>
+<li><p>Nested-Loop Join算法</p>
+ <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">row</span> <span class="keyword">in</span> t1 matching range &#123;</span><br><span class="line">    <span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">row</span> <span class="keyword">in</span> t2 matching reference key &#123;</span><br><span class="line">        <span class="keyword">for</span> <span class="keyword">each</span> <span class="keyword">row</span> <span class="keyword">in</span> t3 &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">row</span> satisfies <span class="keyword">join</span> conditions, send toclient</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 在MySQL里，关于join的典型算法就是Nested-Loop Join，也就是嵌套循环。<br> 如上图所示，T1、T2、T3三张表Join，首先扫描T1表找到匹配条件的行，然后根据T1、T2的关联条件，再扫描 T2表找 到匹配条件的的行，T2、T3也做同样的操作。<br> 既然本质是嵌套循环，那么我们主要需要注意两点: </p>
+<ol>
+<li>关联字段索引:每层内部循环仅获取需要关心的数据。 引申算法:Bloack Nested-Loop。 <img src="/blog/p/e4d2e8fb/Nested-Loop.png" class="" title="Nested-Loop">
+如上图所示，下方是Bloack Nested-Loop，在MySQL里有一个特性叫join_buffer，当两张表关联，如果不能够通过索 引去做关联条件的匹配，这时候就会产生join_buffer的使用。<br>当SQL的Join语句，执行计划里出现Bloack Nested-Loop时，通常情况下，需要看关联条件是否有索引，或者是其他原 因而导致关联条件的匹配没有正常使用到索引。一旦SQL语句执行计划出现Bloack Nested-Loop，绝大部分场景下都意 味着SQL执行效率会大幅下降。</li>
+<li>小表驱动原则:外层循环的结果集尽量小，目的是为了减少循环的次数。</li>
+</ol>
+</li>
+<li><p>关联字段索引的必要性<br> 案例:</p>
+ <img src="/blog/p/e4d2e8fb/%E5%85%B3%E8%81%94%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7-%E6%A1%88%E4%BE%8B.png" class="" title="关联字段索引的必要性-案例">
+<p> 如上图所示，对于这一条Select语句，是两个表Join关联。SQL语句执行计划时，出现了join_buffer，执行计划extra部 分就是前面所说的Bloack Nested-Loop。</p>
+<p> 我们可以看到，通过b表关联访问a表时，Rows是127042，整个访问过程的代价特别大，对于这种场景，优化策略是给关 联条件添加索引。如下图所示:</p>
+ <img src="/blog/p/e4d2e8fb/%E5%85%B3%E8%81%94%E5%AD%97%E6%AE%B5%E7%B4%A2%E5%BC%95%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7-%E6%A1%88%E4%BE%8B02.png" class="" title="关联字段索引的必要性-案例02">
+<p> 后面可以看到，通过b表访问a表时，执行计划里Key使用到了刚才所添加的索引，Rows从127042下降到125。前者执行 时间接近两分钟，后者只需要0.31秒，执行效率大幅提升。</p>
+</li>
+<li><p>小表驱动原则<br> 忽略b表的索引，使b表作为驱动表，如下图所示:</p>
+ <img src="/blog/p/e4d2e8fb/%E5%B0%8F%E8%A1%A8%E9%A9%B1%E5%8A%A8%E5%8E%9F%E5%88%99-%E6%A1%88%E4%BE%8B03.png" class="" title="小表驱动原则-案例03">
+<p> 同样的SQL语句，这里增加忽略索引的hints，目的是为了通过b表做驱动表，可以看到Rows是4000×125，执行时间是 0.31秒。<br> 忽略a表的索引，使a表作为驱动表:</p>
+ <img src="/blog/p/e4d2e8fb/%E5%B0%8F%E8%A1%A8%E9%A9%B1%E5%8A%A8%E5%8E%9F%E5%88%992.png" class="" title="小表驱动原则2">
+ <img src="/blog/p/e4d2e8fb/%E5%B0%8F%E8%A1%A8%E9%A9%B1%E5%8A%A8%E5%8E%9F%E5%88%993.png" class="" title="小表驱动原则3">
+<p> 这时b表成了被驱动表，Rows为127042×4，总行数接近的情况下后者驱动表行数有明显增加。</p>
+<p> 这两个SQL语句做关联时，无论通过a表还是b表驱动，最后关联时都通过索引进行数据检索。但是由于驱动表的大小问 题，导致了执行效率的不同，后面一条语句执行的时间是0.53秒，比前者慢了一倍左右。</p>
+</li>
+</ol>
+<p>(三)Insert优化<br>关于Insert的插入优化策略主要有2种:</p>
+<ol>
+<li>优化策略一: “减少交互次数”<br>如批量插入语句:<br><code>insert into test values(1,2,3); insert into test values(4,5,6); insert into test </code>values(7,8,9); …<br>可改写为如下形式:<br><code>insert into test values(1,2,3),(4,5,6),(7,8,9) ...</code></li>
+<li>优化策略二: “文本装载方式”<br>通过LOAD DATA INFILE句式从文本装载数据，通常比Insert语句快20倍。</li>
+</ol>
+<p>常规优化策略<br>    MySQL查询优化<br>        1. 关于MySQL的查询优化目的和目标:<br>            - 优化的目的是让资源发挥价值;<br>            - SQL和索引是调优的关键，往往可以起到“四两拨千斤”的效果。<br>        2. 关于优化的流程和思路:<br>            充分了解核心指标，并构建完备的监控体系，这是优化工作的前提; SQL优化的原则是减少数据访问及计算; 常用的优化方法主要是调整索引、改写SQL、干预执行计划。<br>        3. 关于MySQL的核心概念及原理:<br>            - Innodb的表是典型的IOT，数据本身是B+ tree索引的叶节点;<br>            - 扫描二级索引可以直接获取数据，或者返回主键ID;<br>            - 优化器是数据库的大脑，我们要了解优化器，并观测以及干预MySQL的行为。</p>
+<h4 id="数据库级别优化"><a href="#数据库级别优化" class="headerlink" title="数据库级别优化"></a>数据库级别优化</h4><p>例如：</p>
 <ul>
 <li>应用程序是否使用适当的 锁定策略？(行表锁)</li>
 <li>用于缓存的 所有内存区域大小是否正确？</li>
@@ -786,7 +1293,34 @@
 <li>是否使用了 <code>正确的索引</code>，提高查询效率</li>
 <li>是否为每一行使用了 <code>正确的属性</code></li>
 </ul>
-<p>|支持事务|系统崩溃后安全恢复|锁|文件存储|使用场景|其他|<br>-|-|-|-|-<br>InnoDB | √  | √ | 行锁(select * … for update)(只能在事务以及InnoDB中执行) | <b>.frm文件</b>：与该表相关的元数据信息、表结构的定义信息等。<br> <b>.ibd文件</b>：与该表相关的数据、索引、表的内部数据字典信息。 | <b>小型数据</b>：全盘扫描<br> <b>中型数据</b>：索引<br> <b>大型数据</b>：索引+分区分表<br>|通过机制工具支持热备份<br>MyISAM | ×  | × | 表锁 | MYD(数据文件)<br>MYI(索引文件) | |</p>
+<table>
+<thead>
+<tr>
+<th>支持事务</th>
+<th>系统崩溃后安全恢复</th>
+<th>锁</th>
+<th>文件存储</th>
+<th>使用场景</th>
+<th>其他</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>InnoDB</td>
+<td>√</td>
+<td>√</td>
+<td>行锁(select * … for update)(只能在事务以及InnoDB中执行)</td>
+<td><b>.frm文件</b>：与该表相关的元数据信息、表结构的定义信息等。<br> <b>.ibd文件</b>：与该表相关的数据、索引、表的内部数据字典信息。</td>
+<td><b>小型数据</b>：全盘扫描<br> <b>中型数据</b>：索引<br> <b>大型数据</b>：索引+分区分表<br></td>
+</tr>
+<tr>
+<td>MyISAM</td>
+<td>×</td>
+<td>×</td>
+<td>表锁</td>
+<td>MYD(数据文件)<br>MYI(索引文件)</td>
+<td></td>
+</tr>
+</tbody></table>
 <p>InnoDB中<br>主键查询，可能是行级锁<br>索引查询，可能是行级锁<br>非主键查询，可能是表锁</p>
 <p>以下情况下，表锁优于行级锁</p>
 <ol>
@@ -797,7 +1331,7 @@
 <li>排他锁(悲观锁)，但是会阻塞其他请求，效率低下</li>
 <li>乐观锁(CAS，Version)，但是有ABA的问题以及bad请求过多，解决办法：重入机制</li>
 </ol>
-<h4 id="-1"><a href="#-1" class="headerlink" title=""></a></h4><h2 id="优化-1"><a href="#优化-1" class="headerlink" title="优化"></a>优化</h2><blockquote>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><h2 id="优化-1"><a href="#优化-1" class="headerlink" title="优化"></a>优化</h2><blockquote>
 <p><a href="https://dev.mysql.com/doc/refman/5.7/en/optimization.html" target="_blank" rel="noopener">https://dev.mysql.com/doc/refman/5.7/en/optimization.html</a></p>
 </blockquote>
 <h3 id="优化SQL语句"><a href="#优化SQL语句" class="headerlink" title="优化SQL语句"></a>优化SQL语句</h3><ol>
@@ -829,12 +1363,93 @@
 <li>索引使用的常量表达式仅计算一次。</li>
 <li></li>
 </ol>
-</div></article></div></main><footer><div class="paginator"><a href="/blog/p/a28b9864/" class="prev">上一篇</a><a href="/blog/p/f3599f9d/" class="next">下一篇</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'seansun';
-var disqus_identifier = 'p/e4d2e8fb/';
-var disqus_title = 'Mysql';
-var disqus_url = 'https://ayou129.github.io/blog/p/e4d2e8fb/';
-(function() {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();</script><script id="dsq-count-scr" src="//seansun.disqus.com/count.js" async></script><div class="copyright"><p>© 2015 - 2022 <a href="https://ayou129.github.io/blog">阿尤</a>.</p><!--p © #{year} #[a(href=config.url)!= config.author], powered by #[a(href=hexoURL, target="_blank") Hexo] and #[a(href=apolloURL, target="_blank") hexo-theme-apollo].--></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/blog/tags/Mysql/" rel="tag"># Mysql</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/p/f3599f9d/" rel="prev" title="Redis">
+                  <i class="fa fa-chevron-left"></i> Redis
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/blog/p/a28b9864/" rel="next" title="Linux">
+                  Linux <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿尤</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/schemes/muse.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
