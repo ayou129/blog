@@ -4015,14 +4015,51 @@
 <p>brew 相关指令</p>
 <figure class="highlight mipsasm"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 搜索一个包</span></span><br><span class="line"><span class="keyword">brew </span>search * </span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装一个包</span></span><br><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>* </span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载一个包</span></span><br><span class="line"><span class="keyword">brew </span>uninstall * </span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看包的相关信息（可以从中查看安装路径等）</span></span><br><span class="line"><span class="keyword">brew </span>info *</span><br></pre></td></tr></table></figure>
 
-<h2 id="Centos-安装"><a href="#Centos-安装" class="headerlink" title="Centos 安装"></a>Centos 安装</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">//</span> brew 无法在root用户上安装</span><br><span class="line">sudo adduser liguoxin</span><br><span class="line">sudo passwd liguoxin   <span class="regexp">//</span> jH9gxicnew</span><br><span class="line">sudo usermod -aG wheel liguoxin <span class="regexp">//</span> Centos中给权限</span><br><span class="line">su - liguoxin  <span class="regexp">//</span> 进入到该用户</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 使用清华大学开元软件镜像站安装 brew   https:<span class="regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="regexp">/help/</span>homebrew/</span><br><span class="line"><span class="comment"># 将brew添加到环境变量中</span></span><br><span class="line">vim ~/.bashrc</span><br><span class="line"></span><br><span class="line">export HOMEBREW_API_DOMAIN=<span class="string">&quot;https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api&quot;</span></span><br><span class="line">export HOMEBREW_BOTTLE_DOMAIN=<span class="string">&quot;https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&quot;</span></span><br><span class="line">export HOMEBREW_BREW_GIT_REMOTE=<span class="string">&quot;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git&quot;</span></span><br><span class="line">export HOMEBREW_CORE_GIT_REMOTE=<span class="string">&quot;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git&quot;</span></span><br><span class="line">export HOMEBREW_PIP_INDEX_URL=<span class="string">&quot;https://pypi.tuna.tsinghua.edu.cn/simple&quot;</span></span><br><span class="line"></span><br><span class="line">source ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将后续每个软件添加到环境变量</span></span><br><span class="line">vim ~/.bashrc</span><br><span class="line"></span><br><span class="line">export PATH=<span class="string">&quot;/home/linuxbrew/.linuxbrew/opt/python@3.8/libexec/bin:$PATH&quot;</span></span><br><span class="line"></span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+<h2 id="Centos-安装"><a href="#Centos-安装" class="headerlink" title="Centos 安装"></a>Centos 安装</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">//</span> brew 无法在root用户上安装</span><br><span class="line">sudo adduser liguoxin</span><br><span class="line">sudo passwd liguoxin   <span class="regexp">//</span> jH9gxicnew</span><br><span class="line">sudo usermod -aG wheel liguoxin <span class="regexp">//</span> Centos中给权限</span><br><span class="line">su - liguoxin  <span class="regexp">//</span> 进入到该用户</span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>使用清华大学开元软件镜像站安装 brew   <a href="https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/" target="_blank" rel="noopener">https://mirrors.tuna.tsinghua.edu.cn/help/homebrew/</a></p>
+</blockquote>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 从本镜像下载安装脚本并安装 Homebrew / Linuxbrew</span></span><br><span class="line">git clone --depth=<span class="number">1</span> https:<span class="regexp">//mi</span>rrors.tuna.tsinghua.edu.cn<span class="regexp">/git/</span>homebrew/install.git brew-install</span><br><span class="line"><span class="regexp">/bin/</span>bash brew-install/install.sh</span><br><span class="line">rm -rf brew-install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 也可从 GitHub 获取官方安装脚本安装 Homebrew / Linuxbrew</span></span><br><span class="line"><span class="regexp">/bin/</span>bash -c <span class="string">&quot;$(curl -fsSL https://github.com/Homebrew/install/raw/master/install.sh)&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 将brew添加到环境变量中</span></span><br><span class="line">vim ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> <span class="attribute">HOMEBREW_API_DOMAIN</span>=<span class="string">&quot;https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api&quot;</span></span><br><span class="line"><span class="built_in">export</span> <span class="attribute">HOMEBREW_BOTTLE_DOMAIN</span>=<span class="string">&quot;https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles&quot;</span></span><br><span class="line"><span class="built_in">export</span> <span class="attribute">HOMEBREW_BREW_GIT_REMOTE</span>=<span class="string">&quot;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git&quot;</span></span><br><span class="line"><span class="built_in">export</span> <span class="attribute">HOMEBREW_CORE_GIT_REMOTE</span>=<span class="string">&quot;https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git&quot;</span></span><br><span class="line"><span class="built_in">export</span> <span class="attribute">HOMEBREW_PIP_INDEX_URL</span>=<span class="string">&quot;https://pypi.tuna.tsinghua.edu.cn/simple&quot;</span></span><br><span class="line"></span><br><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>添加brew到环境变量</p>
+</blockquote>
+<figure class="highlight subunit"><table><tr><td class="code"><pre><span class="line"># 以下针对基于 Apple Silicon CPU 设备上的 macOS 系统（命令行运行 uname -m 应输出 arm64）上的 Homebrew：</span><br><span class="line"><span class="keyword">test </span>-r ~/.bash_profile &amp;&amp; echo &#x27;eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;&#x27; &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="keyword">test </span>-r ~/.zprofile &amp;&amp; echo &#x27;eval &quot;$(/opt/homebrew/bin/brew shellenv)&quot;&#x27; &gt;&gt; ~/.zprofile</span><br><span class="line"></span><br><span class="line"># linux</span><br><span class="line"><span class="keyword">test </span>-d ~/.linuxbrew &amp;&amp; eval &quot;$(~/.linuxbrew/bin/brew shellenv)&quot;</span><br><span class="line"><span class="keyword">test </span>-d /home/linuxbrew/.linuxbrew &amp;&amp; eval &quot;$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)&quot;</span><br><span class="line"><span class="keyword">test </span>-r ~/.bash_profile &amp;&amp; echo &quot;eval \&quot;\$($(brew --prefix)/bin/brew shellenv)\&quot;&quot; &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="keyword">test </span>-r ~/.profile &amp;&amp; echo &quot;eval \&quot;\$($(brew --prefix)/bin/brew shellenv)\&quot;&quot; &gt;&gt; ~/.profile</span><br><span class="line"><span class="keyword">test </span>-r ~/.zprofile &amp;&amp; echo &quot;eval \&quot;\$($(brew --prefix)/bin/brew shellenv)\&quot;&quot; &gt;&gt; ~/.zprofile</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>将后续每个软件添加到环境变量</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">vim ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">&quot;/home/linuxbrew/.linuxbrew/opt/python@3.8/libexec/bin:<span class="variable">$PATH</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux-安装-NVIDIA-驱动"><a href="#Linux-安装-NVIDIA-驱动" class="headerlink" title="Linux 安装 NVIDIA 驱动"></a>Linux 安装 NVIDIA 驱动</h2><h3 id="Centos8"><a href="#Centos8" class="headerlink" title="Centos8"></a>Centos8</h3><p><img src="/blog/mac%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/Centos8%E9%85%8D%E7%BD%AE.png" alt="Centos8配置.png"></p>
+<ol>
+<li>先安装NVIDIA驱动<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 重装系统时，不要后台安装，手动安装</span></span><br><span class="line"><span class="regexp">//</span> 先查看nvidia-smi</span><br><span class="line">nvidia-smi</span><br></pre></td></tr></table></figure>
+Data Center Driver For Linux X64</li>
+</ol>
+<p>版本:	515.105.01<br>发布日期:	2023.3.30<br>操作系统:	Linux 64-bit<br>CUDA Toolkit:	11.7<br>语言:	Chinese (Simplified)<br>文件大小:	346.89 MB</p>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">wget https:<span class="regexp">//</span>cn.download.nvidia.com<span class="regexp">/tesla/</span><span class="number">535.129</span>.<span class="number">03</span>/NVIDIA-Linux-x86_64-<span class="number">515.105</span>.<span class="number">01</span>.run</span><br><span class="line"></span><br><span class="line">sudo chmod +x NVIDIA-Linux-x86_64-<span class="number">515.105</span>.<span class="number">01</span>.run</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 切换到多用户目标模式，这会关闭图形界面</span><br><span class="line">sudo systemctl isolate multi-user.target </span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 安装新的驱动程序</span><br><span class="line">sudo bash NVIDIA-Linux-x86_64-<span class="number">515.105</span>.<span class="number">01</span>.run</span><br><span class="line"></span><br><span class="line">sudo yum install vulkan</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>卸载 NVIDIA</p>
+</blockquote>
+<figure class="highlight awk"><table><tr><td class="code"><pre><span class="line">sudo <span class="regexp">/usr/</span>bin/nvidia-uninstall</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line">sudo bash NVIDIA-Linux-x86_64-<span class="number">515.105</span>.<span class="number">01</span>.run --uninstall</span><br><span class="line"></span><br><span class="line"><span class="regexp">//</span> 重新生成内核模块</span><br><span class="line">sudo dracut --force</span><br><span class="line"></span><br><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>安装CUDA</li>
+</ol>
+<blockquote>
+<p><a href="https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;Distribution=CentOS&amp;target_version=7&amp;target_type=rpm_network" target="_blank" rel="noopener">https://developer.nvidia.com/cuda-downloads?target_os=Linux&amp;target_arch=x86_64&amp;Distribution=CentOS&amp;target_version=7&amp;target_type=rpm_network</a></p>
+</blockquote>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 这里选择 runufile 本地安装</span></span><br><span class="line"><span class="attribute">sudo</span> yum install pkg-config xorg-x11-server-devel</span><br><span class="line"></span><br><span class="line"><span class="attribute">wget</span> https://developer.download.nvidia.com/compute/cuda/<span class="number">12</span>.<span class="number">3</span>.<span class="number">0</span>/local_installers/cuda_12.<span class="number">3</span>.<span class="number">0</span>_545.<span class="number">23</span>.<span class="number">06</span>_linux.run</span><br><span class="line"><span class="attribute">sudo</span> sh cuda_12.<span class="number">3</span>.<span class="number">0</span>_545.<span class="number">23</span>.<span class="number">06</span>_linux.run</span><br><span class="line"><span class="attribute">jH9gxicnew111</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="pip太慢"><a href="#pip太慢" class="headerlink" title="pip太慢"></a>pip太慢</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="regexp">//</span> 更改pip源</span><br><span class="line">pip install -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple 安装的文件</span><br><span class="line">pip install -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple modelscope</span><br><span class="line">pip install -i https:<span class="regexp">//</span>pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>2023-11-08 19:59:25 本次未成功测试，环境没配好，要固定nvidia cuda cudnn版本，否则会报错<br>相关链接：<br><a href="https://pytorch.org/get-started/locally/#supported-linux-distributions" target="_blank" rel="noopener">https://pytorch.org/get-started/locally/#supported-linux-distributions</a><br><a href="https://pytorch.org/get-started/previous-versions/" target="_blank" rel="noopener">https://pytorch.org/get-started/previous-versions/</a><br>NVIDIA-Linux-x86_64-460.106.00.run<br>cuda_11.2.2_460.32.03_linux.run</p>
 <h2 id="安装web相关环境"><a href="#安装web相关环境" class="headerlink" title="安装web相关环境"></a>安装web相关环境</h2><figure class="highlight awk"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Nginx</span></span><br><span class="line">brew install nginx</span><br><span class="line">brew info nginx <span class="regexp">//</span>查看相关信息，拿到安装路径</span><br><span class="line"><span class="regexp">//</span> ps:<span class="variable">$cd</span> <span class="regexp">/opt/</span>homebrew<span class="regexp">/Cellar/</span>nginx/<span class="number">1.19</span>.<span class="number">8</span></span><br><span class="line">cp homebrew.mxcl.nginx.plist ~<span class="regexp">/Library/</span>LaunchAgents/homebrew.mxcl.nginx.plist</span><br><span class="line"><span class="comment">## 开机自启</span></span><br><span class="line">launchctl load -w ~<span class="regexp">/Library/</span>LaunchAgents/homebrew.mxcl.nginx.plist</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mysql</span></span><br><span class="line">brew install mysql</span><br><span class="line">brew info mysql <span class="regexp">//</span>查看mysql相关信息，拿到安装路径</span><br><span class="line"><span class="regexp">//</span> ps:<span class="variable">$cd</span> <span class="regexp">/opt/</span>homebrew<span class="regexp">/Cellar/my</span>sql/<span class="number">8.0</span>.<span class="number">23</span>_1</span><br><span class="line">cp homebrew.mxcl.mysql.plist ~<span class="regexp">/Library/</span>LaunchAgents/homebrew.mxcl.mysql.plist</span><br><span class="line"><span class="comment">## 开机自启</span></span><br><span class="line">launchctl load -w ~<span class="regexp">/Library/</span>LaunchAgents/homebrew.mxcl.mysql.plist</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">brew install php@<span class="number">7.4</span></span><br><span class="line">brew info php@<span class="number">7.4</span> <span class="regexp">//</span>查看mysql相关信息，拿到安装路径</span><br><span class="line"><span class="regexp">//</span> ps:<span class="variable">$cd</span> <span class="regexp">/opt/</span>homebrew<span class="regexp">/Cellar/</span>php@<span class="number">7.4</span>/<span class="number">7.4</span>.<span class="number">16</span></span><br><span class="line">cp homebrew.mxcl.php@<span class="number">7.4</span>.plist ~<span class="regexp">/Library/</span>LaunchAgents/homebrew.mxcl.php@<span class="number">7.4</span>.plist</span><br><span class="line"><span class="comment">## 开机自启</span></span><br><span class="line">launchctl load -w ~<span class="regexp">/Library/</span>LaunchAgents/homebrew.mxcl.php@<span class="number">7.4</span>.plist</span><br><span class="line"></span><br><span class="line">pecl install swoole <span class="comment"># 这里需要注意 swoole扩展开启部分功能需要这么写</span></span><br><span class="line">&gt; ln -s <span class="regexp">/opt/</span>homebrew<span class="regexp">/Cellar/</span>pcre2<span class="regexp">/10.36/i</span>nclude<span class="regexp">/pcre2.h /</span>opt<span class="regexp">/homebrew/</span>Cellar<span class="regexp">/php@7.4/</span><span class="number">7.4</span>.<span class="number">18</span><span class="regexp">/include/</span>php<span class="regexp">/ext/</span>pcre/pcre2.h</span><br><span class="line">&gt; pecl install swoole</span><br><span class="line">&gt; yes</span><br><span class="line">&gt; yes --with-openssl-dir=<span class="regexp">/opt/</span>homebrew<span class="regexp">/opt/</span>openssl@<span class="number">1.1</span>/</span><br><span class="line">&gt; yes</span><br><span class="line">&gt; yes</span><br><span class="line">&gt; yes</span><br><span class="line"></span><br><span class="line">pecl install xdebug</span><br><span class="line">pecl install redis</span><br></pre></td></tr></table></figure>
 
 <h2 id="安装-部分扩展-shivammathur-x2F-php"><a href="#安装-部分扩展-shivammathur-x2F-php" class="headerlink" title="安装 部分扩展 shivammathur&#x2F;php"></a>安装 部分扩展 shivammathur&#x2F;php</h2><figure class="highlight less"><table><tr><td class="code"><pre><span class="line">## 教程 <span class="selector-tag">https</span>:<span class="comment">//github.com/shivammathur/homebrew-extensions</span></span><br><span class="line"></span><br><span class="line">## 如果报错：<span class="selector-tag">you</span> <span class="selector-tag">must</span> <span class="selector-tag">configure</span> <span class="selector-tag">with</span> `<span class="selector-tag">--enable-openssl</span>` <span class="selector-tag">to</span> <span class="selector-tag">support</span> <span class="selector-tag">ssl</span> <span class="selector-tag">connection</span> <span class="keyword">when</span> compiling Swoole</span><br><span class="line">### 更新一下swoole就行</span><br><span class="line">brew remove swoole<span class="variable">@7</span>.<span class="number">4</span></span><br><span class="line">brew install shivammathur/extensions/swoole<span class="variable">@7</span>.<span class="number">4</span></span><br></pre></td></tr></table></figure>
 
 <p>yes --with-openssl-dir&#x3D;&#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;openssl@3<br>yes –with-pcre2-dir&#x3D;&#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;pcre2&#x2F;</p>
-<p>ln -s &#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;pcre2&#x2F;include&#x2F;pcre2.h &#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;<a href="mailto:&#x70;&#104;&#112;&#64;&#x38;&#x2e;&#x31;">&#x70;&#104;&#112;&#64;&#x38;&#x2e;&#x31;</a>&#x2F;include&#x2F;php&#x2F;ext&#x2F;pcre&#x2F;pcre2.h<br>yes</p>
+<p>ln -s &#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;pcre2&#x2F;include&#x2F;pcre2.h &#x2F;opt&#x2F;homebrew&#x2F;opt&#x2F;<a href="mailto:&#112;&#104;&#x70;&#x40;&#x38;&#x2e;&#x31;">&#112;&#104;&#x70;&#x40;&#x38;&#x2e;&#x31;</a>&#x2F;include&#x2F;php&#x2F;ext&#x2F;pcre&#x2F;pcre2.h<br>yes</p>
 <h2 id="使用alias添加一个快捷键"><a href="#使用alias添加一个快捷键" class="headerlink" title="使用alias添加一个快捷键"></a>使用alias添加一个快捷键</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 经常会使用到的比如cd一个经常进入的path</span></span><br><span class="line"><span class="built_in">alias</span> cdphpbin=<span class="string">&quot;cd /opt/homebrew/etc/php/7.4/&quot;</span></span><br><span class="line"><span class="built_in">alias</span> cdnginxbin=<span class="string">&quot;cd /opt/homebrew/etc/nginx/&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 上述的快捷键在重启电脑后会失效，所以要编辑 ~/.zshr</span></span><br><span class="line">vim ~/.zshr</span><br><span class="line">添加相应的指令</span><br><span class="line"><span class="built_in">source</span> ~/.zshrc</span><br></pre></td></tr></table></figure>
 
 <h2 id="给shell安装一个主题"><a href="#给shell安装一个主题" class="headerlink" title="给shell安装一个主题"></a>给shell安装一个主题</h2><blockquote>
@@ -11545,6 +11582,303 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 <h4 id="进行"><a href="#进行" class="headerlink" title="进行"></a>进行</h4><p>2套衣服</p>
 <h4 id="远行"><a href="#远行" class="headerlink" title="远行"></a>远行</h4><p>n套衣服</p>
+]]></content>
+      <categories>
+        <category>编程语言</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>UE游戏开发</title>
+    <url>/blog/p/614a8811/</url>
+    <content><![CDATA[<p>暂无描述</p>
+<span id="more"></span>
+
+<p>惠普提：<a href="https://www.alibabafonts.com/#/home" target="_blank" rel="noopener">https://www.alibabafonts.com/#/home</a></p>
+<h2 id="UExz"><a href="#UExz" class="headerlink" title="UExz"></a>UExz</h2><p>教程开发版本 4.16.2</p>
+<p>Marketplace下载<br>Animation Starter Pack</p>
+<ul>
+<li>reloading</li>
+<li>射击</li>
+<li>移动</li>
+<li>动画</li>
+</ul>
+<p>创建项目</p>
+<ul>
+<li>First Person</li>
+</ul>
+<h3 id="调整摄像头的位置，将摄像头绑定到头部"><a href="#调整摄像头的位置，将摄像头绑定到头部" class="headerlink" title="调整摄像头的位置，将摄像头绑定到头部"></a>调整摄像头的位置，将摄像头绑定到头部</h3><p>Follow Camera -&gt; Socket -&gt; Head<br>将摄像头调整进入头前方</p>
+<h3 id="增加-鼠标控制器旋转功能"><a href="#增加-鼠标控制器旋转功能" class="headerlink" title="增加 鼠标控制器旋转功能"></a>增加 鼠标控制器旋转功能</h3><p>Follow Camera： Setting -&gt; Use Controller Rotation Yaw<br>角色： Pawn -&gt; Use Controller Rotation Yaw</p>
+<p>添加项目 FPS Tutorial</p>
+<h3 id="添加血条和护甲"><a href="#添加血条和护甲" class="headerlink" title="添加血条和护甲"></a>添加血条和护甲</h3><p>添加血条和护甲 变量 float</p>
+<h2 id="Unreal-Engine-5-tutorial"><a href="#Unreal-Engine-5-tutorial" class="headerlink" title="Unreal Engine 5 tutorial"></a>Unreal Engine 5 tutorial</h2><p>鼠标右键 按住，wsad 移动方向</p>
+<p>鼠标左键 选择对象</p>
+<h2 id="Lyra-Cross-platform-UI-framework"><a href="#Lyra-Cross-platform-UI-framework" class="headerlink" title="Lyra Cross-platform UI framework"></a>Lyra Cross-platform UI framework</h2><p>核心游戏驱动 Actors<br>Character&#x2F;Pawn 控制的游戏对象<br>Controller 控制游戏对象、客户端向服务器发送请求的通道<br>Player State 其他玩家需要知道的信息</p>
+<ul>
+<li>当前得分<br>Game State 游戏的综合信息</li>
+<li>当前的游戏阶段</li>
+<li>剩余时间</li>
+</ul>
+<p>模块化</p>
+<p>Lura UI</p>
+<p>游戏模式</p>
+<ul>
+<li>占点模式</li>
+<li>爆破模式</li>
+</ul>
+<h3 id="蓝图"><a href="#蓝图" class="headerlink" title="蓝图"></a>蓝图</h3><p>和平精英手游 使用什么配置的电脑进行开发的 普通的mac可以开发吗？<br>我用的macbook pro 2020年 apple M1芯片 16GB内存 1TB硬盘 8核心GPU可以进行开发吗？<br>台式机需要什么配置才能进行开发？</p>
+<p>知识点：</p>
+<ol>
+<li>快捷键 快速取消 链接  alt+左键</li>
+</ol>
+<p>Event BeginPlay<br>print String<br>hello world<br>10s</p>
+<p>变量<br>isDead?<br>boolean<br>details &#x3D;&gt; default value<br>变量拖进 事件图标中，isDead?false红色<br>new branch</p>
+<ul>
+<li>print string 角色已死亡</li>
+<li>print string 角色正常</li>
+</ul>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/isDead.png" alt="isDead.png"></p>
+<p>增加整型类型血量变量health</p>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%A0%B9%E6%8D%AER_key%E4%BF%9D%E5%AD%98%E7%94%A8%E6%88%B7%E5%BD%93%E5%89%8D%E5%9C%A8%E4%B8%96%E7%95%8C%E4%B8%AD%E7%9A%84%E5%90%91%E9%87%8F.png" alt="根据R_key保存用户当前在世界中的向量.png"></p>
+<p>创建可以开关的门<br>要点：</p>
+<ol>
+<li>碰撞重叠，弹出按键</li>
+</ol>
+<p>blueprints -&gt; 01_door_bp -&gt; BP_door（蓝图 ）<br>门框door frame：static mesh</p>
+<p>碰撞要点：</p>
+<ul>
+<li>Box 碰撞盒体</li>
+<li>Graph<ul>
+<li>Box组件右下角 事件中添加：On Component Begin Overlap 内容开始重叠 actor &#x3D;&gt; 下方 cast</li>
+<li>Box组件右下角 事件中添加：On Component End Overlap 内容结束重叠 actor &#x3D;&gt; 下方 cast</li>
+<li>Cast to …  (third person character) 转换为第三人称角色</li>
+<li>f Get Player Controller<ul>
+<li>Enable Input</li>
+<li>Disable Input</li>
+</ul>
+</li>
+<li>E key</li>
+<li>Flip Flop</li>
+<li>Set Relative Rotation 设置相对旋转 z 90°   x2</li>
+<li>Door组件-&gt;根据Flip Flop的值设置相对旋转</li>
+</ul>
+</li>
+</ul>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E9%97%A8%E5%A2%9E%E5%8A%A0%E5%BC%80%E5%85%B3.png" alt="门增加开关.png"></p>
+<p>设置门无法穿越</p>
+<ul>
+<li>打开门的材质</li>
+<li>Collision -&gt; add box simplified collision 简单碰撞<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E9%97%A8%E5%A2%9E%E5%8A%A0%E7%A2%B0%E6%92%9E.png" alt="门增加碰撞.png"></li>
+</ul>
+<p>将门打开地缓慢一些<br>要点：</p>
+<ol>
+<li>timeline<ol start="2">
+<li>两个关键帧，且自动<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%B8%A4%E4%B8%AA%E5%85%B3%E9%94%AE%E5%B8%A7.png" alt="两个关键帧.png"></li>
+</ol>
+</li>
+<li>make rotator 创建 自旋转<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%B0%86%E9%97%A8%E6%89%93%E5%BC%80%E5%9C%B0%E7%BC%93%E6%85%A2%E4%B8%80%E4%BA%9B.png" alt="将门打开地缓慢一些.png"></li>
+</ol>
+<p>相关介绍<br>选取父类：<br>Actor：基本的游戏对象，如灯光、摄像机、触发器、门、帽子等<br>Pawn：可以被控制的游戏对象，如玩家、敌人、车辆等<br>Character：Pawn的子类，可以移动、跳跃、攻击等<br>PlayerController：玩家控制器，如玩家输入、控制角色等<br>PlayerState：玩家状态，如玩家得分、玩家队伍等<br>PlayerCameraManager：玩家摄像机管理器，如玩家视角、镜头抖动等<br>GameModeBase：游戏模式，如占点模式、爆破模式等<br>GameInstance：游戏实例，如游戏设置、玩家信息等<br>GameSession：游戏会话，如玩家列表、游戏状态等<br>GameStateBase：游戏状态，如游戏阶段、剩余时间等</p>
+<h3 id="拾取物品-模型带帽子"><a href="#拾取物品-模型带帽子" class="headerlink" title="拾取物品+模型带帽子"></a>拾取物品+模型带帽子</h3><p>导入包</p>
+<p>BluePrints-&gt;02_HatPickup_BP-&gt;BP_HatPickup Actor</p>
+<p>增加 静态网格HatMesh<br>增加 材质SM_Hat</p>
+<ul>
+<li>增加 碰撞球体 Sphere 放大：半径65<ul>
+<li>事件图标中添加：On Component Begin Overlap</li>
+<li>事件图标中添加：On Component End Overlap<br>增加 文字【E】拾取 躺着</li>
+</ul>
+</li>
+<li>设置文字 Press [E] to Pickup 碰撞了 person 才显示</li>
+</ul>
+<p>Person</p>
+<ul>
+<li>增加 自定义事件 EquipHat 装备帽子</li>
+<li>增加 静态网格 HatMesh，并且等待穿戴<ul>
+<li>增加 事件 f set static Mesh<ul>
+<li>new Mesh 从 事件 装备帽子中获取</li>
+</ul>
+</li>
+<li>拖动 HatMesh 到 Target</li>
+</ul>
+</li>
+<li>增加 事件 Attach Component to Component<ul>
+<li>绑定父组件<ul>
+<li>Mesh (CharacterMesh)</li>
+</ul>
+</li>
+<li>绑定子组件<ul>
+<li>HatMesh</li>
+</ul>
+</li>
+<li>对齐到目标<ul>
+<li>三个全部对齐到目标</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>角色-帽子 碰撞后 &amp; 按e键 触发 EquipHat</p>
+<ul>
+<li>E key</li>
+<li>Flip Flop</li>
+<li>Cast to BP 角色<ul>
+<li>As 要 绑定Event， 也就是 EquipHat 装备帽子事件</li>
+</ul>
+</li>
+<li>bind 区域的 begin overlap -&gt; other actor</li>
+</ul>
+<p>写好Event后测试</p>
+<p>绑定帽子的位置<br>打开person的骨骼设置<br>person -&gt; 网格体 -&gt; 打开文件夹 -&gt; 打开网格体 -&gt; 打开骨骼<br>找到头部骨骼 search head</p>
+<ul>
+<li>创建 附加 插槽 Hat Socket 绑定帽子Event的socketName</li>
+<li>预览帽子资源，调整位置</li>
+</ul>
+<p>装备帽子后删除帽子<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/BP_hat.png" alt="BP_hat.png"></p>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/BP_third_person.png" alt="BP_third_person.png"></p>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E6%A0%BC%E9%AA%A8%E9%AA%BC.png" alt="网格骨骼.png"></p>
+<p>创建一个 扣减角色生命值的 Actor<br>03_damage_box -&gt; BP_damage_box -&gt; actor</p>
+<p>玩家</p>
+<ul>
+<li>增加 Health float 属性</li>
+<li>增加 Health 损耗 Event</li>
+</ul>
+<p>物体</p>
+<ul>
+<li>增加碰撞体</li>
+<li>Set</li>
+<li>Set Timer By Event</li>
+<li>扣减玩家生命值 Event</li>
+<li>Apply Damage</li>
+</ul>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%89%A3%E5%87%8F%E8%A7%92%E8%89%B2%E7%94%9F%E5%91%BD%E5%80%BC01.png" alt="扣减角色生命值01.png"><br>要点：</p>
+<ol>
+<li>将 角色 提升为变量</li>
+<li>Set Timer By Event &amp; sub</li>
+<li>Event 执向自定义Event -&gt; ApplyDamage<ul>
+<li>循环 lopping &#x3D; true</li>
+</ul>
+</li>
+<li>角色 蓝图 -&gt; Event AnyDamage</li>
+</ol>
+<p>完整版：</p>
+<ul>
+<li>碰撞体蓝图：<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%89%A3%E5%87%8F%E8%A7%92%E8%89%B2%E7%94%9F%E5%91%BD%E5%80%BC%E5%AE%8C%E6%95%B4%E7%89%8801.png" alt="扣减角色生命值完整版01.png"></li>
+<li>角色蓝图：<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%89%A3%E5%87%8F%E8%A7%92%E8%89%B2%E7%94%9F%E5%91%BD%E5%80%BC%E5%AE%8C%E6%95%B4%E7%89%8802.png" alt="扣减角色生命值完整版02.png"></li>
+</ul>
+<p>增加生命值UI<br>目录：03_damage_box</p>
+<ul>
+<li>用户页面 -&gt; 空间蓝图 -&gt; 用户控件<ul>
+<li>Canvas Panel &amp; ProgressBar</li>
+<li>name：WBP_health_bar<br>Canvas Panel</li>
+</ul>
+</li>
+<li>ProgressBar<ul>
+<li>Percent 进度条数值 可以进行bind<ul>
+<li>要点：从其他蓝图中bind<ol>
+<li>get player pawn 获取与此UI关联的角色</li>
+<li>cast to third person character 将角色转换为第三人称角色</li>
+<li>get health</li>
+<li>*100 mul</li>
+<li>bind<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/WBP_health_bar.png" alt="WBP_health_bar.png"></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/ThirdPerson.png" alt="ThirdPerson.png"></p>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/ThirdPerson_CreateHealthBarEvent.png" alt="ThirdPerson_CreateHealthBarEvent.png"></p>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/WBP_health_bar_bind.png" alt="WBP_health_bar_bind.png"></p>
+<p>添加 角色血条 到角色画布视图上 Event</p>
+<ul>
+<li>打开蓝图</li>
+<li>添加Event CreateHealthBarEvent<ul>
+<li>create widget -&gt; user interface -&gt; Create Widget<ul>
+<li>绑定角色 Get Player Controller</li>
+</ul>
+</li>
+<li>add to viewport</li>
+</ul>
+</li>
+</ul>
+<p>触发 角色血条 Event<br>当比赛开始时增加血条UI<br>Add Input Mapping的Event BeginPlay事件增加</p>
+<ul>
+<li>add sequence 在原有的基play础上，顺序执行<ul>
+<li>CreateHealthBarEvent 触发上面创建的血条UI事件</li>
+</ul>
+</li>
+</ul>
+<p>玩家离开 则不扣血<br>要点：</p>
+<ol>
+<li>定时器不断触发，将计数器的返回值 存储为变量TimerReference 为定时器句柄</li>
+<li>定时器句柄中 get后，方法：Clear and Invalidate Timer Handle 可以停止定时功能。<br>碰撞体 end overload</li>
+</ol>
+<p>增加特效：粒子系统<br>包：FX Variety Pack</p>
+<p>导入特效包</p>
+<p>扣血碰撞体 增加组件</p>
+<ul>
+<li>粒子发射器 cascade particle system component</li>
+</ul>
+<p>恢复血量碰撞体<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/BP_repair_box.png" alt="BP_repair_box.png"></p>
+<h2 id="UE5-课程-第一人称-多人生存游戏"><a href="#UE5-课程-第一人称-多人生存游戏" class="headerlink" title="UE5 课程 第一人称 多人生存游戏"></a>UE5 课程 第一人称 多人生存游戏</h2><h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><p>Inventory：建筑物品(家具)清单，财产清单</p>
+<p>主库存组件 or 主项目容器 蓝图容器</p>
+<ul>
+<li>库存相关的功能<ul>
+<li>堆叠物品</li>
+<li>增加</li>
+<li>删除</li>
+</ul>
+</li>
+</ul>
+<p>玩家 快捷栏 组件播放器<br>玩家 物品栏组件<br>存储容器</p>
+<ul>
+<li>锻造工具台</li>
+<li>死去的玩家</li>
+<li>掉在地上的袋子</li>
+</ul>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BB%84%E4%BB%B6%E8%93%9D%E5%9B%BE%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB.png" alt="组件蓝图继承关系.png"></p>
+<ul>
+<li>install plugins Adventure Character</li>
+<li>create 文件夹 man color red</li>
+<li>create _main<ul>
+<li>FirstPerson 文件夹 -&gt; 第一人称蓝图BP_FirstPersonCharacter 复制到 _main</li>
+</ul>
+</li>
+<li>file -&gt; save all </li>
+<li>文件夹 Content 属性 fix up Redirectors in folder<ul>
+<li>修复文件中的重定向</li>
+</ul>
+</li>
+<li>down project files:first person animas, all FBS<ul>
+<li>create dir Man -&gt; Animations 并且导入 Animations.FBS<ul>
+<li>MESH 骨骼 select -&gt; UE4_Mannequin_Skeleton</li>
+</ul>
+</li>
+<li>create dir Man -&gt; Arms 导入Arms.FBS <ul>
+<li>MESH 骨骼 select -&gt; UE4_Mannequin_Skeleton</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>man mesh full SK_Man_Full_01</p>
+<p>动画混合空间</p>
+<ul>
+<li>create Animation -&gt; Blend Space 1D -&gt; UE4_Mannequin_Skeleton<br>混合多个动画之间的协调画面</li>
+</ul>
+<p>assets details 轴设置 -&gt; 水平轴 name：speed</p>
+<p>最小值0<br>最大值800</p>
+<p>步行速度<br>正常奔跑速度：600<br>快速奔跑速度：800 </p>
+<p>创建 角色蓝图 骨骼 选择 UE4_Mannequin_Skeleton<br>FirstAnima_BP</p>
+<p>new State Machine<br>增加状态机</p>
+<ul>
+<li>speed [混合空间，speed：0]</li>
+</ul>
+<h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><p>玩家统计数据</p>
+<h3 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h3><p>玩家存储容器</p>
+<h3 id="第-10-章"><a href="#第-10-章" class="headerlink" title="第 10 章"></a>第 10 章</h3><p>创建所有项目</p>
+<h3 id="第11章"><a href="#第11章" class="headerlink" title="第11章"></a>第11章</h3><p>创建部落&#x2F;氏族系统</p>
+<h3 id="第12章创建社会系统"><a href="#第12章创建社会系统" class="headerlink" title="第12章创建社会系统"></a>第12章创建社会系统</h3><h3 id="第-13-章创建开放世界地图"><a href="#第-13-章创建开放世界地图" class="headerlink" title="第 13 章创建开放世界地图"></a>第 13 章创建开放世界地图</h3><h3 id="第-14-章多生物群落-x2F-程序树叶"><a href="#第-14-章多生物群落-x2F-程序树叶" class="headerlink" title="第 14 章多生物群落&#x2F;程序树叶"></a>第 14 章多生物群落&#x2F;程序树叶</h3><h3 id="第15章人工智能系统"><a href="#第15章人工智能系统" class="headerlink" title="第15章人工智能系统"></a>第15章人工智能系统</h3><h3 id="第-16-章程序区"><a href="#第-16-章程序区" class="headerlink" title="第 16 章程序区"></a>第 16 章程序区</h3><h3 id="第-17-章玩家小地图"><a href="#第-17-章玩家小地图" class="headerlink" title="第 17 章玩家小地图"></a>第 17 章玩家小地图</h3><h3 id="第-18-章-保存-x2F-加载系统"><a href="#第-18-章-保存-x2F-加载系统" class="headerlink" title="第 18 章. 保存&#x2F;加载系统"></a>第 18 章. 保存&#x2F;加载系统</h3><h3 id="第-19-章-Steam-会话-x2F-前端小部件"><a href="#第-19-章-Steam-会话-x2F-前端小部件" class="headerlink" title="第 19 章 Steam 会话&#x2F;前端小部件"></a>第 19 章 Steam 会话&#x2F;前端小部件</h3><h3 id="第-20-章-专用服务器设置和托管"><a href="#第-20-章-专用服务器设置和托管" class="headerlink" title="第 20 章 专用服务器设置和托管"></a>第 20 章 专用服务器设置和托管</h3><h3 id="第21章"><a href="#第21章" class="headerlink" title="第21章"></a>第21章</h3><p>其他</p>
 ]]></content>
       <categories>
         <category>编程语言</category>

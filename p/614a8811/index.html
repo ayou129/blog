@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#42b983"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/public/index.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/public/index.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/public/index.ico">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#42b983">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayou129.github.io","root":"/blog/","images":"/blog/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":"flat","style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="暂无描述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UE游戏开发">
+<meta property="og:url" content="https://ayou129.github.io/blog/p/614a8811/index.html">
+<meta property="og:site_name" content="阿尤">
+<meta property="og:description" content="暂无描述">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/isDead.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%A0%B9%E6%8D%AER_key%E4%BF%9D%E5%AD%98%E7%94%A8%E6%88%B7%E5%BD%93%E5%89%8D%E5%9C%A8%E4%B8%96%E7%95%8C%E4%B8%AD%E7%9A%84%E5%90%91%E9%87%8F.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E9%97%A8%E5%A2%9E%E5%8A%A0%E5%BC%80%E5%85%B3.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E9%97%A8%E5%A2%9E%E5%8A%A0%E7%A2%B0%E6%92%9E.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%B8%A4%E4%B8%AA%E5%85%B3%E9%94%AE%E5%B8%A7.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%B0%86%E9%97%A8%E6%89%93%E5%BC%80%E5%9C%B0%E7%BC%93%E6%85%A2%E4%B8%80%E4%BA%9B.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/BP_hat.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/BP_third_person.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E6%A0%BC%E9%AA%A8%E9%AA%BC.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%89%A3%E5%87%8F%E8%A7%92%E8%89%B2%E7%94%9F%E5%91%BD%E5%80%BC01.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%89%A3%E5%87%8F%E8%A7%92%E8%89%B2%E7%94%9F%E5%91%BD%E5%80%BC%E5%AE%8C%E6%95%B4%E7%89%8801.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%89%A3%E5%87%8F%E8%A7%92%E8%89%B2%E7%94%9F%E5%91%BD%E5%80%BC%E5%AE%8C%E6%95%B4%E7%89%8802.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/WBP_health_bar.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/ThirdPerson.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/ThirdPerson_CreateHealthBarEvent.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/WBP_health_bar_bind.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/BP_repair_box.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BB%84%E4%BB%B6%E8%93%9D%E5%9B%BE%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB.png">
+<meta property="article:published_time" content="2023-11-08T19:08:49.000Z">
+<meta property="article:modified_time" content="2023-11-08T19:08:49.000Z">
+<meta property="article:author" content="阿尤">
+<meta property="article:tag" content="learning, coding, writing, 学习, 编程, 阿尤">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ayou129.github.io/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/isDead.png">
+
+
+<link rel="canonical" href="https://ayou129.github.io/blog/p/614a8811/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayou129.github.io/blog/p/614a8811/","path":"p/614a8811/","title":"UE游戏开发"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>UE游戏开发 | 阿尤</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/blog/public/%E9%98%BF%E5%B0%A4%E5%8A%A8%E6%BC%AB%E5%A4%B4.jpeg" alt="阿尤">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">阿尤</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">73</span></a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#UExz"><span class="nav-number">1.</span> <span class="nav-text">UExz</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E6%95%B4%E6%91%84%E5%83%8F%E5%A4%B4%E7%9A%84%E4%BD%8D%E7%BD%AE%EF%BC%8C%E5%B0%86%E6%91%84%E5%83%8F%E5%A4%B4%E7%BB%91%E5%AE%9A%E5%88%B0%E5%A4%B4%E9%83%A8"><span class="nav-number">1.1.</span> <span class="nav-text">调整摄像头的位置，将摄像头绑定到头部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A2%9E%E5%8A%A0-%E9%BC%A0%E6%A0%87%E6%8E%A7%E5%88%B6%E5%99%A8%E6%97%8B%E8%BD%AC%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.</span> <span class="nav-text">增加 鼠标控制器旋转功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%A1%80%E6%9D%A1%E5%92%8C%E6%8A%A4%E7%94%B2"><span class="nav-number">1.3.</span> <span class="nav-text">添加血条和护甲</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unreal-Engine-5-tutorial"><span class="nav-number">2.</span> <span class="nav-text">Unreal Engine 5 tutorial</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lyra-Cross-platform-UI-framework"><span class="nav-number">3.</span> <span class="nav-text">Lyra Cross-platform UI framework</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%93%9D%E5%9B%BE"><span class="nav-number">3.1.</span> <span class="nav-text">蓝图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%BE%E5%8F%96%E7%89%A9%E5%93%81-%E6%A8%A1%E5%9E%8B%E5%B8%A6%E5%B8%BD%E5%AD%90"><span class="nav-number">3.2.</span> <span class="nav-text">拾取物品+模型带帽子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UE5-%E8%AF%BE%E7%A8%8B-%E7%AC%AC%E4%B8%80%E4%BA%BA%E7%A7%B0-%E5%A4%9A%E4%BA%BA%E7%94%9F%E5%AD%98%E6%B8%B8%E6%88%8F"><span class="nav-number">4.</span> <span class="nav-text">UE5 课程 第一人称 多人生存游戏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0"><span class="nav-number">4.1.</span> <span class="nav-text">第一章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0"><span class="nav-number">4.2.</span> <span class="nav-text">第二章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E7%AB%A0"><span class="nav-number">4.3.</span> <span class="nav-text">第六章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%B9%9D%E7%AB%A0"><span class="nav-number">4.4.</span> <span class="nav-text">第九章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-10-%E7%AB%A0"><span class="nav-number">4.5.</span> <span class="nav-text">第 10 章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC11%E7%AB%A0"><span class="nav-number">4.6.</span> <span class="nav-text">第11章</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC12%E7%AB%A0%E5%88%9B%E5%BB%BA%E7%A4%BE%E4%BC%9A%E7%B3%BB%E7%BB%9F"><span class="nav-number">4.7.</span> <span class="nav-text">第12章创建社会系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-13-%E7%AB%A0%E5%88%9B%E5%BB%BA%E5%BC%80%E6%94%BE%E4%B8%96%E7%95%8C%E5%9C%B0%E5%9B%BE"><span class="nav-number">4.8.</span> <span class="nav-text">第 13 章创建开放世界地图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-14-%E7%AB%A0%E5%A4%9A%E7%94%9F%E7%89%A9%E7%BE%A4%E8%90%BD-x2F-%E7%A8%8B%E5%BA%8F%E6%A0%91%E5%8F%B6"><span class="nav-number">4.9.</span> <span class="nav-text">第 14 章多生物群落&#x2F;程序树叶</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC15%E7%AB%A0%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%E7%B3%BB%E7%BB%9F"><span class="nav-number">4.10.</span> <span class="nav-text">第15章人工智能系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-16-%E7%AB%A0%E7%A8%8B%E5%BA%8F%E5%8C%BA"><span class="nav-number">4.11.</span> <span class="nav-text">第 16 章程序区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-17-%E7%AB%A0%E7%8E%A9%E5%AE%B6%E5%B0%8F%E5%9C%B0%E5%9B%BE"><span class="nav-number">4.12.</span> <span class="nav-text">第 17 章玩家小地图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-18-%E7%AB%A0-%E4%BF%9D%E5%AD%98-x2F-%E5%8A%A0%E8%BD%BD%E7%B3%BB%E7%BB%9F"><span class="nav-number">4.13.</span> <span class="nav-text">第 18 章. 保存&#x2F;加载系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-19-%E7%AB%A0-Steam-%E4%BC%9A%E8%AF%9D-x2F-%E5%89%8D%E7%AB%AF%E5%B0%8F%E9%83%A8%E4%BB%B6"><span class="nav-number">4.14.</span> <span class="nav-text">第 19 章 Steam 会话&#x2F;前端小部件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC-20-%E7%AB%A0-%E4%B8%93%E7%94%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%AE%BE%E7%BD%AE%E5%92%8C%E6%89%98%E7%AE%A1"><span class="nav-number">4.15.</span> <span class="nav-text">第 20 章 专用服务器设置和托管</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC21%E7%AB%A0"><span class="nav-number">4.16.</span> <span class="nav-text">第21章</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">阿尤</p>
+  <div class="site-description" itemprop="description">成长就是不断发现自己是SB的过程！</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayou129.github.io/blog/p/614a8811/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="阿尤">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿尤">
+      <meta itemprop="description" content="成长就是不断发现自己是SB的过程！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="UE游戏开发 | 阿尤">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          UE游戏开发
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-11-09 03:08:49" itemprop="dateCreated datePublished" datetime="2023-11-09T03:08:49+08:00">2023-11-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>暂无描述</p>
+<span id="more"></span>
+
+<p>惠普提：<a href="https://www.alibabafonts.com/#/home" target="_blank" rel="noopener">https://www.alibabafonts.com/#/home</a></p>
+<h2 id="UExz"><a href="#UExz" class="headerlink" title="UExz"></a>UExz</h2><p>教程开发版本 4.16.2</p>
+<p>Marketplace下载<br>Animation Starter Pack</p>
+<ul>
+<li>reloading</li>
+<li>射击</li>
+<li>移动</li>
+<li>动画</li>
+</ul>
+<p>创建项目</p>
+<ul>
+<li>First Person</li>
+</ul>
+<h3 id="调整摄像头的位置，将摄像头绑定到头部"><a href="#调整摄像头的位置，将摄像头绑定到头部" class="headerlink" title="调整摄像头的位置，将摄像头绑定到头部"></a>调整摄像头的位置，将摄像头绑定到头部</h3><p>Follow Camera -&gt; Socket -&gt; Head<br>将摄像头调整进入头前方</p>
+<h3 id="增加-鼠标控制器旋转功能"><a href="#增加-鼠标控制器旋转功能" class="headerlink" title="增加 鼠标控制器旋转功能"></a>增加 鼠标控制器旋转功能</h3><p>Follow Camera： Setting -&gt; Use Controller Rotation Yaw<br>角色： Pawn -&gt; Use Controller Rotation Yaw</p>
+<p>添加项目 FPS Tutorial</p>
+<h3 id="添加血条和护甲"><a href="#添加血条和护甲" class="headerlink" title="添加血条和护甲"></a>添加血条和护甲</h3><p>添加血条和护甲 变量 float</p>
+<h2 id="Unreal-Engine-5-tutorial"><a href="#Unreal-Engine-5-tutorial" class="headerlink" title="Unreal Engine 5 tutorial"></a>Unreal Engine 5 tutorial</h2><p>鼠标右键 按住，wsad 移动方向</p>
+<p>鼠标左键 选择对象</p>
+<h2 id="Lyra-Cross-platform-UI-framework"><a href="#Lyra-Cross-platform-UI-framework" class="headerlink" title="Lyra Cross-platform UI framework"></a>Lyra Cross-platform UI framework</h2><p>核心游戏驱动 Actors<br>Character&#x2F;Pawn 控制的游戏对象<br>Controller 控制游戏对象、客户端向服务器发送请求的通道<br>Player State 其他玩家需要知道的信息</p>
+<ul>
+<li>当前得分<br>Game State 游戏的综合信息</li>
+<li>当前的游戏阶段</li>
+<li>剩余时间</li>
+</ul>
+<p>模块化</p>
+<p>Lura UI</p>
+<p>游戏模式</p>
+<ul>
+<li>占点模式</li>
+<li>爆破模式</li>
+</ul>
+<h3 id="蓝图"><a href="#蓝图" class="headerlink" title="蓝图"></a>蓝图</h3><p>和平精英手游 使用什么配置的电脑进行开发的 普通的mac可以开发吗？<br>我用的macbook pro 2020年 apple M1芯片 16GB内存 1TB硬盘 8核心GPU可以进行开发吗？<br>台式机需要什么配置才能进行开发？</p>
+<p>知识点：</p>
+<ol>
+<li>快捷键 快速取消 链接  alt+左键</li>
+</ol>
+<p>Event BeginPlay<br>print String<br>hello world<br>10s</p>
+<p>变量<br>isDead?<br>boolean<br>details &#x3D;&gt; default value<br>变量拖进 事件图标中，isDead?false红色<br>new branch</p>
+<ul>
+<li>print string 角色已死亡</li>
+<li>print string 角色正常</li>
+</ul>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/isDead.png" alt="isDead.png"></p>
+<p>增加整型类型血量变量health</p>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%A0%B9%E6%8D%AER_key%E4%BF%9D%E5%AD%98%E7%94%A8%E6%88%B7%E5%BD%93%E5%89%8D%E5%9C%A8%E4%B8%96%E7%95%8C%E4%B8%AD%E7%9A%84%E5%90%91%E9%87%8F.png" alt="根据R_key保存用户当前在世界中的向量.png"></p>
+<p>创建可以开关的门<br>要点：</p>
+<ol>
+<li>碰撞重叠，弹出按键</li>
+</ol>
+<p>blueprints -&gt; 01_door_bp -&gt; BP_door（蓝图 ）<br>门框door frame：static mesh</p>
+<p>碰撞要点：</p>
+<ul>
+<li>Box 碰撞盒体</li>
+<li>Graph<ul>
+<li>Box组件右下角 事件中添加：On Component Begin Overlap 内容开始重叠 actor &#x3D;&gt; 下方 cast</li>
+<li>Box组件右下角 事件中添加：On Component End Overlap 内容结束重叠 actor &#x3D;&gt; 下方 cast</li>
+<li>Cast to …  (third person character) 转换为第三人称角色</li>
+<li>f Get Player Controller<ul>
+<li>Enable Input</li>
+<li>Disable Input</li>
+</ul>
+</li>
+<li>E key</li>
+<li>Flip Flop</li>
+<li>Set Relative Rotation 设置相对旋转 z 90°   x2</li>
+<li>Door组件-&gt;根据Flip Flop的值设置相对旋转</li>
+</ul>
+</li>
+</ul>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E9%97%A8%E5%A2%9E%E5%8A%A0%E5%BC%80%E5%85%B3.png" alt="门增加开关.png"></p>
+<p>设置门无法穿越</p>
+<ul>
+<li>打开门的材质</li>
+<li>Collision -&gt; add box simplified collision 简单碰撞<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E9%97%A8%E5%A2%9E%E5%8A%A0%E7%A2%B0%E6%92%9E.png" alt="门增加碰撞.png"></li>
+</ul>
+<p>将门打开地缓慢一些<br>要点：</p>
+<ol>
+<li>timeline<ol start="2">
+<li>两个关键帧，且自动<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E4%B8%A4%E4%B8%AA%E5%85%B3%E9%94%AE%E5%B8%A7.png" alt="两个关键帧.png"></li>
+</ol>
+</li>
+<li>make rotator 创建 自旋转<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E5%B0%86%E9%97%A8%E6%89%93%E5%BC%80%E5%9C%B0%E7%BC%93%E6%85%A2%E4%B8%80%E4%BA%9B.png" alt="将门打开地缓慢一些.png"></li>
+</ol>
+<p>相关介绍<br>选取父类：<br>Actor：基本的游戏对象，如灯光、摄像机、触发器、门、帽子等<br>Pawn：可以被控制的游戏对象，如玩家、敌人、车辆等<br>Character：Pawn的子类，可以移动、跳跃、攻击等<br>PlayerController：玩家控制器，如玩家输入、控制角色等<br>PlayerState：玩家状态，如玩家得分、玩家队伍等<br>PlayerCameraManager：玩家摄像机管理器，如玩家视角、镜头抖动等<br>GameModeBase：游戏模式，如占点模式、爆破模式等<br>GameInstance：游戏实例，如游戏设置、玩家信息等<br>GameSession：游戏会话，如玩家列表、游戏状态等<br>GameStateBase：游戏状态，如游戏阶段、剩余时间等</p>
+<h3 id="拾取物品-模型带帽子"><a href="#拾取物品-模型带帽子" class="headerlink" title="拾取物品+模型带帽子"></a>拾取物品+模型带帽子</h3><p>导入包</p>
+<p>BluePrints-&gt;02_HatPickup_BP-&gt;BP_HatPickup Actor</p>
+<p>增加 静态网格HatMesh<br>增加 材质SM_Hat</p>
+<ul>
+<li>增加 碰撞球体 Sphere 放大：半径65<ul>
+<li>事件图标中添加：On Component Begin Overlap</li>
+<li>事件图标中添加：On Component End Overlap<br>增加 文字【E】拾取 躺着</li>
+</ul>
+</li>
+<li>设置文字 Press [E] to Pickup 碰撞了 person 才显示</li>
+</ul>
+<p>Person</p>
+<ul>
+<li>增加 自定义事件 EquipHat 装备帽子</li>
+<li>增加 静态网格 HatMesh，并且等待穿戴<ul>
+<li>增加 事件 f set static Mesh<ul>
+<li>new Mesh 从 事件 装备帽子中获取</li>
+</ul>
+</li>
+<li>拖动 HatMesh 到 Target</li>
+</ul>
+</li>
+<li>增加 事件 Attach Component to Component<ul>
+<li>绑定父组件<ul>
+<li>Mesh (CharacterMesh)</li>
+</ul>
+</li>
+<li>绑定子组件<ul>
+<li>HatMesh</li>
+</ul>
+</li>
+<li>对齐到目标<ul>
+<li>三个全部对齐到目标</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>角色-帽子 碰撞后 &amp; 按e键 触发 EquipHat</p>
+<ul>
+<li>E key</li>
+<li>Flip Flop</li>
+<li>Cast to BP 角色<ul>
+<li>As 要 绑定Event， 也就是 EquipHat 装备帽子事件</li>
+</ul>
+</li>
+<li>bind 区域的 begin overlap -&gt; other actor</li>
+</ul>
+<p>写好Event后测试</p>
+<p>绑定帽子的位置<br>打开person的骨骼设置<br>person -&gt; 网格体 -&gt; 打开文件夹 -&gt; 打开网格体 -&gt; 打开骨骼<br>找到头部骨骼 search head</p>
+<ul>
+<li>创建 附加 插槽 Hat Socket 绑定帽子Event的socketName</li>
+<li>预览帽子资源，调整位置</li>
+</ul>
+<p>装备帽子后删除帽子<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/BP_hat.png" alt="BP_hat.png"></p>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/BP_third_person.png" alt="BP_third_person.png"></p>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BD%91%E6%A0%BC%E9%AA%A8%E9%AA%BC.png" alt="网格骨骼.png"></p>
+<p>创建一个 扣减角色生命值的 Actor<br>03_damage_box -&gt; BP_damage_box -&gt; actor</p>
+<p>玩家</p>
+<ul>
+<li>增加 Health float 属性</li>
+<li>增加 Health 损耗 Event</li>
+</ul>
+<p>物体</p>
+<ul>
+<li>增加碰撞体</li>
+<li>Set</li>
+<li>Set Timer By Event</li>
+<li>扣减玩家生命值 Event</li>
+<li>Apply Damage</li>
+</ul>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%89%A3%E5%87%8F%E8%A7%92%E8%89%B2%E7%94%9F%E5%91%BD%E5%80%BC01.png" alt="扣减角色生命值01.png"><br>要点：</p>
+<ol>
+<li>将 角色 提升为变量</li>
+<li>Set Timer By Event &amp; sub</li>
+<li>Event 执向自定义Event -&gt; ApplyDamage<ul>
+<li>循环 lopping &#x3D; true</li>
+</ul>
+</li>
+<li>角色 蓝图 -&gt; Event AnyDamage</li>
+</ol>
+<p>完整版：</p>
+<ul>
+<li>碰撞体蓝图：<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%89%A3%E5%87%8F%E8%A7%92%E8%89%B2%E7%94%9F%E5%91%BD%E5%80%BC%E5%AE%8C%E6%95%B4%E7%89%8801.png" alt="扣减角色生命值完整版01.png"></li>
+<li>角色蓝图：<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E6%89%A3%E5%87%8F%E8%A7%92%E8%89%B2%E7%94%9F%E5%91%BD%E5%80%BC%E5%AE%8C%E6%95%B4%E7%89%8802.png" alt="扣减角色生命值完整版02.png"></li>
+</ul>
+<p>增加生命值UI<br>目录：03_damage_box</p>
+<ul>
+<li>用户页面 -&gt; 空间蓝图 -&gt; 用户控件<ul>
+<li>Canvas Panel &amp; ProgressBar</li>
+<li>name：WBP_health_bar<br>Canvas Panel</li>
+</ul>
+</li>
+<li>ProgressBar<ul>
+<li>Percent 进度条数值 可以进行bind<ul>
+<li>要点：从其他蓝图中bind<ol>
+<li>get player pawn 获取与此UI关联的角色</li>
+<li>cast to third person character 将角色转换为第三人称角色</li>
+<li>get health</li>
+<li>*100 mul</li>
+<li>bind<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/WBP_health_bar.png" alt="WBP_health_bar.png"></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/ThirdPerson.png" alt="ThirdPerson.png"></p>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/ThirdPerson_CreateHealthBarEvent.png" alt="ThirdPerson_CreateHealthBarEvent.png"></p>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/WBP_health_bar_bind.png" alt="WBP_health_bar_bind.png"></p>
+<p>添加 角色血条 到角色画布视图上 Event</p>
+<ul>
+<li>打开蓝图</li>
+<li>添加Event CreateHealthBarEvent<ul>
+<li>create widget -&gt; user interface -&gt; Create Widget<ul>
+<li>绑定角色 Get Player Controller</li>
+</ul>
+</li>
+<li>add to viewport</li>
+</ul>
+</li>
+</ul>
+<p>触发 角色血条 Event<br>当比赛开始时增加血条UI<br>Add Input Mapping的Event BeginPlay事件增加</p>
+<ul>
+<li>add sequence 在原有的基play础上，顺序执行<ul>
+<li>CreateHealthBarEvent 触发上面创建的血条UI事件</li>
+</ul>
+</li>
+</ul>
+<p>玩家离开 则不扣血<br>要点：</p>
+<ol>
+<li>定时器不断触发，将计数器的返回值 存储为变量TimerReference 为定时器句柄</li>
+<li>定时器句柄中 get后，方法：Clear and Invalidate Timer Handle 可以停止定时功能。<br>碰撞体 end overload</li>
+</ol>
+<p>增加特效：粒子系统<br>包：FX Variety Pack</p>
+<p>导入特效包</p>
+<p>扣血碰撞体 增加组件</p>
+<ul>
+<li>粒子发射器 cascade particle system component</li>
+</ul>
+<p>恢复血量碰撞体<br><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/BP_repair_box.png" alt="BP_repair_box.png"></p>
+<h2 id="UE5-课程-第一人称-多人生存游戏"><a href="#UE5-课程-第一人称-多人生存游戏" class="headerlink" title="UE5 课程 第一人称 多人生存游戏"></a>UE5 课程 第一人称 多人生存游戏</h2><h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><p>Inventory：建筑物品(家具)清单，财产清单</p>
+<p>主库存组件 or 主项目容器 蓝图容器</p>
+<ul>
+<li>库存相关的功能<ul>
+<li>堆叠物品</li>
+<li>增加</li>
+<li>删除</li>
+</ul>
+</li>
+</ul>
+<p>玩家 快捷栏 组件播放器<br>玩家 物品栏组件<br>存储容器</p>
+<ul>
+<li>锻造工具台</li>
+<li>死去的玩家</li>
+<li>掉在地上的袋子</li>
+</ul>
+<p><img src="/blog/UE%E6%B8%B8%E6%88%8F%E5%BC%80%E5%8F%91/%E7%BB%84%E4%BB%B6%E8%93%9D%E5%9B%BE%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB.png" alt="组件蓝图继承关系.png"></p>
+<ul>
+<li>install plugins Adventure Character</li>
+<li>create 文件夹 man color red</li>
+<li>create _main<ul>
+<li>FirstPerson 文件夹 -&gt; 第一人称蓝图BP_FirstPersonCharacter 复制到 _main</li>
+</ul>
+</li>
+<li>file -&gt; save all </li>
+<li>文件夹 Content 属性 fix up Redirectors in folder<ul>
+<li>修复文件中的重定向</li>
+</ul>
+</li>
+<li>down project files:first person animas, all FBS<ul>
+<li>create dir Man -&gt; Animations 并且导入 Animations.FBS<ul>
+<li>MESH 骨骼 select -&gt; UE4_Mannequin_Skeleton</li>
+</ul>
+</li>
+<li>create dir Man -&gt; Arms 导入Arms.FBS <ul>
+<li>MESH 骨骼 select -&gt; UE4_Mannequin_Skeleton</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>man mesh full SK_Man_Full_01</p>
+<p>动画混合空间</p>
+<ul>
+<li>create Animation -&gt; Blend Space 1D -&gt; UE4_Mannequin_Skeleton<br>混合多个动画之间的协调画面</li>
+</ul>
+<p>assets details 轴设置 -&gt; 水平轴 name：speed</p>
+<p>最小值0<br>最大值800</p>
+<p>步行速度<br>正常奔跑速度：600<br>快速奔跑速度：800 </p>
+<p>创建 角色蓝图 骨骼 选择 UE4_Mannequin_Skeleton<br>FirstAnima_BP</p>
+<p>new State Machine<br>增加状态机</p>
+<ul>
+<li>speed [混合空间，speed：0]</li>
+</ul>
+<h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><p>玩家统计数据</p>
+<h3 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h3><p>玩家存储容器</p>
+<h3 id="第-10-章"><a href="#第-10-章" class="headerlink" title="第 10 章"></a>第 10 章</h3><p>创建所有项目</p>
+<h3 id="第11章"><a href="#第11章" class="headerlink" title="第11章"></a>第11章</h3><p>创建部落&#x2F;氏族系统</p>
+<h3 id="第12章创建社会系统"><a href="#第12章创建社会系统" class="headerlink" title="第12章创建社会系统"></a>第12章创建社会系统</h3><h3 id="第-13-章创建开放世界地图"><a href="#第-13-章创建开放世界地图" class="headerlink" title="第 13 章创建开放世界地图"></a>第 13 章创建开放世界地图</h3><h3 id="第-14-章多生物群落-x2F-程序树叶"><a href="#第-14-章多生物群落-x2F-程序树叶" class="headerlink" title="第 14 章多生物群落&#x2F;程序树叶"></a>第 14 章多生物群落&#x2F;程序树叶</h3><h3 id="第15章人工智能系统"><a href="#第15章人工智能系统" class="headerlink" title="第15章人工智能系统"></a>第15章人工智能系统</h3><h3 id="第-16-章程序区"><a href="#第-16-章程序区" class="headerlink" title="第 16 章程序区"></a>第 16 章程序区</h3><h3 id="第-17-章玩家小地图"><a href="#第-17-章玩家小地图" class="headerlink" title="第 17 章玩家小地图"></a>第 17 章玩家小地图</h3><h3 id="第-18-章-保存-x2F-加载系统"><a href="#第-18-章-保存-x2F-加载系统" class="headerlink" title="第 18 章. 保存&#x2F;加载系统"></a>第 18 章. 保存&#x2F;加载系统</h3><h3 id="第-19-章-Steam-会话-x2F-前端小部件"><a href="#第-19-章-Steam-会话-x2F-前端小部件" class="headerlink" title="第 19 章 Steam 会话&#x2F;前端小部件"></a>第 19 章 Steam 会话&#x2F;前端小部件</h3><h3 id="第-20-章-专用服务器设置和托管"><a href="#第-20-章-专用服务器设置和托管" class="headerlink" title="第 20 章 专用服务器设置和托管"></a>第 20 章 专用服务器设置和托管</h3><h3 id="第21章"><a href="#第21章" class="headerlink" title="第21章"></a>第21章</h3><p>其他</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/p/c8a4b253/" rel="prev" title="Unity">
+                  <i class="fa fa-chevron-left"></i> Unity
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿尤</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/schemes/muse.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
