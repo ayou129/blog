@@ -5120,7 +5120,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <p><strong>对于分页查询的优化的策略</strong><br>优化策略一：“覆盖索引”<br><code>Alter table film add index idx_lmtest(title,description);</code><br>记录直接从索引中获取，效率最高。 仅适合查询字段较少的情况。</p>
 <p>优化策略二：“SQL改写”<br><code>select a.film_id,a.description from film a inner join (select film_id from film order by title limit 1000,20) b on a.film_id=b.film_id;</code><br>优化的前提是Title字段有索引。<br>思路是从索引中取出20条满足条件记录的主键值，然后回表获取记录。</p>
 <p>####### 4. Or&#x2F;And Condition</p>
-<img src="/blog/p/e4d2e8fb/Condition:Or_And.png" class="" title="Condition:Or_And">
+<img src="/blog/p/e4d2e8fb/Condition_Or_And.png" class="" title="Condition:Or_And">
 
 <p>And结果集为关键字前后过滤结果的交集;<br>Or结果集为关键字前后分别查询的并集;<br>And条件可以在前一个条件过滤基础上过滤;<br>Or条件被处理为UNION，相当于两个单独条件的查询;<br>复合索引对于Or条件相当于一个单列索引。</p>
 <p>处理策略</p>
