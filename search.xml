@@ -8053,7 +8053,89 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>粒子发射器 cascade particle system component</li>
 </ul>
 <p>恢复血量碰撞体<br><img src="/blog/p/614a8811/BP_repair_box.png" alt="BP_repair_box.png"></p>
-<h2 id="UE5-课程-第一人称-多人生存游戏"><a href="#UE5-课程-第一人称-多人生存游戏" class="headerlink" title="UE5 课程 第一人称 多人生存游戏"></a>UE5 课程 第一人称 多人生存游戏</h2><h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><p>Inventory：建筑物品(家具)清单，财产清单</p>
+<h2 id="UE5-课程-第一人称-多人生存游戏"><a href="#UE5-课程-第一人称-多人生存游戏" class="headerlink" title="UE5 课程 第一人称 多人生存游戏"></a>UE5 课程 第一人称 多人生存游戏</h2><h3 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h3><h4 id="安装插件-Adventure-Character"><a href="#安装插件-Adventure-Character" class="headerlink" title="安装插件 Adventure Character"></a>安装插件 Adventure Character</h4><p>一定要先着色，再打开</p>
+<p><img src="/blog/p/614a8811/AdventureCharacter.png" alt="AdventureCharacter.png"></p>
+<p>安装完成之后会多一个Man文件夹 </p>
+<h4 id="构建目录"><a href="#构建目录" class="headerlink" title="构建目录"></a>构建目录</h4><ul>
+<li>Man 设置颜色<ul>
+<li>Animations 动画，导入除了Arms.FBX以外的FBX(骨骼选择 UE4_Mannequin_Skeleton)</li>
+<li>Arms 手臂，导入Arms.FBX(骨骼选择UE4_Mannequin_Skeleton)<ul>
+<li>Arms 骨骼网格体 设置材质 M_Man_Body</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Main<ul>
+<li>复制 [第一人称的 Character BP] 到该文件夹中</li>
+</ul>
+</li>
+</ul>
+<p>注意事项：</p>
+<ol>
+<li>文件夹 Content 属性 修复重定向</li>
+</ol>
+<h4 id="8"><a href="#8" class="headerlink" title="8"></a>8</h4><p>FirstPersonMap<br>BP_FirstPersonCharacter 第一人称角色</p>
+<p>FirstPersonBP 第一人称蓝图<br>FirstPerson_AnimBP 第一人称动画 蓝图<br>FirstPersonBS 第三人称 (1 D)混合空间</p>
+<ul>
+<li>assets details 轴设置 -&gt; 水平轴 name：speed 800</li>
+<li>Idle stan —- Jog 0 600 —- running2 800</li>
+<li>骨骼 SK_Man_Full_01</li>
+</ul>
+<p>Event Blueprint Update时间 每一帧更新<br><img src="/blog/p/614a8811/FirstPerson_AnimBP.png" alt="FirstPerson_AnimBP.png"><br><img src="/blog/p/614a8811/FirstPerson_AnimBP%E4%BA%8B%E4%BB%B6%E8%93%9D%E5%9B%BE%E6%9B%B4%E6%96%B0%E5%8A%A8%E7%94%BB.png" alt="FirstPerson_AnimBP事件蓝图更新动画.png"><br><img src="/blog/p/614a8811/walk_run.png" alt="walk_run.png"><br><img src="/blog/p/614a8811/walk_run_view.png" alt="walk_run_view.png"></p>
+<p>补充：</p>
+<ol>
+<li>角色BP，替换Arms</li>
+<li>如果不显示手臂，则需要设置动画蓝图 FirstPerson_AnimBP</li>
+<li>词汇：Idle&#x2F;Walk&#x2F;Run</li>
+</ol>
+<h4 id="9-增加第三人称"><a href="#9-增加第三人称" class="headerlink" title="9 增加第三人称"></a>9 增加第三人称</h4><p>增加蓝图<br>ThirdPerson_AnimBP 第一人称动画 蓝图<br>ThirdPersonBS 第三人称 (1 D)混合空间</p>
+<ul>
+<li>assets details 轴设置 -&gt; 水平轴 name：speed 800</li>
+<li>Idle —- running1 0 600 —- running2 800</li>
+<li>骨骼 SK_Man_Full_01</li>
+</ul>
+<p>第三人称蓝图 搞定后，角色蓝图中添加 Skeletal Mesh<br>角色</p>
+<ul>
+<li>第一人称</li>
+<li>第三人称 SK_Man_Full_01</li>
+</ul>
+<ol>
+<li>调整好位置</li>
+<li>增加动画类 ThirdPersonAnimBP</li>
+<li>摄像头不可见，Mesh setting  Owner No See</li>
+</ol>
+<p>补充：</p>
+<ol>
+<li>视图中 透视 功能 可以更方便的调整角色的位置</li>
+<li>Play 按钮 可以设置多个玩家，模式为 as Client</li>
+</ol>
+<h5 id="10"><a href="#10" class="headerlink" title="10"></a>10</h5><p>如何在编辑器中测试多人游戏<br>两种不同的游戏服务器</p>
+<ul>
+<li>Listen 本地服务器</li>
+<li>Client 专用服务器</li>
+</ul>
+<h5 id="11-概念"><a href="#11-概念" class="headerlink" title="11 概念"></a>11 概念</h5><p>继承<br>蓝图基类 Actor</p>
+<ul>
+<li>墙壁</li>
+</ul>
+<p>Pawn 可以随时拥有或取消</p>
+<ul>
+<li>汽车</li>
+<li>马</li>
+<li>坐骑</li>
+<li>飞机</li>
+</ul>
+<p>Character<br>运动组件 步行、跑步、跳跃、爬行</p>
+<p>Player Controller<br>存储逻辑的蓝图类</p>
+<p>Game Model Base<br>游戏规则<br>分数<br>生成位置</p>
+<p>Actor Component<br>可以添加到蓝图中的组件<br>库存组件<br>建筑组件</p>
+<p>Scene Component</p>
+<p>BP物品基类<br>BP装备基类</p>
+<ul>
+<li>斧头</li>
+<li>镐</li>
+</ul>
+<h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><p>Inventory：建筑物品(家具)清单，财产清单</p>
 <p>主库存组件 or 主项目容器 蓝图容器</p>
 <ul>
 <li>库存相关的功能<ul>
@@ -8069,50 +8151,3776 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>死去的玩家</li>
 <li>掉在地上的袋子</li>
 </ul>
-<img src="/blog/p/614a8811/%E7%BB%84%E4%BB%B6%E8%93%9D%E5%9B%BE%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB.png" class="" title="组件蓝图继承关系">
-
+<p><img src="/blog/p/614a8811/%E7%BB%84%E4%BB%B6%E8%93%9D%E5%9B%BE%E7%BB%A7%E6%89%BF%E5%85%B3%E7%B3%BB.png" alt="组件蓝图继承关系.png"></p>
+<p>thing：</p>
+<ol>
+<li>打开直接在编辑器中，不重新打开标签页<br>编辑 首选项 assets editor open location Default改成 Main Window</li>
+</ol>
+<h5 id="14"><a href="#14" class="headerlink" title="14"></a>14</h5><p>_Main BluePrints Enums<br>创建枚举类型</p>
+<p>E_ItemType</p>
 <ul>
-<li>install plugins Adventure Character</li>
-<li>create 文件夹 man color red</li>
-<li>create _main<ul>
-<li>FirstPerson 文件夹 -&gt; 第一人称蓝图BP_FirstPersonCharacter 复制到 _main</li>
+<li>Resource 资源</li>
+<li>Equipment 装备</li>
+<li>Armor 盔甲</li>
+<li>Consumable 消耗品</li>
+<li>Buildable 建筑物品</li>
 </ul>
-</li>
-<li>file -&gt; save all </li>
-<li>文件夹 Content 属性 fix up Redirectors in folder<ul>
-<li>修复文件中的重定向</li>
-</ul>
-</li>
-<li>down project files:first person animas, all FBS<ul>
-<li>create dir Man -&gt; Animations 并且导入 Animations.FBS<ul>
-<li>MESH 骨骼 select -&gt; UE4_Mannequin_Skeleton</li>
-</ul>
-</li>
-<li>create dir Man -&gt; Arms 导入Arms.FBS <ul>
-<li>MESH 骨骼 select -&gt; UE4_Mannequin_Skeleton</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>man mesh full SK_Man_Full_01</p>
-<p>动画混合空间</p>
+<p>BP_第一人称Character 增加变量 选择枚举类型 test_menu E_ItemType</p>
+<p>E_ItemRarity 稀有类型</p>
 <ul>
-<li>create Animation -&gt; Blend Space 1D -&gt; UE4_Mannequin_Skeleton<br>混合多个动画之间的协调画面</li>
+<li>Common</li>
+<li>Uncommon</li>
+<li>Rare 稀有</li>
+<li>Epic 史诗</li>
+<li>Legendary 传奇</li>
 </ul>
-<p>assets details 轴设置 -&gt; 水平轴 name：speed</p>
-<p>最小值0<br>最大值800</p>
-<p>步行速度<br>正常奔跑速度：600<br>快速奔跑速度：800 </p>
-<p>创建 角色蓝图 骨骼 选择 UE4_Mannequin_Skeleton<br>FirstAnima_BP</p>
-<p>new State Machine<br>增加状态机</p>
+<p>E_ArmorType 盔甲类型</p>
 <ul>
-<li>speed [混合空间，speed：0]</li>
+<li>Helmet 头盔</li>
+<li>Chest 胸</li>
+<li>Pants 裤子</li>
+<li>Boots 靴子</li>
 </ul>
-<h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><p>玩家统计数据</p>
-<h3 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h3><p>玩家存储容器</p>
+<p>创建 BluePrints Structures 文件夹<br>创建 蓝图-结构 S_ItemInfo</p>
+<ul>
+<li>ItemId int</li>
+<li>ItemQuantity int 数量</li>
+<li>ItemIcon Texture 2D</li>
+<li>ItemName Text</li>
+<li>ItemDesc Text</li>
+<li>ItemDamage int 损害值</li>
+<li>ItemRarity E_ItemRarity 稀有</li>
+<li>ItemCurHp int 物品当前血量</li>
+<li>ItemMaxHp int 物品最大血量</li>
+<li>IsStackable bool 是否可堆叠</li>
+<li>StackSize int 堆叠大小</li>
+<li>ItemType E_ItemType 物品类型</li>
+<li>ItemClassRef 创建下方BP_ItemMaster 类class引用</li>
+<li>ArmorType E_ArmorType 盔甲类型</li>
+<li>UseAmmo? bool 是否使用弹药</li>
+<li>CurrAmmo int 当前弹药</li>
+<li>MaxAmmo int 最大弹药</li>
+</ul>
+<p>创建 BluePrints Items 文件夹<br>创建 蓝图-Class Actor  BP_ItemMaster<br><img src="/blog/p/614a8811/S_ItemInfo.png" alt="S_ItemInfo.png"></p>
+<p>安装库 [Craft Resources Icons]  会增加文件夹 CraftResourcesIcons</p>
+<p>创建 BluePrints DataTables 文件夹<br>创建 其他-数据表-选择S_ItemInfo DT_Items<br>木头 0 0 wood_10_b 木头 用于制作各种物品的资源 0 Common 0 0 可堆叠100 Resource Helmet<br><img src="/blog/p/614a8811/DT_Items_0001.png" alt="DT_Items_0001.png"></p>
+<h5 id="15-库存"><a href="#15-库存" class="headerlink" title="15 库存"></a>15 库存</h5><p>核心：</p>
+<ol>
+<li>角色蓝图中 按键1触发事件 BPC_PlayerInventory 继承的 BPC_ItemsContainer 中的 AddItemOnServer 事件</li>
+<li>BPC_ItemsContainer<ul>
+<li>AddItem 增加物品</li>
+<li>FindEmptySlot 找到空的槽位</li>
+</ul>
+</li>
+</ol>
+<p>创建文件夹 Inventory 修改为蓝色颜色<br>创建蓝图类 Actor Component BPC_ItemsContainer</p>
+<ul>
+<li>创建变量 Items S_ItemInfo <ul>
+<li>修改类型为 Array</li>
+<li>创建 方法 FindEmptySlot <ul>
+<li>Items<ul>
+<li>[For Each Loop with Break] &#x3D;&gt; [Break S_ItemInfo 中断]<ul>
+<li>Equals ItemId &#x3D;&#x3D; 0 &#x3D;&gt; [Branch] 分支判断</li>
+<li>Outputs<ul>
+<li>Success? bool</li>
+<li>EmptyIndex int</li>
+</ul>
+</li>
+<li>Completed<ul>
+<li>ReturnNode Out生成的节点<ul>
+<li>FoundEmptySlot? true</li>
+<li>EmptySlotIndex</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>创建方法 AddItem，item 来源通过 Inputs 传入<ul>
+<li>增加本地变量 LocalItemInfo S_ItemInfo</li>
+<li>增加本地变量 LocalEmptyIndex int</li>
+<li>set LocalItemInfo</li>
+<li>通过 FindEmptySlot 找到空的槽位<ul>
+<li>Branch<ul>
+<li>True<ul>
+<li>LocalEmptyIndex</li>
+<li>变量Items &#x3D;&gt; Set Array Elem 设置Item，索引值为 LocalEmptyIndex，值为 LocalItemInfo</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Outputs<ul>
+<li>Success? bool 勾选</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>创建 子蓝图类 BPC_PlayerInventory 继承 BPC_ItemsContainer</li>
+</ul>
+<p>移动角色蓝图到 _Main 的 BluePrints 文件夹中</p>
+<ul>
+<li>增加组件 BPC_PlayerInventory<ul>
+<li>Details 设定 30个空的槽位</li>
+</ul>
+</li>
+<li>事件图 中 增加 按键1<ul>
+<li>获取数据表行 Get Data Table Row &#x3D;&gt; DT_Items<ul>
+<li>Data Table DT_Items</li>
+<li>Row Name 1 [要先设置数据表的name才能同步1]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>蓝图类 Actor Component BPC_ItemsContainer</p>
+<ul>
+<li>增加自定义事件 AddItemOnServer<ul>
+<li>详情 Graph 设置 Replicates &#x3D;&gt; Run On Server </li>
+<li>增加 Item S_ItemInfo</li>
+</ul>
+</li>
+<li>增加 AddItem 方法</li>
+</ul>
+<p>调试</p>
+<ul>
+<li>BPC_ItemsContainer 的 set Array Elem 的Item 右键 watch</li>
+<li>BPC_PlayerInventory in BP_FirstPersonCharacter(Server,spawned)</li>
+<li>点击绿色三角形运行，按1键，可以看到物品的变化</li>
+<li>尝试按30次1键，可以看到物品的变化，最后会提示没有空的槽位</li>
+</ul>
+<p>tips:增加路由节点，控制流程更好展示</p>
+<h5 id="16"><a href="#16" class="headerlink" title="16"></a>16</h5><p>小部件</p>
+<ul>
+<li>小地图</li>
+<li>跨界蓝</li>
+<li>库存等</li>
+</ul>
+<p>创建文件夹 _Main&#x2F;Widgets<br>创建文件 UserInterface -&gt; W_MainWidget[Widget Blueprint -&gt; User Widget]<br>创建按钮<br>创建 Canvas Panel</p>
+<ul>
+<li>TextBlock Main HUD<br><img src="/blog/p/614a8811/CanvasPanelMainHUD.png" alt="CanvasPanelMainHUD.png"></li>
+</ul>
+<p>创建蓝图类 SurvivalGamePC[PlayerController]</p>
+<ul>
+<li>Event BeginPlay</li>
+<li>Switch Has Authority</li>
+<li>Create Widget[Construct None] &#x3D;&gt; W_MainWidget,Owning Player &#x3D;&gt; self</li>
+<li>set[创建变量 MainWidgetRef]</li>
+<li>add to viewport<br><img src="/blog/p/614a8811/SurvivalGamePC_add_to_viewport.png" alt="SurvivalGamePC_add_to_viewport.png"></li>
+</ul>
+<p>创建文件夹 Blueprints GameModes<br>创建蓝图类 Blueprints GameModes GM_SurvivalGame[Game Mode Base]<br>第一人称Map 窗口 世界场景设置</p>
+<ul>
+<li>设置游戏模式为 GM_SurvivalGame</li>
+<li>默认 Pawn Class 为 BP_FirstPersonCharacter</li>
+<li>默认 PlayerControllerClass 为 SurvivalGamePC<br><img src="/blog/p/614a8811/GM_SurvivalGame%E4%B8%96%E7%95%8C%E5%9C%BA%E6%99%AF%E8%AE%BE%E7%BD%AE.png" alt="GM_SurvivalGame世界场景设置.png"></li>
+</ul>
+<h5 id="17-玩家统计数据UI"><a href="#17-玩家统计数据UI" class="headerlink" title="17 玩家统计数据UI"></a>17 玩家统计数据UI</h5><p>new f _Main&#x2F;Widgets&#x2F;Textures 并导入文件<br>new f _Main&#x2F;Widgets InventoryWidgets 库存部件文件夹</p>
+<ul>
+<li>new UserInterface -&gt; W_Inventory[Widget Blueprint -&gt; User Widget]</li>
+<li>Size Box<ul>
+<li>详情 Child Layout：Width Override 1650，Height Override 880</li>
+<li>垂直框[Vertical Box]<ul>
+<li>间隔区[Spacer]：详情 Size 80</li>
+<li>水平框[Horizontal Box]：详情 Size &#x3D; Fill<ul>
+<li>垂直框[Vertical Box] ： padding 15 20 15 20 Size &#x3D; Fill<ul>
+<li>间隔区[Spacer]：详情 Size 80 </li>
+<li>水平框[Horizontal Box]：详情 Size &#x3D; Fill<ul>
+<li>边界[Border] ：详情 Size &#x3D; Fill ，Brush Image 选择 InventoryBack<ul>
+<li>垂直框[Vertical Box]<ul>
+<li>水平框[Horizontal Box]：详情 Size &#x3D; Fill<ul>
+<li>Btn Context <ul>
+<li>Text Inventory size28 样式 颜色 透明度0</li>
+</ul>
+</li>
+<li>Btn Context <ul>
+<li>Text Crafting size28 样式 颜色 透明度0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>间隔区[Spacer]：详情 Size 30</li>
+</ul>
+</li>
+<li>垂直框[Vertical Box] ： padding 20 0 20 0 Size &#x3D; Fill<ul>
+<li>边界[Border] ：详情 Size &#x3D; Fill ，Brush Image 选择 PlayerStatsBack<ul>
+<li>垂直框[Vertical Box]<ul>
+<li>水平框[Horizontal Box]：详情 Size &#x3D; Fill<ul>
+<li>Text Player Name 居中 padding-top 20</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>边界[Border] ：padding 20  ，Size &#x3D; Fill Brush Image 选择 PlayerStatsBack</li>
+</ul>
+</li>
+<li>间隔区[Spacer]：详情 Size 80-90</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>open W_MainWidget</p>
+<ul>
+<li>UserCreated 导入 W_Inventory，设置为不可见，<b>通过图表中的按钮触发可见性</b><ul>
+<li>设置 描点[Size To Content] 居中 &amp; 自动调整大小<ul>
+<li>Position 0 0，设置为居中0.5 0.5</li>
+</ul>
+</li>
+<li>行为：Visibility 可视</li>
+</ul>
+</li>
+<li>图表[Graph] 右上角<ul>
+<li>自定义事件 SetInventoryVisibility 设置库存可见性<ul>
+<li>Inputs<ul>
+<li>Visibility? bool</li>
+</ul>
+</li>
+<li>Branch<ul>
+<li>True<ul>
+<li>Set Visibility[Target W_Inventory] 设置可见性<ul>
+<li>New Visibility Visibility</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>False<ul>
+<li>Set Visibility[Target W_Inventory] 设置可见性<ul>
+<li>New Visibility Hidden</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>open SurvivalGamePC</p>
+<ul>
+<li>add v InventoryShown? bool</li>
+<li>i 键</li>
+<li>Tab 键</li>
+<li>自定义事件 InventoryOnClient<ul>
+<li>判断 InventoryShown? bool<ul>
+<li>True<ul>
+<li>Set Inventory Visibility FORM MainWidget<ul>
+<li>Visibility? bool false</li>
+<li>Show Mouse Cursor false 含义：隐藏鼠标光标</li>
+<li>Set Input Mode Game Only FROM self 含义：只能在游戏中使用</li>
+<li>InventoryShown? bool false</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>False<ul>
+<li>Set InventoryVisibility<ul>
+<li>Visibility? bool true</li>
+<li>Show Mouse Cursor true 含义：显示鼠标光标</li>
+<li>Set Input Mode Game And UI FROM self</li>
+<li>InventoryShown? bool true</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/blog/p/614a8811/SurvivalGamePC.png" alt="SurvivalGamePC.png"></p>
+<p><img src="/blog/p/614a8811/W_MainWidget.png" alt="W_MainWidget.png"></p>
+<h5 id="18-创建实际的库存UI"><a href="#18-创建实际的库存UI" class="headerlink" title="18 创建实际的库存UI"></a>18 创建实际的库存UI</h5><p>将下载好的纹理 放入 _Main&#x2F;Widgets&#x2F;Textures 文件夹中</p>
+<p>new W_InventorySlot[用户-Wid] _Main&#x2F;Widgets InventoryWidgets</p>
+<ul>
+<li>尺寸框 [Size Box] 详情 Child Layout：Width Override 75，Height Override 75<ul>
+<li>覆层 [Overlay]<ul>
+<li>[Borer] 重命名 SlotStyle 详情 Image Brush 选择 InventorySlot 居中[水平填充]？</li>
+<li>[Borer] Tex_wood_05_b padding 4</li>
+<li>TopText[TextBlock] 内容DMG100%,是变量 size9 顶部对齐 padding 7 5 5 5，引用 透明度100 </li>
+<li>BottomText[TextBlock] 内容30&#x2F;30,是变量 size13 底部对齐 padding 5 5 5 10，引用 透明度100</li>
+<li>尺寸框 [Size Box] Fill Color 绿色 padding 5，Height Override 7<ul>
+<li>Item HP[Progress Bar]</li>
+</ul>
+</li>
+<li>QuantityText[TextBlock] 内容x100,是变量 size13 详情 Text 0 居中 padding 5 5 5 10，引用 透明度100</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>tips:</p>
+<ul>
+<li>填充屏幕，要选择屏幕上所需，这样宽度就正常显示</li>
+</ul>
+<h5 id="19-实现-库存联动UI"><a href="#19-实现-库存联动UI" class="headerlink" title="19 实现 库存联动UI"></a>19 实现 库存联动UI</h5><p>new W_ItemContainerGrid [用户-Wid] _Main&#x2F;Widgets InventoryWidgets目录</p>
+<ul>
+<li><p>滚动框 [Scroll Box]</p>
+<ul>
+<li>Grid [Uniform Grid Panel] 是变量</li>
+</ul>
+</li>
+<li><p>图表 生成</p>
+</li>
+<li><p>add var SlotsPerRow int，可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]</p>
+</li>
+<li><p>add var 总槽数TotalSlots int，可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]</p>
+</li>
+<li><p>add var ContainerType 下方创建 E_ContainerType，可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]</p>
+</li>
+<li><p>add var Slots W_InventorySlot Array</p>
+</li>
+<li><p>add fun AddSlots 增加槽位</p>
+<ul>
+<li>Inputs<ul>
+<li>Amount int 数量</li>
+</ul>
+</li>
+<li>add local var LocalLoopIndex int</li>
+<li>For Loop<ul>
+<li>First Index <code>一定是1，不然会多一个卡槽</code></li>
+<li>Loop Body<ul>
+<li>Create Widget</li>
+</ul>
+</li>
+<li>增加到 Slots Array 中 [Slots数组的add方法]</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>add fun AddSlotToGrid</p>
+<ul>
+<li>Inputs<ul>
+<li>Index int</li>
+<li>Slot W_InventorySlot</li>
+</ul>
+</li>
+<li>add local var LocalSlotIndex int</li>
+<li>add local var LocalSlot W_InventorySlot</li>
+<li>将子项添加到统一网格 [add Child to Uniform Grid]<ul>
+<li>set Row by Slot Index &#x2F; Slots Per Row 向下取整</li>
+<li>set Column</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>new 枚举 E_ContainerType</p>
+<ul>
+<li>PlayerInventory 玩家库存</li>
+<li>PlayerHotbar 玩家快捷栏</li>
+<li>PlayerStorage 玩家存储</li>
+<li>PlayerArmor 玩家护甲</li>
+</ul>
+<p>写完事件图[核心事件启动逻辑、AddSlot、AddSlotToGrid]后，打开 W_Inventory，导入 W_ItemContainerGrid by User Created中。</p>
+<ul>
+<li>详情：填充Fill，padding20<ul>
+<li>Slots Per Row 5</li>
+<li>Total Slots 30</li>
+<li>Container Type Player Inventory</li>
+</ul>
+</li>
+</ul>
+<p>隐藏 W_InventorySlot hidden</p>
+<ul>
+<li>SlotStyle 可见</li>
+<li>ItemIcon 可见</li>
+<li>TopText</li>
+<li>BottomText</li>
+<li>Item HP</li>
+</ul>
+<h5 id="20"><a href="#20" class="headerlink" title="20"></a>20</h5><p>open BPC_ItemsContainer</p>
+<ul>
+<li><p>Add Fun UpdateUI</p>
+<ul>
+<li>add Var ContainerType E_ContainerType ，可编辑实例[Instance Editable]</li>
+<li>Inputs<ul>
+<li>Index Ing</li>
+<li>ItemInfo S_ItemInfo</li>
+<li>ResetSlot? bool</li>
+</ul>
+</li>
+<li>判断是否 ResetSlot? bool<ul>
+<li>True<ul>
+<li>Set Array Elem<ul>
+<li>Index</li>
+<li>ItemInfo</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>False<ul>
+<li>切换 ContainerType 枚举使用 Switch on Enum</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>AddItem</p>
+<ul>
+<li>更新Node时，同时更新UI</li>
+</ul>
+</li>
+</ul>
+<p>add Interfaces 文件夹 [_Main&#x2F;Blueprints 目录]<br>add BPI_SurvivalCharacter 蓝图接口 文件 [_Main&#x2F;Blueprints&#x2F;Interfaces 目录]</p>
+<ul>
+<li>add Fun GetControllerFromChar<ul>
+<li>Return Node</li>
+<li>ControllerRef [SurvivalGamePC 对象引用]</li>
+</ul>
+</li>
+</ul>
+<p>add BPI_SurvivalGamePC 蓝图接口 文件 [_Main&#x2F;Blueprints Interface 目录]</p>
+<ul>
+<li>add Fun SurvivalGamePCRef<ul>
+<li>Return Node</li>
+<li>PlayerControllerRef [SurvivalGamePC 对象引用]</li>
+</ul>
+</li>
+</ul>
+<p>SurvivalGamePC 类设置 蓝图接口 增加 BPI_SurvivalGamePC<br>左边总览可以看到 SurvivalGamePCRef</p>
+<p>BP_FirstPersonCharacter 类设置 接口 增加 BPI_SurvivalCharacter<br>左边总览可以看到 GetControllerFromChar</p>
+<ul>
+<li>Get Controller From Char</li>
+<li>SurvivalGamePCRef<ul>
+<li>FROM GET Controller</li>
+</ul>
+</li>
+<li>Return Node<ul>
+<li>ControllerRef</li>
+</ul>
+</li>
+</ul>
+<p>open BPC_ItemsContainer</p>
+<ul>
+<li>Get Controller From Char<ul>
+<li>FROM Get Owner</li>
+</ul>
+</li>
+<li>Update Item Slot<ul>
+<li>FORM 下方的事件</li>
+</ul>
+</li>
+</ul>
+<p>open SurvivalGamePC</p>
+<ul>
+<li>add 自定义事件 UpdateItemSlot 重点 <strong>在其拥有的客户端上运行</strong><ul>
+<li>Inputs<ul>
+<li>ContainerType E_ContainerType</li>
+<li>Index int</li>
+<li>ItemInfo S_ItemInfo</li>
+</ul>
+</li>
+<li>更新的是 MainWidgetRef 中的 W_Inventory 的 W_ItemContainerGrid 的 Slots，通过变量 Slots 的 Get</li>
+<li>Is Valid? 判断是否有效<ul>
+<li>有效 执行 W_InventorySlot 的 UpdateSlot</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Open W_InventorySlot</p>
+<ul>
+<li>add 自定义事件 UpdateSlot<ul>
+<li>Inputs<ul>
+<li>ItemInfo S_ItemInfo 设置变量 ItemInfo</li>
+<li>Break S_ItemInfo 指定元素可见<ul>
+<li>ItemIcon<ul>
+<li>设置来自纹理的笔刷 [Set Brush From Texture]</li>
+<li>设置可见性 [Set Visibility]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>总结：<br>UpdateUI 方法：<br>传递 索引 ItemInfo 是否重置<br>如果重置，就直接设置<br>执行 UpdateItemSlot 方法，传递 容器、索引和ItemInfo</p>
+<p>检查点：</p>
+<ol>
+<li>BP_FirstPersonCharacter 1key 触发事件，库存UI显示</li>
+<li>BPC_ItemsContainer</li>
+<li>SurvivalGamePC</li>
+<li>W_InventorySlot UpdateSlot</li>
+<li>BP_FirstPersonCharacter GetControllerFromChar</li>
+</ol>
+<ul>
+<li>PlayerControllerRef<ul>
+<li>FROM Get Controller</li>
+</ul>
+</li>
+</ul>
+<h5 id="21-amp-22-能够将物品-使用鼠标左键-滑动"><a href="#21-amp-22-能够将物品-使用鼠标左键-滑动" class="headerlink" title="21 &amp; 22 能够将物品 使用鼠标左键 滑动"></a>21 &amp; 22 能够将物品 使用鼠标左键 滑动</h5><p>open W_InventorySlot<br>重写父级方法<br>按下鼠标按钮 [On Mouse Button Down]</p>
+<ul>
+<li>Mouse Event 按下时侦测拖动 [Detect Drag if Pressed]</li>
+<li>Drag Key 鼠标左键</li>
+<li>return node</li>
+</ul>
+<p>open W_InventorySlot Graph</p>
+<ul>
+<li>add var HasItemInSlot? bool</li>
+<li>UpdateSlot 事件 第三个 Set HasItemInSlot? bool &#x3D; true</li>
+</ul>
+<p>copy W_InventorySlot rename W_DraggedItem<br>open W_DraggedItem 增加变量 下面变量全部 可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]</p>
+<ul>
+<li>add var ImageIcon Texture 2D</li>
+<li>add var TextTop Text</li>
+<li>add var ItemType E_ItemType</li>
+<li>add var Quantity Int</li>
+<li>add var UserAmmo? bool</li>
+<li>add var CurrAmmo int</li>
+<li>add var MaxAmmo int</li>
+<li>add var CurrHP int</li>
+<li>add var MaxHP int </li>
+<li>删除 变量 HasItemInSlot? bool</li>
+</ul>
+<p>创建蓝图类 ItemDrag _Main&#x2F;Blueprints Widgets InventoryWidgets 目录 DragDropOperation 类型</p>
+<ul>
+<li>创建变量 并且全部 可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]<ul>
+<li>add var SlotIndex int</li>
+<li>add var FromContainerType E_ContainerType</li>
+<li>add var ItemType E_ItemType</li>
+<li>add var ArmorType E_ArmorType</li>
+</ul>
+</li>
+</ul>
+<p>open W_InventorySlot 重写父类方法 发现拖动时 [On Drag Detected] 方法</p>
+<ul>
+<li>判断 变量 HasItemInSlot?</li>
+<li>True<ul>
+<li>创建控件 [Create Widget] W_Dragged<ul>
+<li>W_DraggedItem</li>
+<li>Owning Player ?????</li>
+<li>其他成员使用 ItemInfo Break S_ItemInfo 进行赋值<ul>
+<li>直接拖动，自动会转换格式</li>
+<li>特殊的：ItemDamage &#x3D;&#x3D;&#x3D; TextTop</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>创建拖放操作 [Create Drag] Item</li>
+<li>设置拖放操作 [Set Drag] Item<ul>
+<li>上控件 &#x3D;&gt; 本拖放的 Default Drag Visual</li>
+<li>class ItemDrag</li>
+<li>Slot Index 提升变量 ItemIndex</li>
+<li>FromContainer 提升变量 FromContainerType E_ContainerType</li>
+<li>Item Type 使用Break的ItemInfo的 ItemType</li>
+<li>Armor Type 使用Break的ItemInfo的 ArmorType</li>
+<li>return node</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>open W_DraggedItem</p>
+<ol>
+<li>删除事件 UpdateSlot</li>
+<li>重写事件 Event Construct</li>
+</ol>
+<ul>
+<li>获取 ItemIcon 设置来自纹理的笔刷 [Set Brush From Texture] <ul>
+<li>ItemIcon 目标</li>
+<li>ImageIcon 纹理资产</li>
+</ul>
+</li>
+<li>ItemType [Selection] 切换枚举使用 [Switch on Enum]<ul>
+<li>Resource<ul>
+<li>Quantity Text &#x3D;&gt; 设置文本 [Set Text(Text)] <ul>
+<li>Quantity &#x3D;&gt; Format Text x{quantity} &#x3D;&gt; [In text]</li>
+</ul>
+</li>
+<li>Quantity Text &#x3D;&gt; Set Visibility</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>松开鼠标按钮</p>
+<h5 id="23-处理后端-能够将物品鼠标左键从一个插槽转移到另一个插槽"><a href="#23-处理后端-能够将物品鼠标左键从一个插槽转移到另一个插槽" class="headerlink" title="23 处理后端 能够将物品鼠标左键从一个插槽转移到另一个插槽"></a>23 处理后端 能够将物品鼠标左键从一个插槽转移到另一个插槽</h5><p>open W_InventorySlot<br>重写 放置时[On Drop] 方法</p>
+<p>open BP_FirstPersonCharacter</p>
+<ul>
+<li>圈 1Key 触发事件 Rename 增加物品Debug</li>
+<li>add 自定义事件 OnSlotDropOnServer 运行在服务器中，防止作弊  实际的物品放置逻辑<ul>
+<li>Inputs<ul>
+<li>TargetContainerType E_ContainerType</li>
+<li>ContainerType E_ContainerType</li>
+<li>FromIndex int</li>
+<li>DroppedIndex int 落下位置的索引</li>
+<li>ArmorType E_ArmorType</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>open BPI_SurvivalCharacter</p>
+<ul>
+<li>add fun GetSurvivalCharacterRef<ul>
+<li>Output<ul>
+<li>SurvivalCharacterRef [BP_FirstPersonCharacter 对象引用]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>open BP_FirstPersonCharacter 左下方出现 GetSurvivalCharacterRef &amp;&amp; open</p>
+<ul>
+<li>self</li>
+</ul>
+<p>open W_InventorySlot &amp;&amp; open On Drop 方法</p>
+<ul>
+<li>Operator &#x3D;&gt; To Cast To ItemDrag 防止蓝图总是被加载<ul>
+<li>As Item Drag<ul>
+<li>As Item Drag 的 SlotIndex &#x3D;&gt; set LocalSlotIndex</li>
+<li>As Item Drag 的 ContainerType &#x3D;&gt; set LocalFromContainerType</li>
+</ul>
+</li>
+<li>Get Survival Character Ref<ul>
+<li>目标 获取 玩家 角色</li>
+</ul>
+</li>
+<li>On Slot Drop On Server<ul>
+<li>Target Container &#x3D;&gt; FormContainerType</li>
+<li>From Target Container &#x3D;&gt; LocalFromContainerType</li>
+<li>From Index &#x3D;&gt; SlotIndex</li>
+<li>Dropped Index<ul>
+<li>FROM Item Index</li>
+</ul>
+</li>
+<li>Armor Type<ul>
+<li>FROM Cast To ItemDrag 的 Armor Type</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Return</li>
+</ul>
+<p>open BPC_ItemsContainer<br>增加自定义事件 OnSlotDrop 放置物品 在服务器上运行</p>
+<ul>
+<li>Inputs<ul>
+<li>FromContainer BPC_ItemsContainer</li>
+<li>FromIndex int</li>
+<li>DroppedIndex int</li>
+</ul>
+</li>
+<li>Replicates Run On Server</li>
+</ul>
+<p>增加 FUN HandleSlotDrop 增加描述 在子类重写 红色</p>
+<ul>
+<li>Inputs<ul>
+<li>FromContainerType BPC_ItemsContainer</li>
+<li>FromIndex int</li>
+<li>DroppedIndex int</li>
+</ul>
+</li>
+</ul>
+<p>图表中 OnSlotDrop &#x3D;&gt; HandleSlotDrop ，并连接三个参数</p>
+<p>open BP_FirstPersonCharacter 的 自定义事件 OnSlotDropOnServer<br>放置物品，执行 OnSlotDrop方法，目标和来源都是 BPC_PlayerInventory，相当于从库存中换了一个位置<br>OnSlotDropOnServer &#x3D;&gt; OnSlotDrop<br>BPC_PlayerInventory -&gt; 选择 select PlayerInventory 是来源也是目标</p>
+<h5 id="24-完成-库存物品拖放-逻辑"><a href="#24-完成-库存物品拖放-逻辑" class="headerlink" title="24 完成 库存物品拖放 逻辑"></a>24 完成 库存物品拖放 逻辑</h5><p>open BPC_ItemsContainer add Fun TransferItem</p>
+<ul>
+<li>Inputs<ul>
+<li>ToComponent BPC_ItemsContainer</li>
+<li>ToSpecificIndex int</li>
+<li>ItemIndexToTransfer int</li>
+</ul>
+</li>
+</ul>
+<p>open BPC_PlayerInventory<br>重写 方法 HandleSlotDrop</p>
+<ul>
+<li>全部提升为 局部变量 Local开头</li>
+<li>LocalFromContainerType 的 ContainerType 的 Switch On E_ContainerType<ul>
+<li>PlayerInventory</li>
+<li>Transfer Item<ul>
+<li>目标 &#x3D;&gt; LocalFromContainerType</li>
+<li>To Component &#x3D;&gt; self</li>
+<li>To Specific Index &#x3D;&gt; LocalDroppedIndex</li>
+<li>Item Index To Transfer &#x3D;&gt; LocalFromIndex</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>return node</li>
+</ul>
+<p>open BPC_ItemsContainer 的 TransferItem</p>
+<ul>
+<li>删除调用父类的方法</li>
+<li>全部提升为 局部变量 Local开头<ul>
+<li>特殊：ToComponent &#x3D;&gt; 存为 LocalReceiverComponent</li>
+<li>特殊：ItemIndexToTransfer &#x3D;&gt; 存为 LocalItemIndex</li>
+</ul>
+</li>
+<li>Is Valid 检查 LocalReceivedItemInfo 检查传入的组件，是否有效<ul>
+<li>True<ul>
+<li>GetItemAtIndex by LocalItemIndex item的值 设置局部变量 LocalItemToTransfer</li>
+<li>AddItemToIndex<ul>
+<li>目标 &#x3D;&gt; LocalReceiverComponent</li>
+<li>Item &#x3D;&gt; LocalItemToTransfer</li>
+<li>LocalSpecificIndex &#x3D;&gt; LocalToSpecificIndex</li>
+<li>FromIndex &#x3D;&gt; LocalItemIndex</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>add Fun FindItemByIndex<ul>
+<li>思路：遍历所有的物品，找到对应的物品，返回索引。<ul>
+<li>Items 是否为有效索引[Is Valid Index]</li>
+<li>Items GET方法 By Index</li>
+<li>判断失败 也返回空</li>
+<li>Set Index 为 LocalIndex</li>
+<li>方法设置为 纯函数[Pure] 不会引入任何副作用，确保某些函数不会修改任何状态 高效</li>
+</ul>
+</li>
+<li>Inputs<ul>
+<li>Index int</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>add Fun AddItemToIndex<ul>
+<li>思路：<ul>
+<li>先判断 槽位是否是空的 下方 IsSlotEmpty?</li>
+</ul>
+</li>
+<li>Inputs<ul>
+<li>Item S_ItemInfo</li>
+<li>SpecificIndex int</li>
+<li>FromIndex int</li>
+</ul>
+</li>
+<li>全部提升为 局部变量 Local开头</li>
+<li>判断<ul>
+<li>false return Success? false</li>
+</ul>
+</li>
+<li>Items 的 设置阵列元素 [Set Array Elem]<ul>
+<li>Index &#x3D; LocalIndex</li>
+<li>Item &#x3D; LocalItem</li>
+</ul>
+</li>
+<li>Return Success? true</li>
+<li>Outputs<ul>
+<li>Success? bool</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>add fun IsSlotEmpty?<ul>
+<li>Inputs<ul>
+<li>Index int</li>
+</ul>
+</li>
+<li>Items GET方法 By Index</li>
+<li>判断是否有效 Break S_ItemInfo <ul>
+<li>True<ul>
+<li>ItemId &#x3D;&#x3D; 0 槽位是空</li>
+<li>return node SlotEmpty? true</li>
+</ul>
+</li>
+<li>False<ul>
+<li>return node SlotEmpty? false</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Outputs<ul>
+<li>SlotEmpty? bool</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>open BPC_PlayerInventory<br>重写 方法 AddItemToIndex ，增加 更新UI逻辑</p>
+<ul>
+<li>Get Owner 的 Get Controller From Char</li>
+<li>Update Item Slot 运行在客户端上<ul>
+<li>目标 上方char的 Controller ref</li>
+<li>ContainerType 是 父类的 ContainerType，可以直接获取</li>
+<li>Index 是 LocalToSpecificIndex</li>
+<li>ItemInfo 是 父类的 FindItemByIndex By SpecificIndex</li>
+</ul>
+</li>
+<li>Return Node Success? bool</li>
+</ul>
+<p>open W_ItemContainerGrid 图表 AddSlots 方法，Create Widget 后面 Return Value</p>
+<ul>
+<li>Set ItemIndex<ul>
+<li>ItemIndex &#x3D; Slots-&gt;add 返回的值</li>
+</ul>
+</li>
+</ul>
+<p>然后就可以拖动复制了。</p>
+<p>接下来新增 BPC_ItemsContainer 的 RemoveItemByIndex 方法，用于删除移动前的物品</p>
+<ul>
+<li>Inputs<ul>
+<li>Index int</li>
+</ul>
+</li>
+<li>Items 的 设置阵列元素 [Set Array Elem]<ul>
+<li>Index &#x3D; LocalIndex</li>
+<li>Item &#x3D; 留空即可</li>
+</ul>
+</li>
+<li>Return Node Success? true</li>
+</ul>
+<p>什么时候调用呢？BPC_ItemsContainer 的 TransferItem 方法中</p>
+<ul>
+<li>AddItemToIndex 后 判断Success? bool</li>
+<li>True<ul>
+<li>RemoveItemByIndex<ul>
+<li>Index &#x3D; LocalItemIndex</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>W_InventorySlot 中 新增 自定义 方法 ResetSlot</p>
+<ul>
+<li>隐藏所有的元素 Set Visibility Hidden<ul>
+<li>ItemIcon</li>
+<li>TopText</li>
+<li>BottomText</li>
+<li>Item HP</li>
+<li>Quantity Text</li>
+</ul>
+</li>
+<li>Set HasItemInSlot? bool &#x3D; false</li>
+</ul>
+<p>SurvivalGamePC 中的 事件图中</p>
+<ul>
+<li>复制 UpdateItemSlot 重命名为 ResetItemSlot</li>
+<li>设置 运行在客户端</li>
+<li>Update Slot Event 换成 ResetSlot</li>
+</ul>
+<p>open BPC_PlayerInventory 重写 RemoveItemByIndex 方法<br>增加 更新UI逻辑</p>
+<ul>
+<li>Get Owner 的 Get Controller From Char</li>
+<li>Reset Item Slot 运行在客户端上<ul>
+<li>目标 上方char的 Controller ref</li>
+<li>ContainerType 是 父类的 ContainerType，可以直接获取</li>
+<li>Index 是 Input Index</li>
+</ul>
+</li>
+</ul>
+<p>整体思路：</p>
+<ol>
+<li>第一人称角色蓝图 [BP_FirstPersonCharacter] 中 添加了蓝图组件 玩家库存组件 [BPC_PlayerInventory]</li>
+<li>玩家库存组件 [BPC_PlayerInventory] 继承了 父类 物品容器蓝图 [BPC_ItemsContainer]<ul>
+<li>物品蓝图中有如下方法：<ul>
+<li>AddItem 增加物品</li>
+<li>FindEmptySlot 找到空的槽位</li>
+<li>UpdateUI 更新UI</li>
+<li>UpdateItemSlot 更新物品槽位</li>
+<li>HandleSlotDrop 处理物品槽位</li>
+<li>TransferItem 转移物品</li>
+<li>FindItemByIndex 通过索引查找物品</li>
+<li>AddItemToIndex 增加物品到指定的索引</li>
+<li>IsSlotEmpty? 判断槽位是否为空</li>
+<li>ResetItemSlot 重置物品槽位</li>
+<li>RemoveItemByIndex 删除物品</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>角色蓝图</code> [BP_FirstPersonCharacter] 1 key 触发 <code>玩家库存组件</code> [BPC_PlayerInventory] 中的 <code>AddItemOnServer</code> 事件<ul>
+<li><code>AddItemOnServer</code> 事件中调用了 <code>AddItem</code> 方法<ul>
+<li>先看 index 是否是空槽位</li>
+<li>设置 item 进入 Items 指定 Index 的位置</li>
+<li>更新UI事件<ul>
+<li>执行 <code>拥有者</code> 的 <code>Get Controller From Char</code> 方法 的 SurvivalGamePC 中的 <code>UpdateItemSlot</code> 事件<ul>
+<li>执行 W_Inventory 的 <code>UpdateSlot</code> 方法<ul>
+<li>设置 不是空槽位</li>
+<li>设置 多个参数可见</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>附加：W_InventorySlot 中的 已有鼠标按键被按下事件 [On Mouse Button Down] 方法<ul>
+<li>监听鼠标左键</li>
+</ul>
+</li>
+<li>附加：W_InventorySlot 中的 控件开始拖动事件 [OnDropDetected] 方法</li>
+<li>附加：W_InventorySlot 中的 控件拖动放下事件 [OnDrop] 方法</li>
+</ol>
+<ul>
+<li>获取玩家角色 Get Survival Character Ref</li>
+<li>执行 插槽放置事件 [On Slot Drop On Server] <ul>
+<li>执行 BPC_ItemsContainer 的 [Handle Slot Drop] 自定义事件<ul>
+<li>执行 Handle Slot Drop 方法，由 玩家库存组件 [BPC_PlayerInventory] 重写<ul>
+<li>判断来源是玩家库存组件</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>调试 BPC_ItemsContainer 的 AddItem 观察Items的变化</p>
+<h5 id="25-amp-26-创建快捷栏"><a href="#25-amp-26-创建快捷栏" class="headerlink" title="25 &amp; 26 创建快捷栏"></a>25 &amp; 26 创建快捷栏</h5><p>快捷栏 砍树 收集木头</p>
+<p>下载并导入资源 Hotbar.TGA、BoxButton.TGA 安装在 _Main&#x2F;Widgets&#x2F;Textures 文件夹中<br>new UserInterface -&gt; W_Hotbar [Widget Blueprint -&gt; User Widget] 在 _Main&#x2F;Widgets InventoryWidgets 目录<br>size box </p>
+<ul>
+<li>详情 Child Layout：Width Override 740，Height Override 100</li>
+<li>Desired on Screen</li>
+<li>Border  0.7 透明度  Brush Image 选择 Hotbar 居中<ul>
+<li>垂直框[Vertical Box]：Size &#x3D; Fill<ul>
+<li>间隔区[Spacer]：Size 10</li>
+<li>水平框[Horizontal Box]：<ul>
+<li>用户 创建 W_ItemContainerGrid<ul>
+<li>Size &#x3D; Fill</li>
+<li>Slots Per Row 9</li>
+<li>Total Slots 8</li>
+<li>Container Type Player Hotbar</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>水平框[Horizontal Box]<ul>
+<li>统一网格 [Uniform Grid Panel] Size &#x3D; Fill<ul>
+<li>边界 [Border] Brush Image 选择 BoxButton 居中<ul>
+<li>文本块 [Text Block]：Size &#x3D; Fill<ul>
+<li>Text 1<ul>
+<li>设置文本 [Set Text(Text)] <ul>
+<li>1</li>
+</ul>
+</li>
+<li>设置字体 [Set Font] <ul>
+<li>Size 9</li>
+<li>Column 0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>边界 [Border]：Size &#x3D; Fill Brush Image 选择 BoxButton 居中<ul>
+<li>文本块 [Text Block]：Size &#x3D; Fill<ul>
+<li>Text 2<ul>
+<li>设置文本 [Set Text(Text)]<ul>
+<li>2</li>
+</ul>
+</li>
+<li>设置字体 [Set Font]<ul>
+<li>Size 9</li>
+<li>Column 1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>… 8个</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>open W_MainWidget 添加 W_Hotbar <code>注意不要拖进左下角层级中，拖到右边的屏幕中，不然会缩放</code></p>
+<ul>
+<li>底部居中</li>
+<li>设置 描点[Size To Content] 居中 &amp; 自动调整大小<ul>
+<li>Position 0 0，设置为居中0.5 1.2</li>
+</ul>
+</li>
+</ul>
+<h5 id="27-创建快捷栏库存蓝图子类"><a href="#27-创建快捷栏库存蓝图子类" class="headerlink" title="27 创建快捷栏库存蓝图子类"></a>27 创建快捷栏库存蓝图子类</h5><p>创建 蓝图类 BPC_PlayerHotbar 继承 BPC_ItemsContainer 在 _Main&#x2F;Blueprints Inventory 目录</p>
+<p>open BP_FirstPersonCharacter 添加组件 BPC_PlayerHotbar</p>
+<ul>
+<li>设置 Items 为 8个空的槽位</li>
+<li>设置 ContainerType 为 PlayerHotbar</li>
+</ul>
+<h5 id="28-创建可装备的物品-相关的文件：蓝图、枚举、结构、接口"><a href="#28-创建可装备的物品-相关的文件：蓝图、枚举、结构、接口" class="headerlink" title="28 创建可装备的物品 相关的文件：蓝图、枚举、结构、接口"></a>28 创建可装备的物品 相关的文件：蓝图、枚举、结构、接口</h5><p>根据 ItemMaster 父类蓝图 在 _Main&#x2F;Blueprints&#x2F;Items 目录 创建子类 BP_EquipableMaster 可装备的类</p>
+<p>创建 Equipable 文件夹 在 _Main&#x2F;Blueprints&#x2F;Items 目录<br>创建 第一人称文件：根据 EquipableMaster 父类蓝图 在 Equipable 目录 创建子类 BP_FirstPersonEquipable<br>创建 第三人称文件：复制 BP_FirstPersonEquipable 重命名为 BP_ThirdPersonEquipable</p>
+<p>创建蓝图枚举 E_EquipableState 可装备状态 在 _Main&#x2F;Blueprints Enums 目录</p>
+<ul>
+<li>Hatchet 斧头</li>
+<li>Bow 弓</li>
+<li>Rock 石头</li>
+<li>Rifle 步枪</li>
+<li>RocketLauncher 火箭发射器</li>
+<li>Default 默认</li>
+<li>Spear 矛</li>
+<li>Swimming 游泳</li>
+</ul>
+<p>创建蓝图结构 S_EquipableInfo 在 _Main&#x2F;Blueprints&#x2F;Structures 目录</p>
+<ul>
+<li>SocketName Name </li>
+<li>AnimationState E_EquipableState</li>
+<li>FirstPersonEquipableClass BP_FirstPersonEquipable 类引用 不然子类无法设置</li>
+</ul>
+<p>创建 蓝图接口 BPI_EquipableItem 在 _Main&#x2F;Blueprints&#x2F;Interfaces 目录</p>
+<ul>
+<li>add fun GetEquipableRef<ul>
+<li>Outputs<ul>
+<li>EquipableRef [BP_EquipableMaster 对象引用]</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>Open BP_EquipableMaster</p>
+<ul>
+<li>add var EquipableInfo S_EquipableInfo</li>
+<li>默认类 禁用 [Start with Tick Enabled] 提高性能和优化游戏，不用每一帧都执行</li>
+<li>类设置 增加 接口 BPI_EquipableItem</li>
+<li>编译保存后 打开 GetEquipableRef<ul>
+<li>增加对自身的引用</li>
+</ul>
+</li>
+</ul>
+<h5 id="29-创建-工具、斧头-的相关文件"><a href="#29-创建-工具、斧头-的相关文件" class="headerlink" title="29 创建 工具、斧头 的相关文件"></a>29 创建 工具、斧头 的相关文件</h5><p>创建文件夹 _Main&#x2F;Meshes<br>创建文件夹 _Main&#x2F;Meshes&#x2F;Equipables<br>创建文件夹 _Main&#x2F;Widgets&#x2F;Textures&#x2F;ItemIcon<br>下载并导入资源 StoneHatchet.TGA 安装在 _Main&#x2F;Widgets&#x2F;Textures&#x2F;ItemIcon 文件夹中<br>下载并导入资源 SM_Hatchet.fbx 安装在 _Main&#x2F;Meshes&#x2F;Equipables 文件夹中</p>
+<p>创建文件夹 _Main Materials Equipables Materials<br>将资源文件 Material_001 移动到新建的文件夹 _Main Materials Equipables Materials 中<br>将 axe_low_Material.001开头的四个文件 移动到新建的文件夹 _Main&#x2F;Meshes&#x2F;Equipables&#x2F;Materials 中</p>
+<p>打开 Material_001 将四个文件拖入到 Material_001 中</p>
+<ul>
+<li>浅黄色 BaseColor</li>
+<li>黑白色 Metallic 金属色</li>
+<li>全白色 Roughness 粗糙度</li>
+<li>蓝色 Normal 普通的</li>
+</ul>
+<p>保存退出后 Open SM_Hatchet 可以看到效果</p>
+<p>创建文件夹 Tools、Tools&#x2F;Hatchet 在 _Main&#x2F;Blueprints&#x2F;Items&#x2F;Equipable 目录中<br>创建 BP_FirstPersonEquipable 的子类 BP_FP_Hatchet[第一人称] 进入 Tools<br>创建 BP_ThirdPersonEquipable 的子类 BP_TP_Hatchet[第三人称] 进入 Tools<br>创建 BP_FP_Hatchet 的子类 BP_FP_StoneHatchet 进入 Tools&#x2F;Hatchet<br>创建 BP_TP_Hatchet 的子类 BP_TP_StoneHatchet 进入 Tools&#x2F;Hatchet</p>
+<p>Open BP_FP_Hatchet 增加 静态网格 来放置斧头</p>
+<ul>
+<li>静态网格 选择 SM_Hatchet<br>Open BP_FP_Hatchet 增加 静态网格 来放置斧头</li>
+<li>静态网格 选择 SM_Hatchet</li>
+</ul>
+<p>Open DT_Items 数据表 添加一行，并且设置行命名为 2</p>
+<ul>
+<li>ItemId 2</li>
+<li>ItemQuantity 1 数量</li>
+<li>ItemIcon 选择 StoneHatchet</li>
+<li>ItemName 石斧</li>
+<li>ItemDescription 石斧</li>
+<li>ItemDamage 100</li>
+<li>ItemRarity Common</li>
+<li>ItemCurHP 100</li>
+<li>ItemMaxHP 100</li>
+<li>IsStackable? 不可堆叠</li>
+<li>StackSize 1</li>
+<li>ItemType Equipable 可装备的</li>
+<li>ItemClassRef BP_TP_StoneHatchet</li>
+<li>ArmorType Helmet 头盔</li>
+</ul>
+<h5 id="30-创建工具、斧头的UI-以及快捷栏逻辑"><a href="#30-创建工具、斧头的UI-以及快捷栏逻辑" class="headerlink" title="30 创建工具、斧头的UI 以及快捷栏逻辑"></a>30 创建工具、斧头的UI 以及快捷栏逻辑</h5><p>补充：使用快捷栏中的物品 设置斧头</p>
+<p>下载并导入资源 HatchetIdleTP.FBX 和 Hatchet_Idle.FBX 安装在 Man Animations 文件夹中<br>骨骼选择 UE4_Mannequin_Skeleton</p>
+<p>创建 拿着斧头的 动画混合空间 在 _Main Animations，复制 FirstPersonBS 重命名为 HatchetBS_FP 这是第一人称的<br>open this<br>动画编辑</p>
+<ul>
+<li>Hatchet_Idle 0</li>
+<li>Hatchet_Walk 600</li>
+<li>Hatchet_Run 800</li>
+</ul>
+<p>创建 拿着斧头的 动画混合空间 在 _Main Animations，复制 ThirdPersonBS 重命名为 HatchetBS_TP 这是第三人称的<br>open this<br>动画编辑</p>
+<ul>
+<li>HatchetIdleTP 0</li>
+<li>Running1 600</li>
+<li>Running2 800</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter</p>
+<ul>
+<li>add var EquippedState E_EquipableState</li>
+<li>修改 详情 EquippedState 为 Hatchet</li>
+</ul>
+<p>OPEN FirstPerson_AnimBP </p>
+<ul>
+<li>增加变量 EquippedItem E_EquipableState 默认值设置为 Default</li>
+<li>找到 Idle&#x2F;Walk&#x2F;Run<ul>
+<li>Speed 先设置变量 默认值是800</li>
+<li>FirstPersonBS_FP</li>
+<li>[Blend Poses (E_EquipableState)] 根据不同的装备状态，播放不同的动画<ul>
+<li>增加 添加元素引脚 Hatchet [Pose]<ul>
+<li>HatchetBS_FP<ul>
+<li>Speed 是当前的 Speed</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Active Enum Item &lt;&#x3D;&gt; 变量 EquippedItem</li>
+<li>Default Blend Time 0.1</li>
+<li>Hatchet Blend Time 0.1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>事件蓝图更新动画 [EventBlueprintUpdateAnimation]</p>
+<ul>
+<li>增加 Get Survival Character Ref<ul>
+<li>目标 Get Owner 的 Return Value</li>
+</ul>
+</li>
+<li>设置变量 EquippedState [Set Equipped State]<ul>
+<li>目标 SurvivalCharacterRef</li>
+</ul>
+</li>
+</ul>
+<p>OPEN ThirdPerson_AnimBP</p>
+<ul>
+<li>增加变量 EquippedItem E_EquipableState 默认值设置为 Default</li>
+<li>找到 Idle&#x2F;Walk&#x2F;Run<ul>
+<li>Speed 先设置变量 默认值是800</li>
+<li>ThirdPersonBS</li>
+<li>[Blend Poses (E_EquipableState)] 根据不同的装备状态，播放不同的动画<ul>
+<li>增加 添加元素引脚 Hatchet [Pose]<ul>
+<li>HatchetBS_TP<ul>
+<li>Speed 是当前的 Speed</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Active Enum Item &lt;&#x3D;&gt; 变量 EquippedItem</li>
+<li>Default Blend Time 0.1</li>
+<li>Hatchet Blend Time 0.1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>事件蓝图更新动画 [EventBlueprintUpdateAnimation]</p>
+<ul>
+<li>增加 Get Survival Character Ref<ul>
+<li>目标 Get Owner 的 Return Value</li>
+</ul>
+</li>
+<li>设置变量 EquippedState [Set Equipped State]<ul>
+<li>目标 SurvivalCharacterRef</li>
+</ul>
+</li>
+</ul>
+<p>增加跳跃栏键 time：11.27<br>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>增加 Fun UseHotbarFunction<ul>
+<li>Inputs<ul>
+<li>Index int 提升为局部变量 LocalHotBarIndex</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>增加 自定义事件 HotBarOnServer 运行在服务器中，防止作弊<ul>
+<li>Inputs<ul>
+<li>Index int</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>增加 1-8 Key 都对应 HotBarOnServer 并且修改 Index 的值<ul>
+<li>Index 1  - Index 0</li>
+<li>Index 2   …</li>
+<li>Index 3</li>
+<li>Index 4</li>
+<li>Index 5</li>
+<li>Index 6</li>
+<li>Index 7</li>
+<li>Index 8  - Index 7</li>
+<li>增加 Comment 注释 [快捷键 HotBarKeys]</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BPC_PlayerHotbar 中</p>
+<ul>
+<li>创建 FUN CheckHotbar 检查快捷栏是否为空</li>
+<li>Inputs<ul>
+<li>Index int</li>
+</ul>
+</li>
+<li>Outputs<ul>
+<li>HasItemInSlot? bool</li>
+<li>ItemType ItemType</li>
+</ul>
+</li>
+<li>判断 Items &#x3D;&gt; Get &#x3D;&gt; Break S_ItemInfo ?&#x3D; 0</li>
+<li>Return Node <ul>
+<li>HasItemInSlot? bool</li>
+<li>ItemType &#x3D;&#x3D; Break S_ItemInfo &#x3D;&gt; ItemType</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图 </p>
+<ul>
+<li>new var ThirdPersonEquippedItem Actors 对象引用</li>
+<li>OPEN FUN UseHotbarFunction<ul>
+<li>Set Hotbar Index</li>
+<li>判断 BPC_PlayerHotbar 的 CheckHotbar<ul>
+<li>Index &#x3D;&gt; HotbarIndex</li>
+</ul>
+</li>
+<li>切换枚举 [Switch on E_ItemType]<ul>
+<li>处理 可装备的 类型</li>
+</ul>
+</li>
+<li>ThirdPersonEquippedItem 为了避免潜在的异常情况 <code>右键</code>转换为 Validated Get，检查 第三人称装备的物品是否有效<ul>
+<li>true 角色已经装备了物品<ul>
+<li>print string “角色已经装备了物品”</li>
+</ul>
+</li>
+<li>false 角色没有装备物品<ul>
+<li>执行下方的 SpawnEquipaableThirdPerson<ul>
+<li>这行好像没有用… Class &#x3D;&gt; Actor Class &#x3D;&gt; ThirdPersonEquipableClass</li>
+<li>ItemInfo &#x3D;&gt; PlayerHotbar 的 Items 的 Get(通过 HotbarIndex 获取) </li>
+<li>Class &#x3D;&gt; PlayerHotbar 的 Items 的 Get(通过 HotbarIndex 获取) &#x3D;&gt; Break S_ItemInfo 的 ItemClassRef</li>
+<li>ItemIndex &#x3D;&gt; HotbarIndex</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>新增 自定义方法 SpawnEquipaableThirdPerson 运行在服务器中，防止作弊<ul>
+<li>Inputs<ul>
+<li>Class Actor 类</li>
+<li>ItemInfo S_ItemInfo</li>
+<li>EquippedIndex int</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 自定义事件 HotBarOnServer</p>
+<ul>
+<li>Use Hotbar Function<ul>
+<li>Index &#x3D;&gt; Index</li>
+</ul>
+</li>
+</ul>
+<h5 id="31-继续完成-快捷栏-逻辑"><a href="#31-继续完成-快捷栏-逻辑" class="headerlink" title="31 继续完成 快捷栏 逻辑"></a>31 继续完成 快捷栏 逻辑</h5><p>OPEN BP_FirstPersonCharacter 事件图 </p>
+<ul>
+<li>OPEN SpawnEquipaableThirdPerson 自定义事件<ul>
+<li>EquippedIndex 提升为变量 EquippedIndex</li>
+</ul>
+</li>
+<li>[SpawnActor]<ul>
+<li>Class &#x3D;&gt; Class</li>
+<li>Spawn Transform 右键 分割结构体引脚</li>
+</ul>
+</li>
+<li>Set ThirdPersonEquippedItem<ul>
+<li>目标 Spawn Actor 的 Return Value</li>
+</ul>
+</li>
+<li>Get Equipable Ref<ul>
+<li>Ref &#x3D;&gt; EquipableInfo &#x3D;&gt; Break S_EquipableInfo<ul>
+<li>目标 ThirdPersonEquippedItem</li>
+<li>Socket Name &#x3D;&gt; 下方的 ToolSocket</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>下方的 MulticastWeaponEquip<ul>
+<li>Target &#x3D;&gt; ThirdPersonEquippedItem</li>
+<li>Socket Name &#x3D;&gt; Break S_EquipableInfo 的 SocketName</li>
+<li>EquippedState &#x3D;&gt; Break S_EquipableInfo 的 AnimationState</li>
+</ul>
+</li>
+</ul>
+<p>OPEN SK_Man_Full_01</p>
+<ul>
+<li>hand_r <ul>
+<li>右键 add socket添加插槽<ul>
+<li>rename ToolSocket</li>
+<li>右键ToolSocket 增加预览资源 SM_Hatchet</li>
+<li>预览动画 - HatchetIdle</li>
+<li>详情 调整位置 <ul>
+<li>Location：-4.57 1.66 -17</li>
+<li>Rotation：19.9 -0(这里可以更斜一些) 70</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_TP_StoneHatchet 类默认值 </p>
+<ul>
+<li>SocketName ToolSocket</li>
+<li>AnimationState Hatchet</li>
+<li>FirstPersonEquipClass BP_FP_StoneHatchet</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图 </p>
+<ul>
+<li>新增 自定义事件 MulticastWeaponEquip 运行在组播中，防止作弊<ul>
+<li>Inputs<ul>
+<li>Target Actor 对象引用</li>
+<li>SocketName Name</li>
+<li>EquippedState E_EquipableState</li>
+</ul>
+</li>
+<li>? Is Valid<ul>
+<li>False<ul>
+<li>组件中的 ThirdPersonMesh 右键 转换成有效的 GET</li>
+<li>Attach Actor To Component<ul>
+<li>Target &#x3D;&#x3D; Inputs Target </li>
+<li>Parent &#x3D;&#x3D; 第三人称网格 </li>
+<li>Socket Name 事件的 Input</li>
+<li>Location Snap to Target</li>
+<li>Rotation Snap to Target</li>
+<li>Scale Rule Snap to Target</li>
+</ul>
+</li>
+<li>Set EquippedState<ul>
+<li>EquippedState 事件的 Input</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>增加物品Debug<ul>
+<li>取消1 key 使用 R key</li>
+<li>添加第二个数据表中 也就是斧头</li>
+<li>添加到 快捷栏中 BPC Player Hotbar</li>
+</ul>
+</li>
+</ul>
+<p>增加 装备可装备的物品 的更新UI逻辑<br>OPEN SurvivalGamePC</p>
+<ul>
+<li>add FUN GetInventoryWidget 替换 UpdateItemSlot 和 ResetItemSlot 的 ?IsValid 前的获取逻辑<ul>
+<li>Inputs<ul>
+<li>ContainerType E_ContainerType</li>
+<li>SlotIndex int</li>
+</ul>
+</li>
+<li>ContainerType &#x3D;&gt; Select 返回索引处的选项</li>
+<li>Outputs<ul>
+<li>Widget W_InventorySlot 对象引用<br><img src="/blog/p/614a8811/GetInventoryWidget.png" alt="GetInventoryWidget.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BPC_ItemsContainer</p>
+<ul>
+<li>UpdateUI 增加 Player HotBar 连接</li>
+</ul>
+<p>2玩家，运行后发现 默认是手持空物体，设置 BP_FirstPersonCharacter 的 EquipableState 默认值 Default</p>
+<p>运行后还是发现走动会有bug<br>OPEN BP_ItemMaster</p>
+<ul>
+<li>类默认 Replicates 勾选，能够复制或在多人游戏中使用</li>
+</ul>
+<p>运行后按R能出现斧头，但是第一人称看不到动画<br>OPEN BP_TP_Hatchet</p>
+<ul>
+<li>StaticMesh 设置 Owner No See &#x3D; true</li>
+</ul>
+<p>再次运行，发现第一人称的斧头出现了，但是第三人称的没有出现<br>设置 BP_FP_Hatchet、BP_TP_Hatchet 中的 Static Mesh</p>
+<ul>
+<li>碰撞预设 Collision Presets 选择 NoCollision</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>增加 Set Owner<ul>
+<li>New Owner &#x3D; self</li>
+</ul>
+</li>
+</ul>
+<p>改完之后，其他玩家能看到，自己看不到斧头<br>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>增加自定义事件 SpawnEquipaableFirstPerson 运行在客户端中，防止作弊<ul>
+<li>Inputs<ul>
+<li>Class Actor 类引用</li>
+<li>SocketName Name</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SpawnActor<ul>
+<li>Return Value 设置变量 FirstPersonEquippedItem</li>
+</ul>
+</li>
+<li>Attach Actor To Component<ul>
+<li>Target FirstPersonEquippedItem</li>
+<li>Socket Name &#x3D;&gt; SocketName</li>
+<li>Location Snap to Target</li>
+<li>Rotation Snap to Target</li>
+<li>Scale Rule Snap to Target</li>
+</ul>
+</li>
+</ul>
+<p>在 SpawnEquipaableThirdPerson 的 MulticastWeaponEquip 最后增加 SpawnEquipaableFirstPerson</p>
+<p>思路：</p>
+<ol>
+<li>1-8快捷键 触发 HotBarOnServer 事件，传递 指定的插槽 Index &#x3D;&gt; UseHotbarFunction</li>
+<li>UseHotbarFunction</li>
+</ol>
+<ul>
+<li>检查 Hotbar 指定Index 是否有物品</li>
+<li>Switch 快捷键类型 只处理 Equipable</li>
+<li>SpawnEquipaableThirdPerson 生成第三人称的物品<ul>
+<li>SpawnActor 生成物品</li>
+<li>通过 FirstPersonEquippedItem 以及 Get Equipable Ref 获取物品的信息 得到 EquipableInfo 进行 Break 得到具体信息</li>
+<li>设置所有者 斧头 不是第一人称可见 ?这里有疑问</li>
+<li>MulticastWeaponEquip 组播给所有客户端<ul>
+<li>先验证 ? is vali</li>
+<li>Attack Actor To Component 附加到第三人称网格</li>
+<li>Set EquippedState 设置第三人称网格的装备状态</li>
+</ul>
+</li>
+<li>SpawnEquipaableFirstPerson 生成第一人称的物品<ul>
+<li>SpawnActor 生成物品</li>
+<li>Attach Actor To Component 附加到第一人称网格</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="32-重复按下快捷键，如果物品已经装备，就卸下物品"><a href="#32-重复按下快捷键，如果物品已经装备，就卸下物品" class="headerlink" title="32 重复按下快捷键，如果物品已经装备，就卸下物品"></a>32 重复按下快捷键，如果物品已经装备，就卸下物品</h5><p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>增加 自定义事件 DequipWeaponThirdPerson 组播运行<ul>
+<li>Inputs<ul>
+<li>EquippedState E_EquipableState</li>
+</ul>
+</li>
+<li>设置变量 EquippedState &#x3D; default</li>
+</ul>
+</li>
+<li>增加 自定义事件 DequipWeaponFirstPerson 客户端运行<ul>
+<li>FirstPersonEquippedItem 进行销毁 Destory Actor</li>
+</ul>
+</li>
+<li>在 UseHotbar 的 判断玩家是否已经装备了物品的分支中<ul>
+<li>True<ul>
+<li>ThirdPersonEquippedItem 销毁 进行销毁 Destory Actor</li>
+<li>组播 DequipWeaponThirdPerson 通知该用户卸下物品</li>
+<li>客户端执行 DequipWeaponFirstPerson</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>增加 描述文本</p>
+<ul>
+<li>装备物品</li>
+<li>卸下物品</li>
+</ul>
+<h5 id="33-装备斧头后，左键挥动"><a href="#33-装备斧头后，左键挥动" class="headerlink" title="33 装备斧头后，左键挥动"></a>33 装备斧头后，左键挥动</h5><p>OPEN BPI_SurvivalCharacter</p>
+<ul>
+<li>add fun ThirdPersonMontage<ul>
+<li>Inputs<ul>
+<li>ThirdPersonMontage Montage Object 对象引用</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>add fun FirstPersonMontage<ul>
+<li>Inputs<ul>
+<li>FirstPersonMontage Montage Object 对象引用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BPI_EquipableItem</p>
+<ul>
+<li>add fun UseItemInterface<ul>
+<li>Inputs<ul>
+<li>CharRef BP_FirstPersonCharacter 对象引用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>增加 自定义事件 LeftMouseOnServer 运行在服务器中，防止作弊<ul>
+<li>获取 ThirdPersonEquippedItem 转为有效的 GET<ul>
+<li>执行 Interface 中的 Use Item Interface<ul>
+<li>CharRef &#x3D;&gt; self</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>增加 鼠标左键按下事件 left mouse<ul>
+<li>LeftMouseOnServer</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_TP_Hatchet 事件图 </p>
+<ul>
+<li>删除 FUN GetEquipableRef</li>
+<li>开始写Interface规范的 UseItemInterface，双击它</li>
+<li>EventUseItemInterface<ul>
+<li>增加 变量 IsSwinging? bool </li>
+<li>Inputs<ul>
+<li>CharRef BP_FirstPersonCharacter 对象引用</li>
+</ul>
+</li>
+<li>判断 IsSwinging? bool<ul>
+<li>False<ul>
+<li>Set IsSwinging? bool &#x3D; true</li>
+</ul>
+</li>
+<li>True<ul>
+<li>提升变量 CharRef </li>
+<li>FirstPersonMontage(message)<ul>
+<li>Hatchet_Chop_Montage Montage 选择的是 Hatchet_Chop 文件 右键创建 AnimMontage</li>
+</ul>
+</li>
+<li>ThirdPersonMontage(message)<ul>
+<li>选择的是 Hatchet_Chop 文件 右键创建 AnimMontage</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>增加自定义事件 MontageMulticast 组播运行<ul>
+<li>Inputs<ul>
+<li>ThirdPersonMontage &#x3D; Anim Montage Object 对象引用</li>
+</ul>
+</li>
+<li>Play Montage<ul>
+<li>骨骼网格组件 &#x3D; ThirdPersonMesh</li>
+<li>Montage To Play &#x3D; ThirdPersonMontage</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>增加自定义事件 MontageOnClient 客户端运行<ul>
+<li>Inputs<ul>
+<li>FirstPersonMontage &#x3D; Anim Montage Object 对象引用</li>
+</ul>
+</li>
+<li>Play Montage<ul>
+<li>骨骼网格组件 &#x3D; FirstPersonMesh</li>
+<li>Montage To Play &#x3D; FirstPersonMontage</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>开始写 Interface 规范的 FirstPersonMontage，双击它<ul>
+<li>MontageOnClient 客户端运行</li>
+</ul>
+</li>
+<li>开始写 Interface 规范的 ThirdPersonMontage，双击它<ul>
+<li>MontageMulticast 组播运行</li>
+</ul>
+</li>
+</ul>
+<p>OPEN FirstPerson_AnimBP</p>
+<ul>
+<li>new State Machine</li>
+<li>增加一个 Slot DefaultSlot</li>
+</ul>
+<p>OPEN ThirdPerson_AnimBP</p>
+<ul>
+<li>new State Machine</li>
+<li>增加一个 Slot DefaultSlot</li>
+</ul>
+<p>运行之后，可以左键挥动斧头了，但是只能挥动一次</p>
+<p>OPEN BPI_EquipableItem</p>
+<ul>
+<li>添加 FUN NotifyInterface</li>
+<li>添加 FUN EndAnimation</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>MontageMulticast 方法<ul>
+<li>Play Montage 的 完成事件<ul>
+<li>获取 ThirdPersonEquippedItem 转为有效的 GET</li>
+<li>End Animation</li>
+</ul>
+</li>
+<li>Play Montage 的 通知开始事件<ul>
+<li>获取 ThirdPersonEquippedItem 转为有效的 GET</li>
+<li>NotifyInterface</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_TP_Hatchet 事件图</p>
+<ul>
+<li>双击 NotifyInterface</li>
+<li>双击 End Animation<ul>
+<li>设置 IsSwinging? bool &#x3D; false</li>
+</ul>
+</li>
+</ul>
+<p>运行后就可以一直挥动斧头了</p>
+<p>增加</p>
+<p>OPEN Hatchet_Chop_Montage</p>
+<ul>
+<li>在‘1’行右键 Add Notify<ul>
+<li>声音</li>
+<li>粒子效果</li>
+<li>12的位置 增加 蒙太奇通知 [MontageNotify]</li>
+</ul>
+</li>
+</ul>
+<h5 id="34"><a href="#34" class="headerlink" title="34"></a>34</h5><p>下载资源文件<br>创建文件夹</p>
+<ul>
+<li>_Main&#x2F;Meshes PalmTrees 并且导入所有 Palm 开头的 .fpx 文件<ul>
+<li>可以删除 Tree 开头的白色材料 文件</li>
+</ul>
+</li>
+<li>_Main&#x2F;Meshes Materials 并且导入所有 .TGA 文件<ul>
+<li>创建 材质 M_PalmMaster<ul>
+<li>Base Color 创建 TextureSampleParameter2D 命名 BaseColor<ul>
+<li>Texture 是默认的 DefaultTexture</li>
+</ul>
+</li>
+<li>Normal 创建 TextureSampleParameter2D 命名 NormalMap<ul>
+<li>Texture 选择 palm02_normal</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>为 M_PalmMaster 右键 创建 材质实例 M_Palm01<ul>
+<li>详情 勾选 Global 的 BaseColor、NormalMap<ul>
+<li>BaseColor 设置为 palm02</li>
+<li>NormalMap 设置为 palm02_normal</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>复制 M_Palm01 重命名为 M_Palm02<ul>
+<li>BaseColor 设置为 coconut</li>
+<li>NormalMap 设置为 coconut_normal</li>
+</ul>
+</li>
+<li>复制 M_Palm02 重命名为 M_Palm03<ul>
+<li>BaseColor 设置为 stem</li>
+<li>NormalMap 设置为 stem_normal</li>
+</ul>
+</li>
+<li>复制 M_Palm03 重命名为 M_Palm04<ul>
+<li>BaseColor 设置为 palm_top</li>
+<li>NormalMap 设置为 palm_top_normal</li>
+</ul>
+</li>
+<li>创建 材质 M_PalmLeaf<ul>
+<li>复制下列三个文件，到 M_PalmLeaf 中<ul>
+<li>coconut_palm_leaf</li>
+<li>coconut_palm_leaf_alpha</li>
+<li>coconut_palm_leaf_Normal</li>
+</ul>
+</li>
+<li>设置 M_PalmLeaf<ul>
+<li>材质 Blend Mode 为 Masked 遮罩</li>
+<li>材质 Two Sided 勾选 双面</li>
+</ul>
+</li>
+<li>连接<ul>
+<li>绿色 设置为 BaseColor</li>
+<li>白色 设置为 透明度遮罩 Opacity Mask </li>
+<li>蓝紫色 设置为 Normal</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN Palm_01&#x2F;02&#x2F;03&#x2F;04&#x2F;05 都设置</p>
+<ul>
+<li>元素0 材质插槽 M_Palm01</li>
+<li>元素1 材质插槽 M_Palm02</li>
+<li>元素2 材质插槽 M_Palm03</li>
+<li>元素3 材质插槽 M_Palm03</li>
+<li>元素4 材质插槽 M_PalmLeaf</li>
+<li>元素5 材质插槽 M_Palm04</li>
+</ul>
+<p>将5中树 放到 Map中</p>
+<p>创建 下列文件夹 在 _Main&#x2F;Blueprints 目录中</p>
+<ul>
+<li>HarvestingSystem</li>
+<li>HarvestingSystem&#x2F;ChildClasses</li>
+<li>HarvestingSystem&#x2F;ChildClasses&#x2F;LargeItemCLasses</li>
+<li>HarvestingSystem&#x2F;ChildClasses&#x2F;LargeItemCLasses&#x2F;PalmTress</li>
+</ul>
+<p>创建蓝图类[Actor]  BP_HarvestableMaster _Main&#x2F;Blueprints&#x2F;HarvestingSystem 目录中<br>并且打开 HarvestableMaster</p>
+<ul>
+<li>默认类设置 <ul>
+<li>Actor Tick 的 Start with Tick Enabled 取消勾选</li>
+<li>可复制 Replicates 勾选</li>
+</ul>
+</li>
+</ul>
+<p>创建 BP_HarvestableMaster 的蓝图子类 BP_LargeItemMaster<br>创建 BP_HarvestableMaster 的蓝图子类 BP_GroundItemMaster</p>
+<p>创建 BPI_LargeItem 的蓝图接口 在 _Main&#x2F;Blueprints&#x2F;Interfaces 目录中</p>
+<ul>
+<li>add fun GetLargeItemRef<ul>
+<li>Outputs<ul>
+<li>Ref BP_LargeItemMaster 对象引用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_LargeItemMaster </p>
+<ul>
+<li>添加接口 BPI_LargeItem</li>
+<li>设置 接口的 GetLargeItemRef<ul>
+<li>Ref &#x3D;&gt; self</li>
+</ul>
+</li>
+<li>设置变量 Health float 默认值50</li>
+<li>(？这里有疑问) 增加静态网格 Static Mesh 让子类可以设置</li>
+</ul>
+<p>为 BP_LargeItemMaster 添加蓝图子类 <code>BP_Tree</code> 移动到 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;ChildClasses&#x2F;LargeItemCLasses 目录中</p>
+<ul>
+<li>设置 静态网格 Static Mesh 为 SM_Tree ?????</li>
+</ul>
+<p>为 BP_Tree 添加蓝图子类 BP_Palm01 移动到 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;ChildClasses&#x2F;LargeItemCLasses&#x2F;PalmTress 目录中</p>
+<ul>
+<li>静态网格 改变材质 Palm_01</li>
+</ul>
+<p>复制 BP_Palm01 重命名为 BP_Palm02</p>
+<ul>
+<li>静态网格 改变材质 Palm_02</li>
+</ul>
+<p>复制 BP_Palm01 重命名为 BP_Palm03</p>
+<ul>
+<li>静态网格 改变材质 Palm_03</li>
+</ul>
+<p>复制 BP_Palm01 重命名为 BP_Palm04</p>
+<ul>
+<li>静态网格 改变材质 Palm_04</li>
+</ul>
+<p>复制 BP_Palm01 重命名为 BP_Palm05</p>
+<ul>
+<li>静态网格 改变材质 Palm_05</li>
+</ul>
+<p>如果设置了 BP_Tree 的 静态网格 改变材质 Mobility Static 静态，在Map拖动物体的时候不会出现材质</p>
+<h5 id="35-创建收获-砍树掉木头-系统-挥动斧头砍树，能够收获木头"><a href="#35-创建收获-砍树掉木头-系统-挥动斧头砍树，能够收获木头" class="headerlink" title="35 创建收获(砍树掉木头)系统 挥动斧头砍树，能够收获木头"></a>35 创建收获(砍树掉木头)系统 挥动斧头砍树，能够收获木头</h5><p>编辑-项目设置-碰撞-创建对象通道</p>
+<ul>
+<li>Structure Ignore</li>
+</ul>
+<p>OPEN BPI_SurvivalCharacter</p>
+<ul>
+<li>add fun GetArrowLocation<ul>
+<li>Outputs<ul>
+<li>Location Vector</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>视图 移动 第三人称+第一人称摄像机+第一人称 到胶囊中间</li>
+<li>为 胶囊体组件 增加 箭头组件[Arrow] 在 第一人称摄像机下 位置在 胶囊前方 人物胸前</li>
+<li>双击 GetArrowLocation 方法<ul>
+<li>Location &#x3D;&gt; Arrow1 的 Get World Location</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_TP_Hatchet 事件图</p>
+<ul>
+<li>增加 自定义事件 ServerOverlap 运行在服务器中，防止作弊<ul>
+<li>Inputs<ul>
+<li>SpherePos Vector</li>
+</ul>
+</li>
+<li>Sphere Overlap Actors<ul>
+<li>Radius 60</li>
+<li>Object Types &#x3D;&#x3D; Make array &#x3D;&#x3D; [0]Structure</li>
+<li>Actors to Ignore &#x3D;&#x3D; Make array &#x3D;&#x3D; [0] &#x3D;&#x3D; CharRef</li>
+</ul>
+</li>
+<li>Draw Debug Sphere<ul>
+<li>Location &#x3D;&gt; 方法参数 SpherePos</li>
+<li>Radius 60</li>
+<li>Segments 12</li>
+<li>Color 红色</li>
+<li>Duration 10</li>
+<li>Thickness 2</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>增加自定义事件 GetRotationClient 运行在客户端中，防止作弊<ul>
+<li>Get Arrow Location<ul>
+<li>目标 Get Owner 的 Return Value</li>
+</ul>
+</li>
+<li>Server Overlap<ul>
+<li>SpherePos &#x3D;&gt; Get Arrow Location 的 Location</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Event Notify Interface<ul>
+<li>Get Rotation Client</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_Tree</p>
+<ul>
+<li>设置静态网格 碰撞 Presets 为 Custom<ul>
+<li>Object Type Structure</li>
+</ul>
+</li>
+</ul>
+<p>运行后 就可以命中树了</p>
+<p>OPEN BP_TP_Hatchet 事件图</p>
+<ul>
+<li>方法 ServerOverlap<ul>
+<li>绘制调试球体后<ul>
+<li>判断 球体重叠[Sphere Overlap Actors] 的 Return Value<ul>
+<li>True<ul>
+<li>print string “击中了 树”</li>
+<li>For Each Loop</li>
+<li>收获叶子[HarvestFoliage]方法 For 的 Loop Body<ul>
+<li>Ref 连接 Array Element</li>
+<li>设置伤害固定 15</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>False<ul>
+<li>print string “没有击中任何东西”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>创建 方法 收获叶子[HarvestFoliage]<ul>
+<li>Inputs<ul>
+<li>Damage float</li>
+<li>Ref Actor 对象引用</li>
+</ul>
+</li>
+<li>Damage 设置本地变量 LocalDamage</li>
+<li>Get Large Item Ref<ul>
+<li>思路：获取物品的当前血量，减去伤害，如果血量小于等于0，就销毁物品</li>
+<li>减去后的血量 小于等于 0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>创建文件夹 Destructables 在 _Main&#x2F;Blueprints&#x2F;HarvestingSystem 目录中<br>创建蓝图类Actor BP_DestructableHarvestable _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;Destructables 目录中</p>
+<p>创建 蓝图结构 S_ResourceStructure 在 _Main&#x2F;Blueprints&#x2F;Structures 目录</p>
+<ul>
+<li>ResourceId Name</li>
+<li>Quantity int 这里临时用了 float</li>
+</ul>
+<p>创建 蓝图结构 S_LargeItem 在 _Main&#x2F;Blueprints&#x2F;Structures 目录</p>
+<ul>
+<li>Class BP_DestructableHarvestable 类引用</li>
+<li>GivenItems S_ResourceStructure 数组</li>
+</ul>
+<p>创建 其他-数据表[Miscellaneous Data Table] DT_LargeItemResources 在 _Main&#x2F;DataTables 目录</p>
+<ul>
+<li>创建文件时的 行结构 S_LargeItem</li>
+<li>newRow 重命名 BP_Palm02_C<ul>
+<li>ResourceId 1</li>
+<li>Quantity 3</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_TP_Hatchet 事件图</p>
+<ul>
+<li>收获叶子[HarvestFoliage]<ul>
+<li><code>&gt;=</code> 0的判断后</li>
+<li>Get Data Table Row<ul>
+<li>Data Table &#x3D;&gt; DT_LargeItemResources</li>
+<li>Row Name &#x3D;&gt; Get Large Item Ref 的 Get Class 的 Get Class Name</li>
+<li>Output Row &#x3D;&gt; Break S_LargeItem<ul>
+<li>设置本地变量 GivenResources</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>For Each Loop  GivenResources</li>
+<li>CharRef 的 Get Survival Character Ref(Message)</li>
+<li>Survival Character Ref 的 Harvest Item On Server 下方需要创建<ul>
+<li>Resource &#x3D;&gt; For 的 Array Element</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>创建 方法 HarvestItemFunction<ul>
+<li>Inputs<ul>
+<li>Resource S_ResourceStructure</li>
+</ul>
+</li>
+<li>Break S_ResourceStructure FROM 参数 Resource</li>
+<li>Get Data Table Row None<ul>
+<li>Data Table &#x3D;&gt; DT_Items</li>
+<li>Row Name &#x3D;&gt; Break S_ResourceStructure 的 ResourceId</li>
+</ul>
+</li>
+<li>设置 局部变量 LocalQuantity<ul>
+<li>Quantity &#x3D;&gt; Break S_ResourceStructure 的 Quantity</li>
+</ul>
+</li>
+<li>设置局部变量 LocalOutRow<ul>
+<li>Output Row &#x3D;&gt; Get Data Table Row None 的 Output Row</li>
+</ul>
+</li>
+<li>Set Member In S_ItemInfo<ul>
+<li>勾选 Quantity 并且设置 &#x3D;&#x3D; LocalQuantity</li>
+</ul>
+</li>
+<li>BPC_PlayerInventory 的 Add Item On Server<ul>
+<li>Item &#x3D;&#x3D; 上一个 Struct Out</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>创建 自定义事件 收获物品 HarvestItemOnServer 运行在服务器中，防止作弊<ul>
+<li>Inputs<ul>
+<li>Resource S_ResourceStructure</li>
+</ul>
+</li>
+<li>调用 方法 HarvestItemFunction</li>
+</ul>
+</li>
+</ul>
+<p>运行 R 左键 瞄准 Palm02 树木，发现收获了 3个 木头，除了Palm02其他的收获不到</p>
+<h5 id="36-使用斧头砍树收获木头，显示收获的物品"><a href="#36-使用斧头砍树收获木头，显示收获的物品" class="headerlink" title="36 使用斧头砍树收获木头，显示收获的物品"></a>36 使用斧头砍树收获木头，显示收获的物品</h5><p>创建 部件 W_ItemAdded _Main&#x2F;Widgets&#x2F;InventoryWidgets 目录中</p>
+<ul>
+<li>添加 变量 ResourceImage Texture2D 对象引用<ul>
+<li>勾选 Instance Editable&#x2F;Expose On Spawn</li>
+</ul>
+</li>
+<li>添加 变量 ResourceQuantity int<ul>
+<li>勾选 Instance Editable&#x2F;Expose On Spawn</li>
+</ul>
+</li>
+<li>添加 变量 ResourceName Text<ul>
+<li>勾选 Instance Editable&#x2F;Expose On Spawn</li>
+</ul>
+</li>
+<li>ResourceWindow[size box]  W300 H45<ul>
+<li>水平Box<ul>
+<li>边界 Brush Color 黑色 透明度 0.5<ul>
+<li>水平Box<ul>
+<li>size box W40<ul>
+<li>Resourceicon [iamge] <code>Padding 5</code>  <code>是变量</code> Brush绑定 ResourceImage</li>
+</ul>
+</li>
+<li>Text Size20 <code>垂直居中</code> <code>获得了</code>   <code>Color And Opacity 蓝色</code></li>
+<li>ResourceText Text <code>Size16</code> <code>FIll</code> <code>水平居中</code> <code>x44 石头</code>   <code>Color And Opacity 蓝色</code>  <code>是变量</code> Text绑定 创建 ResourceText 通过 数量和名称拼接<ul>
+<li>FormatText<ul>
+<li>Format String <code>x&#123;0&#125; &#123;1&#125;</code></li>
+<li>Argument 0 <code>是变量</code> 数量</li>
+<li>Argument 1 <code>是变量</code> 名称</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN W_MainWidget</p>
+<ul>
+<li>创建 垂直框 ResourceCollected  <code>布局 左中</code>，并且 Is Variable  W250 H380</li>
+<li>创建自定义事件 ShowItemCollected<ul>
+<li>Inputs<ul>
+<li>ResourceImage Texture2D 对象引用</li>
+<li>ResourceQuantity int</li>
+<li>ResourceName Text</li>
+</ul>
+</li>
+<li>Create Widget [construct None]<ul>
+<li>Class &#x3D;&gt; W_ItemAdded</li>
+<li>ResourceImage &#x3D;&gt; ResourceImage</li>
+<li>ResourceQuantity &#x3D;&gt; ResourceQuantity</li>
+<li>ResourceName &#x3D;&gt; ResourceName</li>
+</ul>
+</li>
+<li>Resource Collected 的 Add Child<ul>
+<li>Content &#x3D;&gt; Create Widget 的 Return Value</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN SurvivalGamePC</p>
+<ul>
+<li>增加 自定义事件 ShowItemWidget 运行在客户端中，防止作弊<ul>
+<li>Inputs<ul>
+<li>ResourceImage Texture2D 对象引用</li>
+<li>ResourceQuantity int</li>
+<li>ResourceName Text</li>
+</ul>
+</li>
+<li>Main Widget Ref 的 Show Item Collected<ul>
+<li>ResourceImage &#x3D;&gt; ResourceImage</li>
+<li>ResourceQuantity &#x3D;&gt; ResourceQuantity</li>
+<li>ResourceName &#x3D;&gt; ResourceName</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>HarvestItemFunction 中 AddItemOnServer 后<ul>
+<li>获取 控制器 的 SurvivalGamePCRef<ul>
+<li>Show Item Widget<ul>
+<li>ResourceImage &#x3D;&gt; LocalOutRow 的 ItemImage</li>
+<li>ResourceQuantity &#x3D;&gt; LocalQuantity</li>
+<li>ResourceName &#x3D;&gt; LocalOutRow 的 ItemName</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>运行后 砍树收获木头，会在右上角显示收获的物品，但是部件没有自动消失<br>OPEN W_ItemAdded</p>
+<ul>
+<li>增加 动画 Animations FadeOut <ul>
+<li>增加 轨道 Track ResourceWindow<ul>
+<li>增加 Track Render Opacity 渲染不透明度<ul>
+<li>增加 关键帧 0s 2s 3s</li>
+<li>在第三帧 3s 的时候 透明度 0</li>
+</ul>
+</li>
+<li>打开 图示<ul>
+<li>Event Construct 创建部件之后<ul>
+<li>Fade Out 的 播放动画 Play Animation<ul>
+<li>Num Loops To Play 1</li>
+<li>Playback Speed 1</li>
+</ul>
+</li>
+<li>绑定到完成的动画 [Bind To Animation Finished] <ul>
+<li>Delegate 绑定 创建 自定义事件 DestroySelf<ul>
+<li>Remove from Parent</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>检查 W_MainWidget 中 Resourceicon 要绑定 ResourceImage</li>
+</ul>
+<p>运行测试</p>
+<p><strong>整体思路</strong><br>鼠标左键</p>
+<ul>
+<li>BP_FirstPersonCharacter 事件 LeftMouseOnServer 在服务器中运行<ul>
+<li>处理 第三人称 可装备的物品<ul>
+<li>通过 Char Ref 获取 第三人称装备的物品 并且执行 对应的 UseItemInterface</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>BP_TP_Hatchet 事件 UseItemInterface<ul>
+<li>处理正在挥手</li>
+<li>第一人称蒙太奇动画<ul>
+<li>BP_FirstPersonCharacter 事件 MontageOnClient 播放蒙太奇，结束</li>
+</ul>
+</li>
+<li>第三人称蒙太奇动画<ul>
+<li>BP_FirstPersonCharacter 事件 ThirdPersonMontage</li>
+<li>BP_FirstPersonCharacter 事件 MontageMulticast 所有机器上执行</li>
+<li>BP_FirstPersonCharacter 事件 NotifyInterface<ul>
+<li>BP_TP_Hatchet 事件 NotifyInterface 客户端中运行</li>
+<li>BP_TP_Hatchet 事件 GetRotationClient 客户端中运行</li>
+<li>BP_TP_Hatchet 事件 ServerOverlap 服务器中运行</li>
+<li>BP_TP_Hatchet 事件 Harvest Foliage<ul>
+<li>判断血量</li>
+<li>指定收货物品 DT_LargeItemResources 木头 数量 3</li>
+<li>BP_FirstPersonCharacter 事件 HarvestItemOnServer 收获物品 <ul>
+<li>BP_FirstPersonCharacter 事件 HarvestItemFunction 收获物品<ul>
+<li>BPC_ItemsContainer 事件 AddItemOnServer 添加物品</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="37-使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画"><a href="#37-使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画" class="headerlink" title="37 使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画"></a>37 使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画</h5><p>OPEN FirstPersonMap</p>
+<ul>
+<li>删除 不相关的东西</li>
+</ul>
+<p>OPEN BP_DestructableHarvestable 事件图</p>
+<ul>
+<li>类默认设置 关闭 Tick,启用复制</li>
+<li>增加 变量 Direction Vector<ul>
+<li>勾选 Instance Editable&#x2F;Expose On Spawn</li>
+</ul>
+</li>
+</ul>
+<p>为 BP_DestructableHarvestable 添加蓝图子类 BP_DestroyableTree 移动到 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;Destructables 目录中<br>OPEN BP_DestroyableTree 事件图</p>
+<ul>
+<li>增加 胶囊碰撞[Capsule Collision]<ul>
+<li>增加静态网格 下面在添加资源</li>
+<li>Scale 1 1 9</li>
+<li>物理 Physics<ul>
+<li>模拟物理 Simulate Physics 开启</li>
+<li>Mass in KG 2000</li>
+</ul>
+</li>
+<li>Location 0 0 402 跟树一样的高度<ul>
+<li>1 <ul>
+<li>位置 -0.000005 60 40</li>
+<li>旋转 -70 0 0</li>
+<li>缩放 1 1 0.1</li>
+</ul>
+</li>
+<li>2<ul>
+<li>位置 -0.000005 -60 40</li>
+<li>旋转 70 0 0</li>
+<li>缩放 1 1 0.1</li>
+</ul>
+</li>
+<li>3….. 手动调整，数值算不过来</li>
+</ul>
+</li>
+<li>在树顶部 创建四个 胶囊碰撞，分布四周，尾部低一些</li>
+</ul>
+</li>
+<li>静态网格<ul>
+<li>资源 Palm_02</li>
+</ul>
+</li>
+<li>事件图<ul>
+<li>Event Begin Play<ul>
+<li>Switch Has Authority</li>
+<li>AddForce 方法</li>
+</ul>
+</li>
+<li>增加局部变量 Force float 1500</li>
+<li>增加 方法 AddForce 增加一些力，让树倒在角色对面<ul>
+<li>指向 Add Force(Capsule)<ul>
+<li>目标是 Capsule</li>
+<li>Force &#x3D;&gt; Direction * Force</li>
+<li>勾选 Accel Change</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_TP_Hatchet 事件图</p>
+<ul>
+<li>在方法 收获树叶 HarvestFoliage 的 判断 当前血量 &lt;&#x3D; 0 时，调用<ul>
+<li>获取数据表行 Get Data Table Row DT_largeItemResources<ul>
+<li>Data Table &#x3D;&gt; DT_LargeItemResources</li>
+<li>Row Name &#x3D;&gt; Get Large Item Ref 的 Get Class 的 Get Class Name</li>
+<li>Output Row<ul>
+<li>设置本地变量 LocalDestructClass 类引用</li>
+<li>Break S_LargeItem<ul>
+<li>Class &#x3D;&gt; 设置局部变量 LocalDestructClass</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Get Large Item Ref 的 Get Actor Transform</li>
+<li>Return Value 设置局部变量 LocalTransform</li>
+<li>Get Large Item Ref 的 Destroy Actor</li>
+<li>SpawnActor<ul>
+<li>Class &#x3D;&gt; LocalDestructClass Break S_LargeItem 的 Class</li>
+<li>Transform &#x3D;&gt; LocalTransform</li>
+<li>Direction &#x3D;&gt; Char Ref &#x3D;&gt; Get Actor Forward Vector</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>创建文件夹</p>
+<ul>
+<li>PalmTress 目录 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;Destructables 下</li>
+</ul>
+<p>为 BP_DestroyableTree 添加蓝图子类 BP_PalmDestMaster 移动到 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;Destructables 目录中<br>为 BP_PalmDestMaster 添加蓝图子类 BP_PalmDest02 移动到 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;Destructables&#x2F;PalmTress 目录中<br>OPEN DT_LargeItemResources 修改 BP_PalmDest02_C 的 Class 为 BP_PalmDest02</p>
+<p>运行后 可以砍树 倒树了，但是倒树后，树还在</p>
+<p>OPEN Palm_02</p>
+<ul>
+<li>设置 Collision Presets &#x3D; NoCollision</li>
+</ul>
+<p>OPEN BP_DestroyableTree 事件图</p>
+<ul>
+<li>设置 <code>静态网格</code> Collision Presets &#x3D; NoCollision</li>
+<li>设置 <code>所有的 碰撞体</code> Collision Presets &#x3D; BlockALl</li>
+<li>设置 <code>所有的 碰撞体</code> 物理 Mass 400，营造出头重脚轻</li>
+</ul>
+<p>OPEN Palm_02</p>
+<ul>
+<li>查看角度 Simple 碰撞</li>
+<li>remove 碰撞</li>
+<li>增加 胶囊简化碰撞<ul>
+<li>R 键 缩小</li>
+<li>移动</li>
+<li>调整角度</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_DestroyableTree 事件图</p>
+<ul>
+<li>设置 <code>静态网格</code> Collision Presets &#x3D; BlockAllDynamic</li>
+</ul>
+<p>下面设置可以穿过这棵树<br>OPEN BP_DestroyableTree 事件图</p>
+<ul>
+<li>设置 <code>所有的 碰撞体</code> 碰撞预设 自定义 Pawn Overlap 勾选</li>
+<li>设置 <code>静态网格</code> 碰撞预设 自定义 Pawn Overlap 勾选</li>
+</ul>
+<p>设置树倒下的动画和延时销毁效果<br>OPEN BP_DestroyableTree 事件图</p>
+<ul>
+<li>确保 <code>所有的 碰撞体</code> Object Type &#x3D; PhysicsBody</li>
+</ul>
+<p>OPEN BP_DestructableHarvestable 事件图</p>
+<ul>
+<li>设置 Direction 变量 复制为 Replicated</li>
+</ul>
+<p>OPEN BP_DestroyableTree 事件图</p>
+<ul>
+<li>Authority 和 Remote 都链接 Add Force</li>
+<li>事件开始运行 方法 的 AddForce后</li>
+<li>Delay 3s<ul>
+<li>完成后 Destroy Actor</li>
+</ul>
+</li>
+</ul>
+<h5 id="38-相互移动-快捷栏和背包的物品"><a href="#38-相互移动-快捷栏和背包的物品" class="headerlink" title="38 相互移动 快捷栏和背包的物品"></a>38 相互移动 快捷栏和背包的物品</h5><p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>OnSlotDropOnServer 方法 兼容一下 BPC_Player_Hotbar<ul>
+<li>换掉 <code>2个 Select</code>， 之前的select是 BPC_Player_Inventory 对象引用</li>
+<li>从 参数 拉取 TargetContainerType 的 Select 并且<code>先连接Select的Return Value==OnSlotDrop的目标</code><ul>
+<li>就会变成 BPC_ItemsContainer 对象引用</li>
+</ul>
+</li>
+<li>增加 BPC_Player_Hotbar 对象引用</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BPC_PlayerHotbar 事件图</p>
+<ul>
+<li>重写方法 HandleSlotDrop<ul>
+<li>删除父类方法</li>
+<li>参数 FromContainer 提升为 局部变量 LocalFromContainer</li>
+<li>参数 FromIndex 提升为 局部变量 LocalFromIndex</li>
+<li>参数 DroppedIndex 提升为 局部变量 LocalDroppedIndex</li>
+<li>LocalFromContainer 的 ContainerType -&gt; Switch</li>
+<li>LocalFromContainer 的 Transform Item<ul>
+<li>接受 Switch 的 PlayerInventory和PlayerHotbar</li>
+<li>Target -&gt; LocalFromContainer</li>
+<li>To Component -&gt; self</li>
+<li>To Specific Index -&gt; LocalDroppedIndex</li>
+<li>ItemIndexToTranfser -&gt; LocalFromIndex</li>
+</ul>
+</li>
+<li>Return Node</li>
+</ul>
+</li>
+<li>重写方法 AddItemToIndex<ul>
+<li>继承父类方法，继续往下处理</li>
+<li>拥有者的 Get Controller from Char</li>
+<li>上一个的 Controller Ref 的 UpdateItemSlot<ul>
+<li>Target -&gt; Controller Ref</li>
+<li>ContainerType -&gt; ContainerType</li>
+<li>Index 参数的 Index</li>
+<li>ItemInfo？？？？</li>
+</ul>
+</li>
+<li>Return Node</li>
+</ul>
+</li>
+<li>重写方法 RemoveItemByIndex<ul>
+<li>和上面一样</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BPC_PlayerInventory 事件图</p>
+<ul>
+<li>HandleSlotDrop<ul>
+<li>Transfer Item 中接受多一个 PlayerHotbar</li>
+</ul>
+</li>
+</ul>
+<p>OPEN W_ItemContainerGrid</p>
+<ul>
+<li>方法 AddSlots 中 要区分一下 ContainerType，然后传递给后方<ul>
+<li>末尾(Add Slot To Grid方法后) 设置 变量 ContainerType<ul>
+<li>设置 新增网格内布的 Item 的 ContainerType</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN W_InventorySlot </p>
+<ul>
+<li>On Drop 方法，将TargetContainer 用 ContainerType动态替换，之前是写死的</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>可装备的物品Comment</li>
+<li>创建 自定义事件 DequipCurrentItemOnServer<ul>
+<li>Inputs<ul>
+<li>Index int</li>
+</ul>
+</li>
+<li>判断 Index &#x3D;&#x3D; 变量 EquippedIndex<ul>
+<li>ThirdPersonEquippedItem 右键 获取有效的第三人称装备物品</li>
+<li>销毁 Actor 连接 ThirdPersonEquippedItem</li>
+<li>DequipWeaponThirdPerson</li>
+<li>DequipWeaponFirstPerson</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BPC_PlayerHotbar</p>
+<ul>
+<li>方法 RemoveItemByIndex 后面跟</li>
+<li>拥有者的 Get Controller from Char<ul>
+<li>执行 Controller Ref 的 RemoveItemFromHotbar<ul>
+<li>Index &#x3D;&gt; 参数 Index</li>
+<li>ContainerType &#x3D;&gt; 参数 ContainerType</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>拥有者的 Get Survival Char Ref<ul>
+<li>执行 Survival Char Ref 的 DequipCurrentItemOnServer<ul>
+<li>Index &#x3D;&gt; 参数 Index</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Return Node</li>
+</ul>
+<p>运行 测试 拖动物品从快捷栏到背包，可以卸下物品了</p>
+<h4 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h4><h5 id="39-amp-40-树倒下后延时溶解销毁"><a href="#39-amp-40-树倒下后延时溶解销毁" class="headerlink" title="39 &amp; 40 树倒下后延时溶解销毁"></a>39 &amp; 40 树倒下后延时溶解销毁</h5><p>OPEN M_PalmMaster</p>
+<ul>
+<li>M_PalmMaster<ul>
+<li>选中 M_PalmMaster 混合模式 Blend Mode 为 Masked 遮罩</li>
+</ul>
+</li>
+<li>创建 Texture Sample<ul>
+<li>Texture 纹理设置 T_noise01 如果没有，因为是引擎的，所以需要在 <code>文件夹视图中 点击 设置 显示引擎内容</code></li>
+<li>RGB <ul>
+<li>Add <ul>
+<li>B <ul>
+<li>创建 Constant<ul>
+<li>转换为参数 Convert to Parameter</li>
+<li>Rename Dissolve</li>
+<li>Default 1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>A<ul>
+<li>创建 Constant<ul>
+<li>转换为参数 Convert to Parameter</li>
+<li>Rename Contrast</li>
+<li>Default 50</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>A连接 创建 CheapContrast<ul>
+<li>连接两个 Contrast</li>
+<li>Result 连接到 M_PalmMaster 的 Opacity Mask</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN M_Palm01</p>
+<ul>
+<li>Global Scalar Parameter Values<ul>
+<li>Dissolve </li>
+<li>Contrast 会用到它</li>
+</ul>
+</li>
+</ul>
+<p>OPEN M_PalmLeaf</p>
+<ul>
+<li>创建 Texture Sample<ul>
+<li>原来的(黑白的、连接了不透明蒙版) Texture Sample RGB 指向创建<ul>
+<li>创建 Lerp[LinearInterpolate]</li>
+</ul>
+</li>
+<li>RGB再指向 Leap 的 B<ul>
+<li>最后输出到 M_PalmLeaf 的 Opacity Mask</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Texture 纹理设置 T_Noise01<ul>
+<li>RGB <ul>
+<li>Add<ul>
+<li>A<ul>
+<li>连接 RGB</li>
+</ul>
+</li>
+<li>B <ul>
+<li>创建 Constant<ul>
+<li>转换为参数 Convert to Parameter</li>
+<li>Rename Dissolve</li>
+<li>Default 1</li>
+<li>连接第二条线到 Lerp 的 Alpha</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Return 连接到 Lerp 的 A</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>右键文件 M_PalmLeaf 创建 材质实例</p>
+<ul>
+<li>Rename M_PalmLeaf_Inst</li>
+</ul>
+<p>选中 P_Palm01&#x2F;02&#x2F;03&#x2F;04&#x2F;05 右键 编辑</p>
+<ul>
+<li>全部修改 Element4 为 M_PalmLeaf_Inst</li>
+</ul>
+<p>开始写溶解的逻辑</p>
+<p>OPEN BP_PalmDestMaster 事件图</p>
+<ul>
+<li>Event 开始播放 - Parent BeginPlay</li>
+<li>Delay 10s</li>
+<li>将组件的 静态网格 拖入事件图 创建动态材料 Create Dynamic Material Instance<ul>
+<li>Target &#x3D;&gt; 静态网格</li>
+<li>Material &#x3D;&gt; M_Palm01</li>
+<li>因为 静态网格材料有多个，所以需要 循环多次</li>
+<li>Return Value 设置静态变量 Mat0</li>
+</ul>
+</li>
+<li>再次 Static Mesh</li>
+<li>再次 创建动态材料 Create Dynamic Material Instance<ul>
+<li>Target &#x3D;&gt; 静态网格</li>
+<li>Material &#x3D;&gt; M_Palm02</li>
+<li>因为 静态网格材料有多个，所以需要 For</li>
+<li>Return Value 设置静态变量 Mat2</li>
+</ul>
+</li>
+<li>再次 Static Mesh</li>
+<li>再次 创建动态材料 Create Dynamic Material Instance<ul>
+<li>…</li>
+</ul>
+</li>
+<li>再次 Static Mesh</li>
+<li>再次 创建动态材料 Create Dynamic Material Instance<ul>
+<li>…</li>
+</ul>
+</li>
+<li>再次 Static Mesh</li>
+<li>再次 创建动态材料 Create Dynamic Material Instance<ul>
+<li>… 6个，第四个材质选择 M_PalmLeaf_Inst</li>
+</ul>
+</li>
+<li>add Timeline<ul>
+<li>取消 Play 接线，使用<code>Play from start</code>接线</li>
+<li>Rename FadeWay</li>
+<li>Length 5s</li>
+<li>增加浮点型轨道 rename float_0<ul>
+<li>t0 1</li>
+<li>t5 -1 </li>
+<li>选中两个关键帧，右键设置为自动</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Timeline 的 update &#x3D;&gt; Mat0 然后 设置标量参数值[Set scalar parameter value]<ul>
+<li>Target &#x3D;&gt; 变量 Mat0&#x2F;1&#x2F;2&#x2F;3&#x2F;4&#x2F;5</li>
+<li>Timeline &lt;&#x3D;&gt; float_0 </li>
+<li>Parameter Name &#x3D; Dissolve</li>
+</ul>
+</li>
+<li>Timeline 的 Finished &#x3D;&gt; Static Mesh 的 Set Visibility</li>
+</ul>
+<p>可以通过如下设置树的销毁时间<br>OPEN BP_DestroyableTree 事件图</p>
+<ul>
+<li>事件图 的 Delay 10s </li>
+<li>类默认设置 初始寿命 Initial Life Span 0</li>
+</ul>
+<h5 id="41-创建石镐以及相关文件"><a href="#41-创建石镐以及相关文件" class="headerlink" title="41 创建石镐以及相关文件"></a>41 创建石镐以及相关文件</h5><p>下载资源 </p>
+<ul>
+<li>导入 .jpg 石镐贴图 到 _Main&#x2F;Widgets&#x2F;Textures&#x2F;ItemIcons 目录中</li>
+<li>导入 .FBX 文件 <code>材质导入方式 设置为 不创建材料</code> 到 _Main&#x2F;Meshes&#x2F;Equipables 目录中</li>
+<li>导入 .png 文件 到 _Main&#x2F;Meshes&#x2F;Equipables&#x2F;Materials 目录中<ul>
+<li>创建材质<ul>
+<li>Rename M_StonePickMaster<ul>
+<li>双击进入编辑</li>
+<li>创建 Texture Sample Parameter2D<ul>
+<li>Rename BaseColor</li>
+<li>RGB 创建 Multiply<ul>
+<li>Return Value 连接到 核心的 Base Color</li>
+<li>B 创建 Vector Parameter<ul>
+<li>Rename Tint 0 0 0 0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>创建 Texture Sample Parameter2D<ul>
+<li>Rename NormalMap</li>
+<li>设置材质文件 DefaultNormal</li>
+<li>连接到 核心的 Normal</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>右键文件 M_StonePickMaster 创建材质实例 M_StonePick01</li>
+<li>右键文件 M_StonePickMaster 创建材质实例 M_StonePick02</li>
+<li>右键文件 M_StonePickMaster 创建材质实例 M_StonePick03</li>
+<li>编辑三个实例文件<ul>
+<li>第一个实例文件 参数<ul>
+<li>BaseColor 设置为 pickaxe_lowpoly_002_Material_001_BaseMap</li>
+<li>NormalMap 设置为 pickaxe_lowpoly_002_Material_001_NorMal</li>
+<li>Tint 中间偏上左一点点的灰色 1&#x2F;12 1&#x2F;2 处</li>
+</ul>
+</li>
+<li>第二个实例文件 参数<ul>
+<li>BaseColor 设置为 pickaxe_lowpoly_002_Material_002_BaseMap</li>
+<li>NormalMap 设置为 pickaxe_lowpoly_002_Material_002_NorMal</li>
+<li>Tint 正中间的白色 通过右边直接划到最顶上</li>
+</ul>
+</li>
+<li>第三个实例文件 参数<ul>
+<li>BaseColor 设置为 pickaxe_lowpoly_002_Material_BaseMap</li>
+<li>NormalMap 设置为 pickaxe_lowpoly_002_Material_NorMal</li>
+<li>Tint 棕色 右上角滑块 第一个 2&#x2F;3处  第二个1&#x2F;8处</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN StonePickaxe 静态网格体</p>
+<ul>
+<li>设置三个材质元素<ul>
+<li>0 M_StonePick02</li>
+<li>0 M_StonePick03</li>
+<li>0 M_StonePick01</li>
+</ul>
+</li>
+</ul>
+<p>创建文件夹 Pickaxe 目录 _Main&#x2F;Blueprints&#x2F;Items&#x2F;Equipables&#x2F;Tools 目录中<br>为 BP_TP_Hatchet 添加蓝图子类 BP_TP_StonePickaxe 移动到 _Main&#x2F;Blueprints&#x2F;Items&#x2F;Equipables&#x2F;Tools&#x2F;Pickaxe 目录中<br>为 BP_FP_Hatchet 添加蓝图子类 BP_FP_StonePickaxe 移动到 _Main&#x2F;Blueprints&#x2F;Items&#x2F;Equipables&#x2F;Tools&#x2F;Pickaxe 目录中</p>
+<p>OPEN BP_TP_StonePickaxe</p>
+<ul>
+<li>设置 静态网格 Static Mesh 为 StonePickaxe</li>
+</ul>
+<p>OPEN BP_FP_StonePickaxe</p>
+<ul>
+<li>设置 静态网格 Static Mesh 为 StonePickaxe</li>
+</ul>
+<p>为 石镐 增加 数据表信息<br>OPEN DT_Items</p>
+<ul>
+<li>新增行<ul>
+<li>ID 3</li>
+<li>数量1</li>
+<li>icon图 StonePickaxe</li>
+<li>ItemName 石镐</li>
+<li>ItemDescription 一把能够碎石的石镐</li>
+<li>ItemClassRef BP_TP_StonePickaxe</li>
+<li>ItemType Equipment</li>
+<li>ItemCurHp 100</li>
+<li>ItemMaxHp 100</li>
+<li>伤害 100</li>
+</ul>
+</li>
+</ul>
+<p>增加R快捷键 添加一个石镐到快捷栏<br>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>Get Data Table Row<ul>
+<li>Row Name 3</li>
+</ul>
+</li>
+</ul>
+<p>运行测试，可以在快捷栏中添加石镐了，但是 石镐没有图片 以及 手持的石镐没有显示</p>
+<ul>
+<li>没有设置图片是因为 图片没有保存，全部保存</li>
+<li>手持的石镐没有显示是因为 没有设置 穿戴信息</li>
+</ul>
+<p>OPEN BP_TP_StonePickaxe</p>
+<ul>
+<li>类默认设置 穿戴信息<ul>
+<li>SocketName 为 ToolSocket</li>
+<li>ThirdPersonEquipClass BP_FP_StonePickaxe</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FP_StonePickaxe</p>
+<ul>
+<li>类默认设置 穿戴信息<ul>
+<li>SocketName 为 ToolSocket</li>
+<li>ThirdPersonEquipClass BP_FP_StonePickaxe</li>
+</ul>
+</li>
+</ul>
+<h5 id="42-重写石镐的收获逻辑"><a href="#42-重写石镐的收获逻辑" class="headerlink" title="42 重写石镐的收获逻辑"></a>42 重写石镐的收获逻辑</h5><p>创建 蓝图枚举 E_ToolTier 在 _Main&#x2F;Blueprints&#x2F;Enums 目录中</p>
+<ul>
+<li>Stone 含义：石头</li>
+<li>Iron 含义：铁</li>
+</ul>
+<p>创建 蓝图枚举 E_HarvestingToolType 在 _Main&#x2F;Blueprints&#x2F;Enums 目录中</p>
+<ul>
+<li>Pickaxe 含义：石镐</li>
+<li>Hatchet 含义：斧头</li>
+</ul>
+<p>使用枚举<br>OPEN S_ResourceStructure</p>
+<ul>
+<li>add PreferredToolType E_HarvestingToolType 首选工具类型</li>
+</ul>
+<p>这时 也需要修改 S_LargeItem 的 GivenItems<br>OPEN S_LargeItem</p>
+<ul>
+<li>设置 GivenItems S_ResourceStructure</li>
+</ul>
+<p>OPEN DT_LargeItemResources</p>
+<ul>
+<li>修改 BP_PalmDest02_C 的 <ul>
+<li>ResourceId 为 1</li>
+<li>Quantity 为 3</li>
+<li>PreferredToolType 为 Hatchet</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_TP_Hatchet 事件图</p>
+<ul>
+<li>增加 变量 ToolType E_HarvestingToolType</li>
+<li>增加变量 ToolTier E_ToolTier</li>
+<li>HarvestFoliage 方法<ul>
+<li>For Each Loop 循环 的 Array Element 导出为 Break 拆分 S_ResourceStructure<ul>
+<li>PreferredToolType 导出 相等（枚举） ToolType &#x3D;&#x3D; PreferredToolType 链接下方的 选择浮动的 Pick A</li>
+<li>添加数学表达式 [Add Math Expression] (((BaseVar * Rate) * ToolTypeVar) * ToolTierVar) * DamageVar 描述：BaseVar数量 * Rate配置文件中的服务器速率<ul>
+<li>BaseVar &#x3D;&gt; Break S_ResourceStructure 的 Quantity</li>
+<li>Rate 配置文件中的服务器速率现在设置1</li>
+<li>ToolTypeVar &#x3D;&gt; 拖动创建 范围内随机浮点  select flot<ul>
+<li>范围内随机浮点 [Random float in range] 作为A<ul>
+<li>Min 0.2</li>
+<li>Max 0.4</li>
+</ul>
+</li>
+<li>范围内随机浮点 [Random float in range] 作为B<ul>
+<li>Min 0.01</li>
+<li>Max 0.1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ToolTierVar &#x3D;&gt; 拖动创建 选择 select<ul>
+<li>Index A 链接 变量 ToolTier</li>
+<li>范围内随机浮点 [Random float in range] 作为 Stone<ul>
+<li>Min 0.8</li>
+<li>Max 1.2</li>
+</ul>
+</li>
+<li>范围内随机浮点 [Random float in range] 作为 Lron<ul>
+<li>Min 1.2</li>
+<li>Max 1.6</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DamageVar 链接 局部变量 LocalDamage</li>
+<li>Return Value Truncate 作为整数</li>
+<li>作为整数 并且 设置本地变量 LocalResourceQuantity</li>
+</ul>
+</li>
+<li>HarvestItemOnServer 的 Resource 拖动创建资源结构 Make S_ResourceStructure<ul>
+<li>ResourceId &#x3D;&gt; Break S_ResourceStructure 的 ResourceId</li>
+<li>Quantity &#x3D;&gt; LocalResourceQuantity</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>增加斧头砍树能收货更多木头的逻辑<br>因为运算公式中包含了 首选工具类型，所以自动适配了斧头和石镐<br>OPEN BP_TP_StoneHatchet 事件图<br>可装备信息</p>
+<ul>
+<li>ToolType 为 Hatchet</li>
+<li>ToolTier 为 Stone</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>梳理 斧头 和 石镐 的 首选武器类型，两个都应该在子类设置</li>
+</ul>
+<p>最后检查：<br>DT_Items</p>
+<ul>
+<li>斧头 视频是 BP_TP_StoneHatchet</li>
+<li>石镐 视频是 BP_TP_StonePickaxe</li>
+</ul>
+<p>BP_EquipableMaster</p>
+<ul>
+<li>GetEquipableRef 对自身引用</li>
+</ul>
+<p>BP_FirstPersonCharacter</p>
+<ul>
+<li>第一人称静态网格 拥有者不可见</li>
+<li>第三人称静态网格 仅拥有者可见</li>
+<li>事件图<ul>
+<li>生成 Actor 后 要设置拥有者为 self 也就是 BP_FirstPersonCharacter 这样网格设置的不可见才有效</li>
+<li>第一人称生成Actor+</li>
+<li>第三人称生成Actor+</li>
+</ul>
+</li>
+</ul>
+<p>斧头 和 石镐 的父类 BP_TP_Hatchet</p>
+<ul>
+<li>拥有者不可见</li>
+</ul>
+<p>斧头 和 石镐 的父类 BP_TP_Hatchet</p>
+<ul>
+<li>仅拥有者可见</li>
+</ul>
+<p>Hatchet</p>
+<ul>
+<li>BP_FP_StoneHatchet<ul>
+<li>SocketName 为 ToolSocket</li>
+<li>ThirdPersonEquipClass 不设置</li>
+</ul>
+</li>
+<li>BP_TP_StoneHatchet 静态网格<ul>
+<li>拥有者不可见</li>
+<li>FirstPersonEquipClass  BP_FP_StoneHatchet</li>
+</ul>
+</li>
+</ul>
+<p>Pickaxe</p>
+<ul>
+<li>BP_FP_StonePickaxe<ul>
+<li>SocketName 为 ToolSocket</li>
+<li>ThirdPersonEquipClass 不设置</li>
+</ul>
+</li>
+<li>BP_TP_StonePickaxe 静态网格<ul>
+<li>拥有者不可见</li>
+<li>FirstPersonEquipClass  BP_FP_StonePickaxe</li>
+</ul>
+</li>
+</ul>
+<h5 id="43-石头碎裂效果"><a href="#43-石头碎裂效果" class="headerlink" title="43 石头碎裂效果"></a>43 石头碎裂效果</h5><p>岩石可破坏类</p>
+<p>创建目录 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;ChildClasses&#x2F;LargeItemClasses</p>
+<p>为 BP_LargeItemMaster [搜索文件名] 创建蓝图子类 BP_Rock 移动到 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;ChildClasses&#x2F;LargeItemClasses 目录中</p>
+<p>添加 虚幻引擎资源 Get Content &#x3D;&gt; Quixel Bridge &#x3D;&gt; 3D Assets ，下载完之后会出现文件夹</p>
+<ul>
+<li>关键词：beach bolder</li>
+<li>中等质量下载</li>
+</ul>
+<p>OPEN BP_Rock</p>
+<ul>
+<li>设置 静态网格 S_Beach_Boulder_ukopeijs_lod3_Var1</li>
+</ul>
+<p>创建目录 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;ChildClasses&#x2F;LargeItemClasses&#x2F;Rocks<br>为 BP_Rock 创建蓝图子类 BP_BeachRock01 </p>
+<ul>
+<li>移动到 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;ChildClasses&#x2F;LargeItemClasses&#x2F;Rocks 目录中</li>
+</ul>
+<p>OPEN DT_LargeItemResources</p>
+<ul>
+<li>新增行<ul>
+<li>Row Mame BP_BeachRock01_C</li>
+<li>GivenItems<ul>
+<li>Index[0]<ul>
+<li>ResourceId 4</li>
+<li>Quantity 3</li>
+<li>PreferredToolType Pickaxe</li>
+</ul>
+</li>
+<li>Index[1]<ul>
+<li>ResourceId 5</li>
+<li>Quantity 1</li>
+<li>PreferredToolType Pickaxe</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN DT_Items</p>
+<ul>
+<li>新增行<ul>
+<li>ID 4</li>
+<li>数量1</li>
+<li>icon图 tex_stone_09_b</li>
+<li>ItemName 石头</li>
+<li>ItemDescription 一块石头</li>
+<li>ItemClassRef None</li>
+<li>ItemType Resource</li>
+<li>可堆叠</li>
+<li>堆叠数量 100</li>
+<li>ItemRarity Common</li>
+</ul>
+</li>
+<li>新增行<ul>
+<li>ID 5</li>
+<li>数量1</li>
+<li>icon图 tex_stone_07_b</li>
+<li>ItemName 铁矿</li>
+<li>ItemDescription  一块铁矿</li>
+<li>ItemClassRef None</li>
+<li>ItemType Resource</li>
+<li>可堆叠</li>
+<li>堆叠数量 100</li>
+<li>ItemRarity Common</li>
+</ul>
+</li>
+</ul>
+<p>为 BP_DestructableHarvestable 添加蓝图子类 BP_DestructableRock<br>OPEN BP_DestructableRock</p>
+<ul>
+<li>添加组件 几何体集 [Geometry Collection]</li>
+</ul>
+<p>Map中 添加 S_Beach_Boulder_ukopeijs_lod3_Var1</p>
+<ul>
+<li>选择 爆裂模式 Fracture Shift+6</li>
+<li>创建一个 几何集合<ul>
+<li>目录：_Main&#x2F;Meshes&#x2F;DestructableMeshes 右键先创建</li>
+</ul>
+</li>
+<li>点击统一<ul>
+<li>Min Voronoi Sites 20</li>
+<li>Max Voronoi Sites 20</li>
+</ul>
+</li>
+<li>然后从map中删除，因为已经创建了几何集合文件</li>
+</ul>
+<p>OPEN BP_DestructableRock</p>
+<ul>
+<li>几何体集 [Geometry Collection]<ul>
+<li>设置 混沌物理 其他集 S_Beach_Boulder_ukopeijs_lod3_Var1_GeometryCollection 几何体集文件</li>
+</ul>
+</li>
+</ul>
+<p>增加力量，让石头碎开</p>
+<p>创建蓝图类 破坏类 fieldSystemActor BP_DestructionForce 移动到 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;Destructables 目录中<br>OPEN it 增加力量</p>
+<ul>
+<li>增加组件 径向衰减 [Radial Falloff]</li>
+<li>增加组件 Sphere Collision</li>
+<li>事件图 Event BeginPlay</li>
+<li>Field System 组件的 添加临时场 [Add Transient Field]<ul>
+<li>Enable Field 勾选</li>
+<li>Physics Type &#x3D;&gt; 外部张力 [External Strain]</li>
+<li>Field Node &#x3D;&gt; 组件 Radial Falloff 的 Set Radial Falloff 的 Return Value<ul>
+<li>Field Magnitude &#x3D;&gt; 500000</li>
+<li>Sphere Radius &#x3D;&gt; Sphere 的 Get Scaled Sphere Radius 的 Return Value</li>
+<li>Center Position &#x3D;&gt; Sphere 的 Get World Location 的 Return Value</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>延迟 2s</li>
+<li>Destroy Actor</li>
+</ul>
+<p>OPEN BP_DestructableRock</p>
+<ul>
+<li>Event BeginPlay</li>
+<li>创建 Actor [Spawn Actor]<ul>
+<li>Class &#x3D;&gt; BP_DestructionForce</li>
+<li>Transform &#x3D;&gt; 右键 拆分引脚 后的 <code>Spawn Transform Location</code> FROM <code>Get Actor Location </code></li>
+</ul>
+</li>
+<li>延迟 8s</li>
+<li>Destroy Actor</li>
+</ul>
+<p>创建文件夹 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;Destructables&#x2F;Rocks<br>为 BP_DestructableRock 创建蓝图子类 BP_BeachRockDest01 移动到 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;Destructables&#x2F;Rocks 目录中</p>
+<p>OPEN DT_LargeItemResources</p>
+<ul>
+<li>设置 BP_BeachRock01_C 的<ul>
+<li>Class BP_BeachRockDest01</li>
+</ul>
+</li>
+</ul>
+<p>Map 中 拖入 BP_BeachRock01，石镐破坏石头，一直提示没有击中，因为没有设置碰撞</p>
+<p>OPEN S_Beach_Boulder_ukopeijs_lod3_Var1  注意 <code>不是几何体集文件</code></p>
+<ul>
+<li>碰撞<ul>
+<li>增加 26DOP 简单碰撞</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_Rock</p>
+<ul>
+<li>静态网格 碰撞 </li>
+<li>碰撞预设 自定义</li>
+<li>Object Type Structure</li>
+</ul>
+<p>这里保存之后可能无法刷新map中石头的属性，所以需要重新打开一下map或者删除石头重新拖入</p>
+<p>因为 BP_TP_Hatchet 中 ServerOverlap方法中 只重叠了 Structure 的碰撞，所以设置好之后 就可以重叠了</p>
+<p>运行，重试，发现掉落的物品 有0数量的</p>
+<p>OPEN BP_TP_Hatchet 收获逻辑中 加判断</p>
+<ul>
+<li>如果当前数量&lt;&#x3D; 0 则不收获</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>发送石镐</li>
+</ul>
+<p>运行，重试，发现掉落的物品 会卡主角色</p>
+<p>OPEN BP_DestructableRock</p>
+<ul>
+<li>碰撞 自定义碰撞<ul>
+<li>Pawn 设置 Overlap 重叠</li>
+</ul>
+</li>
+</ul>
+<p>运行，重试，发现角色会穿过 树 和石头<br>OPEN BP_FirstPersonCharacter</p>
+<ul>
+<li>碰撞 自定义碰撞<ul>
+<li>Structure 设置 Block 阻止</li>
+</ul>
+</li>
+</ul>
+<p>运行，重试，石头不碎了</p>
+<p>OPEN BP_DestructableForce</p>
+<ul>
+<li>Sphere<ul>
+<li>变换 Scale 缩放 2 2 2  <code>球体zxy方向放大2倍</code></li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_DestructableRock</p>
+<ul>
+<li>Geometry Collection<ul>
+<li>混沌物理 [Chaos Physics]<ul>
+<li>Clustering</li>
+<li>集群分组损坏阈值 [Cluster GroupingDamage Threshold]<ul>
+<li>5000</li>
+<li>500</li>
+<li>50</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>碰撞 自定义碰撞<ul>
+<li>Pawn Overlap 重叠</li>
+<li>Structure Ignore 忽略</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>问题：<br>涉及到石头碎裂程度的地方有：</p>
+<ul>
+<li>BP_DestructableForce<ul>
+<li>Sphere<ul>
+<li>缩放</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>BP_DestructableRock<ul>
+<li>Geometry Collection<ul>
+<li>混沌物理 [Chaos Physics]<ul>
+<li>Clustering</li>
+<li>集群分组损坏阈值 [Cluster GroupingDamage Threshold] <code>这里还有问题，调大调小没有效果</code><ul>
+<li>5000</li>
+<li>500</li>
+<li>50</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>设置径向衰减 [Radial Falloff]<ul>
+<li>Field Magnitude &#x3D;&gt; 500000</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>但是修改了一些参数没效果，后期不上 TODO FIXME</p>
+<h5 id="44-灌木丛UI、拾取逻辑以及拾取动作"><a href="#44-灌木丛UI、拾取逻辑以及拾取动作" class="headerlink" title="44 灌木丛UI、拾取逻辑以及拾取动作"></a>44 灌木丛UI、拾取逻辑以及拾取动作</h5><p>添加 虚幻引擎资源 Get Content &#x3D;&gt; Quixel Bridge &#x3D;&gt; 3D Plants ，下载完之后会出现文件夹</p>
+<ul>
+<li>关键词：tropical palm Fresh Healthy 灌木丛  特征：叶子最大 三个叶子</li>
+<li>中等质量下载</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图<br>增加 E 键 拾取逻辑</p>
+<ul>
+<li>E key<ul>
+<li>InteractOnServer</li>
+</ul>
+</li>
+<li>创建 自定义事件 服务器上运行 InteractOnServer<ul>
+<li>OverlapGroundItems(重叠地面上的物品)</li>
+</ul>
+</li>
+<li>创建 自定义事件 服务器上运行 OverlapGroundItems<ul>
+<li>球体 重叠 Actors [Sphere Overlap Actors]<ul>
+<li>Sphere Pos &#x3D;&gt; Get Actor Location</li>
+<li>Object Type &#x3D;&gt; Make Array [0] WorldStatic 只和 WorldStatic 的进行重叠</li>
+<li>Actors to Ignore &#x3D;&gt; Make Array [0] self 忽略第三人称的 Actor</li>
+</ul>
+</li>
+<li>Draw Debug Sphere<ul>
+<li>Location &#x3D;&gt; Get Actor Location 在当前的Actor的位置</li>
+<li>Radius &#x3D;&gt; 70</li>
+<li>Line Color &#x3D;&gt; 红色</li>
+<li>Duration &#x3D;&gt; 3</li>
+<li>Thickness &#x3D;&gt; 2</li>
+</ul>
+</li>
+<li>判断 球体重叠Actors 的 Return Value<ul>
+<li>打印 重叠 &#x2F; 没有重叠</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>创建 文件夹 GroundItemClasses 目录 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;ChildClasses 下 放置 岩石、地面</p>
+<p>OPEN BP_GroundItemMaster</p>
+<ul>
+<li>创建 静态网格 <ul>
+<li>设置 静态网格 S_Tropical_Palm_rkqjj_Var1_lod1</li>
+</ul>
+</li>
+<li>增加变量 Health float <ul>
+<li>默认值 50</li>
+</ul>
+</li>
+<li>设置碰撞预设<ul>
+<li>自定义</li>
+<li>Object WorldStatic</li>
+<li>Pawn Overlap 重叠</li>
+</ul>
+</li>
+</ul>
+<p>创建蓝图接口 BPI_GroundItem 目录 _Main&#x2F;Blueprints&#x2F;Interfaces 下<br>OPEN it</p>
+<ul>
+<li>创建方法 GetGroundItemRef<ul>
+<li>Outputs<ul>
+<li>Ref BP_Ground_Item_Master Object Reference</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_GroundItemMaster 增加接口</p>
+<ul>
+<li>类设置 BPI_GroundItem</li>
+<li>双击 GetGroundItemRef<ul>
+<li>对自身引用</li>
+</ul>
+</li>
+</ul>
+<p>为 BP_GroundItemMaster 创建子类 BP_TropicalBush01 移动到 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;ChildClasses&#x2F;GroundItemClasses 目录中</p>
+<p>创建文件夹 TropicalBushes 目录 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;ChildClasses&#x2F;GroundItemClasses 目录中<br>移动 BP_TropicalBush01 到 TropicalBushes 目录中</p>
+<p>为 资源 增加碰撞 S_Tropical_Palm_rkqjj_Var1_lod1  OPEN it</p>
+<ul>
+<li>碰撞 球体简单碰撞<ul>
+<li>调小半径 tips:右上角小icon 选择 旋转右边的 缩放</li>
+</ul>
+</li>
+</ul>
+<p>Map 中 添加 BP_TropicalBush01 子类，运行测试，e键可以命中了</p>
+<p>接下来，需要在地面上放置一些资源</p>
+<p>OPEN DT_Items</p>
+<ul>
+<li>增加行 浆果<ul>
+<li>RowName 6</li>
+<li>ID 6</li>
+<li>数量 1</li>
+<li>icon图 tex_herbs_05_b</li>
+<li>ItemName 浆果</li>
+<li>ItemDescription 浆果，可以食用恢复血量</li>
+<li>ItemClassRef None</li>
+<li>可堆叠</li>
+<li>堆叠数量 100</li>
+</ul>
+</li>
+<li>增加行 叶子<ul>
+<li>RowName 7</li>
+<li>ID 7</li>
+<li>数量 1</li>
+<li>icon图 tex_herbs_06_b</li>
+<li>ItemName 叶子</li>
+<li>ItemDescription 一片叶子</li>
+<li>ItemClassRef None</li>
+<li>可堆叠</li>
+<li>堆叠数量 100</li>
+</ul>
+</li>
+</ul>
+<p>创建 其他-数据表 PICK &#x3D;&gt; S_LargeItem 名字 DT_GroundResources  在 _Main&#x2F;DataTables 目录中</p>
+<ul>
+<li>新增行<ul>
+<li>BP_TropicalBush01_C</li>
+<li>GivenItems<ul>
+<li>浆果<ul>
+<li>ResourceId 6</li>
+<li>Quantity 3</li>
+<li>PreferredToolType Pickaxe</li>
+</ul>
+</li>
+<li>叶子<ul>
+<li>ResourceId 7</li>
+<li>Quantity 1</li>
+<li>PreferredToolType Pickaxe</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>创建 方法 HarvestGroundItem<ul>
+<li>Inputs<ul>
+<li>Ref Actor Object Reference</li>
+</ul>
+</li>
+<li>GetGroundItemRef(Message) &#x3D;&gt; Ref</li>
+<li>地面的物品 当前血量 扣减 15</li>
+<li>判断 当前血量 &lt;&#x3D; 0<ul>
+<li>false<ul>
+<li>通过数据表 获取物品 Get Data Table Row<ul>
+<li>Row Table &#x3D;&gt; DT_GroundResources</li>
+<li>Row Name &#x3D;&gt; 物品的类名 [ Ref &#x3D;&gt; Get Class &#x3D;&gt; Get Class Display Name]</li>
+<li>Out Row &#x3D;&gt; break 后 的 GivenItems(设置了两个物品) 设置局部变量 LocalGivenResources</li>
+</ul>
+</li>
+<li>对GivenItems进行循环<ul>
+<li>For Each Loop LocalGivenResources<ul>
+<li>Array Element<ul>
+<li>Break S_ResourceStructure<ul>
+<li>ResourceId &#x3D;&gt; Array Element 的 ResourceId</li>
+<li>Quantity &#x3D;&gt; Array Element 的 Quantity</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数学表达式 [Math Expression] (BaseVar * RateVar) * RandomVar<ul>
+<li>BaseVar &#x3D;&gt; Break S_ResourceStructure 的 Quantity</li>
+<li>RateVar &#x3D;&gt; 1</li>
+<li>RandomVar &#x3D;&gt; 范围内随机浮点 [Random float in range]<ul>
+<li>Min 0.3</li>
+<li>Max 1.2</li>
+</ul>
+</li>
+<li>Return Value Truncate 作为整数</li>
+<li>作为整数 并且 设置本地变量 LocalQuantity</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>增加 LocalQuantity &lt;&#x3D;0 的判断</li>
+<li>HarvestItemOnServer<ul>
+<li>创建 S_ResourceStructure<ul>
+<li>ResourceId &#x3D;&gt; Break S_ResourceStructure 的 ResourceId</li>
+<li>Quantity &#x3D;&gt; LocalQuantity</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>角色 与 GroundItemMaster 重叠的灌木丛 Actor<ul>
+<li>HarvestGroundItem <ul>
+<li>Ref &#x3D; 重叠的 Actors &#x3D;&gt; copy</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN FirstPersonMap 导入静态文件 S_Tropical_Palm_rkqjj_Var1_lod1</p>
+<ul>
+<li>选择 S_Tropical_Palm_rkqjj_Var1_lod1 后 Shift 6</li>
+<li>创建几何集合<ul>
+<li>目录：_Main&#x2F;Meshes&#x2F;DestructableMeshes 右键先创建</li>
+<li>点击统一</li>
+<li>生成后，右侧是 selected:100</li>
+</ul>
+</li>
+<li>删除静态文件</li>
+</ul>
+<p>为 BP_DestructableHarvestable 添加蓝图子类 BP_GroundItemDestruct 在 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;Destructables 目录中</p>
+<ul>
+<li>增加组件 几何体集 [Geometry Collection]<ul>
+<li>几何体 静态网格 S_Tropical_Palm_rkqjj_Var1_lod1_GeometryCollection</li>
+<li>碰撞预设<ul>
+<li>自定义<ul>
+<li>Pawn Overlap 重叠 ,不然角色会卡住</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>集群分组损坏阈值 [Cluster GroupingDamage Threshold] 破坏值高的话 效果会差<ul>
+<li>5000</li>
+<li>500</li>
+<li>50</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>事件图<ul>
+<li>Event BeginPlay</li>
+<li>Spawn Actor from Class BP_DestructionForce<ul>
+<li>Class BP_DestructionForce</li>
+<li>Spawn Transform &#x3D;&gt; 右键 拆分引脚 后的 <code>Spawn Transform Location</code> FROM <code>Get Actor Location</code></li>
+</ul>
+</li>
+<li>Delay 5s</li>
+<li>Destroy Actor</li>
+</ul>
+</li>
+</ul>
+<p>创建文件夹 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;Destructables&#x2F;Blushes<br>为 BP_GroundItemDestruct 创建蓝图子类 BP_TropicalBush01Dest 移动到 Blushes</p>
+<p>设置数据表 DT_GroundResources</p>
+<ul>
+<li>Class<ul>
+<li>增加破坏类 BP_TropicalBush01Dest_C</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>HarvestGroundItem<ul>
+<li>如果当前的血量 &lt;&#x3D; 则销毁<ul>
+<li>Get Data Table Row DT_GroundResources<ul>
+<li>Row Name &#x3D;&gt; 物品的类名 [ Ref &#x3D;&gt; Get Class &#x3D;&gt; Get Class Display Name]</li>
+<li>Out Row Break<ul>
+<li>Class 设置局部变量 LocalDestructableClass</li>
+<li>?Is Valid 物品的ref 是否有效<ul>
+<li>设置局部变量 LocalTransform FROM 物品的ref &#x3D;&gt; Get Actor Transform</li>
+</ul>
+</li>
+<li>Destroy Actor 物品的ref</li>
+<li>Spawn Actor None 生成破坏类<ul>
+<li>Class &#x3D;&gt; LocalDestructableClass</li>
+<li>Spawn Transform &#x3D;&gt; LocalTransform</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>增加视觉提示UI，播放蒙太奇</p>
+<ul>
+<li>核心：</li>
+</ul>
+<p>创建蒙太奇文件 Pickup_Montage FROM 动画 Pickup</p>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>增加变量 ?IsHarvesting bool</li>
+<li>增加自定义事件 服务器上运行 HarvestMontageOnServer<ul>
+<li>判断是否正在收获 ?IsHarvesting<ul>
+<li>false<ul>
+<li>设置 ?IsHarvesting 为 true</li>
+<li>播放蒙太奇 Play Montage<ul>
+<li>在 第三人称网格组件 ThirdPersonMesh 播放蒙太奇</li>
+<li>Montage &#x3D;&gt; Pickup_Montage</li>
+<li>Play Rate &#x3D;&gt; 1</li>
+<li>播放完成后<ul>
+<li>设置 ?IsHarvesting 为 false</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>MontageOnClient 在客户端上播放</li>
+<li>MontageMulticast 在组播上播放</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>事件 OverlapGroundItems 的 重叠 HarvestGroundItem 后<ul>
+<li>HarvestMontageOnServer</li>
+</ul>
+</li>
+<li>事件 MontageMulticast 的 EndAnimation 下方 第三人称持有武器物品 如果没有验证成功 将 ?IsHarvesting 设置为 false</li>
+</ul>
+<h5 id="45-修复动画蓝图下半身突兀的BUG"><a href="#45-修复动画蓝图下半身突兀的BUG" class="headerlink" title="45 修复动画蓝图下半身突兀的BUG"></a>45 修复动画蓝图下半身突兀的BUG</h5><p>动画中身体下半部分很突兀，设置只有身体上半部分动画</p>
+<p>OPEN ThirdPerson_AnimBP</p>
+<ul>
+<li>状态引擎 [New State Machine] 拆分引脚<ul>
+<li>连接 新保存的缓存姿势<ul>
+<li>Rename Cache</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>拆分到了这 每个骨骼的分层混合 [Layered blend per bone]<ul>
+<li>Base Pose &#x3D;&gt; 使用缓存姿势 [Use cached pose ‘Cache’]</li>
+<li>Blend Poses 0 &#x3D;&gt; 使用缓存姿势 [Use cached pose ‘Cache’] 的 Slot ‘DefaultSlot’</li>
+<li>Return 输出姿势</li>
+</ul>
+</li>
+<li>点击 分层混合 详情<ul>
+<li>层设置 [Layer Setup]<ul>
+<li>创建元素<ul>
+<li>分支过滤器 [Branch Filters]<ul>
+<li>创建元素<ul>
+<li>Bone Name &#x3D;&gt; spine_01(骨骼腰部) 选择的是骨骼的名称</li>
+<li>Blend Depth &#x3D;&gt; 1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN UE4_Mannequin_Skeleton 可以查看</p>
+<p><img src="/blog/p/614a8811/ThirdPerson_AnimBP%E6%AF%8F%E4%B8%AA%E9%AA%A8%E9%AA%BC%E7%9A%84%E5%88%86%E5%B1%82%E6%B7%B7%E5%90%88.png" alt="ThirdPerson_AnimBP每个骨骼的分层混合.png"></p>
+<h5 id="46-背包物品堆叠功能"><a href="#46-背包物品堆叠功能" class="headerlink" title="46 背包物品堆叠功能"></a>46 背包物品堆叠功能</h5><p>物品堆叠功能</p>
+<ul>
+<li><p>加入物品时检测</p>
+</li>
+<li><p>检测物品是否可以堆叠</p>
+<ul>
+<li>While 循环 判断未添加的数量<ul>
+<li>同类物品 &amp; 可堆叠数量</li>
+<li>return<ul>
+<li>?IsStackable bool</li>
+<li>Index int</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>堆叠物品</p>
+<ul>
+<li>增加数量</li>
+<li>移除物品</li>
+</ul>
+</li>
+<li><p>创建方法 HasItemsToStack</p>
+<ul>
+<li>Inputs<ul>
+<li>ItemInfo S_ItemInfo</li>
+</ul>
+</li>
+<li>Outputs<ul>
+<li>?ItemExistsInInv bool</li>
+</ul>
+</li>
+<li>设置局部变量 LocalItemInfo</li>
+<li>For Each Loop with Break<ul>
+<li>Array &#x3D;&gt; LocalItemInfo</li>
+</ul>
+</li>
+<li>Break FROM Array Element<ul>
+<li>判断 LocalItemInfo 和 循环体内的 ItemInfo id 是否相等<ul>
+<li>false<ul>
+<li>continue</li>
+</ul>
+</li>
+<li>true<ul>
+<li>判断 LocalItemInfo 和 循环体内的 ItemInfo 是否可堆叠<ul>
+<li>false<ul>
+<li>continue</li>
+</ul>
+</li>
+<li>true<ul>
+<li>?ItemExistsInInv 设置为 true</li>
+<li>break</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>优化：</p>
+<ul>
+<li>Select Int</li>
+<li>And Bool</li>
+<li>Clamp(Integer) 限制最大值<ul>
+<li>Mix</li>
+<li>Max</li>
+</ul>
+</li>
+</ul>
+<p>用图表示</p>
+<p><code>这里存在问题</code>，当一次获取很多个物品时，外部只是 增加了最多一个对象的UI展示，但是实际上增加了很多个对象，这里需要优化</p>
+<h5 id="47-添加收获功能的视觉特效和声音"><a href="#47-添加收获功能的视觉特效和声音" class="headerlink" title="47 添加收获功能的视觉特效和声音"></a>47 添加收获功能的视觉特效和声音</h5><p>下载UE引擎资源 </p>
+<ul>
+<li>打开引擎市场 </li>
+<li>search <ul>
+<li>Starter VFX Pack</li>
+</ul>
+</li>
+<li>安装</li>
+</ul>
+<p>下载 音效资源文件，导入 创建的文件夹 _Main&#x2F;Sounds&#x2F;Harvesting</p>
+<p>创建 声音 声音CUE文件</p>
+<ul>
+<li>Rename SC_RockDestroy</li>
+<li>OPEN it, 随机选择一个音效播放</li>
+<li>Random<ul>
+<li>in<ul>
+<li>Wave Player：RockDestroy1</li>
+<li>Wave Player：RockDestroy2</li>
+<li>Wave Player：RockDestroy3</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>调制器 [Modulator]<ul>
+<li>Pitch Min 0.95</li>
+<li>Pitch Max 1.05</li>
+<li>Volume Min 0.95</li>
+<li>Volume Max 1.05</li>
+</ul>
+</li>
+<li>Modulator 的 Output &#x3D;&gt; 喇叭</li>
+</ul>
+<p>复制 P_Destruction_Concrete 粒子效果</p>
+<ul>
+<li>Rename P_DestructionRock</li>
+<li>OPEN it</li>
+<li>双击删除 Emitters 中的 derbis_a</li>
+<li>TIPS<ul>
+<li>空格键能看到效果</li>
+</ul>
+</li>
+</ul>
+<p>复制 P_Ceramic 粒子效果</p>
+<ul>
+<li>Rename P_PickaxeHit</li>
+<li>OPEN it</li>
+<li>删除 Emitters 中的 sparks</li>
+<li>删除 Emitters 中的 glow</li>
+</ul>
+<p>创建 声音衰减文件 HarvestingAtt 保存到 _Main&#x2F;Sounds&#x2F;Harvesting 目录中</p>
+<p>OPEN BP_DestructableRock 事件图</p>
+<ul>
+<li>创建自定义事件 组播运行 MulticastFX<ul>
+<li>Spawn Emitter at Location<ul>
+<li>Emitter Template &#x3D;&gt; P_DestructionRock</li>
+<li>Location &#x3D;&gt; Get Actor Location</li>
+<li>Rotation &#x3D;&gt; Get Actor Rotation</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Event BeginPlay 创建破坏类后面<ul>
+<li>MulticastFX</li>
+<li>Play Sound at Location<ul>
+<li>Sound &#x3D;&gt; SC_RockDestroy</li>
+<li>Location &#x3D;&gt; Get Actor Location</li>
+<li>Attenuation Settings &#x3D;&gt; HarvestingAtt</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>运行测试石头，可以看到破碎云效果和声音.</p>
+<p>将声音设置成</p>
+<ul>
+<li>指定半径内播放</li>
+<li>距离衰减</li>
+</ul>
+<p>OPEN BP_TP_Hatchet</p>
+<ul>
+<li>增加自定义事件 组播运行 HitFXMulticast<ul>
+<li>Inputs<ul>
+<li>Location Vector 位置</li>
+<li>Rotation Rotator 旋转</li>
+</ul>
+</li>
+<li>往上级找，发现也需要设置Interface文件，下面设置</li>
+<li>增加变量 TraceDistance float<ul>
+<li>默认值 100</li>
+</ul>
+</li>
+<li>Line Trace By Channel<ul>
+<li>Start &#x3D;&gt; 参数 Location</li>
+<li>End &#x3D;&gt; 参数 Location + (参数 Rotation 的 Get Forward Vector * TraceDistance)</li>
+<li>Draw Debug Type &#x3D;&gt; 持久 [Persistent]</li>
+<li>Out Hit &#x3D;&gt; Break Hit Result</li>
+</ul>
+</li>
+<li>Spawn Emitter at Location<ul>
+<li>Emitter Template &#x3D;&gt; P_PickaxeHit</li>
+<li>Location &#x3D;&gt; Break Hit Result 的 Impact Point</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ServerOverlap 方法<ul>
+<li>修改Inputs<ul>
+<li>增加 Rotation Rotator 旋转</li>
+</ul>
+</li>
+<li>在 收获方法 的后面 调用 HitFXMulticast<ul>
+<li>Location &#x3D;&gt; 球体的 Pos</li>
+<li>Rotation &#x3D;&gt; 球体的 Rotation</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>检测碰撞 不需要 DebugSphere</li>
+</ul>
+<p>OPEN BPI_SurvivalCharacter</p>
+<ul>
+<li>Get Arrow Location<ul>
+<li>增加 Outputs<ul>
+<li>Rotation Rotator 旋转</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>Get Arrow Location 方法<ul>
+<li>Rotation &#x3D;&gt; Arrow1(前方的角度) 的 Get World Rotation</li>
+</ul>
+</li>
+</ul>
+<p>运行测试，敲碎石头也有效果和声音，石镐敲击石头有效果，但是没有声音</p>
+<p>给石镐敲击增加声音</p>
+<p>下载UE引擎资源</p>
+<ul>
+<li>打开引擎市场</li>
+<li>search<ul>
+<li>easy build system V…</li>
+<li>free 免费的</li>
+</ul>
+</li>
+<li>安装</li>
+<li>但是文件太多太大了，选择文件夹 <ul>
+<li>EasyBuildingSystem&#x2F;Audio&#x2F;Sounds&#x2F;Interactions 右键 迁移[Migrate] 弹出资源报告</li>
+<li>选择当前项目路径的 ${项目路径}&#x2F;Content</li>
+<li>保存后，项目会多出 EasyBuildingSystem 文件夹 包含了SC_Pickaxe_Hit、SC_Hatchet_Hit</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_TP_Hatchet</p>
+<ul>
+<li>HitFXMulticast<ul>
+<li>Spawn Emitter at Location 后</li>
+<li>Play Sound at Location<ul>
+<li>Sound &#x3D;&gt; 提升为变量 HitSound SoundBase</li>
+<li>Location &#x3D;&gt; 参数 Location</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>打开 BP_TP_StonePickaxe 设置变量 HitSound 为 SC_Pickaxe_Hit<br>打开 BP_TP_StoneHatchet 设置变量 HitSound 为 SC_Hatchet_Hit</p>
+<p>OPEN BP_FirstPersonCharacter</p>
+<ul>
+<li>切换 斧头和石镐</li>
+</ul>
+<p>运行后 石镐和斧头挥动就可以听到声音了</p>
+<h5 id="48-修复灌木丛的拾取逻辑，灌木丛拾取以及消失时有声音和视觉效果"><a href="#48-修复灌木丛的拾取逻辑，灌木丛拾取以及消失时有声音和视觉效果" class="headerlink" title="48 修复灌木丛的拾取逻辑，灌木丛拾取以及消失时有声音和视觉效果"></a>48 修复灌木丛的拾取逻辑，灌木丛<code>拾取</code>以及<code>消失时</code>有声音和视觉效果</h5><p>修复判断是否正在拾取逻辑的位置，提前判断</p>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>HarvestMontageOnServer 的 判断逻辑 放到 OverlapGroundItems 中</li>
+<li>增加对持有物品的判断<ul>
+<li>如果持有物品，则不能拾取</li>
+</ul>
+</li>
+</ul>
+<p>复制 P_PickaxeHit</p>
+<ul>
+<li>Rename P_BushHarvest</li>
+<li>双击删除 wisp</li>
+<li>编辑 impact的 必须<ul>
+<li>更改材质 M_Leaves_A</li>
+</ul>
+</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>创建 自定义事件 组播 BushMulticast</li>
+<li>生成发射器 Spawn Emitter at Location 和粒子相关<ul>
+<li>Emitter Template &#x3D;&gt; P_BushHarvest</li>
+<li>Location &#x3D;&gt; Get Actor Location 的 Return Value</li>
+</ul>
+</li>
+<li>HarvestMontageOnServer 方法的最后面调用 BushMulticast</li>
+</ul>
+<p>修改 粒子效果 让视觉体验更好</p>
+<p>下载本地资源 BushSFX 的 三个 音频文件到 _Main&#x2F;Sounds&#x2F;Harvesting 目录中</p>
+<ul>
+<li>bush01.wav</li>
+<li>bush02.wav</li>
+<li>bush03.wav</li>
+</ul>
+<p>复制文件 SC_RockDestroy</p>
+<ul>
+<li>Rename SC_BushPick</li>
+<li>OPEN it, 随机选择一个音效播放</li>
+<li>Random<ul>
+<li>in<ul>
+<li>Wave Player：RockDestroy1</li>
+<li>Wave Player：RockDestroy2</li>
+<li>Wave Player：RockDestroy3</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>调制器 [Modulator]<ul>
+<li>Pitch Min 0.95</li>
+<li>Pitch Max 1.05</li>
+<li>Volume Min 0.95</li>
+<li>Volume Max 1.05</li>
+</ul>
+</li>
+<li>Modulator 的 Output &#x3D;&gt; 喇叭</li>
+</ul>
+<p>OPEN BP_FirstPersonCharacter 事件图</p>
+<ul>
+<li>自定义事件 组播 BushMulticast 最后一个方法后面<ul>
+<li>播放声音 Play Sound at Location<ul>
+<li>Sound &#x3D;&gt; SC_BushPick</li>
+<li>Location &#x3D;&gt; Get Actor Location</li>
+<li>Attenuation Settings &#x3D;&gt; HarvestingAtt</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>运行测试，灌木丛<code>拾取</code>以及<code>消失时</code>有声音和视觉效果。</p>
+<h5 id="49-利用植物绘画-实现快速放置物体"><a href="#49-利用植物绘画-实现快速放置物体" class="headerlink" title="49 利用植物绘画 实现快速放置物体"></a>49 利用植物绘画 实现快速放置物体</h5><p>说明：</p>
+<ul>
+<li>Foliage[植物]</li>
+</ul>
+<p>创建文件夹 ActorFoliage 目录 _Main&#x2F;Blueprints&#x2F;HarvestingSystem 下<br>创建文件夹 LargeItems 目录 ActorFoliage 下<br>创建文件夹 PalmTree 目录 LargeItems 下</p>
+<p>创建 Foliage - Actor Foliage 目录 PalmTree 下</p>
+<ul>
+<li>Rename AF_Palm02</li>
+<li>OPEN it</li>
+<li>Actor Class &#x3D;&gt; BP_Palm02</li>
+</ul>
+<p>OPEN Map</p>
+<ul>
+<li>切换 叶子 模式[Foliage Model]</li>
+<li>增加叶子 SM_Cube 如果不行，可以打开浏览器拖动<ul>
+<li>保存路径 LevelPrototyping&#x2F;Meshes</li>
+</ul>
+</li>
+<li>将 AF_Palm02 拖入到 叶子 的白色cube中 or 点击白色cube 右键 替换 AF_Palm02<ul>
+<li>勾选 cube</li>
+</ul>
+</li>
+<li>点击绘画，可以放置多个cube，相当于快速放置物体</li>
+</ul>
+<p><img src="/blog/p/614a8811/ActorFoliage%E5%BF%AB%E9%80%9F%E6%94%BE%E7%BD%AE%E7%89%A9%E4%BD%93.png" alt="ActorFoliage快速放置物体.png"></p>
+<p>准备删除：<br>ue 中 我使用 创建了 BPC_ItemContainer 用 BPC_PlayerInvenotry 和 BPC_PlayerHotbar 继承了它。<br>设置了 BPC_PlayerInvenotry 的 Items 为 30个空的槽位<br>设置了 BPC_PlayerHotbar 的 Items 为 8个空的槽位<br>但是在蓝图 获取BPC_PlayerHotbar 的items 我通过变量观察 到 items 元素变成了30个</p>
+<p>BPC_PlayerInvenotry 是UI最下方的快捷栏，BPC_PlayerInvenotry是按TAB键弹窗从而可以打开的库存，在设计角度上来看 </p>
+<p>我观察到UE中 自定义事件中 有组播 和 客户端 以及服务 上运行 这有哪些区别 如果我用自己创建的服务器 来接受处理玩家逻辑，在ue中 是不是ue统一通过 类似组播这种运行类型 帮我整理了 发送给 后端 的msg 呢？</p>
+<p>我的意思是 目前我还在开发阶段，使用的ue内置的服务，当我换成由专业的后台服务例如tcp来托管的话 那改动大吗 一般如何改动<br>在开发阶段，使用的ue内置的服务，当我换成由专业的后台服务例如tcp来托管的话 那改动大吗 一般如何改动3</p>
+<p>我增加了一棵树，碰撞设置了Presets 为 Custom 并且 Object Type Structure，但是角色靠近树的时候，还是有一段距离无法靠近</p>
+<h3 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h3><h3 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h3><p>玩家存储容器</p>
 <h3 id="第-10-章"><a href="#第-10-章" class="headerlink" title="第 10 章"></a>第 10 章</h3><p>创建所有项目</p>
 <h3 id="第11章"><a href="#第11章" class="headerlink" title="第11章"></a>第11章</h3><p>创建部落&#x2F;氏族系统</p>
 <h3 id="第12章创建社会系统"><a href="#第12章创建社会系统" class="headerlink" title="第12章创建社会系统"></a>第12章创建社会系统</h3><h3 id="第-13-章创建开放世界地图"><a href="#第-13-章创建开放世界地图" class="headerlink" title="第 13 章创建开放世界地图"></a>第 13 章创建开放世界地图</h3><h3 id="第-14-章多生物群落-x2F-程序树叶"><a href="#第-14-章多生物群落-x2F-程序树叶" class="headerlink" title="第 14 章多生物群落&#x2F;程序树叶"></a>第 14 章多生物群落&#x2F;程序树叶</h3><h3 id="第15章人工智能系统"><a href="#第15章人工智能系统" class="headerlink" title="第15章人工智能系统"></a>第15章人工智能系统</h3><h3 id="第-16-章程序区"><a href="#第-16-章程序区" class="headerlink" title="第 16 章程序区"></a>第 16 章程序区</h3><h3 id="第-17-章玩家小地图"><a href="#第-17-章玩家小地图" class="headerlink" title="第 17 章玩家小地图"></a>第 17 章玩家小地图</h3><h3 id="第-18-章-保存-x2F-加载系统"><a href="#第-18-章-保存-x2F-加载系统" class="headerlink" title="第 18 章. 保存&#x2F;加载系统"></a>第 18 章. 保存&#x2F;加载系统</h3><h3 id="第-19-章-Steam-会话-x2F-前端小部件"><a href="#第-19-章-Steam-会话-x2F-前端小部件" class="headerlink" title="第 19 章 Steam 会话&#x2F;前端小部件"></a>第 19 章 Steam 会话&#x2F;前端小部件</h3><h3 id="第-20-章-专用服务器设置和托管"><a href="#第-20-章-专用服务器设置和托管" class="headerlink" title="第 20 章 专用服务器设置和托管"></a>第 20 章 专用服务器设置和托管</h3><h3 id="第21章"><a href="#第21章" class="headerlink" title="第21章"></a>第21章</h3><p>其他</p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><p>单词：<br>Actor<br>Inventory 库存<br>widget 小部件<br>Hotbar 快捷栏<br>Hatchet 斧头<br>Harvest 收获<br>Specific 特定的<br>Harvestable 可收获的<br>Large 大的</p>
+<ul>
+<li>树</li>
+<li>石头<br>Ground 地面</li>
+<li>草</li>
+<li>灌木<br>Damage 伤害</li>
+</ul>
+<p>Overlap 重叠</p>
+<p>对象使用 Break 拆分<br>枚举使用 Switch on Enum 判断</p>
+<h2 id="设计一款游戏"><a href="#设计一款游戏" class="headerlink" title="设计一款游戏"></a>设计一款游戏</h2><h3 id="Common"><a href="#Common" class="headerlink" title="Common"></a>Common</h3><p>登录界面</p>
+<ul>
+<li>登录方式<ul>
+<li>微信</li>
+<li>Steam</li>
+<li>账号密码</li>
+<li>手机号</li>
+<li>游客</li>
+<li>邮箱</li>
+</ul>
+</li>
+</ul>
+<p>物品</p>
+<ul>
+<li>装备</li>
+<li>武器</li>
+</ul>
 ]]></content>
       <categories>
         <category>编程语言</category>
