@@ -8109,12 +8109,12 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>视图中 透视 功能 可以更方便的调整角色的位置</li>
 <li>Play 按钮 可以设置多个玩家，模式为 as Client</li>
 </ol>
-<h5 id="10"><a href="#10" class="headerlink" title="10"></a>10</h5><p>如何在编辑器中测试多人游戏<br>两种不同的游戏服务器</p>
+<h4 id="10"><a href="#10" class="headerlink" title="10"></a>10</h4><p>如何在编辑器中测试多人游戏<br>两种不同的游戏服务器</p>
 <ul>
 <li>Listen 本地服务器</li>
 <li>Client 专用服务器</li>
 </ul>
-<h5 id="11-概念"><a href="#11-概念" class="headerlink" title="11 概念"></a>11 概念</h5><p>继承<br>蓝图基类 Actor</p>
+<h4 id="11-概念"><a href="#11-概念" class="headerlink" title="11 概念"></a>11 概念</h4><p>继承<br>蓝图基类 Actor</p>
 <ul>
 <li>墙壁</li>
 </ul>
@@ -8128,7 +8128,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <p>Character<br>运动组件 步行、跑步、跳跃、爬行</p>
 <p>Player Controller<br>存储逻辑的蓝图类</p>
 <p>Game Model Base<br>游戏规则<br>分数<br>生成位置</p>
-<p>Actor Component<br>可以添加到蓝图中的组件<br>库存组件<br>建筑组件</p>
+<p>Actor Component<br>可以添加到蓝图中的组件<br>背包组件<br>建筑组件</p>
 <p>Scene Component</p>
 <p>BP物品基类<br>BP装备基类</p>
 <ul>
@@ -8136,9 +8136,9 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>镐</li>
 </ul>
 <h3 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h3><p>Inventory：建筑物品(家具)清单，财产清单</p>
-<p>主库存组件 or 主项目容器 蓝图容器</p>
+<p>主背包组件 or 主项目容器 蓝图容器</p>
 <ul>
-<li>库存相关的功能<ul>
+<li>背包相关的功能<ul>
 <li>堆叠物品</li>
 <li>增加</li>
 <li>删除</li>
@@ -8156,7 +8156,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <ol>
 <li>打开直接在编辑器中，不重新打开标签页<br>编辑 首选项 assets editor open location Default改成 Main Window</li>
 </ol>
-<h5 id="14"><a href="#14" class="headerlink" title="14"></a>14</h5><p>_Main BluePrints Enums<br>创建枚举类型</p>
+<h4 id="14"><a href="#14" class="headerlink" title="14"></a>14</h4><p>_Main BluePrints Enums<br>创建枚举类型</p>
 <p>E_ItemType</p>
 <ul>
 <li>Resource 资源</li>
@@ -8204,7 +8204,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <p>创建 BluePrints Items 文件夹<br>创建 蓝图-Class Actor  BP_ItemMaster<br><img src="/blog/p/614a8811/S_ItemInfo.png" alt="S_ItemInfo.png"></p>
 <p>安装库 [Craft Resources Icons]  会增加文件夹 CraftResourcesIcons</p>
 <p>创建 BluePrints DataTables 文件夹<br>创建 其他-数据表-选择S_ItemInfo DT_Items<br>木头 0 0 wood_10_b 木头 用于制作各种物品的资源 0 Common 0 0 可堆叠100 Resource Helmet<br><img src="/blog/p/614a8811/DT_Items_0001.png" alt="DT_Items_0001.png"></p>
-<h5 id="15-库存"><a href="#15-库存" class="headerlink" title="15 库存"></a>15 库存</h5><p>核心：</p>
+<h4 id="15-背包"><a href="#15-背包" class="headerlink" title="15 背包"></a>15 背包</h4><p>核心：</p>
 <ol>
 <li>角色蓝图中 按键1触发事件 BPC_PlayerInventory 继承的 BPC_ItemsContainer 中的 AddItemOnServer 事件</li>
 <li>BPC_ItemsContainer<ul>
@@ -8297,11 +8297,11 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>尝试按30次1键，可以看到物品的变化，最后会提示没有空的槽位</li>
 </ul>
 <p>tips:增加路由节点，控制流程更好展示</p>
-<h5 id="16"><a href="#16" class="headerlink" title="16"></a>16</h5><p>小部件</p>
+<h4 id="16"><a href="#16" class="headerlink" title="16"></a>16</h4><p>小部件</p>
 <ul>
 <li>小地图</li>
 <li>跨界蓝</li>
-<li>库存等</li>
+<li>背包等</li>
 </ul>
 <p>创建文件夹 _Main&#x2F;Widgets<br>创建文件 UserInterface -&gt; W_MainWidget[Widget Blueprint -&gt; User Widget]<br>创建按钮<br>创建 Canvas Panel</p>
 <ul>
@@ -8321,7 +8321,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>默认 Pawn Class 为 BP_FirstPersonCharacter</li>
 <li>默认 PlayerControllerClass 为 SurvivalGamePC<br><img src="/blog/p/614a8811/GM_SurvivalGame%E4%B8%96%E7%95%8C%E5%9C%BA%E6%99%AF%E8%AE%BE%E7%BD%AE.png" alt="GM_SurvivalGame世界场景设置.png"></li>
 </ul>
-<h5 id="17-玩家统计数据UI"><a href="#17-玩家统计数据UI" class="headerlink" title="17 玩家统计数据UI"></a>17 玩家统计数据UI</h5><p>new f _Main&#x2F;Widgets&#x2F;Textures 并导入文件<br>new f _Main&#x2F;Widgets InventoryWidgets 库存部件文件夹</p>
+<h4 id="17-玩家统计数据UI"><a href="#17-玩家统计数据UI" class="headerlink" title="17 玩家统计数据UI"></a>17 玩家统计数据UI</h4><p>new f _Main&#x2F;Widgets&#x2F;Textures 并导入文件<br>new f _Main&#x2F;Widgets InventoryWidgets 背包部件文件夹</p>
 <ul>
 <li>new UserInterface -&gt; W_Inventory[Widget Blueprint -&gt; User Widget]</li>
 <li>Size Box<ul>
@@ -8335,12 +8335,12 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>边界[Border] ：详情 Size &#x3D; Fill ，Brush Image 选择 InventoryBack<ul>
 <li>垂直框[Vertical Box]<ul>
 <li>水平框[Horizontal Box]：详情 Size &#x3D; Fill<ul>
-<li>Btn Context <ul>
-<li>Text Inventory size28 样式 颜色 透明度0</li>
+<li>Button 透明度0 Rename:InventoryButton 是变量 水平居中<ul>
+<li>Text Inventory size28 样式 颜色</li>
 </ul>
 </li>
-<li>Btn Context <ul>
-<li>Text Crafting size28 样式 颜色 透明度0</li>
+<li>Button 透明度0 Rename:CraftingButton 是变量 水平居中<ul>
+<li>Text Crafting size28 样式 颜色</li>
 </ul>
 </li>
 </ul>
@@ -8387,7 +8387,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 </li>
 <li>图表[Graph] 右上角<ul>
-<li>自定义事件 SetInventoryVisibility 设置库存可见性<ul>
+<li>自定义事件 SetInventoryVisibility 设置背包可见性<ul>
 <li>Inputs<ul>
 <li>Visibility? bool</li>
 </ul>
@@ -8448,7 +8448,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 <p><img src="/blog/p/614a8811/SurvivalGamePC.png" alt="SurvivalGamePC.png"></p>
 <p><img src="/blog/p/614a8811/W_MainWidget.png" alt="W_MainWidget.png"></p>
-<h5 id="18-创建实际的库存UI"><a href="#18-创建实际的库存UI" class="headerlink" title="18 创建实际的库存UI"></a>18 创建实际的库存UI</h5><p>将下载好的纹理 放入 _Main&#x2F;Widgets&#x2F;Textures 文件夹中</p>
+<h4 id="18-创建实际的背包UI"><a href="#18-创建实际的背包UI" class="headerlink" title="18 创建实际的背包UI"></a>18 创建实际的背包UI</h4><p>将下载好的纹理 放入 _Main&#x2F;Widgets&#x2F;Textures 文件夹中</p>
 <p>new W_InventorySlot[用户-Wid] _Main&#x2F;Widgets InventoryWidgets</p>
 <ul>
 <li>尺寸框 [Size Box] 详情 Child Layout：Width Override 75，Height Override 75<ul>
@@ -8471,7 +8471,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <ul>
 <li>填充屏幕，要选择屏幕上所需，这样宽度就正常显示</li>
 </ul>
-<h5 id="19-实现-库存联动UI"><a href="#19-实现-库存联动UI" class="headerlink" title="19 实现 库存联动UI"></a>19 实现 库存联动UI</h5><p>new W_ItemContainerGrid [用户-Wid] _Main&#x2F;Widgets InventoryWidgets目录</p>
+<h4 id="19-实现-背包联动UI"><a href="#19-实现-背包联动UI" class="headerlink" title="19 实现 背包联动UI"></a>19 实现 背包联动UI</h4><p>new W_ItemContainerGrid [用户-Wid] _Main&#x2F;Widgets InventoryWidgets目录</p>
 <ul>
 <li><p>滚动框 [Scroll Box]</p>
 <ul>
@@ -8525,7 +8525,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 <p>new 枚举 E_ContainerType</p>
 <ul>
-<li>PlayerInventory 玩家库存</li>
+<li>PlayerInventory 玩家背包</li>
 <li>PlayerHotbar 玩家快捷栏</li>
 <li>PlayerStorage 玩家存储</li>
 <li>PlayerArmor 玩家护甲</li>
@@ -8547,7 +8547,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>BottomText</li>
 <li>Item HP</li>
 </ul>
-<h5 id="20"><a href="#20" class="headerlink" title="20"></a>20</h5><p>open BPC_ItemsContainer</p>
+<h4 id="20"><a href="#20" class="headerlink" title="20"></a>20</h4><p>open BPC_ItemsContainer</p>
 <ul>
 <li><p>Add Fun UpdateUI</p>
 <ul>
@@ -8659,7 +8659,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <p>总结：<br>UpdateUI 方法：<br>传递 索引 ItemInfo 是否重置<br>如果重置，就直接设置<br>执行 UpdateItemSlot 方法，传递 容器、索引和ItemInfo</p>
 <p>检查点：</p>
 <ol>
-<li>BP_FirstPersonCharacter 1key 触发事件，库存UI显示</li>
+<li>BP_FirstPersonCharacter 1key 触发事件，背包UI显示</li>
 <li>BPC_ItemsContainer</li>
 <li>SurvivalGamePC</li>
 <li>W_InventorySlot UpdateSlot</li>
@@ -8671,7 +8671,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 </li>
 </ul>
-<h5 id="21-amp-22-能够将物品-使用鼠标左键-滑动"><a href="#21-amp-22-能够将物品-使用鼠标左键-滑动" class="headerlink" title="21 &amp; 22 能够将物品 使用鼠标左键 滑动"></a>21 &amp; 22 能够将物品 使用鼠标左键 滑动</h5><p>open W_InventorySlot<br>重写父级方法<br>按下鼠标按钮 [On Mouse Button Down]</p>
+<h4 id="21-amp-22-能够将物品-使用鼠标左键-滑动"><a href="#21-amp-22-能够将物品-使用鼠标左键-滑动" class="headerlink" title="21 &amp; 22 能够将物品 使用鼠标左键 滑动"></a>21 &amp; 22 能够将物品 使用鼠标左键 滑动</h4><p>open W_InventorySlot<br>重写父级方法<br>按下鼠标按钮 [On Mouse Button Down]</p>
 <ul>
 <li>Mouse Event 按下时侦测拖动 [Detect Drag if Pressed]</li>
 <li>Drag Key 鼠标左键</li>
@@ -8757,7 +8757,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </li>
 </ul>
 <p>松开鼠标按钮</p>
-<h5 id="23-处理后端-能够将物品鼠标左键从一个插槽转移到另一个插槽"><a href="#23-处理后端-能够将物品鼠标左键从一个插槽转移到另一个插槽" class="headerlink" title="23 处理后端 能够将物品鼠标左键从一个插槽转移到另一个插槽"></a>23 处理后端 能够将物品鼠标左键从一个插槽转移到另一个插槽</h5><p>open W_InventorySlot<br>重写 放置时[On Drop] 方法</p>
+<h4 id="23-处理后端-能够将物品鼠标左键从一个插槽转移到另一个插槽"><a href="#23-处理后端-能够将物品鼠标左键从一个插槽转移到另一个插槽" class="headerlink" title="23 处理后端 能够将物品鼠标左键从一个插槽转移到另一个插槽"></a>23 处理后端 能够将物品鼠标左键从一个插槽转移到另一个插槽</h4><p>open W_InventorySlot<br>重写 放置时[On Drop] 方法</p>
 <p>open BP_FirstPersonCharacter</p>
 <ul>
 <li>圈 1Key 触发事件 Rename 增加物品Debug</li>
@@ -8837,8 +8837,8 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </li>
 </ul>
 <p>图表中 OnSlotDrop &#x3D;&gt; HandleSlotDrop ，并连接三个参数</p>
-<p>open BP_FirstPersonCharacter 的 自定义事件 OnSlotDropOnServer<br>放置物品，执行 OnSlotDrop方法，目标和来源都是 BPC_PlayerInventory，相当于从库存中换了一个位置<br>OnSlotDropOnServer &#x3D;&gt; OnSlotDrop<br>BPC_PlayerInventory -&gt; 选择 select PlayerInventory 是来源也是目标</p>
-<h5 id="24-完成-库存物品拖放-逻辑"><a href="#24-完成-库存物品拖放-逻辑" class="headerlink" title="24 完成 库存物品拖放 逻辑"></a>24 完成 库存物品拖放 逻辑</h5><p>open BPC_ItemsContainer add Fun TransferItem</p>
+<p>open BP_FirstPersonCharacter 的 自定义事件 OnSlotDropOnServer<br>放置物品，执行 OnSlotDrop方法，目标和来源都是 BPC_PlayerInventory，相当于从背包中换了一个位置<br>OnSlotDropOnServer &#x3D;&gt; OnSlotDrop<br>BPC_PlayerInventory -&gt; 选择 select PlayerInventory 是来源也是目标</p>
+<h4 id="24-完成-背包物品拖放-逻辑"><a href="#24-完成-背包物品拖放-逻辑" class="headerlink" title="24 完成 背包物品拖放 逻辑"></a>24 完成 背包物品拖放 逻辑</h4><p>open BPC_ItemsContainer add Fun TransferItem</p>
 <ul>
 <li>Inputs<ul>
 <li>ToComponent BPC_ItemsContainer</li>
@@ -9027,8 +9027,8 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 <p>整体思路：</p>
 <ol>
-<li>第一人称角色蓝图 [BP_FirstPersonCharacter] 中 添加了蓝图组件 玩家库存组件 [BPC_PlayerInventory]</li>
-<li>玩家库存组件 [BPC_PlayerInventory] 继承了 父类 物品容器蓝图 [BPC_ItemsContainer]<ul>
+<li>第一人称角色蓝图 [BP_FirstPersonCharacter] 中 添加了蓝图组件 玩家背包组件 [BPC_PlayerInventory]</li>
+<li>玩家背包组件 [BPC_PlayerInventory] 继承了 父类 物品容器蓝图 [BPC_ItemsContainer]<ul>
 <li>物品蓝图中有如下方法：<ul>
 <li>AddItem 增加物品</li>
 <li>FindEmptySlot 找到空的槽位</li>
@@ -9045,7 +9045,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </li>
 </ul>
 </li>
-<li><code>角色蓝图</code> [BP_FirstPersonCharacter] 1 key 触发 <code>玩家库存组件</code> [BPC_PlayerInventory] 中的 <code>AddItemOnServer</code> 事件<ul>
+<li><code>角色蓝图</code> [BP_FirstPersonCharacter] 1 key 触发 <code>玩家背包组件</code> [BPC_PlayerInventory] 中的 <code>AddItemOnServer</code> 事件<ul>
 <li><code>AddItemOnServer</code> 事件中调用了 <code>AddItem</code> 方法<ul>
 <li>先看 index 是否是空槽位</li>
 <li>设置 item 进入 Items 指定 Index 的位置</li>
@@ -9075,8 +9075,8 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>获取玩家角色 Get Survival Character Ref</li>
 <li>执行 插槽放置事件 [On Slot Drop On Server] <ul>
 <li>执行 BPC_ItemsContainer 的 [Handle Slot Drop] 自定义事件<ul>
-<li>执行 Handle Slot Drop 方法，由 玩家库存组件 [BPC_PlayerInventory] 重写<ul>
-<li>判断来源是玩家库存组件</li>
+<li>执行 Handle Slot Drop 方法，由 玩家背包组件 [BPC_PlayerInventory] 重写<ul>
+<li>判断来源是玩家背包组件</li>
 </ul>
 </li>
 </ul>
@@ -9085,7 +9085,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </li>
 </ul>
 <p>调试 BPC_ItemsContainer 的 AddItem 观察Items的变化</p>
-<h5 id="25-amp-26-创建快捷栏"><a href="#25-amp-26-创建快捷栏" class="headerlink" title="25 &amp; 26 创建快捷栏"></a>25 &amp; 26 创建快捷栏</h5><p>快捷栏 砍树 收集木头</p>
+<h4 id="25-amp-26-创建快捷栏"><a href="#25-amp-26-创建快捷栏" class="headerlink" title="25 &amp; 26 创建快捷栏"></a>25 &amp; 26 创建快捷栏</h4><p>快捷栏 砍树 收集木头</p>
 <p>下载并导入资源 Hotbar.TGA、BoxButton.TGA 安装在 _Main&#x2F;Widgets&#x2F;Textures 文件夹中<br>new UserInterface -&gt; W_Hotbar [Widget Blueprint -&gt; User Widget] 在 _Main&#x2F;Widgets InventoryWidgets 目录<br>size box </p>
 <ul>
 <li>详情 Child Layout：Width Override 740，Height Override 100</li>
@@ -9159,13 +9159,13 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 </li>
 </ul>
-<h5 id="27-创建快捷栏库存蓝图子类"><a href="#27-创建快捷栏库存蓝图子类" class="headerlink" title="27 创建快捷栏库存蓝图子类"></a>27 创建快捷栏库存蓝图子类</h5><p>创建 蓝图类 BPC_PlayerHotbar 继承 BPC_ItemsContainer 在 _Main&#x2F;Blueprints Inventory 目录</p>
+<h4 id="27-创建快捷栏背包蓝图子类"><a href="#27-创建快捷栏背包蓝图子类" class="headerlink" title="27 创建快捷栏背包蓝图子类"></a>27 创建快捷栏背包蓝图子类</h4><p>创建 蓝图类 BPC_PlayerHotbar 继承 BPC_ItemsContainer 在 _Main&#x2F;Blueprints Inventory 目录</p>
 <p>open BP_FirstPersonCharacter 添加组件 BPC_PlayerHotbar</p>
 <ul>
 <li>设置 Items 为 8个空的槽位</li>
 <li>设置 ContainerType 为 PlayerHotbar</li>
 </ul>
-<h5 id="28-创建可装备的物品-相关的文件：蓝图、枚举、结构、接口"><a href="#28-创建可装备的物品-相关的文件：蓝图、枚举、结构、接口" class="headerlink" title="28 创建可装备的物品 相关的文件：蓝图、枚举、结构、接口"></a>28 创建可装备的物品 相关的文件：蓝图、枚举、结构、接口</h5><p>根据 ItemMaster 父类蓝图 在 _Main&#x2F;Blueprints&#x2F;Items 目录 创建子类 BP_EquipableMaster 可装备的类</p>
+<h4 id="28-创建可装备的物品-相关的文件：蓝图、枚举、结构、接口"><a href="#28-创建可装备的物品-相关的文件：蓝图、枚举、结构、接口" class="headerlink" title="28 创建可装备的物品 相关的文件：蓝图、枚举、结构、接口"></a>28 创建可装备的物品 相关的文件：蓝图、枚举、结构、接口</h4><p>根据 ItemMaster 父类蓝图 在 _Main&#x2F;Blueprints&#x2F;Items 目录 创建子类 BP_EquipableMaster 可装备的类</p>
 <p>创建 Equipable 文件夹 在 _Main&#x2F;Blueprints&#x2F;Items 目录<br>创建 第一人称文件：根据 EquipableMaster 父类蓝图 在 Equipable 目录 创建子类 BP_FirstPersonEquipable<br>创建 第三人称文件：复制 BP_FirstPersonEquipable 重命名为 BP_ThirdPersonEquipable</p>
 <p>创建蓝图枚举 E_EquipableState 可装备状态 在 _Main&#x2F;Blueprints Enums 目录</p>
 <ul>
@@ -9204,7 +9204,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 </li>
 </ul>
-<h5 id="29-创建-工具、斧头-的相关文件"><a href="#29-创建-工具、斧头-的相关文件" class="headerlink" title="29 创建 工具、斧头 的相关文件"></a>29 创建 工具、斧头 的相关文件</h5><p>创建文件夹 _Main&#x2F;Meshes<br>创建文件夹 _Main&#x2F;Meshes&#x2F;Equipables<br>创建文件夹 _Main&#x2F;Widgets&#x2F;Textures&#x2F;ItemIcon<br>下载并导入资源 StoneHatchet.TGA 安装在 _Main&#x2F;Widgets&#x2F;Textures&#x2F;ItemIcon 文件夹中<br>下载并导入资源 SM_Hatchet.fbx 安装在 _Main&#x2F;Meshes&#x2F;Equipables 文件夹中</p>
+<h4 id="29-创建-工具、斧头-的相关文件"><a href="#29-创建-工具、斧头-的相关文件" class="headerlink" title="29 创建 工具、斧头 的相关文件"></a>29 创建 工具、斧头 的相关文件</h4><p>创建文件夹 _Main&#x2F;Meshes<br>创建文件夹 _Main&#x2F;Meshes&#x2F;Equipables<br>创建文件夹 _Main&#x2F;Widgets&#x2F;Textures&#x2F;ItemIcon<br>下载并导入资源 StoneHatchet.TGA 安装在 _Main&#x2F;Widgets&#x2F;Textures&#x2F;ItemIcon 文件夹中<br>下载并导入资源 SM_Hatchet.fbx 安装在 _Main&#x2F;Meshes&#x2F;Equipables 文件夹中</p>
 <p>创建文件夹 _Main Materials Equipables Materials<br>将资源文件 Material_001 移动到新建的文件夹 _Main Materials Equipables Materials 中<br>将 axe_low_Material.001开头的四个文件 移动到新建的文件夹 _Main&#x2F;Meshes&#x2F;Equipables&#x2F;Materials 中</p>
 <p>打开 Material_001 将四个文件拖入到 Material_001 中</p>
 <ul>
@@ -9237,7 +9237,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>ItemClassRef BP_TP_StoneHatchet</li>
 <li>ArmorType Helmet 头盔</li>
 </ul>
-<h5 id="30-创建工具、斧头的UI-以及快捷栏逻辑"><a href="#30-创建工具、斧头的UI-以及快捷栏逻辑" class="headerlink" title="30 创建工具、斧头的UI 以及快捷栏逻辑"></a>30 创建工具、斧头的UI 以及快捷栏逻辑</h5><p>补充：使用快捷栏中的物品 设置斧头</p>
+<h4 id="30-创建工具、斧头的UI-以及快捷栏逻辑"><a href="#30-创建工具、斧头的UI-以及快捷栏逻辑" class="headerlink" title="30 创建工具、斧头的UI 以及快捷栏逻辑"></a>30 创建工具、斧头的UI 以及快捷栏逻辑</h4><p>补充：使用快捷栏中的物品 设置斧头</p>
 <p>下载并导入资源 HatchetIdleTP.FBX 和 Hatchet_Idle.FBX 安装在 Man Animations 文件夹中<br>骨骼选择 UE4_Mannequin_Skeleton</p>
 <p>创建 拿着斧头的 动画混合空间 在 _Main Animations，复制 FirstPersonBS 重命名为 HatchetBS_FP 这是第一人称的<br>open this<br>动画编辑</p>
 <ul>
@@ -9419,7 +9419,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 </li>
 </ul>
-<h5 id="31-继续完成-快捷栏-逻辑"><a href="#31-继续完成-快捷栏-逻辑" class="headerlink" title="31 继续完成 快捷栏 逻辑"></a>31 继续完成 快捷栏 逻辑</h5><p>OPEN BP_FirstPersonCharacter 事件图 </p>
+<h4 id="31-继续完成-快捷栏-逻辑"><a href="#31-继续完成-快捷栏-逻辑" class="headerlink" title="31 继续完成 快捷栏 逻辑"></a>31 继续完成 快捷栏 逻辑</h4><p>OPEN BP_FirstPersonCharacter 事件图 </p>
 <ul>
 <li>OPEN SpawnEquipaableThirdPerson 自定义事件<ul>
 <li>EquippedIndex 提升为变量 EquippedIndex</li>
@@ -9600,7 +9600,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 </li>
 </ul>
-<h5 id="32-重复按下快捷键，如果物品已经装备，就卸下物品"><a href="#32-重复按下快捷键，如果物品已经装备，就卸下物品" class="headerlink" title="32 重复按下快捷键，如果物品已经装备，就卸下物品"></a>32 重复按下快捷键，如果物品已经装备，就卸下物品</h5><p>OPEN BP_FirstPersonCharacter 事件图</p>
+<h4 id="32-重复按下快捷键，如果物品已经装备，就卸下物品"><a href="#32-重复按下快捷键，如果物品已经装备，就卸下物品" class="headerlink" title="32 重复按下快捷键，如果物品已经装备，就卸下物品"></a>32 重复按下快捷键，如果物品已经装备，就卸下物品</h4><p>OPEN BP_FirstPersonCharacter 事件图</p>
 <ul>
 <li>增加 自定义事件 DequipWeaponThirdPerson 组播运行<ul>
 <li>Inputs<ul>
@@ -9629,7 +9629,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>装备物品</li>
 <li>卸下物品</li>
 </ul>
-<h5 id="33-装备斧头后，左键挥动"><a href="#33-装备斧头后，左键挥动" class="headerlink" title="33 装备斧头后，左键挥动"></a>33 装备斧头后，左键挥动</h5><p>OPEN BPI_SurvivalCharacter</p>
+<h4 id="33-装备斧头后，左键挥动"><a href="#33-装备斧头后，左键挥动" class="headerlink" title="33 装备斧头后，左键挥动"></a>33 装备斧头后，左键挥动</h4><p>OPEN BPI_SurvivalCharacter</p>
 <ul>
 <li>add fun ThirdPersonMontage<ul>
 <li>Inputs<ul>
@@ -9791,7 +9791,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 </li>
 </ul>
-<h5 id="34"><a href="#34" class="headerlink" title="34"></a>34</h5><p>下载资源文件<br>创建文件夹</p>
+<h4 id="34"><a href="#34" class="headerlink" title="34"></a>34</h4><p>下载资源文件<br>创建文件夹</p>
 <ul>
 <li>_Main&#x2F;Meshes PalmTrees 并且导入所有 Palm 开头的 .fpx 文件<ul>
 <li>可以删除 Tree 开头的白色材料 文件</li>
@@ -9926,7 +9926,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>静态网格 改变材质 Palm_05</li>
 </ul>
 <p>如果设置了 BP_Tree 的 静态网格 改变材质 Mobility Static 静态，在Map拖动物体的时候不会出现材质</p>
-<h5 id="35-创建收获-砍树掉木头-系统-挥动斧头砍树，能够收获木头"><a href="#35-创建收获-砍树掉木头-系统-挥动斧头砍树，能够收获木头" class="headerlink" title="35 创建收获(砍树掉木头)系统 挥动斧头砍树，能够收获木头"></a>35 创建收获(砍树掉木头)系统 挥动斧头砍树，能够收获木头</h5><p>编辑-项目设置-碰撞-创建对象通道</p>
+<h4 id="35-创建收获-砍树掉木头-系统-挥动斧头砍树，能够收获木头"><a href="#35-创建收获-砍树掉木头-系统-挥动斧头砍树，能够收获木头" class="headerlink" title="35 创建收获(砍树掉木头)系统 挥动斧头砍树，能够收获木头"></a>35 创建收获(砍树掉木头)系统 挥动斧头砍树，能够收获木头</h4><p>编辑-项目设置-碰撞-创建对象通道</p>
 <ul>
 <li>Structure Ignore</li>
 </ul>
@@ -10120,7 +10120,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </li>
 </ul>
 <p>运行 R 左键 瞄准 Palm02 树木，发现收获了 3个 木头，除了Palm02其他的收获不到</p>
-<h5 id="36-使用斧头砍树收获木头，显示收获的物品"><a href="#36-使用斧头砍树收获木头，显示收获的物品" class="headerlink" title="36 使用斧头砍树收获木头，显示收获的物品"></a>36 使用斧头砍树收获木头，显示收获的物品</h5><p>创建 部件 W_ItemAdded _Main&#x2F;Widgets&#x2F;InventoryWidgets 目录中</p>
+<h4 id="36-使用斧头砍树收获木头，显示收获的物品"><a href="#36-使用斧头砍树收获木头，显示收获的物品" class="headerlink" title="36 使用斧头砍树收获木头，显示收获的物品"></a>36 使用斧头砍树收获木头，显示收获的物品</h4><p>创建 部件 W_ItemAdded _Main&#x2F;Widgets&#x2F;InventoryWidgets 目录中</p>
 <ul>
 <li>添加 变量 ResourceImage Texture2D 对象引用<ul>
 <li>勾选 Instance Editable&#x2F;Expose On Spawn</li>
@@ -10293,7 +10293,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 </li>
 </ul>
-<h5 id="37-使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画"><a href="#37-使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画" class="headerlink" title="37 使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画"></a>37 使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画</h5><p>OPEN FirstPersonMap</p>
+<h4 id="37-使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画"><a href="#37-使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画" class="headerlink" title="37 使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画"></a>37 使用斧头砍树，当树木被砍倒时，树木消失，显示树木的倒下动画</h4><p>OPEN FirstPersonMap</p>
 <ul>
 <li>删除 不相关的东西</li>
 </ul>
@@ -10438,7 +10438,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 </li>
 </ul>
-<h5 id="38-相互移动-快捷栏和背包的物品"><a href="#38-相互移动-快捷栏和背包的物品" class="headerlink" title="38 相互移动 快捷栏和背包的物品"></a>38 相互移动 快捷栏和背包的物品</h5><p>OPEN BP_FirstPersonCharacter 事件图</p>
+<h4 id="38-相互移动-快捷栏和背包的物品"><a href="#38-相互移动-快捷栏和背包的物品" class="headerlink" title="38 相互移动 快捷栏和背包的物品"></a>38 相互移动 快捷栏和背包的物品</h4><p>OPEN BP_FirstPersonCharacter 事件图</p>
 <ul>
 <li>OnSlotDropOnServer 方法 兼容一下 BPC_Player_Hotbar<ul>
 <li>换掉 <code>2个 Select</code>， 之前的select是 BPC_Player_Inventory 对象引用</li>
@@ -10547,7 +10547,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>Return Node</li>
 </ul>
 <p>运行 测试 拖动物品从快捷栏到背包，可以卸下物品了</p>
-<h4 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h4><h5 id="39-amp-40-树倒下后延时溶解销毁"><a href="#39-amp-40-树倒下后延时溶解销毁" class="headerlink" title="39 &amp; 40 树倒下后延时溶解销毁"></a>39 &amp; 40 树倒下后延时溶解销毁</h5><p>OPEN M_PalmMaster</p>
+<h3 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h3><h4 id="39-amp-40-树倒下后延时溶解销毁"><a href="#39-amp-40-树倒下后延时溶解销毁" class="headerlink" title="39 &amp; 40 树倒下后延时溶解销毁"></a>39 &amp; 40 树倒下后延时溶解销毁</h4><p>OPEN M_PalmMaster</p>
 <ul>
 <li>M_PalmMaster<ul>
 <li>选中 M_PalmMaster 混合模式 Blend Mode 为 Masked 遮罩</li>
@@ -10701,7 +10701,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>事件图 的 Delay 10s </li>
 <li>类默认设置 初始寿命 Initial Life Span 0</li>
 </ul>
-<h5 id="41-创建石镐以及相关文件"><a href="#41-创建石镐以及相关文件" class="headerlink" title="41 创建石镐以及相关文件"></a>41 创建石镐以及相关文件</h5><p>下载资源 </p>
+<h4 id="41-创建石镐以及相关文件"><a href="#41-创建石镐以及相关文件" class="headerlink" title="41 创建石镐以及相关文件"></a>41 创建石镐以及相关文件</h4><p>下载资源 </p>
 <ul>
 <li>导入 .jpg 石镐贴图 到 _Main&#x2F;Widgets&#x2F;Textures&#x2F;ItemIcons 目录中</li>
 <li>导入 .FBX 文件 <code>材质导入方式 设置为 不创建材料</code> 到 _Main&#x2F;Meshes&#x2F;Equipables 目录中</li>
@@ -10820,7 +10820,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 </li>
 </ul>
-<h5 id="42-重写石镐的收获逻辑"><a href="#42-重写石镐的收获逻辑" class="headerlink" title="42 重写石镐的收获逻辑"></a>42 重写石镐的收获逻辑</h5><p>创建 蓝图枚举 E_ToolTier 在 _Main&#x2F;Blueprints&#x2F;Enums 目录中</p>
+<h4 id="42-重写石镐的收获逻辑"><a href="#42-重写石镐的收获逻辑" class="headerlink" title="42 重写石镐的收获逻辑"></a>42 重写石镐的收获逻辑</h4><p>创建 蓝图枚举 E_ToolTier 在 _Main&#x2F;Blueprints&#x2F;Enums 目录中</p>
 <ul>
 <li>Stone 含义：石头</li>
 <li>Iron 含义：铁</li>
@@ -10962,7 +10962,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 </li>
 </ul>
-<h5 id="43-石头碎裂效果"><a href="#43-石头碎裂效果" class="headerlink" title="43 石头碎裂效果"></a>43 石头碎裂效果</h5><p>岩石可破坏类</p>
+<h4 id="43-石头碎裂效果"><a href="#43-石头碎裂效果" class="headerlink" title="43 石头碎裂效果"></a>43 石头碎裂效果</h4><p>岩石可破坏类</p>
 <p>创建目录 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;ChildClasses&#x2F;LargeItemClasses</p>
 <p>为 BP_LargeItemMaster [搜索文件名] 创建蓝图子类 BP_Rock 移动到 _Main&#x2F;Blueprints&#x2F;HarvestingSystem&#x2F;ChildClasses&#x2F;LargeItemClasses 目录中</p>
 <p>添加 虚幻引擎资源 Get Content &#x3D;&gt; Quixel Bridge &#x3D;&gt; 3D Assets ，下载完之后会出现文件夹</p>
@@ -11193,7 +11193,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </li>
 </ul>
 <p>但是修改了一些参数没效果，后期不上 TODO FIXME</p>
-<h5 id="44-灌木丛UI、拾取逻辑以及拾取动作"><a href="#44-灌木丛UI、拾取逻辑以及拾取动作" class="headerlink" title="44 灌木丛UI、拾取逻辑以及拾取动作"></a>44 灌木丛UI、拾取逻辑以及拾取动作</h5><p>添加 虚幻引擎资源 Get Content &#x3D;&gt; Quixel Bridge &#x3D;&gt; 3D Plants ，下载完之后会出现文件夹</p>
+<h4 id="44-灌木丛UI、拾取逻辑以及拾取动作"><a href="#44-灌木丛UI、拾取逻辑以及拾取动作" class="headerlink" title="44 灌木丛UI、拾取逻辑以及拾取动作"></a>44 灌木丛UI、拾取逻辑以及拾取动作</h4><p>添加 虚幻引擎资源 Get Content &#x3D;&gt; Quixel Bridge &#x3D;&gt; 3D Plants ，下载完之后会出现文件夹</p>
 <ul>
 <li>关键词：tropical palm Fresh Healthy 灌木丛  特征：叶子最大 三个叶子</li>
 <li>中等质量下载</li>
@@ -11505,7 +11505,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </li>
 <li>事件 MontageMulticast 的 EndAnimation 下方 第三人称持有武器物品 如果没有验证成功 将 ?IsHarvesting 设置为 false</li>
 </ul>
-<h5 id="45-修复动画蓝图下半身突兀的BUG"><a href="#45-修复动画蓝图下半身突兀的BUG" class="headerlink" title="45 修复动画蓝图下半身突兀的BUG"></a>45 修复动画蓝图下半身突兀的BUG</h5><p>动画中身体下半部分很突兀，设置只有身体上半部分动画</p>
+<h4 id="45-修复动画蓝图下半身突兀的BUG"><a href="#45-修复动画蓝图下半身突兀的BUG" class="headerlink" title="45 修复动画蓝图下半身突兀的BUG"></a>45 修复动画蓝图下半身突兀的BUG</h4><p>动画中身体下半部分很突兀，设置只有身体上半部分动画</p>
 <p>OPEN ThirdPerson_AnimBP</p>
 <ul>
 <li>状态引擎 [New State Machine] 拆分引脚<ul>
@@ -11541,7 +11541,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 <p>OPEN UE4_Mannequin_Skeleton 可以查看</p>
 <p><img src="/blog/p/614a8811/ThirdPerson_AnimBP%E6%AF%8F%E4%B8%AA%E9%AA%A8%E9%AA%BC%E7%9A%84%E5%88%86%E5%B1%82%E6%B7%B7%E5%90%88.png" alt="ThirdPerson_AnimBP每个骨骼的分层混合.png"></p>
-<h5 id="46-背包物品堆叠功能"><a href="#46-背包物品堆叠功能" class="headerlink" title="46 背包物品堆叠功能"></a>46 背包物品堆叠功能</h5><p>物品堆叠功能</p>
+<h4 id="46-背包物品堆叠功能"><a href="#46-背包物品堆叠功能" class="headerlink" title="46 背包物品堆叠功能"></a>46 背包物品堆叠功能</h4><p>物品堆叠功能</p>
 <ul>
 <li><p>加入物品时检测</p>
 </li>
@@ -11619,7 +11619,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </ul>
 <p>用图表示</p>
 <p><code>这里存在问题</code>，当一次获取很多个物品时，外部只是 增加了最多一个对象的UI展示，但是实际上增加了很多个对象，这里需要优化</p>
-<h5 id="47-添加收获功能的视觉特效和声音"><a href="#47-添加收获功能的视觉特效和声音" class="headerlink" title="47 添加收获功能的视觉特效和声音"></a>47 添加收获功能的视觉特效和声音</h5><p>下载UE引擎资源 </p>
+<h4 id="47-添加收获功能的视觉特效和声音"><a href="#47-添加收获功能的视觉特效和声音" class="headerlink" title="47 添加收获功能的视觉特效和声音"></a>47 添加收获功能的视觉特效和声音</h4><p>下载UE引擎资源 </p>
 <ul>
 <li>打开引擎市场 </li>
 <li>search <ul>
@@ -11791,7 +11791,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>切换 斧头和石镐</li>
 </ul>
 <p>运行后 石镐和斧头挥动就可以听到声音了</p>
-<h5 id="48-修复灌木丛的拾取逻辑，灌木丛拾取以及消失时有声音和视觉效果"><a href="#48-修复灌木丛的拾取逻辑，灌木丛拾取以及消失时有声音和视觉效果" class="headerlink" title="48 修复灌木丛的拾取逻辑，灌木丛拾取以及消失时有声音和视觉效果"></a>48 修复灌木丛的拾取逻辑，灌木丛<code>拾取</code>以及<code>消失时</code>有声音和视觉效果</h5><p>修复判断是否正在拾取逻辑的位置，提前判断</p>
+<h4 id="48-修复灌木丛的拾取逻辑，灌木丛拾取以及消失时有声音和视觉效果"><a href="#48-修复灌木丛的拾取逻辑，灌木丛拾取以及消失时有声音和视觉效果" class="headerlink" title="48 修复灌木丛的拾取逻辑，灌木丛拾取以及消失时有声音和视觉效果"></a>48 修复灌木丛的拾取逻辑，灌木丛<code>拾取</code>以及<code>消失时</code>有声音和视觉效果</h4><p>修复判断是否正在拾取逻辑的位置，提前判断</p>
 <p>OPEN BP_FirstPersonCharacter 事件图</p>
 <ul>
 <li>HarvestMontageOnServer 的 判断逻辑 放到 OverlapGroundItems 中</li>
@@ -11861,7 +11861,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 </li>
 </ul>
 <p>运行测试，灌木丛<code>拾取</code>以及<code>消失时</code>有声音和视觉效果。</p>
-<h5 id="49-利用植物绘画-实现快速放置物体"><a href="#49-利用植物绘画-实现快速放置物体" class="headerlink" title="49 利用植物绘画 实现快速放置物体"></a>49 利用植物绘画 实现快速放置物体</h5><p>说明：</p>
+<h4 id="49-利用植物绘画-实现快速放置物体"><a href="#49-利用植物绘画-实现快速放置物体" class="headerlink" title="49 利用植物绘画 实现快速放置物体"></a>49 利用植物绘画 实现快速放置物体</h4><p>说明：</p>
 <ul>
 <li>Foliage[植物]</li>
 </ul>
@@ -11886,8 +11886,498 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <li>点击绘画，可以放置多个cube，相当于快速放置物体</li>
 </ul>
 <p><img src="/blog/p/614a8811/ActorFoliage%E5%BF%AB%E9%80%9F%E6%94%BE%E7%BD%AE%E7%89%A9%E4%BD%93.png" alt="ActorFoliage快速放置物体.png"></p>
-<p>准备删除：<br>ue 中 我使用 创建了 BPC_ItemContainer 用 BPC_PlayerInvenotry 和 BPC_PlayerHotbar 继承了它。<br>设置了 BPC_PlayerInvenotry 的 Items 为 30个空的槽位<br>设置了 BPC_PlayerHotbar 的 Items 为 8个空的槽位<br>但是在蓝图 获取BPC_PlayerHotbar 的items 我通过变量观察 到 items 元素变成了30个</p>
-<p>BPC_PlayerInvenotry 是UI最下方的快捷栏，BPC_PlayerInvenotry是按TAB键弹窗从而可以打开的库存，在设计角度上来看 </p>
+<p>总结：</p>
+<ol>
+<li>利用Map中的 植物绘画功能，可以快速放置多个物体</li>
+</ol>
+<h3 id="第五章-物品制作系统"><a href="#第五章-物品制作系统" class="headerlink" title="第五章 物品制作系统"></a>第五章 物品制作系统</h3><h4 id="50-amp-51-玩家制作系统"><a href="#50-amp-51-玩家制作系统" class="headerlink" title="50 &amp; 51 玩家制作系统"></a>50 &amp; 51 玩家制作系统</h4><p>创建文件夹 CraftingWidgets 目录 _Main&#x2F;Widgets 下<br>创建 用户组件 窗口部件 W_CraftingSlot 目录 CraftingWidgets 下</p>
+<ul>
+<li>size box 宽度 70 高度 70 切换模式<ul>
+<li>border Image Inventory_Slot_Background<ul>
+<li>按钮 Button<ul>
+<li>样式<ul>
+<li>Image tex_wood_05_b</li>
+<li>Draw as Image 画成图像</li>
+<li>悬停效果 复制 Normal Tint 改为 右下角的 黄色 E2B12BFF</li>
+<li>按压效果 复制 Normal Tint 改为 浅绿色 3D7E1AFF</li>
+<li>Button Rename SelectItemButton 是变量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>创建 蓝图枚举类 E_CraftingType 目录 _Main&#x2F;Blueprints&#x2F;Enums 下</p>
+<ul>
+<li>PlayerInventory 玩家背包</li>
+<li>CookingPot 烹饪锅</li>
+<li>CraftingBench 工作台</li>
+<li>Forge 锻造台</li>
+<li>AdvanceWorkbench 高级工作台</li>
+<li>StorageBox 存储箱</li>
+</ul>
+<p>创建 蓝图枚举类 E_ItemCategory 目录 _Main&#x2F;Blueprints&#x2F;Enums 下</p>
+<ul>
+<li>Misc 杂项</li>
+<li>Tools 工具</li>
+<li>Armor 防具</li>
+<li>Structures 建筑</li>
+</ul>
+<p>创建 蓝图结构 S_ItemStruct 目录 CraftingStructs 下</p>
+<ul>
+<li>ItemID int</li>
+<li>ItemQuantity int</li>
+</ul>
+<p>创建 结构文件夹 CraftingStructs 目录 _Main&#x2F;Blueprints&#x2F;Structures 下<br>创建 蓝图结构 S_ItemRecipes 配方 目录 CraftingStructs 下</p>
+<ul>
+<li>ItemID int</li>
+<li>ItemName Text</li>
+<li>ItemDescription Text</li>
+<li>RequiredLevel int</li>
+<li>ItemIcon Texture 2D 对象引用</li>
+<li>RequiredItems S_ItemStruct Array</li>
+<li>ItemCategory E_ItemCategory </li>
+<li>ItemExperience int 经验</li>
+</ul>
+<p>创建 数据表格 PICK S_ItemRecipes 名字 DT_PlayerItemRecipes 保存到 _Main&#x2F;DataTables 目录中</p>
+<ul>
+<li>增加行（先加石斧的配方）<ul>
+<li>RowName 2</li>
+<li>ItemID 2</li>
+<li>ItemName 石斧</li>
+<li>ItemDescription ..</li>
+<li>ItemIcon StoneHatchet</li>
+<li>RequiredLevel 1</li>
+<li>ItemCategory Tools</li>
+<li>RequiredItems 通过木头和石头制作<ul>
+<li>Index0<ul>
+<li>ItemId 1</li>
+<li>ItemQuantity 3</li>
+</ul>
+</li>
+<li>Index1<ul>
+<li>ItemId 4</li>
+<li>ItemQuantity 1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>ItemExperience 10</li>
+</ul>
+</li>
+</ul>
+<p>OPEN W_CraftingSlot 事件图</p>
+<ul>
+<li>创建 变量 ItemID int 可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]</li>
+<li>创建 变量 ContainerType E_ContainerType 可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]</li>
+<li>创建 变量 ImageTexture Texture 2D 可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]</li>
+<li>创建 变量 CanCraftItem? bool</li>
+<li>创建 变量 CraftingType E_CraftingType</li>
+<li>创建 变量 ItemIndex Index</li>
+</ul>
+<p>创建 用户组件 窗口部件 W_CraftingContainerGrid 目录 CraftingWidgets 下</p>
+<ul>
+<li>Scroll Box<ul>
+<li>统一 Uniform Grid Panel Rename:Grid 是变量</li>
+</ul>
+</li>
+<li>事件图<ul>
+<li>设置变量 SlotsPerRow Int 每行的数量 可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]</li>
+<li>创建变量 ContainerType E_ContainerType 可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]</li>
+<li>创建变量 CraftingType E_CraftingType 可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]</li>
+<li>创建变量 ItemCategory E_ItemCategory 可编辑实例[Instance Editable]，完成时公开[Expose on Spawn]</li>
+<li>设置变量 Slots W_CraftingSlot Array 这个slots里面存的就是 所有 W_CraftingSlot</li>
+<li>设置变量 ItemIndex Int</li>
+<li>创建 方法 AddSlots<ul>
+<li>核心：根据参数和数据表，创建 W_CraftingSlot 部件，放入到 Grid 中</li>
+<li>Inputs<ul>
+<li>CraftingType E_CraftingType</li>
+</ul>
+</li>
+<li>Select 通过类型 选择对应的数据表<ul>
+<li>PlayerInventory</li>
+<li>CookingPot</li>
+<li>CraftingBench DT_PlayerItemRecipes</li>
+<li>Forge</li>
+<li>AdvanceWorkbench</li>
+<li>StorageBox</li>
+<li>Return Value 设置本地变量 LocalDataTableRef [Data Table]</li>
+</ul>
+</li>
+<li>Get Data Table Row Names<ul>
+<li>table &#x3D;&gt; 本地变量 LocalDataTableRef</li>
+</ul>
+</li>
+<li>For Each Loop<ul>
+<li>Array &#x3D;&gt; Out Row Names</li>
+</ul>
+</li>
+<li>获得数据表行 None[Get Data Table Row NONE]</li>
+<li>Break S_ItemRecipe</li>
+<li>两个判断<ul>
+<li>参数容器类型 是否等于 玩家背包类型</li>
+<li>参数建造类型 是否等于 配方中的建造类型</li>
+</ul>
+</li>
+<li>创建 W_CraftingSlot 部件 [Create Widget]<ul>
+<li>Class &#x3D;&gt; W_CraftingSlot</li>
+<li>Owning Player &#x3D;&gt; Get Owning Player</li>
+<li>Image Texture 表物品的 ItemIcon</li>
+<li>ItemID &#x3D;&gt; 表物品的 ItemID</li>
+<li>ContainerType &#x3D;&gt; 参数 ContainerType</li>
+</ul>
+</li>
+<li>Slots Add 方法 &#x3D;&gt; 生成部件的 Return Value</li>
+<li>生成部件的 Return Value 的 Set ItemIndex &#x3D;&gt; ItemIndex</li>
+<li>AddSlotToGrid<ul>
+<li>Index &#x3D;&gt; ItemIndex</li>
+<li>Slot &#x3D;&gt; 生成部件的 Return Value</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>事件图<ul>
+<li>Event Construct<ul>
+<li>AddSlotToGrid<ul>
+<li>含义：</li>
+<li>Inputs<ul>
+<li>Index int</li>
+<li>Slot W_CraftingSlot 对象引用</li>
+</ul>
+</li>
+<li>设置 局部变量 LocalSlotIndex Int </li>
+<li>设置 局部变量 LocalCraftingSlot W_CraftingSlot</li>
+<li>Add Child to Uniform Grid<ul>
+<li>目标 &#x3D;&gt; Grid </li>
+<li>Content &#x3D;&gt; LocalCratingSlot</li>
+<li>Set Row<ul>
+<li>行判断依据：当前索引 除法[Division] 每行的数量 截断[Truncate] 舍弃小数 &#x3D; 行</li>
+</ul>
+</li>
+<li>Set Column<ul>
+<li>列判断依据：当前索引 除法（整数和余数）[Division(Whole and Remainder)] 每行的数量 取余数（Remainder） &#x3D; 列</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Return Node</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>方法 AddSlotToGrid</p>
+<ul>
+<li>Inputs<ul>
+<li>Index int</li>
+<li>Slot W_CraftingSlot 对象引用</li>
+</ul>
+</li>
+<li>设置局部变量 LocalSlotIndex</li>
+<li>设置局部变量 LocalCratingSlot</li>
+<li>Add Child to Uniform Grid<ul>
+<li>目标 &#x3D;&gt; Grid </li>
+<li>Content &#x3D;&gt; LocalCratingSlot</li>
+<li>Slot Index &#x3D;&gt; LocalSlotIndex</li>
+<li>创建 变量 SlotPreRow Int</li>
+<li>Set Row<ul>
+<li>行判断依据：</li>
+</ul>
+</li>
+<li>Set Column<ul>
+<li>列判断依据：</li>
+</ul>
+</li>
+<li>Return Node</li>
+</ul>
+</li>
+</ul>
+<p>总结：</p>
+<ol>
+<li>创建了 W_CraftingSlot 部件，用于放入 CraftingContainerGrid 中</li>
+<li>创建了 W_CraftingContainerGrid 部件，用于放入 CraftingContainer 中</li>
+<li>创建了 CraftingContainerGrid 中的 AddSlots 方法，用于根据 CraftingType 类型，从数据表中获取数据，创建 W_CraftingSlot 部件，放入到 CraftingContainerGrid 中</li>
+<li>创建了 CraftingContainerGrid 中的 AddSlotToGrid 方法，用于设置 W_CraftingSlot 部件的位置</li>
+<li>创建了 蓝图枚举类 E_CraftingType，用于区分 CraftingContainerGrid 的类型</li>
+<li>创建了 蓝图枚举类 E_ItemCategory，用于区分 Item 的类型</li>
+<li>创建了 蓝图结构 S_ItemStruct，用于存储 Item 的信息</li>
+<li>创建了 蓝图结构 S_ItemRecipe，用于存储 Item 的配方信息</li>
+<li>创建了 数据表格 PICK S_ItemRecipes，用于存储 Item 的配方信息</li>
+</ol>
+<h4 id="52-制作系统的UI"><a href="#52-制作系统的UI" class="headerlink" title="52 制作系统的UI"></a>52 制作系统的UI</h4><p>下载 本地资源文件 6个.TGA文件 导入到 _Main&#x2F;Widgets&#x2F;Textures 目录中</p>
+<p>OPEN W_CraftingSlot</p>
+<ul>
+<li>Event Construct<ul>
+<li>参数 SelectItemButton</li>
+<li>Set Style<ul>
+<li>in Style<ul>
+<li>Make ButtonStyle<ul>
+<li>Normal 使用 Make SlateBrush 传入<ul>
+<li>Image &#x3D;&gt; 变量 ImageTexture</li>
+<li>SlateBrush &#x3D;&gt; 传给 Normal</li>
+</ul>
+</li>
+<li>Hovered 使用 Make SlateBrush 传入<ul>
+<li>Image &#x3D;&gt; 变量 ImageTexture</li>
+<li>Tint &#x3D;&gt; 使用 Make SlateColor 传入<ul>
+<li>黄色 E2B12BFF</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Pressed 使用 Make SlateBrush 传入<ul>
+<li>Image &#x3D;&gt; 变量 ImageTexture</li>
+<li>Tint &#x3D;&gt; 使用 Make LinearColor 传入</li>
+<li>绿色</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>创建部件 W_CraftingWindow 目录 CraftingWidgets 下</p>
+<ul>
+<li>size box 宽度 500 高度 500 切换模式<ul>
+<li>水平<ul>
+<li>垂直 将整个窗口移动到左外方 变换 -100<ul>
+<li>size box 宽度 80 高度 80 padding-top:10<ul>
+<li>Button Rename:MiscButton Image boxbutton Draw As Border Tint 白色<ul>
+<li>样式<ul>
+<li>悬停效果 复制 Normal Tint 改为 右下角的 黄色 E2B12BFF</li>
+<li>按压效果 复制 Normal Tint 改为 浅绿色 3D7E1AFF</li>
+<li>组件 Border<ul>
+<li>样式<ul>
+<li>padding 4 15 4 15</li>
+<li>水平垂直拉伸 内容水平垂直拉伸</li>
+<li>Image ropeicon(绳索)</li>
+<li>Draw as Image 画成图像</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>——— Button 复制到一共4个button ————-</li>
+</ul>
+</li>
+<li>复制 Box Size 第二个 Button Rename:ToolsButton Image:ToolsIcon</li>
+<li>复制 Box Size 第三个 Button Rename:ArmorButton Image:armoricon</li>
+<li>复制 Box Size 第四个 Button Rename:StructuresButton Image:structuresicon</li>
+</ul>
+</li>
+<li>垂直 填充 变换:-50<ul>
+<li>Widget Switcher 填充 Padding:10 Rename:CraftingGridSwitcher<ul>
+<li>创建的组件 W_CraftingContainerGrid ActiveWidgetIndex:1 Rename MiscRecipes<ul>
+<li>ItemCategory:Misc</li>
+<li>SlotsPerRow:3</li>
+</ul>
+</li>
+<li>创建的组件 W_CraftingContainerGrid ActiveWidgetIndex:1? Rename ToolsRecipes<ul>
+<li>ItemCategory:Tools</li>
+<li>SlotsPerRow:3</li>
+</ul>
+</li>
+<li>创建的组件 W_CraftingContainerGrid Rename ArmorRecipes<ul>
+<li>ItemCategory:Armor</li>
+<li>SlotsPerRow:3</li>
+</ul>
+</li>
+<li>创建的组件 W_CraftingContainerGrid Rename StructureRecipes<ul>
+<li>ItemCategory:Structure</li>
+<li>SlotsPerRow:3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>垂直 填充 变换:-50<ul>
+<li>Widget Switcher 填充 Rename:CraftRecipeInfo<ul>
+<li>border Image:craftoverlay Rename:SelectItemTipWindow<ul>
+<li>垂直框 Padding:5 30 5 2 水平居中 垂直顶<ul>
+<li>Text Block Text:选择一个物品</li>
+<li>Text Block Text:建造 Size:20</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>border Image:craftoverlay Rename:CraftItemWindow color:褐色<ul>
+<li>垂直 Padding:4 2 4 2 水平填充 垂直填充<ul>
+<li>水平<ul>
+<li>size box 填充 水平居中 垂直居中 宽度 80 高度 80 Padding-top:15<ul>
+<li>Overlay<ul>
+<li>Border 水平垂直拉伸 内容水平垂直拉伸 color:红色 FF0500FF</li>
+<li>Border 水平垂直拉伸 内容水平垂直拉伸 padding:4 color:黑色 000000FF</li>
+<li>Image 水平垂直拉伸 Padding:5 Image:tex_wood_02 Rename:ItemImage 是变量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>水平 padding:0 10 0 5<ul>
+<li>垂直 填充<ul>
+<li>Text Block Text:物品名称 Size:15 Rename:ItemNameText 是变量</li>
+<li>Text Block Text:RequiredLevel:1 Size:12 Rename:RequiredLevelText 是变量</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>水平<ul>
+<li>border 填充 Tint：黑色，A0.8<ul>
+<li>Editable Text(Multi-Line) Text:该项目的描述将位于此多行且可编辑的文本框中.文本框设置为只读<ul>
+<li>样式补充：size:10 typeface:Italic 勾选isReadOnly Rename:ItemDescriptionText 是变量</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>水平 padding: 0 10 0 5<ul>
+<li>复制一个 ItemName Rename:Ingredients:</li>
+</ul>
+</li>
+<li>水平 填充 padding:0 5 0 10<ul>
+<li>Scroll Box Rename RequiredItemsWidget 填充</li>
+</ul>
+</li>
+<li>水平 padding: 0 5 0 10<ul>
+<li>Button Rename CraftItemButton<ul>
+<li>样式<ul>
+<li>填充</li>
+<li>padding:4 2 4 2</li>
+<li>Tint:白色</li>
+<li>Image:button</li>
+<li>Draw as Image 画成图像</li>
+<li>悬停效果 复制 Normal Tint 改为 右下角的 黄色 E2B12BFF</li>
+<li>按压效果 复制 Normal Tint 改为 浅绿色 3D7E1AFF</li>
+</ul>
+</li>
+<li>Text Block<ul>
+<li>Text:制作</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="53-制作部件切换不同窗口"><a href="#53-制作部件切换不同窗口" class="headerlink" title="53 制作部件切换不同窗口"></a>53 制作部件切换不同窗口</h4><p>OPEN W_Inventory</p>
+<ul>
+<li>增加 Widget Switcher 在 W_ItemContainerGrid 旁边 Fill Padding:20 Rename:InventoryWidgetSwitcher 是变量</li>
+<li>将 W_ItemContainerGrid 部件 放入 Widget Switcher 中 并且删除 Padding SwitcherActiveIndex:0</li>
+<li>将 W_CraftingWindow 部件 放入 Widget Switcher SwitcherActiveIndex:1</li>
+</ul>
+<h5 id="点击-Inventory-or-Crafting-切换组件"><a href="#点击-Inventory-or-Crafting-切换组件" class="headerlink" title="点击 Inventory or Crafting 切换组件"></a>点击 Inventory or Crafting 切换组件</h5><p>OPEN W_Inventory</p>
+<ul>
+<li>OnClicked(InventoryButton)<ul>
+<li>设置激活的控件索引 InventoryWidgetSwitcher &#x3D;&gt; Set Active Widget Index<ul>
+<li>Widget Switcher &#x3D;&gt; InventoryWidgetSwitcher</li>
+<li>Index &#x3D;&gt; 0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OnClicked(CraftingButton)<ul>
+<li>设置激活的控件索引 InventoryWidgetSwitcher &#x3D;&gt; Set Active Widget Index<ul>
+<li>Widget Switcher &#x3D;&gt; InventoryWidgetSwitcher</li>
+<li>Index &#x3D;&gt; 1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h6 id="点击-Misc-or-Tools-or-Armor-or-Structures-切换组件"><a href="#点击-Misc-or-Tools-or-Armor-or-Structures-切换组件" class="headerlink" title="点击 Misc or Tools or Armor or Structures 切换组件"></a>点击 Misc or Tools or Armor or Structures 切换组件</h6><p>OPEN W_CraftingWindow</p>
+<ul>
+<li>OnClicked(MiscButton)<ul>
+<li>设置激活的WidgetIndex Set Active Widget Index<ul>
+<li>Widget Switcher &#x3D;&gt; CraftingGridSwitcher</li>
+<li>Index &#x3D;&gt; 0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OnClicked(ToolsButton) <ul>
+<li>设置激活的WidgetIndex Set Active Widget Index<ul>
+<li>Widget Switcher &#x3D;&gt; CraftingGridSwitcher</li>
+<li>Index &#x3D;&gt; 1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OnClicked(ArmorButton)<ul>
+<li>设置激活的WidgetIndex Set Active Widget Index<ul>
+<li>Widget Switcher &#x3D;&gt; CraftingGridSwitcher</li>
+<li>Index &#x3D;&gt; 2</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OnClicked(StructuresButton)<ul>
+<li>设置激活的WidgetIndex Set Active Widget Index<ul>
+<li>Widget Switcher &#x3D;&gt; CraftingGridSwitcher</li>
+<li>Index &#x3D;&gt; 3</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>思路：</p>
+<ol>
+<li>W_CraftingWindow 中的 CraftingGridSwitcher 组件，用于切换 CraftingContainerGrid 组件</li>
+<li>W_CraftingWindow 中的 CraftingRecipeInfo 组件，用于显示 CraftingContainerGrid 组件中的 CraftingSlot 组件的信息</li>
+</ol>
+<p>OPEN DT_PlayerItemRecipes</p>
+<ul>
+<li>通过复制 新增行<ul>
+<li>RowName 3</li>
+<li>ItemID 3</li>
+<li>ItemName 石镐</li>
+<li>ItemDescription ..</li>
+<li>ItemIcon StonePickaxe</li>
+<li>其他一样</li>
+</ul>
+</li>
+<li>复制上面新增的 什么都不变</li>
+<li>通过复制 新增行<ul>
+<li>RowName 4</li>
+<li>ItemID 4</li>
+<li>ItemName 绳子</li>
+<li>ItemDescription ..</li>
+<li>ItemIcon Tex_strings_05_b</li>
+<li>ItemCategory Misc 杂项</li>
+</ul>
+</li>
+</ul>
+<p>运行，测试，可以看到对应的物品</p>
+<p>准备删除：<br>ue 中 我使用 创建了 BPC_ItemContainer 用 BPC_PlayerInventory 和 BPC_PlayerHotbar 继承了它。<br>设置了 BPC_PlayerInventory 的 Items 为 30个空的槽位<br>设置了 BPC_PlayerHotbar 的 Items 为 8个空的槽位<br>但是在蓝图 获取BPC_PlayerHotbar 的items 我通过变量观察 到 items 元素变成了30个</p>
+<p>BPC_PlayerInventory 是UI最下方的快捷栏，BPC_PlayerInventory是按TAB键弹窗从而可以打开的背包，在设计角度上来看 </p>
 <p>我观察到UE中 自定义事件中 有组播 和 客户端 以及服务 上运行 这有哪些区别 如果我用自己创建的服务器 来接受处理玩家逻辑，在ue中 是不是ue统一通过 类似组播这种运行类型 帮我整理了 发送给 后端 的msg 呢？</p>
 <p>我的意思是 目前我还在开发阶段，使用的ue内置的服务，当我换成由专业的后台服务例如tcp来托管的话 那改动大吗 一般如何改动<br>在开发阶段，使用的ue内置的服务，当我换成由专业的后台服务例如tcp来托管的话 那改动大吗 一般如何改动3</p>
 <p>我增加了一棵树，碰撞设置了Presets 为 Custom 并且 Object Type Structure，但是角色靠近树的时候，还是有一段距离无法靠近</p>
@@ -11895,7 +12385,7 @@ ROUND(x,y)函数在截取值的时候会四舍五入，而TRUNCATE (x,y)直接�
 <h3 id="第-10-章"><a href="#第-10-章" class="headerlink" title="第 10 章"></a>第 10 章</h3><p>创建所有项目</p>
 <h3 id="第11章"><a href="#第11章" class="headerlink" title="第11章"></a>第11章</h3><p>创建部落&#x2F;氏族系统</p>
 <h3 id="第12章创建社会系统"><a href="#第12章创建社会系统" class="headerlink" title="第12章创建社会系统"></a>第12章创建社会系统</h3><h3 id="第-13-章创建开放世界地图"><a href="#第-13-章创建开放世界地图" class="headerlink" title="第 13 章创建开放世界地图"></a>第 13 章创建开放世界地图</h3><h3 id="第-14-章多生物群落-x2F-程序树叶"><a href="#第-14-章多生物群落-x2F-程序树叶" class="headerlink" title="第 14 章多生物群落&#x2F;程序树叶"></a>第 14 章多生物群落&#x2F;程序树叶</h3><h3 id="第15章人工智能系统"><a href="#第15章人工智能系统" class="headerlink" title="第15章人工智能系统"></a>第15章人工智能系统</h3><h3 id="第-16-章程序区"><a href="#第-16-章程序区" class="headerlink" title="第 16 章程序区"></a>第 16 章程序区</h3><h3 id="第-17-章玩家小地图"><a href="#第-17-章玩家小地图" class="headerlink" title="第 17 章玩家小地图"></a>第 17 章玩家小地图</h3><h3 id="第-18-章-保存-x2F-加载系统"><a href="#第-18-章-保存-x2F-加载系统" class="headerlink" title="第 18 章. 保存&#x2F;加载系统"></a>第 18 章. 保存&#x2F;加载系统</h3><h3 id="第-19-章-Steam-会话-x2F-前端小部件"><a href="#第-19-章-Steam-会话-x2F-前端小部件" class="headerlink" title="第 19 章 Steam 会话&#x2F;前端小部件"></a>第 19 章 Steam 会话&#x2F;前端小部件</h3><h3 id="第-20-章-专用服务器设置和托管"><a href="#第-20-章-专用服务器设置和托管" class="headerlink" title="第 20 章 专用服务器设置和托管"></a>第 20 章 专用服务器设置和托管</h3><h3 id="第21章"><a href="#第21章" class="headerlink" title="第21章"></a>第21章</h3><p>其他</p>
-<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><p>单词：<br>Actor<br>Inventory 库存<br>widget 小部件<br>Hotbar 快捷栏<br>Hatchet 斧头<br>Harvest 收获<br>Specific 特定的<br>Harvestable 可收获的<br>Large 大的</p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><p>单词：<br>Actor<br>Inventory 背包<br>widget 小部件<br>Hotbar 快捷栏<br>Hatchet 斧头<br>Harvest 收获<br>Specific 特定的<br>Harvestable 可收获的<br>Large 大的</p>
 <ul>
 <li>树</li>
 <li>石头<br>Ground 地面</li>
