@@ -17,6 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
         targets  : document.scrollingElement,
         duration : 200,
         easing   : 'linear',
+        // edit some code
+
         scrollTop: top
       });
     }
