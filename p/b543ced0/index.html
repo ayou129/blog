@@ -97,7 +97,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">73</span></a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">72</span></a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -161,7 +161,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -172,7 +172,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/blog/tags/">
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -384,9 +384,9 @@
 <p>三者都需要开启持久化，缺一不可</p>
 </blockquote>
 <ol>
-<li>交换器持久化 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">                                                        <span class="comment">#持久化bool</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;exchange_declare(<span class="string">&#x27;direct_logs&#x27;</span>, <span class="string">&#x27;direct&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure></li>
-<li>队列持久化 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">                                      <span class="comment">#持久化bool</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;queue_declare(<span class="string">&#x27;hello&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure></li>
-<li>Message持久化 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$msg</span> = <span class="keyword">new</span> AMQPMessage(<span class="string">&#x27;Hello World!&#x27;</span>,[</span><br><span class="line">    <span class="string">&#x27;delivery_mode&#x27;</span> =&gt; AMQPMessage::DELIVERY_MODE_PERSISTENT </span><br><span class="line">]);</span><br></pre></td></tr></table></figure></li>
+<li>交换器持久化 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">                                                        <span class="comment">#持久化bool</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;<span class="title function_ invoke__">exchange_declare</span>(<span class="string">&#x27;direct_logs&#x27;</span>, <span class="string">&#x27;direct&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure></li>
+<li>队列持久化 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">                                      <span class="comment">#持久化bool</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;<span class="title function_ invoke__">queue_declare</span>(<span class="string">&#x27;hello&#x27;</span>, <span class="literal">false</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure></li>
+<li>Message持久化 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$msg</span> = <span class="keyword">new</span> <span class="title class_">AMQPMessage</span>(<span class="string">&#x27;Hello World!&#x27;</span>,[</span><br><span class="line">    <span class="string">&#x27;delivery_mode&#x27;</span> =&gt; <span class="title class_">AMQPMessage</span>::<span class="variable constant_">DELIVERY_MODE_PERSISTENT</span> </span><br><span class="line">]);</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h3 id="投递失败"><a href="#投递失败" class="headerlink" title="投递失败"></a>投递失败</h3><p>什么情况下产生的？</p>
 <ul>
@@ -505,12 +505,12 @@
 </ul>
 </li>
 </ol>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.开启失败通知</span></span><br><span class="line"><span class="comment">#2.开启发送方确认模式confirmSelect</span></span><br><span class="line"><span class="comment">#3.批量确认waitForConfirmsOrDie</span></span><br><span class="line"><span class="comment">#4.开启异步模式addConfirmListener，不添加就是同步</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_publish(<span class="variable">$msg</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;hello&#x27;</span>,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.开启失败通知</span></span><br><span class="line"><span class="comment">#2.开启发送方确认模式confirmSelect</span></span><br><span class="line"><span class="comment">#3.批量确认waitForConfirmsOrDie</span></span><br><span class="line"><span class="comment">#4.开启异步模式addConfirmListener，不添加就是同步</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;<span class="title function_ invoke__">basic_publish</span>(<span class="variable">$msg</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;hello&#x27;</span>,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><ol>
 <li><code>1线程</code> 对应 <code>1信道</code>，<code>n线程</code> 共享 <code>1TCP连接</code></li>
 <li>消息需要确认，如果一直不确认，则会一直存在</li>
 <li>多个消费者共同绑定多个交换器，MQ会轮询消费者</li>
-<li>生产者发送message，没有路由键匹配和相应的配置(<code>mandatory=true</code>打开发消息时的失败通知)，则会被丢弃<br> 无法获取消息是否发送成功 的状态 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第四个参数 $mandatory 开启失败通知</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;basic_publish(<span class="variable">$msg</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;hello&#x27;</span>,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure></li>
+<li>生产者发送message，没有路由键匹配和相应的配置(<code>mandatory=true</code>打开发消息时的失败通知)，则会被丢弃<br> 无法获取消息是否发送成功 的状态 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#第四个参数 $mandatory 开启失败通知</span></span><br><span class="line"><span class="variable">$channel</span>-&gt;<span class="title function_ invoke__">basic_publish</span>(<span class="variable">$msg</span>, <span class="string">&#x27;&#x27;</span>, <span class="string">&#x27;hello&#x27;</span>,<span class="literal">true</span>);</span><br></pre></td></tr></table></figure></li>
 <li>如果exchange和queue都是持久化的，那么它们之间的binding也是持久化的。如果exchange和queue两者之间有一个持久化，一个非持久化，就不允许建立绑定。</li>
 <li>当路由键找不到主交换器时(无法路由)，进入备用交换器进行消费</li>
 </ol>
@@ -563,8 +563,8 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/blog/p/aaeff957/" rel="prev" title="NodeJs">
-                  <i class="fa fa-chevron-left"></i> NodeJs
+                <a href="/blog/p/e67d111b/" rel="prev" title="Microsoft Office 2019 官方下载最新中文简体破解版完整免费版百度网盘">
+                  <i class="fa fa-chevron-left"></i> Microsoft Office 2019 官方下载最新中文简体破解版完整免费版百度网盘
                 </a>
             </div>
             <div class="post-nav-item">
@@ -591,7 +591,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

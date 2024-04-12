@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#42b983"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/blog/public/index.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/blog/public/index.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/blog/public/index.ico">
+  <link rel="mask-icon" href="/blog/images/logo.svg" color="#42b983">
+
+<link rel="stylesheet" href="/blog/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"ayou129.github.io","root":"/blog/","images":"/blog/images","scheme":"Muse","darkmode":false,"version":"8.14.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":"flat","style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/blog/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/blog/js/config.js"></script>
+
+    <meta name="description" content="暂无描述">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DevTools">
+<meta property="og:url" content="https://ayou129.github.io/blog/p/5618cb0a/index.html">
+<meta property="og:site_name" content="阿尤">
+<meta property="og:description" content="暂无描述">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/5618cb0a/nrm%E6%B5%8B%E8%AF%95%E6%89%80%E6%9C%89%E6%BA%90.png">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/5618cb0a/nrm%E9%80%89%E6%8B%A9%E6%9C%80%E5%BF%AB%E7%9A%84%E6%BA%90.png">
+<meta property="article:published_time" content="2024-04-12T10:22:29.000Z">
+<meta property="article:modified_time" content="2024-04-12T10:22:29.000Z">
+<meta property="article:author" content="阿尤">
+<meta property="article:tag" content="learning, coding, writing, 学习, 编程, 阿尤">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ayou129.github.io/blog/p/5618cb0a/nrm%E6%B5%8B%E8%AF%95%E6%89%80%E6%9C%89%E6%BA%90.png">
+
+
+<link rel="canonical" href="https://ayou129.github.io/blog/p/5618cb0a/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://ayou129.github.io/blog/p/5618cb0a/","path":"p/5618cb0a/","title":"DevTools"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>DevTools | 阿尤</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/blog/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+      <img class="custom-logo-image" src="/blog/uploads/%E9%98%BF%E5%B0%A4%E5%8A%A8%E6%BC%AB%E5%A4%B4.jpeg" alt="阿尤">
+
+    <a href="/blog/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">阿尤</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">72</span></a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-Ubuntu"><span class="nav-number">1.1.</span> <span class="nav-text">Linux&#x2F;Ubuntu</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NVIDIA-%E9%A9%B1%E5%8A%A8"><span class="nav-number">2.</span> <span class="nav-text">NVIDIA 驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows-10"><span class="nav-number">2.1.</span> <span class="nav-text">Windows 10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-Ubuntu-1"><span class="nav-number">2.2.</span> <span class="nav-text">Linux&#x2F;Ubuntu</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NVIDIA-CUDA"><span class="nav-number">3.</span> <span class="nav-text">NVIDIA CUDA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-Ubuntu-2"><span class="nav-number">3.1.</span> <span class="nav-text">Linux&#x2F;Ubuntu</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">设置代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#python"><span class="nav-number">5.</span> <span class="nav-text">python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="nav-number">5.1.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%96%91%E9%9A%BE%E8%A7%A3%E7%AD%94"><span class="nav-number">5.2.</span> <span class="nav-text">疑难解答</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python-%E5%85%B6%E4%BB%96%E5%AE%89%E8%A3%85%E5%8C%85"><span class="nav-number">5.3.</span> <span class="nav-text">python 其他安装包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conda"><span class="nav-number">6.</span> <span class="nav-text">Conda</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows10"><span class="nav-number">6.1.</span> <span class="nav-text">Windows10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-Ubuntu-3"><span class="nav-number">6.2.</span> <span class="nav-text">Linux&#x2F;Ubuntu</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8C%85"><span class="nav-number">6.3.</span> <span class="nav-text">其他包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-1"><span class="nav-number">6.4.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%97%AE%E9%A2%98"><span class="nav-number">6.5.</span> <span class="nav-text">其他问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#conda-deactivate-%E5%90%8E-CondaError-Run-%E2%80%98conda-init%E2%80%99-before-%E2%80%98conda-deactivate%E2%80%99"><span class="nav-number">6.5.1.</span> <span class="nav-text">conda deactivate 后 CondaError: Run ‘conda init’ before ‘conda deactivate’</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pytorch"><span class="nav-number">7.</span> <span class="nav-text">pytorch</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Windows"><span class="nav-number">7.1.</span> <span class="nav-text">Windows</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NodeJs"><span class="nav-number">8.</span> <span class="nav-text">NodeJs</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux-Ubuntu-4"><span class="nav-number">8.1.</span> <span class="nav-text">Linux&#x2F;Ubuntu</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NodeJs-%E5%90%8E%E7%BD%AE%E6%93%8D%E4%BD%9C"><span class="nav-number">9.</span> <span class="nav-text">NodeJs 后置操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%90%86"><span class="nav-number">9.1.</span> <span class="nav-text">代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nrm"><span class="nav-number">9.2.</span> <span class="nav-text">Nrm</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jupyter-notebook"><span class="nav-number">10.</span> <span class="nav-text">Jupyter notebook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AC%E5%85%B1DNS"><span class="nav-number">11.</span> <span class="nav-text">公共DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%85%BE%E8%AE%AF"><span class="nav-number">11.1.</span> <span class="nav-text">腾讯</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH-%E7%94%9F%E6%88%90%E7%A7%98%E9%92%A5"><span class="nav-number">12.</span> <span class="nav-text">SSH 生成秘钥</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH-%E5%BC%80%E5%90%AFxftp-%E5%85%AC%E9%92%A5%E7%99%BB%E5%BD%95"><span class="nav-number">13.</span> <span class="nav-text">SSH 开启xftp 公钥登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#huggingface"><span class="nav-number">14.</span> <span class="nav-text">huggingface</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">阿尤</p>
+  <div class="site-description" itemprop="description">成长就是不断发现自己是SB的过程！</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/blog/archives/">
+          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/blog/categories/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/blog/tags/">
+        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://ayou129.github.io/blog/p/5618cb0a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+      <meta itemprop="name" content="阿尤">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="阿尤">
+      <meta itemprop="description" content="成长就是不断发现自己是SB的过程！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="DevTools | 阿尤">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          DevTools
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-04-12 18:22:29" itemprop="dateCreated datePublished" datetime="2024-04-12T18:22:29+08:00">2024-04-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/blog/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" itemprop="url" rel="index"><span itemprop="name">编程语言</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>暂无描述</p>
+<span id="more"></span>
+
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a>操作系统</h2><h3 id="Linux-Ubuntu"><a href="#Linux-Ubuntu" class="headerlink" title="Linux&#x2F;Ubuntu"></a>Linux&#x2F;Ubuntu</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install gcc-12 g++ kernel-headers kernel-devel make curl unzip</span><br><span class="line">sudo <span class="built_in">ln</span> -sf /usr/bin/gcc-12 /etc/alternatives/cc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装deb包</span></span><br><span class="line">sudo dpkg -i ./...deb</span><br></pre></td></tr></table></figure>
+
+<h2 id="NVIDIA-驱动"><a href="#NVIDIA-驱动" class="headerlink" title="NVIDIA 驱动"></a>NVIDIA 驱动</h2><blockquote>
+<p><a href="https://www.nvidia.cn/Download/index.aspx?lang=cn" target="_blank" rel="noopener">https://www.nvidia.cn/Download/index.aspx?lang=cn</a> 下载驱动</p>
+</blockquote>
+<h3 id="Windows-10"><a href="#Windows-10" class="headerlink" title="Windows 10"></a>Windows 10</h3><h3 id="Linux-Ubuntu-1"><a href="#Linux-Ubuntu-1" class="headerlink" title="Linux&#x2F;Ubuntu"></a>Linux&#x2F;Ubuntu</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sudo apt autoremove nvidia* libnvidia*</span><br><span class="line"></span><br><span class="line">sudo apt install ./xxx.run</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里显示的Cuda版本是最高版本</span></span><br><span class="line">nvidia-smi</span><br><span class="line"></span><br><span class="line"><span class="comment"># uninstall</span></span><br><span class="line"></span><br><span class="line">sudo apt autoremove nvidia* libnvidia*</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="NVIDIA-CUDA"><a href="#NVIDIA-CUDA" class="headerlink" title="NVIDIA CUDA"></a>NVIDIA CUDA</h2><blockquote>
+<p><a href="https://developer.nvidia.com/cuda-toolkit-archive" target="_blank" rel="noopener">https://developer.nvidia.com/cuda-toolkit-archive</a></p>
+</blockquote>
+<h3 id="Linux-Ubuntu-2"><a href="#Linux-Ubuntu-2" class="headerlink" title="Linux&#x2F;Ubuntu"></a>Linux&#x2F;Ubuntu</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 卸载旧数据</span></span><br><span class="line">sudo apt-get autoremove <span class="string">&quot;*cuda*&quot;</span> <span class="string">&quot;*cublas*&quot;</span> <span class="string">&quot;*cufft*&quot;</span> <span class="string">&quot;*cufile*&quot;</span> <span class="string">&quot;*curand*&quot;</span>  <span class="string">&quot;*cusolver*&quot;</span> <span class="string">&quot;*cusparse*&quot;</span> <span class="string">&quot;*gds-tools*&quot;</span> <span class="string">&quot;*npp*&quot;</span> <span class="string">&quot;*nvjpeg*&quot;</span> <span class="string">&quot;nsight*&quot;</span> <span class="string">&quot;*nvvm*&quot;</span></span><br><span class="line">sudo apt-get autoremove 或 sudo /usr/local/cuda-xxxxx/bin/cuda-uninstaller</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 用空格选择所有cuda相关文件，确认，需要一会儿提示成功卸载。</span></span><br><span class="line"><span class="comment"># 最后删除磁盘文件：sudo rm -rf /usr/local/cuda-xxxxx</span></span><br><span class="line">sudo dpkg --list | grep nvidia-*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 直到命令不输出任何内容：</span></span><br><span class="line">ubuntu-drivers devices</span><br><span class="line"></span><br><span class="line">wget 上面找到对应的url</span><br><span class="line">sudo sh cuda_12.2.0_535.54.03_linux.run</span><br><span class="line"></span><br><span class="line">取消 Drive 安装，因为已经安装过驱动了</span><br><span class="line"></span><br><span class="line">vim ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> CUDA_HOME=/usr/local/cuda-12.2</span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=<span class="variable">$&#123;CUDA_HOME&#125;</span>/lib64</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;CUDA_HOME&#125;</span>/bin:<span class="variable">$&#123;PATH&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line">nvcc -V</span><br></pre></td></tr></table></figure>
+
+<h2 id="设置代理"><a href="#设置代理" class="headerlink" title="设置代理"></a>设置代理</h2><blockquote>
+<p>example:socks5&#x3D;<a href="http://127.0.0.1:10809/" target="_blank" rel="noopener">http://127.0.0.1:10809</a></p>
+</blockquote>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> http_proxy=http://192.168.31.21:10809</span><br><span class="line"><span class="built_in">export</span> https_proxy=http://192.168.31.21:10809</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="python"><a href="#python" class="headerlink" title="python"></a>python</h2><h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用源安装各类包</span></span><br><span class="line">pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple 包名</span><br><span class="line"></span><br><span class="line"><span class="comment"># 卸载</span></span><br><span class="line">pip3 uninstall -y 包</span><br></pre></td></tr></table></figure>
+<h3 id="疑难解答"><a href="#疑难解答" class="headerlink" title="疑难解答"></a>疑难解答</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 有可能提示需要更新pip版本，可以使用以下命令更新，不会更新python版本</span></span><br><span class="line">python -m pip install --upgrade pip</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="python-其他安装包"><a href="#python-其他安装包" class="headerlink" title="python 其他安装包"></a>python 其他安装包</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># d2l 选择好安装文件夹 /app/d2l-zh</span></span><br><span class="line"><span class="built_in">mkdir</span> /app/d2l-zh &amp;&amp; <span class="built_in">cd</span> /app/d2l-zh</span><br><span class="line">curl https://zh-v2.d2l.ai/d2l-zh-2.0.0.zip -o d2l-zh.zip</span><br><span class="line">unzip d2l-zh.zip &amp;&amp; <span class="built_in">rm</span> d2l-zh.zip</span><br><span class="line"><span class="built_in">cd</span> pytorch</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Conda"><a href="#Conda" class="headerlink" title="Conda"></a>Conda</h2><p>設置源</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">conda config --<span class="built_in">set</span> show_channel_urls <span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 常用命令</span></span><br><span class="line">conda init</span><br><span class="line">conda create -n ai python=3.8</span><br><span class="line"></span><br><span class="line">conda <span class="built_in">env</span> list</span><br><span class="line"></span><br><span class="line">conda activate ai</span><br><span class="line"></span><br><span class="line">conda deactivate</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除源</span></span><br><span class="line">conda config --remove channels pytorch</span><br><span class="line">conda config --remove channels nvidia</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加源</span></span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/</span><br><span class="line">conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/</span><br><span class="line">conda config --<span class="built_in">set</span> show_channel_urls <span class="built_in">yes</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows10"><a href="#Windows10" class="headerlink" title="Windows10"></a>Windows10</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载安装 Miniconda</span></span><br><span class="line"><span class="comment"># 添加环境变量 Z:\miniconda3\Scripts 到系统变量中</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Linux-Ubuntu-3"><a href="#Linux-Ubuntu-3" class="headerlink" title="Linux&#x2F;Ubuntu"></a>Linux&#x2F;Ubuntu</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wget https://repo.anaconda.com/miniconda/Miniconda3-py38_23.11.0-1-Linux-x86_64.sh -O ~/下载/miniconda.sh</span><br><span class="line">bash ~/下载/miniconda.sh -b -u -p /app/miniconda3</span><br><span class="line"><span class="built_in">rm</span> -rf ~/下载/miniconda.sh</span><br><span class="line"></span><br><span class="line">vim ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=/app/miniconda3/bin:<span class="variable">$&#123;PATH&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<h3 id="其他包"><a href="#其他包" class="headerlink" title="其他包"></a>其他包</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># </span></span><br><span class="line">conda install pandas tensorflow torch matplotlib scikit-learn jupyter notebook keras keras-preprocessing keras_applications</span><br></pre></td></tr></table></figure>
+<h3 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="其他问题"><a href="#其他问题" class="headerlink" title="其他问题"></a>其他问题</h3><h4 id="conda-deactivate-后-CondaError-Run-‘conda-init’-before-‘conda-deactivate’"><a href="#conda-deactivate-后-CondaError-Run-‘conda-init’-before-‘conda-deactivate’" class="headerlink" title="conda deactivate 后 CondaError: Run ‘conda init’ before ‘conda deactivate’"></a>conda deactivate 后 CondaError: Run ‘conda init’ before ‘conda deactivate’</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> activate</span><br><span class="line">conda deactivate</span><br></pre></td></tr></table></figure>
+
+<h2 id="pytorch"><a href="#pytorch" class="headerlink" title="pytorch"></a>pytorch</h2><blockquote>
+<p><a href="https://pytorch.org/get-started/locally/" target="_blank" rel="noopener">https://pytorch.org/get-started/locally/</a></p>
+</blockquote>
+<p>测试代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line">a = torch.ones([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]).cuda(<span class="number">0</span>)</span><br><span class="line">b = torch.ones([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]).cuda(<span class="number">0</span>)</span><br><span class="line">a + b</span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回 tensor([[[2., 2., 2.], [2., 2., 2.]]], device=&#x27;cuda:0&#x27;) 就是正常</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查CUDA是否可用</span></span><br><span class="line">cuda_available = torch.cuda.is_available()</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> cuda_available:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;CUDA is available!&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;CUDA is not available.&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Win搜索运行 Anaconda Powershell Prompt (Miniconda3) 进入Base 环境</span><br><span class="line">安装pytorch： pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118</span><br></pre></td></tr></table></figure>
+
+<h2 id="NodeJs"><a href="#NodeJs" class="headerlink" title="NodeJs"></a>NodeJs</h2><blockquote>
+<p><a href="https://nodejs.org/en/download/package-manager" target="_blank" rel="noopener">https://nodejs.org/en/download/package-manager</a></p>
+</blockquote>
+<h3 id="Linux-Ubuntu-4"><a href="#Linux-Ubuntu-4" class="headerlink" title="Linux&#x2F;Ubuntu"></a>Linux&#x2F;Ubuntu</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下载二进制文件后，放入/app/nodexxxx</span></span><br><span class="line"></span><br><span class="line">vim ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=/app/node-v20.12.2-linux-x64/bin:<span class="variable">$&#123;PATH&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这样可以执行 `sudo node`</span></span><br><span class="line">sudo <span class="built_in">ln</span> -s /usr/local/node/bin/node</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这样可以执行 `sudo npm`</span></span><br><span class="line">sudo <span class="built_in">ln</span> -s /usr/local/node/bin/npm</span><br><span class="line"></span><br><span class="line">node -v</span><br><span class="line">npm -v</span><br></pre></td></tr></table></figure>
+<h2 id="NodeJs-后置操作"><a href="#NodeJs-后置操作" class="headerlink" title="NodeJs 后置操作"></a>NodeJs 后置操作</h2><h3 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> proxy http://192.168.31.21:10809</span><br><span class="line">npm config <span class="built_in">set</span> https-proxy http://192.168.31.21:10809</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Nrm"><a href="#Nrm" class="headerlink" title="Nrm"></a>Nrm</h3><blockquote>
+<p>npm cache clean –force<br>npm config delete registry<br>可以先设置源为 npm config set registry <a href="https://mirrors.cloud.tencent.com/npm/" target="_blank" rel="noopener">https://mirrors.cloud.tencent.com/npm/</a></p>
+</blockquote>
+<ol>
+<li><p>安装nrm <code>npm i -g nrm</code></p>
+</li>
+<li><p>测试所有 <b>源</b> <code>nrm test</code></p>
+<img src="/blog/p/5618cb0a/nrm%E6%B5%8B%E8%AF%95%E6%89%80%E6%9C%89%E6%BA%90.png" class="" title="nrm测试所有源.png">
+</li>
+<li><p>选择最快的 <b>源</b> <code>nrm use *</code></p>
+<img src="/blog/p/5618cb0a/nrm%E9%80%89%E6%8B%A9%E6%9C%80%E5%BF%AB%E7%9A%84%E6%BA%90.png" class="" title="nrm选择最快的源.png">
+</li>
+<li><p>完毕</p>
+</li>
+</ol>
+<h2 id="Jupyter-notebook"><a href="#Jupyter-notebook" class="headerlink" title="Jupyter notebook"></a>Jupyter notebook</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">jupyter notebook</span><br><span class="line">（可选）更改 Jupyter notebook 样式</span><br><span class="line">jt -t grade3 -f roboto -fs <span class="number">16</span> -cellw <span class="number">90</span>% -ofs <span class="number">11</span> -dfs <span class="number">11</span> -T</span><br></pre></td></tr></table></figure>
+
+<h2 id="公共DNS"><a href="#公共DNS" class="headerlink" title="公共DNS"></a>公共DNS</h2><h3 id="腾讯"><a href="#腾讯" class="headerlink" title="腾讯"></a>腾讯</h3><blockquote>
+<p><a href="https://www.dnspod.cn/products/publicdns" target="_blank" rel="noopener">https://www.dnspod.cn/products/publicdns</a></p>
+</blockquote>
+<p>IPV4: 119.29.29.29<br>IPV6: 2402:4e00::</p>
+<h2 id="SSH-生成秘钥"><a href="#SSH-生成秘钥" class="headerlink" title="SSH 生成秘钥"></a>SSH 生成秘钥</h2><ol>
+<li>cd ~&#x2F;.ssh</li>
+<li>ssh-keygen -t rsa -C “guoxinlee129@gmail”</li>
+<li>接着按3个回车</li>
+<li>在c&#x2F;Users&#x2F;Administrator&#x2F;.ssh生成了加密文件，复制id_rsa.pub</li>
+<li>打开github 添加New SSH key</li>
+<li>验证是否连接成功 ssh -T <a href="mailto:&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#109;">&#103;&#x69;&#x74;&#64;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#x2e;&#99;&#111;&#109;</a>(gitee site)</li>
+</ol>
+<h2 id="SSH-开启xftp-公钥登录"><a href="#SSH-开启xftp-公钥登录" class="headerlink" title="SSH 开启xftp 公钥登录"></a>SSH 开启xftp 公钥登录</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成一个.ssh文件</span></span><br><span class="line">ssh-keygen</span><br><span class="line"></span><br><span class="line">/etc/ssh/sshd_config</span><br><span class="line">RSAAuthentication <span class="built_in">yes</span></span><br><span class="line">PubkeyAuthentication <span class="built_in">yes</span></span><br><span class="line">AuthorizedKeysFile .ssh/authorized_keys</span><br><span class="line"></span><br><span class="line">systemctl start sshd.service</span><br><span class="line"></span><br><span class="line">adduser liguoxin</span><br><span class="line">passwd liguoxin</span><br><span class="line">abcABC123</span><br><span class="line"><span class="comment"># 将某个用户的公钥放进去</span></span><br><span class="line">vim /home/liguoxin/.ssh/authorized_keys</span><br><span class="line"></span><br><span class="line">firewall-cmd --add-port=22/tcp --permanent</span><br><span class="line">systemctl restart firewalld</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成指定邮箱的ssh文件</span></span><br><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;1422476675@qq.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> /root/.ssh/id_rsa.pub</span><br><span class="line"></span><br><span class="line">git config --global user.name <span class="string">&quot;Administrator&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;1422476675@qq.com&quot;</span></span><br><span class="line"></span><br><span class="line">git remote add origin git@120.78.175.202:enticementchina/web.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="huggingface"><a href="#huggingface" class="headerlink" title="huggingface"></a>huggingface</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 说明文档 https://huggingface.co/docs/huggingface_hub/guides/cli</span></span><br><span class="line">/app/miniconda3/envs/ai/bin/pip3 install -U <span class="string">&quot;huggingface_hub[cli]&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载模型 https://huggingface.co/google/codegemma-7b</span></span><br><span class="line">huggingface-cli login --token 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</span><br><span class="line"></span><br><span class="line">huggingface-cli download google/codegemma-7b</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/blog/p/614a8113/" rel="prev" title="AI大模型">
+                  <i class="fa fa-chevron-left"></i> AI大模型
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿尤</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/blog/js/comments.js"></script><script src="/blog/js/utils.js"></script><script src="/blog/js/motion.js"></script><script src="/blog/js/schemes/muse.js"></script><script src="/blog/js/next-boot.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.1/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/blog/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

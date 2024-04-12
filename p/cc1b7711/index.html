@@ -93,7 +93,7 @@
 
 
 <nav class="site-nav">
-  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">44</span></a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">73</span></a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/blog/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/blog/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/blog/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">40</span></a></li><li class="menu-item menu-item-categories"><a href="/blog/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">2</span></a></li><li class="menu-item menu-item-archives"><a href="/blog/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">72</span></a></li><li class="menu-item menu-item-sitemap"><a href="/blog/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -157,7 +157,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/blog/archives/">
-          <span class="site-state-item-count">73</span>
+          <span class="site-state-item-count">72</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -168,7 +168,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/blog/tags/">
-        <span class="site-state-item-count">44</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -275,7 +275,7 @@
 <p>IDE中搜索插件 <code>PHP Annotations</code> 安装重启即可</p>
 </blockquote>
 <h2 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">composer require hyperf/translation</span><br><span class="line">php bin/hyperf.php vendor:publish hyperf/translation</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="生成配置文件"><a href="#生成配置文件" class="headerlink" title="生成配置文件"></a>生成配置文件</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php bin<span class="regexp">/hyperf.php vendor:publish hyperf/</span>view</span><br></pre></td></tr></table></figure>
+<h2 id="生成配置文件"><a href="#生成配置文件" class="headerlink" title="生成配置文件"></a>生成配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php bin/hyperf.php vendor:publish hyperf/view</span><br></pre></td></tr></table></figure>
 <h2 id="模型缓存-字段添加-Redis中页自动添加"><a href="#模型缓存-字段添加-Redis中页自动添加" class="headerlink" title="模型缓存 字段添加(Redis中页自动添加)"></a>模型缓存 字段添加(Redis中页自动添加)</h2><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># composer </span></span><br><span class="line">composer <span class="built_in">require</span> hyperf/model-cache</span><br><span class="line"></span><br><span class="line"><span class="comment"># config/autoload/databases.php</span></span><br><span class="line"><span class="string">&#x27;cache&#x27;</span> =&gt; [</span><br><span class="line">    <span class="string">&#x27;handler&#x27;</span> =&gt; <span class="string">\Hyperf\ModelCache\Handler\RedisHandler::class,</span></span><br><span class="line">    <span class="string">&#x27;cache_key&#x27;</span> =&gt; <span class="string">&#x27;mc:%s:m:%s:%s:%s&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;prefix&#x27;</span> =&gt; <span class="string">&#x27;default&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;ttl&#x27;</span> =&gt; <span class="number">3600</span> * <span class="number">24</span>,</span><br><span class="line">    <span class="string">&#x27;empty_model_ttl&#x27;</span> =&gt; <span class="number">3600</span>,</span><br><span class="line">    <span class="string">&#x27;load_script&#x27;</span> =&gt; <span class="literal">true</span>,</span><br><span class="line">    <span class="string">&#x27;use_default_value&#x27;</span> =&gt; <span class="literal">false</span>, <span class="comment">#这里是重点，要添加该key</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 监听器</span></span><br><span class="line">Hyperf<span class="string">\DbConnection\Listener\InitTableCollectorListener::class</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Mysql Table中添加字段后，生成新的模型</span></span><br><span class="line">php bin/hyperf.php gen:model</span><br><span class="line"></span><br><span class="line"><span class="comment"># FromCache获取即可</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>异常处理思路：</p>
@@ -325,7 +325,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
