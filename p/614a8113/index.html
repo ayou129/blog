@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://ayou129.github.io/blog/p/614a8113/%E6%A8%A1%E5%9E%8B%E5%AE%B9%E9%87%8F%E5%92%8C%E6%95%B0%E6%8D%AE%E7%9A%84%E5%85%B3%E7%B3%BB.png">
 <meta property="og:image" content="https://ayou129.github.io/blog/p/614a8113/tsne_df.png">
 <meta property="og:image" content="https://ayou129.github.io/blog/p/614a8113/%E8%BF%9B%E8%A1%8Ct%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BA%E9%82%BB%E5%9F%9F%E5%B5%8C%E5%85%A5%EF%BC%88t-SNE%EF%BC%89%E5%88%86%E8%A7%A3%EF%BC%8C%E5%B0%86%E6%95%B0%E6%8D%AE%E9%99%8D%E7%BB%B4%E5%88%B02%E4%B8%AA%E7%BB%B4%E5%BA%A6%EF%BC%8C%E5%B0%B1%E5%8F%AF%E4%BB%A5%E5%9C%A8%E4%B8%80%E5%AE%9A%E7%A8%8B%E5%BA%A6%E4%B8%8A%E5%88%86%E7%A6%BB%E5%9B%BE%E5%83%8F.png">
-<meta property="og:image" content="https://ayou129.github.io/blog/p/614a8113/%E6%84%9F%E7%9F%A5%E6%9C%BA(%E4%BA%8C%E5%88%86%E7%B1%BB">
+<meta property="og:image" content="https://ayou129.github.io/blog/p/614a8113/%E6%84%9F%E7%9F%A5%E6%9C%BA%EF%BC%88%E4%BA%8C%E5%88%86%E7%B1%BB%EF%BC%89%E6%A8%A1%E5%9E%8B.png">
 <meta property="og:image" content="https://ayou129.github.io/blog/p/614a8113/K%E6%8A%98%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81.png">
 <meta property="og:image" content="https://ayou129.github.io/blog/p/614a8113/%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%A1%8C.png">
 <meta property="og:image" content="https://ayou129.github.io/blog/p/614a8113/Transformer.png">
@@ -1116,7 +1116,7 @@
 <p>感知机(二分类)</p>
 <ul>
 <li>模型：输入 向量x 向量权重w 标量偏移b 输出是个二分类问题：1或-1 这个值是可以随便改的<div>
-              <img src="/blog/p/614a8113/感知机(二分类" alt="感知机(二分类)模型"></img>
+              <img src="/blog/p/614a8113/感知机（二分类）模型.png" alt="感知机(二分类)模型"></img>
               <p style="
               display: flex;
               color: #999;
@@ -1128,7 +1128,7 @@
               left: 50%;
               transform: translateX(-50%);
               ">[感知机(二分类)模型]</p>
-          </div>模型.png)</li>
+          </div></li>
 </ul>
 <p>线性回归 输出 一个实数<br>感知机 输出 一个1或-1<br>Softmax回归 输出概率</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 训练感知机</span></span><br><span class="line">init w=<span class="number">0</span>,b=<span class="number">0</span> <span class="comment">#w是权重，b是偏差</span></span><br><span class="line">repeat</span><br><span class="line">  <span class="keyword">if</span> &lt;=<span class="number">0</span>(有误分类点)  <span class="comment"># 如果是 &gt;0 则是正确分类点</span></span><br><span class="line">    w=w+学习率*误分类点x <span class="comment"># 当前权重和样品分类错误，权重进行梯度下降算法进行，不一定是增加，只是更接近正确的方向</span></span><br><span class="line">    b=b+学习率*误分类点 <span class="comment"># 标号b也增加</span></span><br><span class="line">  end <span class="keyword">if</span></span><br><span class="line">until 没有误分类点</span><br><span class="line"></span><br><span class="line">等价于使用批量大小为<span class="number">1</span>的梯度下降，并使用如下的损失函数：</span><br><span class="line"></span><br><span class="line"><span class="comment"># 总结：感知机是一个简单的线性分类模型，它可以用于二分类和回归问题。感知机的训练算法是简单的梯度下降算法，它可以用于训练线性模型。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 收敛定理</span></span><br><span class="line">如果数据集是线性可分的，那么感知机算法在有限次迭代后收敛，此时感知机算法找到一个能够完美分类训练数据集的模型参数。</span><br><span class="line"></span><br><span class="line"><span class="comment"># 感知机的问题</span></span><br><span class="line">不能解决 XOR 问题，因为 XOR 问题的训练数据集是线性不可分的。</span><br><span class="line">所以要解决这个问题，需要引入新的概念，非线性分类问题。也就是使用多层感知机来处理非线性函数。</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多层感知机（解决多线性分类问题）</span></span><br><span class="line">- 模型：</span><br><span class="line">  -  单隐藏层做单分类：输入x1-n(n维向量) 隐藏层h1-n(隐藏层数量n x 输入n的 矩阵，偏移=隐藏层的数量的向量) 输出O1-n(如果是分类问题，一般是指类别的数量) </span><br><span class="line">  - </span><br><span class="line"></span><br><span class="line">隐藏层大小是超参数，需要根据数据集的大小来选择。一般来讲，隐藏层大小应该在 <span class="number">1</span> 到 <span class="number">10</span> 之间。</span><br><span class="line">每个隐藏层的大小是超参数，</span><br><span class="line"></span><br><span class="line">激活函数非必要使用，但是必须是非线性函数</span><br></pre></td></tr></table></figure>
