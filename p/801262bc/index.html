@@ -55,7 +55,11 @@
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -251,7 +255,7 @@
 <h2 id="下载-fiddle"><a href="#下载-fiddle" class="headerlink" title="下载 fiddle"></a>下载 fiddle</h2><blockquote>
 <p><a href="https://www.electronjs.org/fiddle" target="_blank" rel="noopener">https://www.electronjs.org/fiddle</a></p>
 </blockquote>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.npmrc</span><br><span class="line"></span><br><span class="line">增加</span><br><span class="line">ELECTRON_MIRROR=<span class="string">&quot;https://cdn.npm.taobao.org/dist/electron/&quot;</span></span><br><span class="line"></span><br><span class="line">~ sudo ELECTRON_MIRROR=<span class="string">&quot;https://cdn.npm.taobao.org/dist/electron/&quot;</span> npm install -g electron --unsafe-perm=<span class="keyword">true</span> --allow-root</span><br><span class="line"></span><br><span class="line">cmd运行程序</span><br><span class="line">~ sudo <span class="regexp">/Applications/</span>Electron\ Fiddle.app<span class="regexp">/Contents/M</span>acOS/electron-fiddle</span><br></pre></td></tr></table></figure>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">vim ~<span class="string">/.npmrc</span></span><br><span class="line"></span><br><span class="line">增加</span><br><span class="line">ELECTRON_MIRROR=<span class="string">&quot;https://cdn.npm.taobao.org/dist/electron/&quot;</span></span><br><span class="line"></span><br><span class="line">~ sudo ELECTRON_MIRROR=<span class="string">&quot;https://cdn.npm.taobao.org/dist/electron/&quot;</span> npm install -g electron <span class="params">--unsafe-perm=true</span> <span class="params">--allow-root</span></span><br><span class="line"></span><br><span class="line">cmd运行程序</span><br><span class="line">~ sudo <span class="string">/Applications/Electron</span>\ Fiddle.app/Contents/MacOS/electron-fiddle</span><br></pre></td></tr></table></figure>
 
 
     </div>

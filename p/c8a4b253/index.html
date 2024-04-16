@@ -91,7 +91,11 @@
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -1185,7 +1189,7 @@
 <img src="/blog/p/c8a4b253/OmniShart_requires.png" class="" title="OmniShart_requires">
 <p>说明当前版本的C#是还未修复的最新版本，需要安装23.11</p>
 <p><strong>设置VSCode</strong><br>user-&gt;settings.json</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;omnisharp.useGlobalMono&quot;</span><span class="punctuation">:</span> <span class="string">&quot;always&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;omnisharp.useModernNet&quot;</span><span class="punctuation">:</span> <span class="keyword">false</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;omnisharp.monoPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Library/Frameworks/Mono.framework/Versions/Current&quot;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;omnisharp.useGlobalMono&quot;</span><span class="punctuation">:</span> <span class="string">&quot;always&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;omnisharp.useModernNet&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span><span class="punctuation">,</span></span><br><span class="line"><span class="attr">&quot;omnisharp.monoPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;/Library/Frameworks/Mono.framework/Versions/Current&quot;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
 <p>monoPath通过命令<code>which mono</code>查看，但是只能按照上面的Path写，不然第一个VSCode实例是可以运行的，但是第二个实例会报错<br><code>[ERROR] Error: Unable to find Mono. Update the &quot;omnisharp.monoPath&quot; setting to point to the folder containing Mono&#39;s &#39;/bin&#39; folder.</code></p>
 <p><strong>最后</strong><br>删除项目中的 <code>Assembly-CSharp.csproj</code> 和 <code>study_FlappyBird.sln</code> 文件，Unity首选项也可以进行生成。</p>
 <p>彻底退出VSCode、Unity、Unity HUB。</p>

@@ -55,7 +55,11 @@
   <noscript>
     <link rel="stylesheet" href="/blog/css/noscript.css">
   </noscript>
-<link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><link rel="alternate" href="/blog/atom.xml" title="阿尤" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
@@ -258,7 +262,7 @@
 
 
 <h3 id="变量-与-常量"><a href="#变量-与-常量" class="headerlink" title="变量 与 常量"></a>变量 与 常量</h3><p>变量：一个供程序操作的存储区的名字 </p>
-<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">string</span> <span class="keyword">val</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> <span class="keyword">val</span>;</span><br></pre></td></tr></table></figure>
 <p>常量：程序运行期间值保持不变的量</p>
 <figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">string</span> val;</span><br></pre></td></tr></table></figure>
 
@@ -268,7 +272,7 @@
 
 <p>数据类型分类</p>
 <ul>
-<li>值类型<figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> <span class="keyword">val</span>; # 单个字符</span><br><span class="line"></span><br><span class="line">short <span class="keyword">val</span>;</span><br><span class="line"><span class="type">int</span> <span class="keyword">val</span>;</span><br><span class="line">long <span class="keyword">val</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">float</span> <span class="keyword">val</span>; # 要添加f或F，<span class="type">float</span> f = (<span class="type">float</span>)<span class="number">3.4</span>;  作用是解决类型自动转换 <span class="type">double</span>转<span class="type">float</span> 精度问题 </span><br><span class="line"><span class="type">double</span> <span class="keyword">val</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">bool</span> <span class="keyword">val</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li>值类型<figure class="highlight ocaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">char</span> <span class="keyword">val</span>; # 单个字符</span><br><span class="line"></span><br><span class="line">short <span class="keyword">val</span>;</span><br><span class="line"><span class="built_in">int</span> <span class="keyword">val</span>;</span><br><span class="line">long <span class="keyword">val</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">float</span> <span class="keyword">val</span>; # 要添加f或<span class="type">F</span>，<span class="built_in">float</span> f = (<span class="built_in">float</span>)<span class="number">3.4</span>;  作用是解决类型自动转换 double转<span class="built_in">float</span> 精度问题 </span><br><span class="line">double <span class="keyword">val</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">bool</span> <span class="keyword">val</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
 <li>引用类型：string 和 class统称为引用类型。当声明一个类时，只在栈中分配一小片内存用于容纳一个地址，而此时并没有为其分配堆上的内存空间。当使用 new 创建一个类的实例时，分配堆上的空间，并把堆上空间的地址保存到栈上分配的小片空间中。<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">object obj <span class="operator">=</span> <span class="string">&quot;name&quot;</span><span class="comment">;</span></span><br><span class="line">string name <span class="operator">=</span> <span class="string">&quot;name&quot;</span>    </span><br></pre></td></tr></table></figure>
 </li>
 </ul>
